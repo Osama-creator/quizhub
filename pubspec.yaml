@@ -1,0 +1,54 @@
+name: quizhub
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies: 
+  animated_bottom_navigation_bar: ^1.1.0
+  avatar_glow: ^2.0.2
+  awesome_dialog: ^3.0.2
+  bubble_bottom_bar: ^2.0.0
+  cupertino_icons: ^1.0.2
+  device_preview: ^1.1.0
+  dio: ^4.0.6
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^1.1.5
+  # flutter_widget_from_html: ^0.8.5
+  flutter_widget_from_html_core: ^0.8.5+3
+  font_awesome_flutter: ^10.2.1
+  get: 4.6.5
+  google_fonts: ^2.3.1
+  intl: ^0.17.0
+  laravel_exception: ^0.0.4
+  otp_text_field: ^1.1.3
+  pretty_dio_logger: ^1.2.0-beta-1
+  queen:
+    git:
+      url: https://github.com/FlutterQueen/queen.git
+      ref: 19ac2497cec159d6c62bb2fe82123dc688693228
+  sentry_flutter: ^6.15.1
+  share_plus: ^6.3.0
+  store_redirect: ^2.0.1
+  url_launcher: ^6.1.9
+  webview_flutter: ^3.0.4
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.10.0
+
+
+
+flutter: 
+  assets:
+    - assets/fonts/STV-Bold.ttf
+    - assets/fonts/STV.ttf
+    - assets/lang/ar.json
+    - assets/svg/adults.svg
+  uses-material-design: true
+
