@@ -18,7 +18,7 @@ class ColorLight {
   static const Color background = Color(0xffF2BF33);
   // static const Color background = Color(0xFFf5f4f7);
   static const Color card = Color(0xFFFFFFFF);
-  static const Color fontTitle = Color(0xFF202020);
+  static const Color fontTitle = Color(0xfffffffff);
   static const Color fontSubtitle = Color(0xFF737373);
   static const Color fontDisable = Color(0xFF9B9B9B);
   static const Color disabledButton = Color(0xFFB9B9B9);
@@ -47,6 +47,16 @@ ThemeData themeLight() {
       elevation: 0,
       centerTitle: true,
       backgroundColor: ColorLight.primary,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        backgroundColor: const MaterialStatePropertyAll(AppColors.primary),
+      ),
     ),
     textTheme: const TextTheme(
       headline1: TextStyle(
