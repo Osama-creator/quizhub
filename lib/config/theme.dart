@@ -13,7 +13,7 @@ class AppThemeConfig extends ThemeConfig {
 }
 
 class ColorLight {
-  static const Color primary = Color(0xff21428e);
+  static const Color primary = Color(0xff624D90);
   // static const Color primary = Color(0xFF5d5ff0);
   static const Color background = Color(0xffF2BF33);
   // static const Color background = Color(0xFFf5f4f7);
@@ -108,7 +108,7 @@ ThemeData themeLight() {
 }
 
 abstract class AppColors {
-  static const primary = Color(0xff21428e);
+  static const primary = Color(0xff624D90);
   static const nextPrimary = Color(0xffF2BF33);
   static const lightGrey = Color(0xFFe7e7ef);
   static const darkBlue = Color(0xFF242249);
