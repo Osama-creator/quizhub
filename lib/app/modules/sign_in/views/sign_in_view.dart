@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-import 'package:quizhub/views/text_field.dart';
 import 'package:quizhub/app/modules/sign_in/controllers/sign_in_controller.dart';
-
-import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/views/text_field.dart';
 
 class SignInView extends GetView<SignInController> {
   const SignInView({super.key});
@@ -47,7 +44,9 @@ class SignInView extends GetView<SignInController> {
                 height: context.height * 0.06,
                 width: context.width,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.TEACHER_HOME);
+                  },
                   child: Text(
                     'تسجيل الدخول',
                     style: context.textTheme.headline6!.copyWith(

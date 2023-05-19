@@ -8,7 +8,12 @@ String get sTVBold => 'assets/fonts/STV-Bold.ttf' ;
 /// * ttf
 String get stv => 'assets/fonts/STV.ttf' ;}class _ImagesInterface{_ImagesInterface();
 /// * png
-String get logo => 'assets/images/logo.png' ;}class _LangInterface{_LangInterface();
+      @Deprecated('assets/images/history.png is not in your assets in pubspec.yaml')
+String get history => 'assets/images/history.png' ;
+/// * png
+String get logo => 'assets/images/logo.png' ;
+/// * jpeg
+String get teacher => 'assets/images/teacher.jpeg' ;}class _LangInterface{_LangInterface();
 /// * json
 String get ar => 'assets/lang/ar.json' ;}class _SvgInterface{_SvgInterface();
 /// * svg

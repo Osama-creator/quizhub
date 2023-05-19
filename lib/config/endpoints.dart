@@ -1,7 +1,11 @@
-// abstract class Endpoints {
-//   static const host = 'https://safarsmart.net';
-//   static const api = '$host/api';
+abstract class Endpoints {
+  static const host = 'http://localhost:3000';
+  static const api = '$host/api';
 
+  /// ! auth
+  static const register = '/user/register';
+  static const login = '/user/login';
+}
 //   static const sitePolicy = '/assets/site-policy';
 //   static const servicePolicy = '/assets/service-roles';
 //   static const serviceRoles = '/assets/service-roles';

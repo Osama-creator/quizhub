@@ -15,10 +15,10 @@ class AppThemeConfig extends ThemeConfig {
 class ColorLight {
   static const Color primary = Color(0xff624D90);
   // static const Color primary = Color(0xFF5d5ff0);
-  static const Color background = Color(0xffF2BF33);
+  static const Color background = Colors.white;
   // static const Color background = Color(0xFFf5f4f7);
   static const Color card = Color(0xFFFFFFFF);
-  static const Color fontTitle = Color(0xfffffffff);
+  static const Color fontTitle = Color(0xff624D90);
   static const Color fontSubtitle = Color(0xFF737373);
   static const Color fontDisable = Color(0xFF9B9B9B);
   static const Color disabledButton = Color(0xFFB9B9B9);
@@ -120,7 +120,7 @@ ThemeData themeLight() {
 abstract class AppColors {
   static const primary = Color(0xff624D90);
   static const nextPrimary = Color(0xffF2BF33);
-  static const lightGrey = Color(0xFFe7e7ef);
+  static const light = Color.fromARGB(255, 255, 255, 255);
   static const darkBlue = Color(0xFF242249);
   static const orangeColor = Color(0xffC4822D);
   static const drawerColor = Color(0xFF2C2E3E);

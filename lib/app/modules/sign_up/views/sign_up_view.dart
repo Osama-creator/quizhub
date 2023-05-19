@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/sign_up/controllers/sign_up_controller.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/views/text_field.dart';
+import 'package:quizhub/views/btn.dart';
+import 'package:quizhub/views/input_feild.dart';
 
 class SignUpView extends GetView<SignUpController> {
   const SignUpView({super.key});
@@ -11,11 +12,13 @@ class SignUpView extends GetView<SignUpController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(
+              height: context.height * 0.1,
+            ),
             Text(
               "إنشاء حساب جديد",
               style: context.textTheme.headline5!
@@ -24,40 +27,55 @@ class SignUpView extends GetView<SignUpController> {
             SizedBox(
               height: context.height * 0.1,
             ),
-            MyTextFeild(
-              width: context.width * 0.8,
-              hintText: 'أسامه عصام ..',
-              labelText: "الاسم",
-            ),
-            MyTextFeild(
-              width: context.width * 0.8,
-              hintText: 'example@gmail.com',
-              labelText: "الايميل",
+            InputField(
+              hint: 'الإسم الأول',
+              controller: controller.fNameC,
               keyboardType: TextInputType.emailAddress,
             ),
-            MyTextFeild(
-              width: context.width * 0.8,
-              hintText: "******",
-              labelText: "كلمه السر",
-              obscureText: true,
+            SizedBox(
+              height: context.height * 0.01,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.width * 0.1,
-                vertical: context.height * 0.05,
-              ),
-              child: SizedBox(
-                height: context.height * 0.06,
-                width: context.width,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    'إنشاء حساب',
-                    style: context.textTheme.headline6!.copyWith(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+            InputField(
+              hint: 'إسم العائله',
+              controller: controller.lNameC,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(
+              height: context.height * 0.01,
+            ),
+            InputField(
+              hint: 'البريد الإلكتروني',
+              controller: controller.emailC,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(
+              height: context.height * 0.01,
+            ),
+            InputField(
+              hint: "كلمه المرور",
+              controller: controller.passwordC,
+              obscure: true,
+            ),
+            SizedBox(
+              height: context.height * 0.01,
+            ),
+            InputField(
+              hint: "تأكيد كلمة المرور",
+              controller: controller.confermationPasswordC,
+              obscure: true,
+            ),
+            SizedBox(
+              height: context.height * 0.01,
+            ),
+            InputField(
+              hint: "رقم الهاتف",
+              controller: controller.phoneC,
+            ),
+            GetBuilder<SignUpController>(
+              builder: (_) => Btn(
+                onTap: controller.submit,
+                label: "إنشاء حساب",
+                isLoading: controller.isLoading,
               ),
             ),
           ],
