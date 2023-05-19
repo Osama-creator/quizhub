@@ -12,6 +12,8 @@ import 'package:quizhub/config/theme.dart';
 
 import 'package:quizhub/helper/client.dart';
 
+import 'package:quizhub/app/controllers/auth_controller.dart';
+
 class AppBindings extends Bindings {
   @override
   Future<void> dependencies() async {
@@ -41,5 +43,6 @@ class AppBindings extends Bindings {
     final client = ApiClient(dio);
     Get.put<ApiClient>(client);
     Get.put<AuthService>(AuthService(client));
+    Get.put(AuthController(), permanent: true);
   }
 }
