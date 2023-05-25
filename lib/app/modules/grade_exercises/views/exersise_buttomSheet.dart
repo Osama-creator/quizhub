@@ -79,7 +79,7 @@ void excDetailsBottomSheet(
                 width: context.width,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Routes.CREATE_CHOOSE_EXERCISE);
+                    Get.toNamed(Routes.CREATE_FILL_GABS_EXERCISE);
                   },
                   child: Text(
                     'إنشاء',

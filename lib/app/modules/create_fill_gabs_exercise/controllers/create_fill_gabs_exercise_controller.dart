@@ -1,23 +1,28 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/helper/pick.dart';
 
 class CreateFillGabsExerciseController extends GetxController {
-  //TODO: Implement CreateFillGabsExerciseController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  final List<fillQuestionC> questions = [];
+  void addQuestion() {
+    questions.add(fillQuestionC());
+    update();
   }
+}
 
-  @override
-  void onReady() {
-    super.onReady();
+class fillQuestionC {
+  TextEditingController questionC = TextEditingController();
+  TextEditingController missingWordC = TextEditingController();
+  String imageString = "";
+  late bool imageUploaded;
+  File? image;
+
+  Future<void> pickFile() async {
+    final tempImage = await Pick.imageFromGallery();
+    if (tempImage != null) {
+      image = tempImage;
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
