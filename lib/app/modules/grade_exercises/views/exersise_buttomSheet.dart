@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' hide ContextExtensionss;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/grade_exercises/controllers/grade_exercises_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/views/input_feild.dart';
 
@@ -76,7 +78,9 @@ void excDetailsBottomSheet(
                 height: context.height * 0.05,
                 width: context.width,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.CREATE_CHOOSE_EXERCISE);
+                  },
                   child: Text(
                     'إنشاء',
                     style: context.textTheme.headline6!.copyWith(

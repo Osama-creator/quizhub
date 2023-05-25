@@ -80,7 +80,7 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
         },
         backgroundColor: AppColors.primary,
         label: Text(
-          "إضافة إمتحان جديد",
+          'إنشاء تمرين جديد',
           style: context.textTheme.bodyText1!
               .copyWith(fontSize: 16, color: AppColors.light),
         ),
