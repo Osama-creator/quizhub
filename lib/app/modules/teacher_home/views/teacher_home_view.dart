@@ -4,6 +4,8 @@ import 'package:quizhub/app/modules/teacher_home/controllers/teacher_home_contro
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
 
+import 'package:quizhub/app/routes/app_pages.dart';
+
 class TeacherHomeView extends GetView<TeacherHomeController> {
   const TeacherHomeView({super.key});
   @override
@@ -69,22 +71,25 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                 childAspectRatio: 0.90,
               ),
               itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: context.height * 0.1,
-                        width: context.width * 0.5,
-                        child: Image.asset(
-                          Asset.images.history,
+                return InkWell(
+                  onTap: () => Get.toNamed(Routes.GRADE_EXERCISES),
+                  child: Card(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: context.height * 0.1,
+                          width: context.width * 0.5,
+                          child: Image.asset(
+                            Asset.images.history,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "الصف الثاني",
-                        style: context.textTheme.headline6,
-                      ),
-                    ],
+                        Text(
+                          "الصف الثاني",
+                          style: context.textTheme.headline6,
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

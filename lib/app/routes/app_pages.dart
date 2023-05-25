@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/grade_exercises/bindings/grade_exercises_binding.dart';
+import '../modules/grade_exercises/views/grade_exercises_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/sign_in/bindings/sign_in_binding.dart';
@@ -16,7 +18,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.TEACHER_HOME;
 
   static final routes = [
     GetPage(
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.TEACHER_HOME,
       page: () => const TeacherHomeView(),
       binding: TeacherHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.GRADE_EXERCISES,
+      page: () => const GradeExercisesView(),
+      binding: GradeExercisesBinding(),
     ),
   ];
 }

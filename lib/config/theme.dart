@@ -114,18 +114,20 @@ ThemeData themeLight() {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: ColorLight.primary,
     ),
+    iconTheme: const IconThemeData(color: AppColors.light),
   );
 }
 
 abstract class AppColors {
   static const primary = Color(0xff624D90);
-  static const nextPrimary = Color(0xffF2BF33);
+  static const nextPrimary = Color(0xffD0C8E2);
   static const light = Color.fromARGB(255, 255, 255, 255);
   static const darkBlue = Color(0xFF242249);
   static const orangeColor = Color(0xffC4822D);
   static const drawerColor = Color(0xFF2C2E3E);
   static const red = Color(0xffE02E4D);
-  static const green = Color(0xffFFB822);
+  static const grey = Color.fromARGB(255, 218, 218, 218);
+  static const black = Colors.black;
   // elzero
   static const zeroBlue = Color(0xff2094fc);
 }
