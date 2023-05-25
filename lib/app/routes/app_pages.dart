@@ -4,6 +4,8 @@ import '../modules/create_choose_exercise/bindings/create_choose_exercise_bindin
 import '../modules/create_choose_exercise/views/create_choose_exercise_view.dart';
 import '../modules/create_fill_gabs_exercise/bindings/create_fill_gabs_exercise_binding.dart';
 import '../modules/create_fill_gabs_exercise/views/create_fill_gabs_exercise_view.dart';
+import '../modules/create_matching_exercise/bindings/create_matching_exercise_binding.dart';
+import '../modules/create_matching_exercise/views/create_matching_exercise_view.dart';
 import '../modules/grade_exercises/bindings/grade_exercises_binding.dart';
 import '../modules/grade_exercises/views/grade_exercises_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.CREATE_FILL_GABS_EXERCISE,
       page: () => const CreateFillGabsExerciseView(),
       binding: CreateFillGabsExerciseBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_MATCHING_EXERCISE,
+      page: () => const CreateMatchingExerciseView(),
+      binding: CreateMatchingExerciseBinding(),
     ),
   ];
 }
