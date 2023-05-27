@@ -46,6 +46,7 @@ class AuthService {
     required String lName,
     required String email,
     required String roleName,
+    required String classS,
     String? phone,
     String? image,
     required String password,
@@ -56,10 +57,11 @@ class AuthService {
         'fName': fName,
         'lName': lName,
         'email': email,
-        'mobile': phone,
+        'phoneNum': phone,
         'password': password,
         'roleName': roleName,
-        'img': image
+        'image': image,
+        'class': classS
       },
     );
     throwIfNot(200, res);

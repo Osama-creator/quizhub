@@ -1,5 +1,1 @@
-
-// enum ReservationType {
-//   airReservation,
-//   groundReservation,
-// }
+enum UserRole { teacher, student, admin }

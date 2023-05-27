@@ -17,7 +17,7 @@ class MatchingQuestionC {
   TextEditingController secondWord = TextEditingController();
 
   String imageString = "";
-  late bool imageUploaded;
+
   File? image;
 
   Future<void> pickFile() async {

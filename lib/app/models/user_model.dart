@@ -8,6 +8,7 @@ class UserModel extends Equatable {
   final String? mobile;
   final String password;
   final String roleName;
+  final String className;
   final String? image;
   const UserModel({
     this.id,
@@ -15,6 +16,7 @@ class UserModel extends Equatable {
     required this.lName,
     required this.email,
     this.mobile,
+    required this.className,
     required this.password,
     required this.roleName,
     this.image,
@@ -29,6 +31,7 @@ class UserModel extends Equatable {
     String? mobile,
     String? roleName,
     String? image,
+    String? className,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -39,6 +42,7 @@ class UserModel extends Equatable {
       mobile: mobile ?? this.mobile,
       roleName: roleName ?? this.roleName,
       image: image ?? this.image,
+      className: className ?? this.className,
     );
   }
 
@@ -49,9 +53,10 @@ class UserModel extends Equatable {
       'lName': lName,
       'email': email,
       'password': mobile,
-      'img': image,
-      'phone': mobile,
+      'image': image,
+      'phoneNum': mobile,
       'roleName': roleName,
+      'class': className
     };
   }
 
@@ -61,21 +66,16 @@ class UserModel extends Equatable {
       fName: map['fName'] as String,
       lName: map['lName'] as String,
       email: map['email'] as String,
-      mobile: map['phone'] as String,
+      mobile: map['phoneNum'] as String,
       password: map['password'] as String,
-      image: map['img'] as String,
+      image: map['image'] as String,
       roleName: map['roleName'] as String,
+      className: map['class'] as String,
     );
   }
 
   @override
   List<Object> get props {
-    return [
-      fName,
-      email,
-      lName,
-      password,
-      email,
-    ];
+    return [fName, email, lName, password, email, className];
   }
 }
