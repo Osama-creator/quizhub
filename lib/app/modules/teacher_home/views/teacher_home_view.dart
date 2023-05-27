@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/teacher_home/controllers/teacher_home_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
-
-import 'package:quizhub/app/routes/app_pages.dart';
 
 class TeacherHomeView extends GetView<TeacherHomeController> {
   const TeacherHomeView({super.key});
@@ -94,7 +93,28 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                 );
               },
             ),
-          )
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                height: context.height * 0.06,
+                width: context.width,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.FINANCIAL_DUES);
+                  },
+                  child: Text(
+                    'المستحقات الماليه',
+                    style: context.textTheme.headline6!.copyWith(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

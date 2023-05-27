@@ -12,6 +12,8 @@ abstract class Routes {
   static const CREATE_CHOOSE_EXERCISE = _Paths.CREATE_CHOOSE_EXERCISE;
   static const CREATE_FILL_GABS_EXERCISE = _Paths.CREATE_FILL_GABS_EXERCISE;
   static const CREATE_MATCHING_EXERCISE = _Paths.CREATE_MATCHING_EXERCISE;
+  static const EDIT_EXERCISE = _Paths.EDIT_EXERCISE;
+  static const FINANCIAL_DUES = _Paths.FINANCIAL_DUES;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const CREATE_CHOOSE_EXERCISE = '/create-choose-exercise';
   static const CREATE_FILL_GABS_EXERCISE = '/create-fill-gabs-exercise';
   static const CREATE_MATCHING_EXERCISE = '/create-matching-exercise';
+  static const EDIT_EXERCISE = '/edit-exercise';
+  static const FINANCIAL_DUES = '/financial-dues';
 }

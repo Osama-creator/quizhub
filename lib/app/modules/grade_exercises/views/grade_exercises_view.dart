@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/grade_exercises/controllers/grade_exercises_controller.dart';
 import 'package:quizhub/app/modules/grade_exercises/views/exersise_buttomSheet.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
 class GradeExercisesView extends GetView<GradeExercisesController> {
@@ -46,7 +47,9 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
               ),
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.EDIT_EXERCISE);
+                  },
                   child: Card(
                     color: AppColors.nextPrimary,
                     child: Column(

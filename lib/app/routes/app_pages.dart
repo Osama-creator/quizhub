@@ -6,6 +6,10 @@ import '../modules/create_fill_gabs_exercise/bindings/create_fill_gabs_exercise_
 import '../modules/create_fill_gabs_exercise/views/create_fill_gabs_exercise_view.dart';
 import '../modules/create_matching_exercise/bindings/create_matching_exercise_binding.dart';
 import '../modules/create_matching_exercise/views/create_matching_exercise_view.dart';
+import '../modules/edit_exercise/bindings/edit_exercise_binding.dart';
+import '../modules/edit_exercise/views/edit_exercise_view.dart';
+import '../modules/financial_dues/bindings/financial_dues_binding.dart';
+import '../modules/financial_dues/views/financial_dues_view.dart';
 import '../modules/grade_exercises/bindings/grade_exercises_binding.dart';
 import '../modules/grade_exercises/views/grade_exercises_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.CREATE_MATCHING_EXERCISE,
       page: () => const CreateMatchingExerciseView(),
       binding: CreateMatchingExerciseBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_EXERCISE,
+      page: () => const EditExerciseView(),
+      binding: EditExerciseBinding(),
+    ),
+    GetPage(
+      name: _Paths.FINANCIAL_DUES,
+      page: () => const FinancialDuesView(),
+      binding: FinancialDuesBinding(),
     ),
   ];
 }
