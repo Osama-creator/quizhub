@@ -56,6 +56,24 @@ class SignUpView extends GetView<SignUpController> {
                   SizedBox(
                     height: context.height * 0.01,
                   ),
+                  BookingOption(
+                    title: 'المحافظه',
+                    subTitle: controller.city ?? 'اختر  المحافظه ',
+                    icon: Icons.location_city_rounded,
+                    onTap: controller.pickCity,
+                  ),
+                  SizedBox(
+                    height: context.height * 0.01,
+                  ),
+                  BookingOption(
+                    title: 'المدرسه',
+                    subTitle: controller.school ?? 'اختر  المدرسه ',
+                    icon: Icons.school,
+                    onTap: controller.pickSchool,
+                  ),
+                  SizedBox(
+                    height: context.height * 0.01,
+                  ),
                   InputField(
                     hint: 'البريد الإلكتروني',
                     controller: controller.emailC,

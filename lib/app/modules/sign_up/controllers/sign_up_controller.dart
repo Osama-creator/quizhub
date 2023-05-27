@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laravel_exception/laravel_exception.dart';
+import 'package:queen/facades/prefs.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
+import 'package:quizhub/app/models/city.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/enums.dart';
 import 'package:quizhub/helper/alert.dart';
@@ -22,6 +24,9 @@ class SignUpController extends GetxController {
   final passwordC = TextEditingController();
   final confermationPasswordC = TextEditingController();
   UserRole roleName = UserRole.student;
+  String? city;
+  String? cityId;
+  String? school;
   File? image;
   String? classS;
 
@@ -49,6 +54,9 @@ class SignUpController extends GetxController {
         image: image!.path,
         classS: classS!,
       );
+      //SAVING SCHOOL & CITY
+      await Prefs.setString("userCity", city!);
+      await Prefs.setString("userSchool", school!);
       await Get.find<AuthController>().checkAndNavigate();
       Alert.success(msg);
     } on LValidationException catch (e) {
@@ -66,6 +74,27 @@ class SignUpController extends GetxController {
     final res = await Get.bottomSheet<String?>(const PickClss());
     if (res != null) {
       classS = res;
+      update();
+    }
+  }
+
+  Future<void> pickCity() async {
+    final res = await Get.bottomSheet<CityModel?>(const PickCity());
+    if (res != null) {
+      city = res.arName;
+      cityId = res.id;
+      update();
+    }
+  }
+
+  Future<void> pickSchool() async {
+    final res = await Get.bottomSheet<String?>(
+      PickSchool(
+        cityId: cityId!,
+      ),
+    );
+    if (res != null) {
+      school = res;
       update();
     }
   }
