@@ -27,14 +27,11 @@ class CommonService {
   }) async {
     final res = await client.get("${Endpoints.schools}/$cityId");
     throwIfNot(200, res);
-    final List<dynamic> data = res.data['data'] as List<dynamic>;
+    final List<dynamic> data = res.data['schools'] as List<dynamic>;
 
-    final List<String> schoolNames = [];
-
-    for (final item in data) {
-      final String schoolName = item['schoolName'] as String;
-      schoolNames.add(schoolName);
-    }
+    final List<String> schoolNames = data.map((item) {
+      return item['schoolName'] as String;
+    }).toList();
 
     return schoolNames;
   }

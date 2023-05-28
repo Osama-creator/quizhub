@@ -34,7 +34,12 @@ class AuthController extends GetxController {
   }
 
   Future<void> navigateToProperPage() async {
-    Get.offAllNamed(Routes.HOME);
+    final userRole = Prefs.getString('user_role');
+    if (userRole == "teacher") {
+      Get.offAllNamed(Routes.TEACHER_HOME);
+    } else {
+      Get.offAllNamed(Routes.HOME);
+    }
   }
 
   Future<void> checkAndNavigate() async {
@@ -46,6 +51,7 @@ class AuthController extends GetxController {
     try {
       // await service.userFromApi();
       final token = Prefs.getString('token');
+
       if (token.isNotEmpty) {
         isLoggedIn = true;
       }

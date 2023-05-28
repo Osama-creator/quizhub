@@ -102,6 +102,12 @@ class InputField extends StatelessWidget {
                 radius,
               ),
             ),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                color: Colors.red,
+              ),
+              borderRadius: BorderRadius.circular(radius),
+            ),
           ),
         ),
       ],

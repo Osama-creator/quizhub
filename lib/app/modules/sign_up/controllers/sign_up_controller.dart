@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:laravel_exception/laravel_exception.dart';
 import 'package:queen/facades/prefs.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
 import 'package:quizhub/app/models/city.dart';
@@ -16,7 +15,6 @@ import 'package:quizhub/views/pick_utils.dart';
 
 class SignUpController extends GetxController {
   final service = Get.find<AuthService>();
-
   final fNameC = TextEditingController();
   final lNameC = TextEditingController();
   final emailC = TextEditingController();
@@ -41,32 +39,39 @@ class SignUpController extends GetxController {
   }
 
   Future<void> submit() async {
-    try {
-      isLoading = true;
-      update();
-      final msg = await service.signUp(
-        fName: fNameC.text,
-        lName: lNameC.text,
-        email: emailC.text,
-        password: passwordC.text,
-        roleName: getRoleName(roleName),
-        phone: phoneC.text,
-        image: image!.path,
-        classS: classS!,
-      );
-      //SAVING SCHOOL & CITY
-      await Prefs.setString("userCity", city!);
-      await Prefs.setString("userSchool", school!);
-      await Get.find<AuthController>().checkAndNavigate();
-      Alert.success(msg);
-    } on LValidationException catch (e) {
-      Alert.error(e.firstErrorMessage ?? e.message);
-    } catch (e, st) {
-      Alert.error(e);
-      catchLog(e, st);
-    } finally {
-      isLoading = false;
-      update();
+    if (confermationPasswordC.text != passwordC.text) {
+      Alert.error("يجب أن يكون تأكيد كلمه المرور تناسب كلمه المرور");
+    } else if (classS == null) {
+      Alert.error("يجب إختيار الصف المناسب");
+    } else {
+      try {
+        isLoading = true;
+        update();
+        final msg = await service.signUp(
+          fName: fNameC.text,
+          lName: lNameC.text,
+          email: emailC.text,
+          password: passwordC.text,
+          roleName: getRoleName(roleName),
+          phone: phoneC.text,
+          image: image,
+          classS: classS!,
+        );
+        //SAVING SCHOOL & CITY
+        await Prefs.setString("userCity", city!);
+        // await Prefs.setString("userSchool", school!);
+        await Get.find<AuthController>().checkAndNavigate();
+        Alert.success(msg);
+        // } on LValidationException catch (e, st) {
+        //   catchLog(e, st);
+        //   Alert.error("عذرا هناك خطأ ما !!");
+      } catch (e, st) {
+        Alert.error("عذرا هناك خطأ ما !!");
+        catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
+      }
     }
   }
 

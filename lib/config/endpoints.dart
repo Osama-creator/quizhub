@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'http://192.168.124.106:3000';
+  static const host = 'http://192.168.1.103:3000';
   static const api = '$host/api';
 
   /// ! auth

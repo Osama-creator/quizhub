@@ -12,11 +12,12 @@ class SignUpView extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return GetBuilder<SignUpController>(
       init: controller,
       builder: (_) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -35,6 +36,12 @@ class SignUpView extends GetView<SignUpController> {
                     hint: 'الإسم الأول',
                     controller: controller.fNameC,
                     keyboardType: TextInputType.emailAddress,
+                    validators: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "يجب إدخال الاسم ";
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
@@ -43,19 +50,78 @@ class SignUpView extends GetView<SignUpController> {
                     hint: 'إسم العائله',
                     controller: controller.lNameC,
                     keyboardType: TextInputType.emailAddress,
+                    validators: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "يجب إدخال إسم العائله";
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
                   ),
-                  BookingOption(
-                    title: 'السنه الدراسيه',
-                    subTitle: controller.classS ?? 'اختر  السنه الدراسيه',
-                    icon: Icons.class_,
-                    onTap: controller.pickClass,
+                  InputField(
+                    hint: 'البريد الإلكتروني',
+                    controller: controller.emailC,
+                    keyboardType: TextInputType.emailAddress,
+                    validators: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "يجب إدخال  البريد الإلكتروني";
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
                   ),
+                  InputField(
+                    hint: "كلمه المرور",
+                    controller: controller.passwordC,
+                    obscure: true,
+                    validators: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "يجب إدخال  كلمه المرور";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: context.height * 0.01,
+                  ),
+                  InputField(
+                    hint: "تأكيد كلمة المرور",
+                    controller: controller.confermationPasswordC,
+                    obscure: true,
+                    validators: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "يجب تأكيد  كلمه المرور";
+                      }
+                      return null;
+                    },
+                  ),
+                  if (controller.roleName != UserRole.student) ...[
+                    SizedBox(
+                      height: context.height * 0.01,
+                    ),
+                    InputField(
+                      hint: "رقم الهاتف",
+                      controller: controller.phoneC,
+                    ),
+                  ],
+                  SizedBox(
+                    height: context.height * 0.01,
+                  ),
+                  if (controller.roleName == UserRole.student) ...[
+                    BookingOption(
+                      title: 'السنه الدراسيه',
+                      subTitle: controller.classS ?? 'اختر  السنه الدراسيه',
+                      icon: Icons.class_,
+                      onTap: controller.pickClass,
+                    ),
+                    SizedBox(
+                      height: context.height * 0.01,
+                    ),
+                  ],
                   BookingOption(
                     title: 'المحافظه',
                     subTitle: controller.city ?? 'اختر  المحافظه ',
@@ -74,34 +140,6 @@ class SignUpView extends GetView<SignUpController> {
                   SizedBox(
                     height: context.height * 0.01,
                   ),
-                  InputField(
-                    hint: 'البريد الإلكتروني',
-                    controller: controller.emailC,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(
-                    height: context.height * 0.01,
-                  ),
-                  InputField(
-                    hint: "كلمه المرور",
-                    controller: controller.passwordC,
-                    obscure: true,
-                  ),
-                  SizedBox(
-                    height: context.height * 0.01,
-                  ),
-                  InputField(
-                    hint: "تأكيد كلمة المرور",
-                    controller: controller.confermationPasswordC,
-                    obscure: true,
-                  ),
-                  SizedBox(
-                    height: context.height * 0.01,
-                  ),
-                  InputField(
-                    hint: "رقم الهاتف",
-                    controller: controller.phoneC,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -113,7 +151,11 @@ class SignUpView extends GetView<SignUpController> {
                     ],
                   ),
                   Btn(
-                    onTap: controller.submit,
+                    onTap: () {
+                      // if (formKey.currentState!.validate()) {
+                      controller.submit();
+                      // }
+                    },
                     label: "إنشاء حساب",
                     isLoading: controller.isLoading,
                   ),
