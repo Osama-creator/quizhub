@@ -14,6 +14,12 @@ abstract class Routes {
   static const CREATE_MATCHING_EXERCISE = _Paths.CREATE_MATCHING_EXERCISE;
   static const EDIT_EXERCISE = _Paths.EDIT_EXERCISE;
   static const FINANCIAL_DUES = _Paths.FINANCIAL_DUES;
+  static const PARENT_HOME = _Paths.PARENT_HOME;
+  static const STUDENT_OVERVIEW = _Paths.STUDENT_OVERVIEW;
+  static const ADMIN_HOME = _Paths.ADMIN_HOME;
+  static const ADMIN_SCHOOLS_LIST = _Paths.ADMIN_SCHOOLS_LIST;
+  static const STUDENT_HOME = _Paths.STUDENT_HOME;
+  static const STUDENT_EXERCISES_LIST = _Paths.STUDENT_EXERCISES_LIST;
 }
 
 abstract class _Paths {
@@ -29,4 +35,10 @@ abstract class _Paths {
   static const CREATE_MATCHING_EXERCISE = '/create-matching-exercise';
   static const EDIT_EXERCISE = '/edit-exercise';
   static const FINANCIAL_DUES = '/financial-dues';
+  static const PARENT_HOME = '/parent-home';
+  static const STUDENT_OVERVIEW = '/student-overview';
+  static const ADMIN_HOME = '/admin-home';
+  static const ADMIN_SCHOOLS_LIST = '/admin-schools-list';
+  static const STUDENT_HOME = '/student-home';
+  static const STUDENT_EXERCISES_LIST = '/student-exercises-list';
 }

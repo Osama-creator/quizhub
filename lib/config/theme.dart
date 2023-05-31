@@ -77,7 +77,8 @@ ThemeData themeLight() {
       ),
       headline5: TextStyle(
         color: ColorLight.fontTitle,
-        fontWeight: FontWeight.w500,
+        fontSize: 35,
+        fontWeight: FontWeight.bold,
       ),
       headline6: TextStyle(
         color: ColorLight.fontTitle,
@@ -121,6 +122,7 @@ ThemeData themeLight() {
 abstract class AppColors {
   static const primary = Color(0xff624D90);
   static const nextPrimary = Color(0xffD0C8E2);
+  static const next2Primary = Color(0xffA992DA);
   static const light = Color.fromARGB(255, 255, 255, 255);
   static const darkBlue = Color(0xFF242249);
   static const orangeColor = Color(0xffC4822D);
