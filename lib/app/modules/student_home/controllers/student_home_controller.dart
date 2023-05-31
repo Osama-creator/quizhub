@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class StudentHomeController extends GetxController {
-  String selectedSubject = '';
+  String selectedSubject = 'اللغة العربية';
   List<String> subjects = [
     'اللغة العربية',
     'english',

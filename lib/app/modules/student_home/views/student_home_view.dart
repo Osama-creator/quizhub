@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
 import 'package:quizhub/generated/assets.dart';
@@ -257,7 +258,7 @@ class TeacherExamsTile extends StatelessWidget {
                         ?.map((exam) {
                       return GestureDetector(
                         onTap: () {
-                          // Handle exam tap
+                          Get.toNamed(Routes.STUDENT_EXERCISES_LIST);
                         },
                         child: SizedBox(
                           height: context.height * 0.07,
