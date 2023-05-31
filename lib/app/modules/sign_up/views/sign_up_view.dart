@@ -111,7 +111,7 @@ class SignUpView extends GetView<SignUpController> {
                   SizedBox(
                     height: context.height * 0.01,
                   ),
-                  if (controller.roleName == UserRole.student) ...[
+                  if (controller.roleName != UserRole.teacher) ...[
                     BookingOption(
                       title: 'السنه الدراسيه',
                       subTitle: controller.classS ?? 'اختر  السنه الدراسيه',
