@@ -34,19 +34,28 @@ class StudentHomeView extends GetView<StudentHomeController> {
                 },
               ),
               PopupMenuButton(
+                color: AppColors.primary,
                 itemBuilder: (BuildContext context) {
                   return [
-                    const PopupMenuItem(
-                      value: 'option1',
-                      child: Text('Option 1'),
-                    ),
-                    const PopupMenuItem(
+                    // const PopupMenuItem(
+                    //   value: 'option1',
+                    //   child: Text('اللغه'),
+                    // ),
+                    PopupMenuItem(
                       value: 'option2',
-                      child: Text('Option 2'),
+                      child: Text(
+                        'دعوات الاصدقاء',
+                        style: context.textTheme.bodyText1!
+                            .copyWith(color: AppColors.light),
+                      ),
                     ),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       value: 'option3',
-                      child: Text('Option 3'),
+                      child: Text(
+                        'تسجيل الخروج',
+                        style: context.textTheme.bodyText1!
+                            .copyWith(color: AppColors.light),
+                      ),
                     ),
                   ];
                 },
@@ -178,22 +187,27 @@ class DetailsBody extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "اللغه العربيه",
-                    style: context.textTheme.headline6,
-                  ),
-                  const Spacer(),
-                  Text(
-                    "المزيد ...",
-                    style: context.textTheme.headline6!.copyWith(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.normal,
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.STUDENT_EXERCISES_LIST);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "اللغه العربيه",
+                      style: context.textTheme.headline6,
                     ),
-                  ),
-                ],
+                    const Spacer(),
+                    Text(
+                      "المزيد ...",
+                      style: context.textTheme.headline6!.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               TeacherExamsTile(controller: controller),
               TeacherExamsTile(controller: controller),
@@ -234,21 +248,26 @@ class TeacherExamsTile extends StatelessWidget {
         height: context.height * 0.23,
         child: Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(Asset.images.teacher),
-                    backgroundColor: Colors.transparent,
+            InkWell(
+              onTap: () {
+                Get.toNamed(Routes.TEACHER_PAGE);
+              },
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(Asset.images.teacher),
+                      backgroundColor: Colors.transparent,
+                    ),
                   ),
-                ),
-                Text(
-                  'أحمد محمود خليل',
-                  style: context.textTheme.headline6!
-                      .copyWith(color: AppColors.black),
-                ),
-              ],
+                  Text(
+                    'أحمد محمود خليل',
+                    style: context.textTheme.headline6!
+                        .copyWith(color: AppColors.black),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: context.height * 0.14,
@@ -257,9 +276,7 @@ class TeacherExamsTile extends StatelessWidget {
                 children: controller.subjectExams[controller.selectedSubject]
                         ?.map((exam) {
                       return GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.STUDENT_EXERCISES_LIST);
-                        },
+                        onTap: () {},
                         child: SizedBox(
                           height: context.height * 0.07,
                           width: context.width * 0.35,

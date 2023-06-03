@@ -45,7 +45,7 @@ class SignInView extends GetView<SignInController> {
                 width: context.width,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Routes.TEACHER_HOME);
+                    Get.toNamed(Routes.STUDENT_HOME);
                   },
                   child: Text(
                     'تسجيل الدخول',
@@ -65,6 +65,45 @@ class SignInView extends GetView<SignInController> {
                 ),
                 child: Text(
                   "إنشاء حساب جديد",
+                  style: context.textTheme.headline6!
+                      .copyWith(fontSize: 18, color: AppColors.primary),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => Get.toNamed(Routes.PARENT_HOME),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.width * 0.1,
+                ),
+                child: Text(
+                  "صفحه ولي الامر",
+                  style: context.textTheme.headline6!
+                      .copyWith(fontSize: 18, color: AppColors.primary),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => Get.toNamed(Routes.TEACHER_HOME),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.width * 0.1,
+                ),
+                child: Text(
+                  "صفحه المدرس",
+                  style: context.textTheme.headline6!
+                      .copyWith(fontSize: 18, color: AppColors.primary),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => Get.toNamed(Routes.ADMIN_HOME),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.width * 0.1,
+                ),
+                child: Text(
+                  "صفحه الاداره",
                   style: context.textTheme.headline6!
                       .copyWith(fontSize: 18, color: AppColors.primary),
                 ),

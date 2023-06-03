@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
 
@@ -32,13 +33,23 @@ class AdminHomeView extends GetView<AdminHomeController> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-          ListTileCust(),
-          ListTileCust(),
-          ListTileCust(),
-          ListTileCust(),
-          ListTileCust(),
-          ListTileCust(),
+        children: [
+          Center(
+            child: InkWell(
+              onTap: () => Get.toNamed(Routes.ADMIN_SCHOOLS_LIST),
+              child: Text(
+                "صفحه المدارس",
+                style: context.textTheme.headline6!
+                    .copyWith(fontSize: 18, color: AppColors.primary),
+              ),
+            ),
+          ),
+          const ListTileCust(),
+          const ListTileCust(),
+          const ListTileCust(),
+          const ListTileCust(),
+          const ListTileCust(),
+          const ListTileCust(),
         ],
       ),
     );

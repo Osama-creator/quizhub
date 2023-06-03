@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/admin_schools_list/controllers/admin_schools_list_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
 class AdminSchoolsListView extends GetView<AdminSchoolsListController> {
@@ -58,30 +59,35 @@ class SchoolTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "قاسم أمين الإعداديه",
-              style:
-                  context.textTheme.headline5!.copyWith(color: AppColors.light),
-            ),
-            Text(
-              "200 طالب",
-              style:
-                  context.textTheme.headline5!.copyWith(color: AppColors.light),
-            )
-          ],
-        ),
-        const Divider(
-          color: AppColors.light,
-          endIndent: 20,
-          indent: 20,
-          thickness: 1,
-        ),
-      ],
+    return InkWell(
+      onTap: () {
+        Get.toNamed(Routes.ADMIN_TEACHERS_OF_SCHOOL);
+      },
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "قاسم أمين الإعداديه",
+                style: context.textTheme.headline6!
+                    .copyWith(color: AppColors.light),
+              ),
+              Text(
+                "200 طالب",
+                style: context.textTheme.headline6!
+                    .copyWith(color: AppColors.light),
+              )
+            ],
+          ),
+          const Divider(
+            color: AppColors.light,
+            endIndent: 20,
+            indent: 20,
+            thickness: 1,
+          ),
+        ],
+      ),
     );
   }
 }

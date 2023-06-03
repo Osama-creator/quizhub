@@ -10,32 +10,37 @@ class StudentOverviewView extends GetView<StudentOverviewController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: CircleAvatar(
-                maxRadius: 85,
-                backgroundImage: AssetImage(Asset.images.teacher),
-                backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text("صفحه الطالب"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
               ),
-            ),
-            Text(
-              ' أحمد سيد',
-              style: context.textTheme.headline4!.copyWith(
-                color: AppColors.black,
+              Center(
+                child: CircleAvatar(
+                  maxRadius: 75,
+                  backgroundImage: AssetImage(Asset.images.teacher),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
-            ),
-            Text(
-              'الصف الثالث ',
-              style: context.textTheme.headline5,
-            ),
-            const SubjectTile(),
-            const SubjectTile(),
-            const SubjectTile()
-          ],
+              Text(
+                ' أحمد سيد',
+                style: context.textTheme.headline4!.copyWith(
+                  color: AppColors.black,
+                ),
+              ),
+              Text(
+                'الصف الثالث ',
+                style: context.textTheme.headline5,
+              ),
+              const SubjectTile(),
+              const SubjectTile(),
+              const SubjectTile()
+            ],
+          ),
         ),
       ),
     );
@@ -50,7 +55,7 @@ class SubjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.height * 0.17,
+      height: context.height * 0.2,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

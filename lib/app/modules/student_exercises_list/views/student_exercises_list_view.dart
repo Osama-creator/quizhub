@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/student_exercises_list/controllers/student_exercises_list_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
 
@@ -20,6 +21,24 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: context.height * 0.01,
+              ),
+              Center(
+                child: SizedBox(
+                  height: context.height * 0.08,
+                  width: context.width * 0.9,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.QUESTIONS_POSTS);
+                    },
+                    child: Text(
+                      "قسم أسئله الطلاب",
+                      style: context.textTheme.headline6,
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(
                 height: context.height * 0.01,
               ),
@@ -62,7 +81,7 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                       ),
                       const SizedBox(height: 8),
                       SizedBox(
-                        height: context.height * 0.6,
+                        height: context.height * 0.5,
                         child: GridView.count(
                           padding: const EdgeInsets.all(8),
                           crossAxisCount: 2,
@@ -73,7 +92,9 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                                   .subjectExams[controller.selectedTeacher]
                                   ?.map((exam) {
                                 return GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.MCQ_EXERCISE);
+                                  },
                                   child: SizedBox(
                                     height: context.height * 0.07,
                                     width: context.width * 0.35,

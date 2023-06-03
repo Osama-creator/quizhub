@@ -40,8 +40,7 @@ class MyTextFeild extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             labelText: labelText,
-            hintStyle: context.textTheme.bodyText2!
-                .copyWith(color: AppColors.light, fontSize: 15),
+            hintStyle: context.textTheme.bodyText2!.copyWith(fontSize: 15),
             labelStyle: context.textTheme.bodyText2!
                 .copyWith(color: AppColors.primary, fontSize: 15),
             focusedBorder: OutlineInputBorder(
