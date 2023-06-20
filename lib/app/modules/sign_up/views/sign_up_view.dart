@@ -33,26 +33,12 @@ class SignUpView extends GetView<SignUpController> {
                     height: context.height * 0.05,
                   ),
                   InputField(
-                    hint: 'الإسم الأول',
+                    hint: 'الإسم ',
                     controller: controller.fNameC,
                     keyboardType: TextInputType.emailAddress,
                     validators: (val) {
                       if (val == null || val.isEmpty) {
                         return "يجب إدخال الاسم ";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: context.height * 0.01,
-                  ),
-                  InputField(
-                    hint: 'إسم العائله',
-                    controller: controller.lNameC,
-                    keyboardType: TextInputType.emailAddress,
-                    validators: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "يجب إدخال إسم العائله";
                       }
                       return null;
                     },
@@ -99,19 +85,20 @@ class SignUpView extends GetView<SignUpController> {
                       return null;
                     },
                   ),
-                  if (controller.roleName != UserRole.student) ...[
+                  if (controller.roleName != UserRole.Student) ...[
                     SizedBox(
                       height: context.height * 0.01,
                     ),
                     InputField(
                       hint: "رقم الهاتف",
                       controller: controller.phoneC,
+                      keyboardType: TextInputType.phone,
                     ),
                   ],
                   SizedBox(
                     height: context.height * 0.01,
                   ),
-                  if (controller.roleName != UserRole.teacher) ...[
+                  if (controller.roleName != UserRole.Teacher) ...[
                     BookingOption(
                       title: 'السنه الدراسيه',
                       subTitle: controller.classS ?? 'اختر  السنه الدراسيه',
@@ -143,11 +130,11 @@ class SignUpView extends GetView<SignUpController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      buildRoleButton(UserRole.teacher, 'Teacher'),
+                      buildRoleButton(UserRole.Teacher, 'Teacher'),
                       const SizedBox(width: 10),
-                      buildRoleButton(UserRole.student, 'Student'),
+                      buildRoleButton(UserRole.Student, 'Student'),
                       const SizedBox(width: 10),
-                      buildRoleButton(UserRole.admin, 'Admin'),
+                      buildRoleButton(UserRole.Admin, 'Admin'),
                     ],
                   ),
                   Btn(

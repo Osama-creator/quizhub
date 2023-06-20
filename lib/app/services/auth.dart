@@ -39,40 +39,53 @@ class AuthService {
     throwIfNot(200, res);
     // save the token to shared preferences
     // ignore: avoid_dynamic_calls
-    final token = (res.data as Map<String, dynamic>)['data']['token'] as String;
-    await Prefs.setString('token', token);
   }
 
   Future<String> signUp({
-    required String fName,
-    required String lName,
+    required String name,
     required String email,
     required String roleName,
     required String classS,
+    required String school,
+    required String erea,
+    required String governorate,
     String? phone,
     File? image,
     required String password,
+    required String confPassword,
   }) async {
     final res = await client.post(
       Endpoints.register,
       body: {
-        'fName': fName,
-        'lName': lName,
+        'name': name,
         'email': email,
         'password': password,
-        'roleName': roleName,
-        'class': classS,
-        if (phone != null && phone.isNotEmpty) 'phoneNum': phone,
-        if (image != null && image.path.isNotEmpty) 'image': image.path,
+        'confirm_Password': confPassword,
+        'role': roleName,
+        'the_line': classS,
+        'school': school,
+        'Area': erea,
+        'governorate': governorate,
+        if (phone != null && phone.isNotEmpty) 'phone': phone,
+        if (image != null && image.path.isNotEmpty) 'img': image.path,
       },
     );
     throwIfNot(200, res);
-    final userData =
-        (res.data as Map<String, dynamic>)['data'] as Map<String, dynamic>;
-    await Prefs.setMap('auth.user', userData);
-    await Prefs.setString('user_role', roleName);
-    await signIn(email: email, password: password);
-    return (res.data as Map)['message'] as String;
+
+    final responseData = res.data;
+    if (responseData is Map<String, dynamic>) {
+      final message = responseData['message'] as String?;
+      if (message != null) {
+        final userData = responseData['date'] as Map<String, dynamic>?;
+        if (userData != null) {
+          await Prefs.setMap('auth.user', userData);
+        }
+        await Prefs.setString('role', roleName);
+        return message;
+      }
+    }
+
+    throw Exception('Invalid response data');
   }
 
   Future<void> signOut() async {

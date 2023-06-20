@@ -3,9 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:queen/facades/prefs.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
-import 'package:quizhub/app/models/city.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/enums.dart';
 import 'package:quizhub/helper/alert.dart';
@@ -21,7 +19,7 @@ class SignUpController extends GetxController {
   final phoneC = TextEditingController();
   final passwordC = TextEditingController();
   final confermationPasswordC = TextEditingController();
-  UserRole roleName = UserRole.student;
+  UserRole roleName = UserRole.Student;
   String? city;
   String? cityId;
   String? school;
@@ -48,9 +46,12 @@ class SignUpController extends GetxController {
         isLoading = true;
         update();
         final msg = await service.signUp(
-          fName: fNameC.text,
-          lName: lNameC.text,
+          name: fNameC.text,
           email: emailC.text,
+          erea: "مصر",
+          governorate: city!,
+          school: school!,
+          confPassword: confermationPasswordC.text,
           password: passwordC.text,
           roleName: getRoleName(roleName),
           phone: phoneC.text,
@@ -58,7 +59,7 @@ class SignUpController extends GetxController {
           classS: classS!,
         );
         //SAVING SCHOOL & CITY
-        await Prefs.setString("userCity", city!);
+        // await Prefs.setString("userCity", city!);
         // await Prefs.setString("userSchool", school!);
         await Get.find<AuthController>().checkAndNavigate();
         Alert.success(msg);
@@ -84,10 +85,9 @@ class SignUpController extends GetxController {
   }
 
   Future<void> pickCity() async {
-    final res = await Get.bottomSheet<CityModel?>(const PickCity());
+    final res = await Get.bottomSheet<String?>(const PickCity());
     if (res != null) {
-      city = res.arName;
-      cityId = res.id;
+      city = res;
       update();
     }
   }
@@ -95,7 +95,7 @@ class SignUpController extends GetxController {
   Future<void> pickSchool() async {
     final res = await Get.bottomSheet<String?>(
       PickSchool(
-        cityId: cityId!,
+        city: city!,
       ),
     );
     if (res != null) {
@@ -106,14 +106,14 @@ class SignUpController extends GetxController {
 
   String getRoleName(UserRole role) {
     switch (role) {
-      case UserRole.teacher:
-        return 'teacher';
-      case UserRole.student:
-        return 'student';
-      case UserRole.admin:
-        return 'admin';
+      case UserRole.Teacher:
+        return 'Teacher';
+      case UserRole.Student:
+        return 'Student';
+      case UserRole.Admin:
+        return 'Admin';
       default:
-        return 'student';
+        return 'Student';
     }
   }
 }

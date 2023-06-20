@@ -34,8 +34,8 @@ class AuthController extends GetxController {
   }
 
   Future<void> navigateToProperPage() async {
-    final userRole = Prefs.getString('user_role');
-    if (userRole == "teacher") {
+    final userRole = Prefs.getString('role');
+    if (userRole == "Teacher") {
       Get.offAllNamed(Routes.TEACHER_HOME);
     } else {
       Get.offAllNamed(Routes.HOME);
@@ -50,9 +50,9 @@ class AuthController extends GetxController {
   Future<void> checkAuthStatus() async {
     try {
       // await service.userFromApi();
-      final token = Prefs.getString('token');
+      final userData = Prefs.getMap('auth.user');
 
-      if (token.isNotEmpty) {
+      if (userData.isNotEmpty) {
         isLoggedIn = true;
       }
       authLog('checkAuthStatus isLoggedIn = $isLoggedIn');

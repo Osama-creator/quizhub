@@ -20,7 +20,8 @@ class StudentHomeView extends GetView<StudentHomeController> {
           backgroundColor: AppColors.light,
           appBar: AppBar(
             title: Image.asset(
-              'assets/images/logo.png', // Replace with your app logo image path
+              'assets/images/logo.png', 
+              // Replace with your app logo image path
               width: 100,
               height: 100,
               color: AppColors.light,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quizhub/app/models/city.dart';
 import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
@@ -15,36 +14,35 @@ class PickClss extends StatefulWidget {
 }
 
 class _PickClssState extends State<PickClss> {
-  final items = <String>[
-    "الاول الابتدائي",
-    "الثاني الابتدائي",
-    "الثالث الابتدائي",
-    "الرابع الابتدائي",
-    "الخامس الابتدائي",
-    "السادس الابتدائي",
-    "الاول الاعدادي",
-    "الثاني الاعدادي",
-    "الثالث الاعدادي",
-    "الاول الثانوي",
-    "الثاني الثانوي",
-    "الثالث الثانوي"
-  ];
+  final items = <String>[];
   final inputController = TextEditingController();
-  final itemsToDisplay = <String>[
-    "الاول الابتدائي",
-    "الثاني الابتدائي",
-    "الثالث الابتدائي",
-    "الرابع الابتدائي",
-    "الخامس الابتدائي",
-    "السادس الابتدائي",
-    "الاول الاعدادي",
-    "الثاني الاعدادي",
-    "الثالث الاعدادي",
-    "الاول الثانوي",
-    "الثاني الثانوي",
-    "الثالث الثانوي"
-  ];
+  final itemsToDisplay = <String>[];
+
   bool isLoading = false;
+
+  @override
+  void initState() {
+    getGrades();
+    super.initState();
+  }
+
+  Future<void> getGrades() async {
+    try {
+      isLoading = true;
+      items.clear();
+      final List<String> grades =
+          await Get.find<CommonService>().getGradesList();
+      items.addAll(grades);
+      itemsToDisplay.addAll(items);
+      setState(() {});
+    } catch (e, st) {
+      Alert.error(e);
+      catchLog(e, st);
+    } finally {
+      isLoading = false;
+      setState(() {});
+    }
+  }
 
   void onTextChanges(String input) {
     setState(() {
@@ -110,10 +108,10 @@ class PickCity extends StatefulWidget {
 }
 
 class _PickCityState extends State<PickCity> {
-  final items = <CityModel>[];
+  final items = <String>[];
   final inputController = TextEditingController();
-  final itemsToDisplay = <CityModel>[];
-  final itemsId = <String>[];
+  final itemsToDisplay = <String>[];
+
   bool isLoading = false;
 
   @override
@@ -126,7 +124,7 @@ class _PickCityState extends State<PickCity> {
     try {
       isLoading = true;
       items.clear();
-      final List<CityModel> cities =
+      final List<String> cities =
           await Get.find<CommonService>().getCitiesList();
       items.addAll(cities);
       itemsToDisplay.addAll(items);
@@ -144,7 +142,7 @@ class _PickCityState extends State<PickCity> {
     setState(() {
       itemsToDisplay.clear();
       itemsToDisplay.addAll(
-        items.where((e) => e.arName.contains(input.trim())),
+        items.where((e) => e.contains(input.trim())),
       );
     });
   }
@@ -185,7 +183,7 @@ class _PickCityState extends State<PickCity> {
                                     onTap: () => Get.back(
                                       result: e,
                                     ),
-                                    title: Text(e.arName),
+                                    title: Text(e),
                                   ),
                                 ),
                               )
@@ -199,8 +197,8 @@ class _PickCityState extends State<PickCity> {
 }
 
 class PickSchool extends StatefulWidget {
-  final String cityId;
-  const PickSchool({super.key, required this.cityId});
+  final String city;
+  const PickSchool({super.key, required this.city});
 
   @override
   State<PickSchool> createState() => _PickSchoolState();
@@ -223,7 +221,7 @@ class _PickSchoolState extends State<PickSchool> {
       isLoading = true;
       items.clear();
       final List<String> schools =
-          await Get.find<CommonService>().getSchoolList(cityId: widget.cityId);
+          await Get.find<CommonService>().getSchoolList(city: widget.city);
       items.addAll(schools);
       itemsToDisplay.addAll(items);
       setState(() {});
