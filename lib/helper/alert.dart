@@ -9,7 +9,7 @@ abstract class Alert {
     Get.snackbar(
       msg.toString(),
       desc,
-      backgroundColor: Colors.yellow,
+      backgroundColor: Colors.green,
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exersice.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 
 class GradeExercisesController extends GetxController {
@@ -60,8 +61,10 @@ class GradeExercisesController extends GetxController {
       );
       exercises.removeWhere((element) => element.id == exId);
       update();
+      Alert.success("تم الحذف بنجاح");
     } catch (e, st) {
       catchLog(e, st);
+      Alert.error("هنا خطأ ما");
     }
   }
 
