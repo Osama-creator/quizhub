@@ -100,6 +100,100 @@ class _PickClssState extends State<PickClss> {
   }
 }
 
+class PickSub extends StatefulWidget {
+  const PickSub({super.key});
+
+  @override
+  State<PickSub> createState() => _PickSubState();
+}
+
+class _PickSubState extends State<PickSub> {
+  final items = <String>[];
+  final inputController = TextEditingController();
+  final itemsToDisplay = <String>[];
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    getSubjects();
+    super.initState();
+  }
+
+  Future<void> getSubjects() async {
+    try {
+      isLoading = true;
+      items.clear();
+      final List<String> subjects =
+          await Get.find<CommonService>().getSubjectsList();
+      items.addAll(subjects);
+      itemsToDisplay.addAll(items);
+      setState(() {});
+    } catch (e, st) {
+      Alert.error(e);
+      catchLog(e, st);
+    } finally {
+      isLoading = false;
+      setState(() {});
+    }
+  }
+
+  void onTextChanges(String input) {
+    setState(() {
+      itemsToDisplay.clear();
+      itemsToDisplay.addAll(
+        items.where((e) => e.contains(input.trim())),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: isLoading
+          ? const CenterLoading()
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InputField(
+                          hint: 'بحث',
+                          onChanged: onTextChanges,
+                          controller: inputController,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: itemsToDisplay.isEmpty
+                      ? const Center(
+                          child: Text(
+                            'لا يوجد نتائج بحث',
+                          ),
+                        )
+                      : ListView(
+                          children: itemsToDisplay
+                              .map(
+                                (e) => Card(
+                                  child: ListTile(
+                                    onTap: () => Get.back(result: e),
+                                    title: Text(e),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                )
+              ],
+            ),
+    );
+  }
+}
+
 class PickCity extends StatefulWidget {
   const PickCity({super.key});
 

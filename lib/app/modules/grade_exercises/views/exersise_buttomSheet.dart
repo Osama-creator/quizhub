@@ -7,6 +7,9 @@ import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 class ExerciseTypeSelection extends StatefulWidget {
+  final Function(String) onExerciseTypeSelected;
+
+  const ExerciseTypeSelection({required this.onExerciseTypeSelected});
   @override
   _ExerciseTypeSelectionState createState() => _ExerciseTypeSelectionState();
 }
@@ -37,6 +40,7 @@ class _ExerciseTypeSelectionState extends State<ExerciseTypeSelection> {
           setState(() {
             selectedExerciseType = exerciseType;
           });
+          widget.onExerciseTypeSelected(exerciseType);
         },
         height: context.height * 0.05,
         minWidth: context.width * 0.2,
@@ -54,10 +58,14 @@ void excDetailsBottomSheet(
 ) {
   showModalBottomSheet(
     context: context,
+    isScrollControlled: true,
     builder: (BuildContext bc) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Wrap(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Center(
               child: Text(
@@ -65,20 +73,37 @@ void excDetailsBottomSheet(
                 style: context.textTheme.headline6,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: InputField(
                 hint: 'إسم التمرين',
+                controller: controller.eNameC,
               ),
             ),
-            ExerciseTypeSelection(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InputField(
+                hint: 'وقت التمرين',
+                keyboardType: TextInputType.number,
+                controller: controller.eTimeC,
+              ),
+            ),
+            ExerciseTypeSelection(
+              onExerciseTypeSelected: (exerciseType) {
+                controller.setSelectedExerciseType(exerciseType);
+              },
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: context.height * 0.05,
                 width: context.width,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await controller.submet();
+                    Get.back();
+                    controller.eNameC.text = "";
+                    controller.eTimeC.text = "";
                     Get.toNamed(Routes.CREATE_MATCHING_EXERCISE);
                   },
                   child: Text(

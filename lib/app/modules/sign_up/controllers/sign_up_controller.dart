@@ -25,6 +25,7 @@ class SignUpController extends GetxController {
   String? school;
   File? image;
   String? classS;
+  String? subject;
 
   bool isLoading = false;
   Future<void> pickImage() async {
@@ -80,6 +81,14 @@ class SignUpController extends GetxController {
     final res = await Get.bottomSheet<String?>(const PickClss());
     if (res != null) {
       classS = res;
+      update();
+    }
+  }
+
+  Future<void> pickSubject() async {
+    final res = await Get.bottomSheet<String?>(const PickSub());
+    if (res != null) {
+      subject = res;
       update();
     }
   }

@@ -10,69 +10,71 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(
           'التمارين',
           style: context.textTheme.headline5!
               .copyWith(color: AppColors.black, fontWeight: FontWeight.bold),
         ),
-        centerTitle: false,
+        centerTitle: true,
         backgroundColor: AppColors.light,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'الصف الثالث',
-              style: context.textTheme.headline6,
-            ),
-          ),
-        ],
         elevation: 3,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          _buildTitle(context),
           SizedBox(
             height: context.height * 0.05,
           ),
-          SizedBox(
-            height: context.height * 0.5,
-            width: context.width,
-            child: GridView.builder(
-              itemCount: 4,
-              padding: const EdgeInsets.all(5),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.90,
-              ),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Get.toNamed(Routes.EDIT_EXERCISE);
-                  },
-                  child: Card(
-                    color: AppColors.nextPrimary,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "تاريخ الفراعنه",
-                          style: context.textTheme.headline6,
-                        ),
-                        Text(
-                          "10 اسئله",
-                          style: context.textTheme.headline6,
-                        ),
-                        Text(
-                          "20 حل",
-                          style: context.textTheme.headline6,
-                        ),
-                      ],
-                    ),
+          GetBuilder<GradeExercisesController>(
+            init: controller,
+            builder: (_) {
+              return SizedBox(
+                height: context.height * 0.5,
+                width: context.width,
+                child: GridView.builder(
+                  itemCount: controller.exercises.length,
+                  padding: const EdgeInsets.all(5),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.90,
                   ),
-                );
-              },
-            ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onDoubleTap: () {
+                        controller
+                            .deleteExercise(controller.exercises[index].id!);
+                      },
+                      onTap: () {
+                        Get.toNamed(Routes.EDIT_EXERCISE);
+                      },
+                      child: Card(
+                        color: AppColors.nextPrimary,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              controller.exercises[index].arName,
+                              style: context.textTheme.headline6,
+                            ),
+                            Text(
+                              "${controller.exercises[index].quesiotnsNum.length} اسئله",
+                              style: context.textTheme.headline6,
+                            ),
+                            Text(
+                              "${controller.exercises[index].viewNum.length} حل",
+                              style: context.textTheme.headline6,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
           )
         ],
       ),
@@ -90,6 +92,31 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
         icon: const Icon(
           Icons.add,
           color: AppColors.light,
+        ),
+      ),
+    );
+  }
+
+  Padding _buildTitle(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.width * 0.03),
+      child: Card(
+        elevation: 4,
+        color: AppColors.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: SizedBox(
+          height: context.height * 0.07,
+          child: Center(
+            child: Text(
+              controller.gradeName,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(color: AppColors.light, fontSize: 15),
+            ),
+          ),
         ),
       ),
     );

@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'package:dio/dio.dart';
+import 'package:quizhub/app/models/grade.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
 
@@ -30,6 +32,17 @@ class CommonService {
     return grades;
   }
 
+  Future<List<String>> getSubjectsList() async {
+    final res = await client.get(Endpoints.subject);
+    throwIfNot(200, res);
+
+    final List<dynamic> subjectsList = res.data['material'] as List<dynamic>;
+    final List<String> subjects =
+        subjectsList.map((subject) => subject.toString()).toList();
+
+    return subjects;
+  }
+
   Future<List<String>> getSchoolList({required String city}) async {
     final response = await client.post(
       Endpoints.schools,
@@ -45,5 +58,38 @@ class CommonService {
         schoolList.map((item) => item.toString()).toList();
 
     return schoolNames;
+  }
+
+  Future<GradeModel> addGrades({
+    required String grade,
+    required String teacherId,
+  }) async {
+    final response = await client.post(
+      Endpoints.addGrade,
+      body: {"grades": grade, "createdby": "649315d45f390922c6c0aa1d"},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch schools');
+    }
+    final responseData = response.data;
+    final grades = responseData['date']['grades'] as String;
+    final id = responseData['date']['_id'] as String;
+
+    return GradeModel(arName: grades, id: id);
+  }
+
+  Future<Response<dynamic>> getTeacherHomeData({
+    required String teacherId,
+  }) async {
+    final response = await client.post(
+      Endpoints.teacherHome,
+      body: {"idTeacher": "649315d45f390922c6c0aa1d"},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch schools');
+    }
+    return response;
   }
 }

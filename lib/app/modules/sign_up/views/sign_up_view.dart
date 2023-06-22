@@ -12,7 +12,7 @@ class SignUpView extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    // final formKey = GlobalKey<FormState>();
     return GetBuilder<SignUpController>(
       init: controller,
       builder: (_) {
@@ -98,6 +98,17 @@ class SignUpView extends GetView<SignUpController> {
                   SizedBox(
                     height: context.height * 0.01,
                   ),
+                  if (controller.roleName == UserRole.Teacher) ...[
+                    SizedBox(
+                      height: context.height * 0.01,
+                    ),
+                    BookingOption(
+                      title: 'الماده الدراسيه',
+                      subTitle: controller.classS ?? 'اختر  الماده الدراسيه',
+                      icon: Icons.school,
+                      onTap: controller.pickSubject,
+                    ),
+                  ],
                   if (controller.roleName != UserRole.Teacher) ...[
                     BookingOption(
                       title: 'السنه الدراسيه',
@@ -109,6 +120,9 @@ class SignUpView extends GetView<SignUpController> {
                       height: context.height * 0.01,
                     ),
                   ],
+                  SizedBox(
+                    height: context.height * 0.01,
+                  ),
                   BookingOption(
                     title: 'المحافظه',
                     subTitle: controller.city ?? 'اختر  المحافظه ',

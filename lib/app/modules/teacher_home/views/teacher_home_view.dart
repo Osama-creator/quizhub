@@ -7,12 +7,13 @@ import 'package:quizhub/generated/assets.dart';
 
 class TeacherHomeView extends GetView<TeacherHomeController> {
   const TeacherHomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'م/ خالد شلقامي',
+          'م/ ${controller.teacherName}',
           style: context.textTheme.headline6,
         ),
         centerTitle: false,
@@ -30,12 +31,12 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
             child: Column(
               children: [
                 Text(
-                  'مدرس تاريخ ',
+                  'مدرس ${controller.teacherSubject} ',
                   style: context.textTheme.bodyText1!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '20 متابع',
+                  " متابع: 20",
                   style: context.textTheme.bodyText1!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
@@ -59,39 +60,60 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
           SizedBox(
             height: context.height * 0.05,
           ),
-          SizedBox(
-            height: context.height * 0.5,
-            width: context.width,
-            child: GridView.builder(
-              itemCount: 4,
-              padding: const EdgeInsets.all(5),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.90,
-              ),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () => Get.toNamed(Routes.GRADE_EXERCISES),
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: context.height * 0.1,
-                          width: context.width * 0.5,
-                          child: Image.asset(
-                            Asset.images.history,
-                          ),
-                        ),
-                        Text(
-                          "الصف الثاني",
-                          style: context.textTheme.headline6,
-                        ),
-                      ],
-                    ),
+          GetBuilder<TeacherHomeController>(
+            init: controller,
+            builder: (_) {
+              if (controller.grades.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'لا يوجد صفوف حتى الان',
+                    style: TextStyle(fontSize: 18),
                   ),
                 );
-              },
+              } else {
+                return SizedBox(
+                  height: context.height * 0.5,
+                  width: context.width,
+                  child: GridView.builder(
+                    itemCount: controller.grades.length,
+                    padding: const EdgeInsets.all(5),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.90,
+                    ),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          controller.goToGradePage(
+                            controller.grades[index].id!,
+                            controller.grades[index].arName,
+                          );
+                        },
+                        child: Card(
+                          child: Center(
+                            child: Text(
+                              controller.grades[index].arName,
+                              textAlign: TextAlign.center,
+                              style: context.textTheme.headline6!
+                                  .copyWith(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+          InkWell(
+            onTap: () {
+              controller.pickClass();
+            },
+            child: Text(
+              "  إضافه صف  + ",
+              style: context.textTheme.headline6,
             ),
           ),
           Expanded(
@@ -120,3 +142,4 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
     );
   }
 }
+// TODO : scrolePhisycs
