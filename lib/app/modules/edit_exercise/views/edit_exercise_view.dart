@@ -1,5 +1,8 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
 
@@ -59,65 +62,7 @@ class EditExerciseView extends GetView<EditExerciseController> {
                           color: AppColors.nextPrimary,
                           child: InkWell(
                             onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  String updatedQuestion = mcqQuestion.question;
-                                  String updatedAnswer =
-                                      mcqQuestion.rightAnswer;
-
-                                  return AlertDialog(
-                                    title: const Text('Update Question'),
-                                    content: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        TextFormField(
-                                          initialValue: mcqQuestion.question,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Question',
-                                          ),
-                                          onChanged: (value) {
-                                            updatedQuestion = value;
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: mcqQuestion.rightAnswer,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Correct Answer',
-                                          ),
-                                          onChanged: (value) {
-                                            updatedAnswer = value;
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Cancel'),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          mcqQuestion.question =
-                                              updatedQuestion;
-                                          mcqQuestion.rightAnswer =
-                                              updatedAnswer;
-                                          controller.updateQuestion(
-                                            mcqQuestion: mcqQuestion,
-                                            id: mcqQuestion.id!,
-                                          );
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Update'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              _buildEditDialog(context, mcqQuestion);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -171,6 +116,101 @@ class EditExerciseView extends GetView<EditExerciseController> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<dynamic> _buildEditDialog(
+    BuildContext context,
+    McqQuestion mcqQuestion,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        String updatedQuestion = mcqQuestion.question;
+        String updatedAnswer = mcqQuestion.rightAnswer;
+        String? updatedAnswer2 = mcqQuestion.wrongAns1;
+        String? updatedAnswer3 = mcqQuestion.wrongAns2;
+        String? updatedAnswer4 = mcqQuestion.wrongAns3;
+
+        return AlertDialog(
+          title: const Text('Update Question'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                initialValue: mcqQuestion.question,
+                decoration: const InputDecoration(
+                  labelText: 'Question',
+                ),
+                onChanged: (value) {
+                  updatedQuestion = value;
+                },
+              ),
+              TextFormField(
+                initialValue: mcqQuestion.rightAnswer,
+                decoration: const InputDecoration(
+                  labelText: 'Correct Answer',
+                ),
+                onChanged: (value) {
+                  updatedAnswer = value;
+                },
+              ),
+              if (mcqQuestion.wrongAns1 != null ||
+                  mcqQuestion.wrongAns2 != null ||
+                  mcqQuestion.wrongAns3 != null) ...[
+                TextFormField(
+                  initialValue: mcqQuestion.wrongAns1,
+                  decoration: const InputDecoration(
+                    labelText: 'wrong Answer 1',
+                  ),
+                  onChanged: (value) {
+                    updatedAnswer2 = value;
+                  },
+                ),
+                TextFormField(
+                  initialValue: mcqQuestion.wrongAns2,
+                  decoration: const InputDecoration(
+                    labelText: 'wrong Answer 2',
+                  ),
+                  onChanged: (value) {
+                    updatedAnswer3 = value;
+                  },
+                ),
+                TextFormField(
+                  initialValue: mcqQuestion.wrongAns3,
+                  decoration: const InputDecoration(
+                    labelText: 'wrong Answer 3',
+                  ),
+                  onChanged: (value) {
+                    updatedAnswer4 = value;
+                  },
+                ),
+              ]
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                mcqQuestion.question = updatedQuestion;
+                mcqQuestion.rightAnswer = updatedAnswer;
+                controller.updateQuestion(
+                  mcqQuestion: mcqQuestion,
+                  id: mcqQuestion.id!,
+                );
+                Navigator.pop(context);
+              },
+              child: const Text('Update'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

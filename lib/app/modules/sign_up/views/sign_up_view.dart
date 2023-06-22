@@ -104,7 +104,7 @@ class SignUpView extends GetView<SignUpController> {
                     ),
                     BookingOption(
                       title: 'الماده الدراسيه',
-                      subTitle: controller.classS ?? 'اختر  الماده الدراسيه',
+                      subTitle: controller.subject ?? 'اختر  الماده الدراسيه',
                       icon: Icons.school,
                       onTap: controller.pickSubject,
                     ),

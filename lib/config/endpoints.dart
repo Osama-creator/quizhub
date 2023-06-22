@@ -11,7 +11,6 @@ abstract class Endpoints {
   static const schools = '/v6/use/getallschool';
 
   /// ! teacher
-
   static const addGrade = '/v6/com/addgrades';
   static const teacherHome = '/v6/com/getallTeacherPage';
   static const gradeExercise = '/v6/com/getallexamsofgrades';

@@ -9,16 +9,16 @@ import 'package:quizhub/views/pick_utils.dart';
 
 class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
+  String teacherId = Get.arguments as String;
   final List<GradeModel> grades = [];
   String teacherName = "";
   String teacherSubject = "";
-  String teacherId = "";
   int? followLength;
   Future<void> pickClass() async {
     final res = await Get.bottomSheet<String?>(const PickClss());
     if (res != null) {
       final GradeModel response =
-          await service.addGrades(grade: res, teacherId: "33");
+          await service.addGrades(grade: res, teacherId: teacherId);
       grades.add(response);
       update();
     }
@@ -32,11 +32,10 @@ class TeacherHomeController extends GetxController {
 
   Future<void> fetchTeacherHomeData() async {
     try {
-      final response = await service.getTeacherHomeData(teacherId: "545");
+      final response = await service.getTeacherHomeData(teacherId: teacherId);
 
       if (response.statusCode == 200) {
         final responseData = response.data;
-
         final teacherData = responseData['Teacher'];
         teacherName = teacherData['name'] as String;
         teacherId = teacherData['_id'] as String;

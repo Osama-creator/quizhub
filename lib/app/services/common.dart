@@ -66,14 +66,14 @@ class CommonService {
   }) async {
     final response = await client.post(
       Endpoints.addGrade,
-      body: {"grades": grade, "createdby": "649315d45f390922c6c0aa1d"},
+      body: {"grades": grade, "createdby": teacherId},
     );
 
     if (response.statusCode != 200) {
       throw Exception('Failed to fetch schools');
     }
     final responseData = response.data;
-    final grades = responseData['date']['grades'] as String;
+    final grades = responseData['date']["grades"] as String;
     final id = responseData['date']['_id'] as String;
 
     return GradeModel(arName: grades, id: id);
@@ -84,7 +84,7 @@ class CommonService {
   }) async {
     final response = await client.post(
       Endpoints.teacherHome,
-      body: {"idTeacher": "649315d45f390922c6c0aa1d"},
+      body: {"idTeacher": teacherId},
     );
 
     if (response.statusCode != 200) {

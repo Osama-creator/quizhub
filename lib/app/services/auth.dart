@@ -25,7 +25,7 @@ class AuthService {
 
   UserModel get user => cachedUser ?? (throw 'user is not logged in !');
 
-  Future<void> signIn({
+  Future<String?> signIn({
     required String email,
     required String password,
   }) async {
@@ -36,23 +36,41 @@ class AuthService {
         'password': password,
       },
     );
+
     throwIfNot(200, res);
-    // save the token to shared preferences
-    // ignore: avoid_dynamic_calls
+    final responseData = res.data;
+    if (responseData is Map<String, dynamic>) {
+      final message = responseData['message'] as String?;
+      if (message != null) {
+        final userData = responseData['userExist'] as Map<String, dynamic>?;
+        // ignore: avoid_dynamic_calls
+        final userRole = responseData['userExist']['role'] as String?;
+        final userId = responseData['userExist']['_id'] as String?;
+        if (userData != null) {
+          await Prefs.setMap('auth.user', userData);
+          await Prefs.setString('role', userRole!);
+          await Prefs.setString('userId', userId!);
+        }
+
+        return message;
+      }
+    }
+    throw Exception('Invalid response data');
   }
 
-  Future<String> signUp({
+  Future<void> signUp({
     required String name,
     required String email,
     required String roleName,
-    required String classS,
     required String school,
     required String erea,
     required String governorate,
-    String? phone,
-    File? image,
     required String password,
     required String confPassword,
+    String? classS,
+    String? subject,
+    String? phone,
+    File? image,
   }) async {
     final res = await client.post(
       Endpoints.register,
@@ -62,34 +80,21 @@ class AuthService {
         'password': password,
         'confirm_Password': confPassword,
         'role': roleName,
-        'the_line': classS,
         'school': school,
         'Area': erea,
         'governorate': governorate,
+        if (classS != null && classS.isNotEmpty) 'the_line': classS,
+        if (subject != null && subject.isNotEmpty) 'material': subject,
         if (phone != null && phone.isNotEmpty) 'phone': phone,
         if (image != null && image.path.isNotEmpty) 'img': image.path,
       },
     );
     throwIfNot(200, res);
-
-    final responseData = res.data;
-    if (responseData is Map<String, dynamic>) {
-      final message = responseData['message'] as String?;
-      if (message != null) {
-        final userData = responseData['date'] as Map<String, dynamic>?;
-        if (userData != null) {
-          await Prefs.setMap('auth.user', userData);
-        }
-        await Prefs.setString('role', roleName);
-        return message;
-      }
-    }
-
-    throw Exception('Invalid response data');
+    signIn(email: email, password: password);
   }
 
   Future<void> signOut() async {
-    await Prefs.removeMany(['token', 'auth.user']);
+    await Prefs.remove('auth.user');
     // client.get('/logout');
   }
 

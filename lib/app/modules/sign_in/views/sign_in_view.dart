@@ -45,7 +45,7 @@ class SignInView extends GetView<SignInController> {
                 width: context.width,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Routes.STUDENT_HOME);
+                    controller.submit();
                   },
                   child: Text(
                     'تسجيل الدخول',

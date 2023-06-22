@@ -35,8 +35,9 @@ class AuthController extends GetxController {
 
   Future<void> navigateToProperPage() async {
     final userRole = Prefs.getString('role');
+    final userId = Prefs.getString('userId');
     if (userRole == "Teacher") {
-      Get.offAllNamed(Routes.TEACHER_HOME);
+      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
     } else {
       Get.offAllNamed(Routes.HOME);
     }

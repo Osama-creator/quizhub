@@ -40,13 +40,13 @@ class SignUpController extends GetxController {
   Future<void> submit() async {
     if (confermationPasswordC.text != passwordC.text) {
       Alert.error("يجب أن يكون تأكيد كلمه المرور تناسب كلمه المرور");
-    } else if (classS == null) {
-      Alert.error("يجب إختيار الصف المناسب");
+      // } else if (classS == null) {
+      //   Alert.error("يجب إختيار الصف المناسب");
     } else {
       try {
         isLoading = true;
         update();
-        final msg = await service.signUp(
+        await service.signUp(
           name: fNameC.text,
           email: emailC.text,
           erea: "مصر",
@@ -57,16 +57,12 @@ class SignUpController extends GetxController {
           roleName: getRoleName(roleName),
           phone: phoneC.text,
           image: image,
-          classS: classS!,
+          classS: classS,
+          subject: subject,
         );
-        //SAVING SCHOOL & CITY
-        // await Prefs.setString("userCity", city!);
-        // await Prefs.setString("userSchool", school!);
+
         await Get.find<AuthController>().checkAndNavigate();
-        Alert.success(msg);
-        // } on LValidationException catch (e, st) {
-        //   catchLog(e, st);
-        //   Alert.error("عذرا هناك خطأ ما !!");
+        Alert.success("تم بنجاح");
       } catch (e, st) {
         Alert.error("عذرا هناك خطأ ما !!");
         catchLog(e, st);

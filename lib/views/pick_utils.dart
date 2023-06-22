@@ -86,7 +86,10 @@ class _PickClssState extends State<PickClss> {
                               .map(
                                 (e) => Card(
                                   child: ListTile(
-                                    onTap: () => Get.back(result: e),
+                                    onTap: () {
+                                      Get.back(result: e);
+                                      itemsToDisplay.remove(e);
+                                    },
                                     title: Text(e),
                                   ),
                                 ),
