@@ -48,7 +48,10 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                             .deleteExercise(controller.exercises[index].id!);
                       },
                       onTap: () {
-                        Get.toNamed(Routes.EDIT_EXERCISE);
+                        Get.toNamed(
+                          Routes.EDIT_EXERCISE,
+                          arguments: controller.exercises[index].id,
+                        );
                       },
                       child: Card(
                         color: AppColors.nextPrimary,

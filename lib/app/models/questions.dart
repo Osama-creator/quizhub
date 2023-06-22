@@ -1,15 +1,17 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class McqQuestion extends Equatable {
   final String teacherId;
+  final String? id;
   final String examId;
-  final String question;
-  final String? image;
-  final String rightAnswer;
-  final String? wrongAns1;
-  final String? wrongAns2;
-  final String? wrongAns3;
-  final String? note;
+  String question;
+  String? image;
+  String rightAnswer;
+  String? wrongAns1;
+  String? wrongAns2;
+  String? wrongAns3;
+  String? note;
   String? userChoice;
 
   McqQuestion({
@@ -17,6 +19,7 @@ class McqQuestion extends Equatable {
     required this.examId,
     required this.question,
     this.image,
+    this.id,
     required this.rightAnswer,
     this.userChoice,
     this.wrongAns1,
@@ -27,10 +30,10 @@ class McqQuestion extends Equatable {
 
   factory McqQuestion.fromJson(Map<String, dynamic> json) {
     return McqQuestion(
-      teacherId: json['createdby'] as String,
-      examId: json['Idexam'] as String,
+      teacherId: json['createdby'][0] as String,
+      id: json['_id'] as String,
+      examId: json['exam'][0] as String,
       question: json['question'] as String,
-      image: json['img'] as String,
       rightAnswer: json['correct_Answer'] as String,
       wrongAns1: json['choose2'] as String?,
       wrongAns2: json['choose3'] as String?,
@@ -44,12 +47,12 @@ class McqQuestion extends Equatable {
       'createdby': teacherId,
       'Idexam': examId,
       'question': question,
-      'img': image,
       'correct_Answer': rightAnswer,
       'choose2': wrongAns1,
       'choose3': wrongAns2,
       'choose4': wrongAns3,
-      'test_node': note,
+      if (image != null && image!.isNotEmpty) 'img': image,
+      if (note != null && note!.isNotEmpty) 'test_node': note,
     };
   }
 

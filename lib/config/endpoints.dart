@@ -18,4 +18,6 @@ abstract class Endpoints {
   static const addExam = '/v6/com/addexam';
   static const deletExam = '/v6/com/deleteExam';
   static const addQuesiton = '/v6/com/addQuestion';
+  static const updateQuesiton = '/v6/com/updateQuestion';
+  static const getExam = '/v6/com/getallexam';
 }

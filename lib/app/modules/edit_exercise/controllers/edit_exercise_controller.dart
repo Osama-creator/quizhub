@@ -1,23 +1,42 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/helper/func.dart';
 
 class EditExerciseController extends GetxController {
-  //TODO: Implement EditExerciseController
+  final examsService = Get.find<ExamsService>();
+  final String examId = Get.arguments as String;
+  late List<McqQuestion> apiQuestions = [];
 
-  final count = 0.obs;
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    try {
+      apiQuestions = await examsService.getExercise(id: examId);
+      update();
+    } catch (e, st) {
+      catchLog("err$e", st);
+    }
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Future<void> updateQuestion({
+    required McqQuestion mcqQuestion,
+    required String id,
+  }) async {
+    try {
+      final body = {
+        "IdQuestion": id,
+        "question": mcqQuestion.question,
+        "correct_Answer": mcqQuestion.rightAnswer,
+      };
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+      await examsService.updateQuestion(body: body);
 
-  void increment() => count.value++;
+      // Handle success
+
+    } catch (e, st) {
+      // Handle error
+      throw Exception('Error: $e, $st');
+    }
+  }
 }

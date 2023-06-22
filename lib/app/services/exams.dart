@@ -123,4 +123,54 @@ class ExamsService {
       throw Exception('Error: $e, $st');
     }
   }
+
+  Future<void> updateQuestion({
+    required Map<String, dynamic> body,
+  }) async {
+    try {
+      final response = await client.patch(
+        Endpoints.updateQuesiton,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        log('Question posted successfully');
+      } else {
+        // Handle error
+        throw Exception('Failed to post question');
+      }
+    } catch (e, st) {
+      // Handle error
+      throw Exception('Error: $e, $st');
+    }
+  }
+
+  Future<List<McqQuestion>> getExercise({
+    required String id,
+  }) async {
+    final response = await client.post(
+      Endpoints.getExam,
+      body: {
+        'Idexam': id,
+      },
+    );
+    if (response.statusCode == 200) {
+      final responseData = response.data;
+      final List<McqQuestion> questions = [];
+      final List<dynamic> dataList = responseData['getexam'] as List<dynamic>;
+      for (final data in dataList) {
+        final List<dynamic> getQuestions = data['question'] as List<dynamic>;
+        for (final questionData in getQuestions) {
+          final McqQuestion question =
+              McqQuestion.fromJson(questionData as Map<String, dynamic>);
+          questions.add(question);
+        }
+      }
+      log(' successfully');
+      return questions;
+    } else {
+      throw Exception('Failed');
+    }
+  }
 }
