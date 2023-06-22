@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' hide ContextExtensionss;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/grade_exercises/controllers/grade_exercises_controller.dart';
-import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/views/input_feild.dart';
 
@@ -15,7 +13,7 @@ class ExerciseTypeSelection extends StatefulWidget {
 }
 
 class _ExerciseTypeSelectionState extends State<ExerciseTypeSelection> {
-  String selectedExerciseType = '';
+  String selectedExerciseType = 'اختيار';
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +99,6 @@ void excDetailsBottomSheet(
                 child: ElevatedButton(
                   onPressed: () async {
                     await controller.submet();
-                    Get.back();
-                    controller.eNameC.text = "";
-                    controller.eTimeC.text = "";
-                    Get.toNamed(Routes.CREATE_MATCHING_EXERCISE);
                   },
                   child: Text(
                     'إنشاء',

@@ -118,15 +118,33 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                 ),
                 child: SizedBox(
                   height: context.height * 0.06,
-                  child: ElevatedButton(
-                    onPressed: () => controller.addQuestion(),
-                    child: Text(
-                      ' إضافه سؤال',
-                      style: context.textTheme.headline6!.copyWith(
-                        fontSize: 18,
-                        color: AppColors.light,
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        width: context.width * 0.2,
+                        child: ElevatedButton(
+                          onPressed: () => controller.addQuestion(),
+                          child: const Icon(Icons.add),
+                        ),
                       ),
-                    ),
+                      const Spacer(),
+                      SizedBox(
+                        width: context.width * 0.57,
+                        child: ElevatedButton(
+                          onPressed: () => controller.onSubmit(),
+                          child: Text(
+                            'إنشاء التدريب',
+                            style: context.textTheme.headline6!.copyWith(
+                              fontSize: 18,
+                              color: AppColors.light,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quizhub/app/modules/create_matching_exercise/controllers/create_matching_exercise_controller.dart';
+import 'package:quizhub/app/modules/create_true_false_exercise/controllers/create_true_false_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/views/text_field.dart';
 
-class CreateMatchingExerciseView
-    extends GetView<CreateMatchingExerciseController> {
-  const CreateMatchingExerciseView({super.key});
+class CreateTrueFalseExerciseView
+    extends GetView<CreateTrueFalseExerciseController> {
+  const CreateTrueFalseExerciseView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CreateMatchingExerciseController>(
+    return GetBuilder<CreateTrueFalseExerciseController>(
       init: controller,
       builder: (controller) {
         return Scaffold(
@@ -17,9 +18,7 @@ class CreateMatchingExerciseView
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.width * 0.1,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: context.width * 0.1),
                 child: const Divider(
                   thickness: 1,
                 ),
@@ -82,23 +81,38 @@ class CreateMatchingExerciseView
                                 height: context.height * 0.1,
                                 width: context.width * 0.45,
                                 child: MyTextFeild(
-                                  controller: controller.questions[index].word,
-                                  hintText: "الكلمه ",
-                                  labelText: "الكلمه ",
+                                  controller:
+                                      controller.questions[index].question,
+                                  hintText: "السؤال",
+                                  labelText: "السؤال",
                                 ),
                               ),
                               SizedBox(
                                 height: context.height * 0.1,
                                 width: context.width * 0.45,
-                                child: MyTextFeild(
-                                  controller:
-                                      controller.questions[index].secondWord,
-                                  hintText: "الكلمه التابعه",
-                                  labelText: "الكلمه التابعه",
+                                child: DropdownButtonFormField<String>(
+                                  value: controller.questions[index].answer,
+                                  decoration: const InputDecoration(
+                                    labelText: 'الإجابة الصحيحة',
+                                  ),
+                                  onChanged: (newValue) {
+                                    controller.questions[index].answer =
+                                        newValue!;
+                                  },
+                                  items: <String>[
+                                    'صح',
+                                    'خطأ',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
-                              )
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     );

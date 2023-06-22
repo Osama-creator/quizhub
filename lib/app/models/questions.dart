@@ -1,19 +1,60 @@
-class McqQuestion {
-  final String? id;
+import 'package:equatable/equatable.dart';
+
+class McqQuestion extends Equatable {
+  final String teacherId;
+  final String examId;
   final String question;
-  final String image;
+  final String? image;
   final String rightAnswer;
-  final List<String>? wrongAnswers;
+  final String? wrongAns1;
+  final String? wrongAns2;
+  final String? wrongAns3;
+  final String? note;
   String? userChoice;
 
   McqQuestion({
-    this.id,
-    this.userChoice,
+    required this.teacherId,
+    required this.examId,
     required this.question,
-    required this.image,
+    this.image,
     required this.rightAnswer,
-    required this.wrongAnswers,
+    this.userChoice,
+    this.wrongAns1,
+    this.wrongAns2,
+    this.wrongAns3,
+    this.note,
   });
+
+  factory McqQuestion.fromJson(Map<String, dynamic> json) {
+    return McqQuestion(
+      teacherId: json['createdby'] as String,
+      examId: json['Idexam'] as String,
+      question: json['question'] as String,
+      image: json['img'] as String,
+      rightAnswer: json['correct_Answer'] as String,
+      wrongAns1: json['choose2'] as String?,
+      wrongAns2: json['choose3'] as String?,
+      wrongAns3: json['choose4'] as String?,
+      note: json['test_node'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'createdby': teacherId,
+      'Idexam': examId,
+      'question': question,
+      'img': image,
+      'correct_Answer': rightAnswer,
+      'choose2': wrongAns1,
+      'choose3': wrongAns2,
+      'choose4': wrongAns3,
+      'test_node': note,
+    };
+  }
+
+  @override
+  List<Object?> get props => [teacherId, examId, question, image, rightAnswer];
 }
 
 class TrueFalseQuestion {
@@ -59,44 +100,6 @@ class MatchingQuestion {
     required this.fWord,
     required this.sWord,
   });
-}
-
-class Myq {
-  List<McqQuestion> myquestions = [
-    McqQuestion(
-      question: "كم عدد قارات العالم",
-      image: "",
-      rightAnswer: "7 قارات",
-      wrongAnswers: const [
-        "7 قارات",
-        "8 قارات",
-        "4 قارات",
-        "غير ذلك",
-      ],
-    ),
-    McqQuestion(
-      question: 'ما هو أطول نهر ف العالم',
-      image: "",
-      rightAnswer: "نهر النيل",
-      wrongAnswers: const [
-        "نهر النيل",
-        "نهر الفرات",
-        "نهر دجله",
-        "غير ذلك",
-      ],
-    ),
-    McqQuestion(
-      question: "أين تقع البرازيل",
-      image: "",
-      rightAnswer: "أمريكا الجنوبيه",
-      wrongAnswers: const [
-        "أمريكا الجنوبيه",
-        "أمريكا الشماليه",
-        "أفريقيا",
-        "أوروبا",
-      ],
-    ),
-  ];
 }
 
 class Myq2 {

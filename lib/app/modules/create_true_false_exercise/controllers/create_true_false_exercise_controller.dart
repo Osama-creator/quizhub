@@ -9,12 +9,12 @@ import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/helper/pick.dart';
 
-class CreateFillGabsExerciseController extends GetxController {
+class CreateTrueFalseExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
   final Map<String, dynamic> arguments = Get.arguments as Map<String, dynamic>;
   late String examId;
   late String teacherId;
-  final List<FillQuestionC> questions = [];
+  final List<TrueFalseQuestion> questions = [];
   final List<McqQuestion> apiQuestions = [];
 
   @override
@@ -25,8 +25,8 @@ class CreateFillGabsExerciseController extends GetxController {
   }
 
   void addQuestion() {
-    final questionC = FillQuestionC();
-    questions.add(questionC);
+    final question = TrueFalseQuestion();
+    questions.add(question);
 
     update();
   }
@@ -34,14 +34,14 @@ class CreateFillGabsExerciseController extends GetxController {
   Future<void> onSubmit() async {
     for (int i = 0; i < questions.length; i++) {
       final question = questions[i];
-      final mcqQuestion = McqQuestion(
+      final apiQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        image: question.image!.path,
-        question: question.questionC.text,
-        rightAnswer: question.missingWordC.text,
+        image: question.image?.path,
+        question: question.question.text,
+        rightAnswer: question.answer!,
       );
-      apiQuestions.add(mcqQuestion);
+      apiQuestions.add(apiQuestion);
       log("done $i");
     }
     try {
@@ -57,11 +57,12 @@ class CreateFillGabsExerciseController extends GetxController {
   }
 }
 
-class FillQuestionC {
-  TextEditingController questionC = TextEditingController();
-  TextEditingController missingWordC = TextEditingController();
+class TrueFalseQuestion {
+  TextEditingController question = TextEditingController();
+  String? answer;
+
   String imageString = "";
-  late bool imageUploaded;
+
   File? image;
 
   Future<void> pickFile() async {

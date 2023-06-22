@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:quizhub/app/models/exersice.dart';
+import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
 
@@ -99,6 +100,26 @@ class ExamsService {
         throw Exception('Failed to fetch exercises');
       }
     } catch (e, st) {
+      throw Exception('Error: $e, $st');
+    }
+  }
+
+  Future<void> postMcqQuestion(McqQuestion mcqQuestion) async {
+    try {
+      final response = await client.post(
+        Endpoints.addQuesiton,
+        body: mcqQuestion.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        log('Question posted successfully');
+      } else {
+        // Handle error
+        throw Exception('Failed to post question');
+      }
+    } catch (e, st) {
+      // Handle error
       throw Exception('Error: $e, $st');
     }
   }

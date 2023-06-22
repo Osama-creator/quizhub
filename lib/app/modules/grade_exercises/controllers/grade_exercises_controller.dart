@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exersice.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
@@ -14,7 +15,8 @@ class GradeExercisesController extends GetxController {
   String gradeId = "";
   String gradeName = "";
   String selectedExerciseType = '';
-
+  String examId = "";
+  // ignore: use_setters_to_change_properties
   void setSelectedExerciseType(String exerciseType) {
     selectedExerciseType = exerciseType;
   }
@@ -24,14 +26,10 @@ class GradeExercisesController extends GetxController {
     final Map<String, dynamic> arguments =
         Get.arguments as Map<String, dynamic>;
 
-    if (arguments != null) {
-      teacherId = arguments['teacherId'] as String;
-      gradeId = arguments['gradeId'] as String;
-      gradeName = arguments['gradeName'] as String;
-      fetchExercises(teacherId, gradeId, examsService);
-    } else {
-      // Handle missing arguments error
-    }
+    teacherId = arguments['teacherId'] as String;
+    gradeId = arguments['gradeId'] as String;
+    gradeName = arguments['gradeName'] as String;
+    fetchExercises(teacherId, gradeId, examsService);
 
     super.onInit();
   }
@@ -69,29 +67,74 @@ class GradeExercisesController extends GetxController {
   }
 
   Future<void> submet() async {
-    switch (selectedExerciseType) {
-      case "اختيار":
-        selectedExerciseType = "choose";
-        break;
-      case 'صح وخطأ':
-        selectedExerciseType = "true_false";
-        break;
-      case "أكمل":
-        selectedExerciseType = "fill_gabs";
-        break;
-      case "توصيل":
-        selectedExerciseType = "matching";
-        break;
-      default:
-        selectedExerciseType = "choose";
-        break;
-    }
-    examsService.createExam(
+    trans();
+
+    examId = await examsService.createExam(
       examName: eNameC.text,
       examType: selectedExerciseType,
       gradeId: gradeId,
       teacherId: teacherId,
       examTime: int.parse(eTimeC.text),
     );
+    eNameC.text = "";
+    eTimeC.text = "";
+    Get.back();
+    getPreperPage();
+  }
+
+  void getPreperPage() {
+    switch (selectedExerciseType) {
+      case "choose":
+        Get.toNamed(
+          Routes.CREATE_CHOOSE_EXERCISE,
+          arguments: {'teacherId': teacherId, 'examId': examId},
+        );
+        break;
+      case "true_false":
+        Get.toNamed(
+          Routes.CREATE_TRUE_FALSE_EXERCISE,
+          arguments: {'teacherId': teacherId, 'examId': examId},
+        );
+        break;
+      case "fill_gabs":
+        Get.toNamed(
+          Routes.CREATE_FILL_GABS_EXERCISE,
+          arguments: {'teacherId': teacherId, 'examId': examId},
+        );
+        break;
+      case "matching":
+        Get.toNamed(
+          Routes.CREATE_MATCHING_EXERCISE,
+          arguments: {'teacherId': teacherId, 'examId': examId},
+        );
+        break;
+      default:
+        Alert.error("يجب إختيار نوع التدريب");
+        break;
+    }
+  }
+
+  void trans() {
+    switch (selectedExerciseType) {
+      case "اختيار":
+        selectedExerciseType = "choose";
+
+        break;
+      case 'صح وخطأ':
+        selectedExerciseType = "true_false";
+
+        break;
+      case "أكمل":
+        selectedExerciseType = "fill_gabs";
+
+        break;
+      case "توصيل":
+        selectedExerciseType = "matching";
+
+        break;
+      default:
+        selectedExerciseType = "choose";
+        break;
+    }
   }
 }
