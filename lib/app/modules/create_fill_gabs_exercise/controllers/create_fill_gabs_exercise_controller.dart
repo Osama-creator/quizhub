@@ -40,6 +40,7 @@ class CreateFillGabsExerciseController extends GetxController {
         image: question.image!.path,
         question: question.questionC.text,
         rightAnswer: question.missingWordC.text,
+        note: question.noteC.text,
       );
       apiQuestions.add(mcqQuestion);
       log("done $i");
@@ -60,6 +61,7 @@ class CreateFillGabsExerciseController extends GetxController {
 class FillQuestionC {
   TextEditingController questionC = TextEditingController();
   TextEditingController missingWordC = TextEditingController();
+  TextEditingController noteC = TextEditingController();
   String imageString = "";
   late bool imageUploaded;
   File? image;

@@ -21,20 +21,20 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
         backgroundColor: AppColors.light,
         elevation: 3,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _buildTitle(context),
-          SizedBox(
-            height: context.height * 0.05,
-          ),
-          GetBuilder<GradeExercisesController>(
-            init: controller,
-            builder: (_) {
-              return SizedBox(
-                height: context.height * 0.5,
-                width: context.width,
-                child: GridView.builder(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildTitle(context),
+            SizedBox(
+              height: context.height * 0.05,
+            ),
+            GetBuilder<GradeExercisesController>(
+              init: controller,
+              builder: (_) {
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: controller.exercises.length,
                   padding: const EdgeInsets.all(5),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -75,11 +75,11 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                       ),
                     );
                   },
-                ),
-              );
-            },
-          )
-        ],
+                );
+              },
+            )
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton.extended(

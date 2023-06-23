@@ -105,6 +105,11 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                             hintText: "الإجابه الخاطئه 3",
                             labelText: "الإجابه الخاطئه 3",
                           ),
+                          MyTextFeild(
+                            controller: controller.questions[index].note,
+                            hintText: "ملاحظه  (اختياري) ",
+                            labelText: "ملاحظه  (اختياري) ",
+                          ),
                         ],
                       ),
                     );

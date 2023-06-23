@@ -89,6 +89,7 @@ class _PickClssState extends State<PickClss> {
                                     onTap: () {
                                       Get.back(result: e);
                                       itemsToDisplay.remove(e);
+                                      items.remove(e);
                                     },
                                     title: Text(e),
                                   ),

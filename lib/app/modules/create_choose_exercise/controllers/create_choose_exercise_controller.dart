@@ -43,6 +43,7 @@ class CreateChooseExerciseController extends GetxController {
         wrongAns1: question.wrongAnswer1C.text,
         wrongAns2: question.wrongAnswer2C.text,
         wrongAns3: question.wrongAnswer3C.text,
+        note: question.note.text,
       );
       apiQuestions.add(mcqQuestion);
       log("done $i");
@@ -66,6 +67,7 @@ class QuestionC {
   TextEditingController wrongAnswer1C = TextEditingController();
   TextEditingController wrongAnswer3C = TextEditingController();
   TextEditingController wrongAnswer2C = TextEditingController();
+  TextEditingController note = TextEditingController();
   String imageString = "";
   late bool imageUploaded;
   File? image;

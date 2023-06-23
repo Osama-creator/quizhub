@@ -70,7 +70,7 @@ class CommonService {
     );
 
     if (response.statusCode != 200) {
-      throw Exception('Failed to fetch schools');
+      throw Exception('Failed to fetch gradse');
     }
     final responseData = response.data;
     final grades = responseData['date']["grades"] as String;

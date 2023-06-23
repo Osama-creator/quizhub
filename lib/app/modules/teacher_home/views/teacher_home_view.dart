@@ -46,35 +46,34 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
         ],
         elevation: 3,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: context.height * 0.05,
-          ),
-          Text(
-            'الصفوف الدراسيه',
-            style: context.textTheme.headline5!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: context.height * 0.05,
-          ),
-          GetBuilder<TeacherHomeController>(
-            init: controller,
-            builder: (_) {
-              if (controller.grades.isEmpty) {
-                return const Center(
-                  child: Text(
-                    'لا يوجد صفوف حتى الان',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                );
-              } else {
-                return SizedBox(
-                  height: context.height * 0.5,
-                  width: context.width,
-                  child: GridView.builder(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: context.height * 0.05,
+            ),
+            Text(
+              'الصفوف الدراسيه',
+              style: context.textTheme.headline5!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: context.height * 0.05,
+            ),
+            GetBuilder<TeacherHomeController>(
+              init: controller,
+              builder: (_) {
+                if (controller.grades.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'لا يوجد صفوف حتى الان',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  );
+                } else {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: controller.grades.length,
                     padding: const EdgeInsets.all(5),
                     gridDelegate:
@@ -102,22 +101,20 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                         ),
                       );
                     },
-                  ),
-                );
-              }
-            },
-          ),
-          InkWell(
-            onTap: () {
-              controller.pickClass();
-            },
-            child: Text(
-              "  إضافه صف  + ",
-              style: context.textTheme.headline6,
+                  );
+                }
+              },
             ),
-          ),
-          Expanded(
-            child: Align(
+            InkWell(
+              onTap: () {
+                controller.pickClass();
+              },
+              child: Text(
+                "  إضافه صف  + ",
+                style: context.textTheme.headline6,
+              ),
+            ),
+            Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: context.height * 0.06,
@@ -136,10 +133,9 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-// TODO : scrolePhisycs

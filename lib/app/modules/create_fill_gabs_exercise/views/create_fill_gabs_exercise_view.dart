@@ -86,6 +86,11 @@ class CreateFillGabsExerciseView
                             hintText: "الكلمه الناقصه",
                             labelText: "الكلمه الناقصه",
                           ),
+                          MyTextFeild(
+                            controller: controller.questions[index].noteC,
+                            hintText: "ملاحظه  (اختياري) ",
+                            labelText: "ملاحظه  (اختياري) ",
+                          ),
                         ],
                       ),
                     );

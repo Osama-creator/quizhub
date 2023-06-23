@@ -6,9 +6,8 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/alert.dart';
-import 'package:quizhub/helper/pick.dart';
-
 import 'package:quizhub/helper/func.dart';
+import 'package:quizhub/helper/pick.dart';
 
 class CreateMatchingExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
@@ -41,6 +40,7 @@ class CreateMatchingExerciseController extends GetxController {
         image: question.image!.path,
         question: question.word.text,
         rightAnswer: question.secondWord.text,
+        note: question.note.text,
       );
       apiQuestions.add(mcqQuestion);
       log("done $i");
@@ -61,6 +61,7 @@ class CreateMatchingExerciseController extends GetxController {
 class MatchingQuestionC {
   TextEditingController word = TextEditingController();
   TextEditingController secondWord = TextEditingController();
+  TextEditingController note = TextEditingController();
 
   String imageString = "";
 

@@ -40,6 +40,7 @@ class CreateTrueFalseExerciseController extends GetxController {
         image: question.image?.path,
         question: question.question.text,
         rightAnswer: question.answer!,
+        note: question.note.text,
       );
       apiQuestions.add(apiQuestion);
       log("done $i");
@@ -59,6 +60,7 @@ class CreateTrueFalseExerciseController extends GetxController {
 
 class TrueFalseQuestion {
   TextEditingController question = TextEditingController();
+  TextEditingController note = TextEditingController();
   String? answer;
 
   String imageString = "";

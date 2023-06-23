@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/grade.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/common.dart';
+import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/views/pick_utils.dart';
 
@@ -11,15 +12,21 @@ class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
   String teacherId = Get.arguments as String;
   final List<GradeModel> grades = [];
+  final List<String> gradesNames = [];
   String teacherName = "";
   String teacherSubject = "";
   int? followLength;
   Future<void> pickClass() async {
     final res = await Get.bottomSheet<String?>(const PickClss());
-    if (res != null) {
+    if (res != null || !gradesNames.contains(res)) {
       final GradeModel response =
-          await service.addGrades(grade: res, teacherId: teacherId);
-      grades.add(response);
+          await service.addGrades(grade: res!, teacherId: teacherId);
+      gradesNames.add(res);
+      if (grades.contains(response)) {
+        Alert.error("لقد تم إختياره بالفعل");
+      } else {
+        grades.add(response);
+      }
       update();
     }
   }

@@ -98,7 +98,12 @@ class CreateMatchingExerciseView
                                 ),
                               )
                             ],
-                          )
+                          ),
+                          MyTextFeild(
+                            controller: controller.questions[index].note,
+                            hintText: "ملاحظه  (اختياري) ",
+                            labelText: "ملاحظه  (اختياري) ",
+                          ),
                         ],
                       ),
                     );

@@ -103,6 +103,12 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                     ],
                                   ),
                                 ],
+                                if (mcqQuestion.note != null) ...[
+                                  Text(
+                                    mcqQuestion.note!,
+                                    style: context.textTheme.headline6,
+                                  ),
+                                ],
                               ],
                             ),
                           ),
@@ -128,6 +134,7 @@ class EditExerciseView extends GetView<EditExerciseController> {
       builder: (context) {
         String updatedQuestion = mcqQuestion.question;
         String updatedAnswer = mcqQuestion.rightAnswer;
+        String? note = mcqQuestion.note;
         String? updatedAnswer2 = mcqQuestion.wrongAns1;
         String? updatedAnswer3 = mcqQuestion.wrongAns2;
         String? updatedAnswer4 = mcqQuestion.wrongAns3;
@@ -184,6 +191,17 @@ class EditExerciseView extends GetView<EditExerciseController> {
                   ),
                   onChanged: (value) {
                     updatedAnswer4 = value;
+                  },
+                ),
+              ],
+              if (mcqQuestion.note != null) ...[
+                TextFormField(
+                  initialValue: mcqQuestion.note,
+                  decoration: const InputDecoration(
+                    labelText: 'note',
+                  ),
+                  onChanged: (value) {
+                    note = value;
                   },
                 ),
               ]
