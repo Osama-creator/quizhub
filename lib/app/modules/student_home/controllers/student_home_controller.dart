@@ -1,12 +1,15 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
 
 class StudentHomeController extends GetxController {
   final service = Get.find<ExamsService>();
 
   String selectedSubject = '';
+
   List<String> subjects = [];
+
   List<ExerciseCardModel> exercises = [];
 
   @override
@@ -46,5 +49,25 @@ class StudentHomeController extends GetxController {
     selectedSubject = subject;
     fetchExercisesForSubject(subject);
     update();
+  }
+
+  void goToExamPage(int i, ExerciseCardModel exercise) {
+    final selectedExam = exercise.exercises[i].type;
+    final exmaId = exercise.exercises[i].id;
+
+    switch (selectedExam) {
+      case "choose":
+        Get.toNamed(Routes.MCQ_EXERCISE, arguments: exmaId);
+        break;
+      case "true_false":
+        Get.toNamed(Routes.TRUE_FALSE_EXERCISE, arguments: exmaId);
+        break;
+      case "fill_gabs":
+        Get.toNamed(Routes.COMPLATE_EXERCISE, arguments: exmaId);
+        break;
+      case "matching":
+        Get.toNamed(Routes.MATCHING_EXERCISE, arguments: exmaId);
+        break;
+    }
   }
 }

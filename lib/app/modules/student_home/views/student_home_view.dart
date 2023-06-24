@@ -291,33 +291,38 @@ class TeacherExamsTile extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: exerciseCard.exercises.length,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    height: context.height * 0.07,
-                    width: context.width * 0.35,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      color: AppColors.next2Primary,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            exerciseCard.exercises[index].arName,
-                            style: context.textTheme.headline6!
-                                .copyWith(color: AppColors.light),
-                          ),
-                          Text(
-                            "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
-                            style: context.textTheme.headline6!
-                                .copyWith(color: AppColors.light),
-                          ),
-                          Text(
-                            "${exerciseCard.exercises[index].viewNum.length} حل",
-                            style: context.textTheme.headline6!
-                                .copyWith(color: AppColors.light),
-                          ),
-                        ],
+                  return InkWell(
+                    onTap: () {
+                      controller.goToExamPage(index, exerciseCard);
+                    },
+                    child: SizedBox(
+                      height: context.height * 0.07,
+                      width: context.width * 0.35,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: AppColors.next2Primary,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              exerciseCard.exercises[index].arName,
+                              style: context.textTheme.headline6!
+                                  .copyWith(color: AppColors.light),
+                            ),
+                            Text(
+                              "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
+                              style: context.textTheme.headline6!
+                                  .copyWith(color: AppColors.light),
+                            ),
+                            Text(
+                              "${exerciseCard.exercises[index].viewNum.length} حل",
+                              style: context.textTheme.headline6!
+                                  .copyWith(color: AppColors.light),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

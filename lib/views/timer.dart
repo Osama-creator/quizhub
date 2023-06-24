@@ -53,7 +53,7 @@ class _CountdownTimerState extends State<CountdownTimer>
         Text(
           '${(widget.duration * _animation.value).ceil()} ',
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 24.0),
+          style: const TextStyle(fontSize: 20.0),
         ),
         Container(
           height: 10.0,

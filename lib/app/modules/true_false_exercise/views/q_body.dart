@@ -49,7 +49,7 @@ class TFQuestionBody extends StatelessWidget {
               width: w * 0.45,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.selectChoice(true);
+                  controller.selectChoice("true");
                 },
                 child: const Text("صح"),
               ),
@@ -59,7 +59,7 @@ class TFQuestionBody extends StatelessWidget {
               width: w * 0.45,
               child: OutlinedButton(
                 onPressed: () {
-                  controller.selectChoice(false);
+                  controller.selectChoice("false");
                 },
                 child: const Text("خطأ"),
               ),

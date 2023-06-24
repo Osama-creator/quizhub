@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/helper/func.dart';
 
 class TrueFalseExerciseController extends GetxController {
   late PageController pageController;
   bool? isTrue;
 
   int qNumber = 1;
-  List<TrueFalseQuestion> quistionList = Myq2().myquestions;
+  final examsService = Get.find<ExamsService>();
+  final String examId = Get.arguments as String;
+  late List<McqQuestion> quistionList = [];
 
   // ignore: avoid_positional_boolean_parameters
-  void selectChoice(bool value) {
+  void selectChoice(String value) {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     currentQuestion.userChoice = value;
     update();
@@ -20,7 +24,7 @@ class TrueFalseExerciseController extends GetxController {
 
   void checkAnswer() {
     final currentQuestion = quistionList[pageController.page!.toInt()];
-    if (currentQuestion.userChoice == currentQuestion.isTrue) {
+    if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
       isTrue = true;
     } else {
       isTrue = false;
@@ -82,6 +86,12 @@ class TrueFalseExerciseController extends GetxController {
   @override
   Future<void> onInit() async {
     pageController = PageController();
+    try {
+      quistionList = await examsService.getExercise(id: examId);
+      update();
+    } catch (e, st) {
+      catchLog("err$e", st);
+    }
     super.onInit();
   }
 }

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'package:quizhub/app/modules/admin_home/bindings/admin_home_binding.dart';
 import 'package:quizhub/app/modules/admin_home/views/admin_home_view.dart';
 import 'package:quizhub/app/modules/admin_schools_list/bindings/admin_schools_list_binding.dart';
@@ -32,6 +31,8 @@ import 'package:quizhub/app/modules/home/bindings/home_binding.dart';
 import 'package:quizhub/app/modules/home/views/home_view.dart';
 import 'package:quizhub/app/modules/matching_exercise/bindings/matching_exercise_binding.dart';
 import 'package:quizhub/app/modules/matching_exercise/views/matching_exercise_view.dart';
+import 'package:quizhub/app/modules/mcq_exercise/bindings/mcq_exercise_binding.dart';
+import 'package:quizhub/app/modules/mcq_exercise/views/mcq_exercise_view.dart';
 import 'package:quizhub/app/modules/parent_home/bindings/parent_home_binding.dart';
 import 'package:quizhub/app/modules/parent_home/views/parent_home_view.dart';
 import 'package:quizhub/app/modules/questions_posts/bindings/questions_posts_binding.dart';
@@ -152,11 +153,11 @@ class AppPages {
       page: () => const StudentExercisesListView(),
       binding: StudentExercisesListBinding(),
     ),
-    // GetPage(
-    //   name: _Paths.MCQ_EXERCISE,
-    //   page: () => const McqExerciseView(),
-    //   binding: McqExerciseBinding(),
-    // ),
+    GetPage(
+      name: _Paths.MCQ_EXERCISE,
+      page: () => const McqExerciseView(),
+      binding: McqExerciseBinding(),
+    ),
     GetPage(
       name: _Paths.COMMENTS_PAGE,
       page: () => const CommentsPageView(),

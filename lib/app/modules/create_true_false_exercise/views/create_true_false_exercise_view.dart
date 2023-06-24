@@ -97,13 +97,11 @@ class CreateTrueFalseExerciseView
                                   ),
                                   onChanged: (newValue) {
                                     controller.questions[index].answer =
-                                        newValue!;
+                                        newValue;
                                   },
-                                  items: <String>[
-                                    'صح',
-                                    'خطأ',
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
+                                  items: <String>['true', 'false']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),

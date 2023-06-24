@@ -36,7 +36,7 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  const CountdownTimer(duration: 1000),
+                  const CountdownTimer(duration: 20),
                   SizedBox(
                     height: h * 0.8,
                     width: w,
@@ -49,7 +49,7 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
                           controller: controller,
                           index: index,
                           quistion: controller.quistionList[index].question,
-                          image: controller.quistionList[index].image!,
+                          image: controller.quistionList[index].image ?? "",
                         );
                       },
                     ),
