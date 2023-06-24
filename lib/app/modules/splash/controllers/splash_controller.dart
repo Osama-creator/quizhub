@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:queen/queen.dart';
-import 'package:quizhub/app/routes/app_pages.dart';
-
 import 'package:quizhub/app/controllers/auth_controller.dart';
 
 class SplashController extends GetxController {

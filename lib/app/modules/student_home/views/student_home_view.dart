@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
-
 import 'package:quizhub/generated/assets.dart';
 
 class StudentHomeView extends GetView<StudentHomeController> {
@@ -20,7 +18,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
           backgroundColor: AppColors.light,
           appBar: AppBar(
             title: Image.asset(
-              'assets/images/logo.png', 
+              'assets/images/logo.png',
               // Replace with your app logo image path
               width: 100,
               height: 100,
@@ -140,7 +138,7 @@ class SubjectList extends StatelessWidget {
           final subject = controller.subjects[index];
           return GestureDetector(
             onTap: () {
-              controller.onSelect(index);
+              controller.onSelectSubject(index);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -190,13 +188,19 @@ class DetailsBody extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.STUDENT_EXERCISES_LIST);
+                  Get.toNamed(
+                    Routes.STUDENT_EXERCISES_LIST,
+                    arguments: {
+                      'subject': controller.selectedSubject,
+                      'userId': "6497133614d355c68609c7d2"
+                    },
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "اللغه العربيه",
+                      controller.selectedSubject,
                       style: context.textTheme.headline6,
                     ),
                     const Spacer(),
@@ -210,9 +214,18 @@ class DetailsBody extends StatelessWidget {
                   ],
                 ),
               ),
-              TeacherExamsTile(controller: controller),
-              TeacherExamsTile(controller: controller),
-              TeacherExamsTile(controller: controller)
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.exercises.length,
+                itemBuilder: (context, index) {
+                  final exerciseCard = controller.exercises[index];
+                  return TeacherExamsTile(
+                    controller: controller,
+                    exerciseCard: exerciseCard,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -225,9 +238,11 @@ class TeacherExamsTile extends StatelessWidget {
   const TeacherExamsTile({
     super.key,
     required this.controller,
+    required this.exerciseCard,
   });
 
   final StudentHomeController controller;
+  final ExerciseCardModel exerciseCard;
 
   @override
   Widget build(BuildContext context) {
@@ -263,7 +278,7 @@ class TeacherExamsTile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'أحمد محمود خليل',
+                    exerciseCard.teacherName,
                     style: context.textTheme.headline6!
                         .copyWith(color: AppColors.black),
                   ),
@@ -272,45 +287,41 @@ class TeacherExamsTile extends StatelessWidget {
             ),
             SizedBox(
               height: context.height * 0.14,
-              child: ListView(
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                children: controller.subjectExams[controller.selectedSubject]
-                        ?.map((exam) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: SizedBox(
-                          height: context.height * 0.07,
-                          width: context.width * 0.35,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            color: AppColors.next2Primary,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  "تاريخ الفراعنه",
-                                  style: context.textTheme.headline6!
-                                      .copyWith(color: AppColors.light),
-                                ),
-                                Text(
-                                  "10 اسئله",
-                                  style: context.textTheme.headline6!
-                                      .copyWith(color: AppColors.light),
-                                ),
-                                Text(
-                                  "20 حل",
-                                  style: context.textTheme.headline6!
-                                      .copyWith(color: AppColors.light),
-                                ),
-                              ],
-                            ),
+                itemCount: exerciseCard.exercises.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    height: context.height * 0.07,
+                    width: context.width * 0.35,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      color: AppColors.next2Primary,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            exerciseCard.exercises[index].arName,
+                            style: context.textTheme.headline6!
+                                .copyWith(color: AppColors.light),
                           ),
-                        ),
-                      );
-                    }).toList() ??
-                    [],
+                          Text(
+                            "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
+                            style: context.textTheme.headline6!
+                                .copyWith(color: AppColors.light),
+                          ),
+                          Text(
+                            "${exerciseCard.exercises[index].viewNum.length} حل",
+                            style: context.textTheme.headline6!
+                                .copyWith(color: AppColors.light),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],

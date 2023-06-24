@@ -1,26 +1,50 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exams_card.dart';
+import 'package:quizhub/app/services/exams.dart';
 
 class StudentHomeController extends GetxController {
-  String selectedSubject = 'اللغة العربية';
-  List<String> subjects = [
-    'اللغة العربية',
-    'english',
-    'رياضيات',
-    'علوم',
-    'دراسات',
-  ];
+  final service = Get.find<ExamsService>();
 
-  Map<String, List<String>> subjectExams = {
-    'اللغة العربية': ['Exam 1-1', 'Exam 1-2', 'Exam 1-3'],
-    'english': ['Exam 2-1', 'Exam 2-2'],
-    'رياضيات': ['Exam 3-1', 'Exam 3-2', 'Exam 3-3', 'Exam 3-4'],
-    'علوم': ['Exam 4-1'],
-    'دراسات': ['Exam 5-1', 'Exam 5-2', 'Exam 5-3'],
-  };
+  String selectedSubject = '';
+  List<String> subjects = [];
+  List<ExerciseCardModel> exercises = [];
 
-  void onSelect(int index) {
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    await fetchSubjects();
+  }
+
+  Future<void> fetchSubjects() async {
+    try {
+      final subjectsFromApi = await service.fetchStudentHomeSubjectNames(
+        "6495d071a13af5b54e73ab3f",
+      );
+      subjects = subjectsFromApi;
+      selectedSubject = subjects[0];
+      update();
+    } catch (e) {
+      // Handle the error
+    }
+  }
+
+  Future<void> fetchExercisesForSubject(String subjectName) async {
+    try {
+      final exercisesFromApi = await service.fetchStudentExercises(
+        userId: "6495d071a13af5b54e73ab3f",
+        subject: subjectName,
+      );
+      exercises = exercisesFromApi;
+      update();
+    } catch (e) {
+      // Handle the error
+    }
+  }
+
+  void onSelectSubject(int index) {
     final subject = subjects[index];
     selectedSubject = subject;
+    fetchExercisesForSubject(subject);
     update();
   }
 }

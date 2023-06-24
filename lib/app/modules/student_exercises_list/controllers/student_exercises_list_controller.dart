@@ -1,21 +1,40 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exersice.dart';
+import 'package:quizhub/app/services/exams.dart';
 
 class StudentExercisesListController extends GetxController {
-  List<String> teachers = [
-    'خالد مختار',
-    'أحمد حمدي',
-    'على سمعون',
-    'محمد شعبان',
-    'أحمد عبده',
-  ];
-  String selectedTeacher = 'خالد مختار';
-  Map<String, List<String>> subjectExams = {
-    'خالد مختار': ['Exam 1-1', 'Exam 1-2', 'Exam 1-3'],
-    'أحمد حمدي': ['Exam 2-1', 'Exam 2-2'],
-    'على سمعون': ['Exam 3-1', 'Exam 3-2', 'Exam 3-3', 'Exam 3-4'],
-    'محمد شعبان': ['Exam 4-1'],
-    'أحمد عبده': ['Exam 5-1', 'Exam 5-2', 'Exam 5-3'],
-  };
+  final Map<String, dynamic> args = Get.arguments as Map<String, dynamic>;
+  final service = Get.find<ExamsService>();
+  List<String> teachers = [];
+  String selectedTeacher = '';
+  Map<String, List<ExerciseModel>> subjectExams = {};
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+
+    await fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final teachersFromApi = await service.fetchTeacherNames(
+        "6495d071a13af5b54e73ab3f",
+        args['subject'] as String,
+      );
+      final exercisesFromApi = await service.fetchStudentExams(
+        // userId: args['userId'] as String,
+        "6495d071a13af5b54e73ab3f",
+        args['subject'] as String,
+      );
+      subjectExams = exercisesFromApi;
+      teachers = teachersFromApi;
+      selectedTeacher = teachers[0];
+      update();
+    } catch (e) {
+      // Handle the error
+    }
+  }
 
   void onSelect(int index) {
     final teacher = teachers[index];

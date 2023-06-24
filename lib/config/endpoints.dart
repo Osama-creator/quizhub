@@ -19,4 +19,8 @@ abstract class Endpoints {
   static const addQuesiton = '/v6/com/addQuestion';
   static const updateQuesiton = '/v6/com/updateQuestion';
   static const getExam = '/v6/com/getallexam';
+
+  /// ! student
+  static const getexamswithTeacher = '/v6/use/getallhomePage';
+  static const subjectNames = '/v6/use/getSubject';
 }

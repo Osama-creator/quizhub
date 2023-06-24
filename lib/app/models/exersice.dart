@@ -13,17 +13,6 @@ class ExerciseModel extends Equatable {
     required this.viewNum,
   });
 
-  // ExerciseModel copyWith({
-  //   String? id,
-  //   String? arName,
-  //   String? enName,
-  // }) {
-  //   return ExerciseModel(
-  //     id: id ?? this.id,
-  //     arName: arName ?? this.arName,
-  //   );
-  // }
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       '_id': id,
