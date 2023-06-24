@@ -3,41 +3,25 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/helper/func.dart';
+
+import 'package:quizhub/app/services/exams.dart';
 
 class ComplateExerciseController extends GetxController {
   late PageController pageController;
-  List<FillTheGapsQuestion> questionList = [
-    FillTheGapsQuestion(
-      id: '1',
-      question: 'My name __________ John.',
-      correctAnswer: 'is',
-    ),
-    FillTheGapsQuestion(
-      id: '2',
-      question: 'She ________ a doctor.',
-      correctAnswer: 'is',
-    ),
-    FillTheGapsQuestion(
-      id: '3',
-      question: 'They ________ in Paris.',
-      correctAnswer: 'live',
-    ),
-    FillTheGapsQuestion(
-      id: '4',
-      question: 'We ________ football every Sunday.',
-      correctAnswer: 'play',
-    ),
-  ];
+  final examsService = Get.find<ExamsService>();
+  final String examId = Get.arguments as String;
+  late List<McqQuestion> quistionList = [];
 
   void checkAnswer() {
-    final currentQuestion = questionList[pageController.page!.toInt()];
-    if (currentQuestion.userAnswer == currentQuestion.correctAnswer) {
+    final currentQuestion = quistionList[pageController.page!.toInt()];
+    if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
       showAnswerSheet(true);
     } else {
       showAnswerSheet(false);
     }
     Future.delayed(const Duration(seconds: 3), () {
-      if (pageController.page!.toInt() < questionList.length - 1) {
+      if (pageController.page!.toInt() < quistionList.length - 1) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
@@ -81,8 +65,14 @@ class ComplateExerciseController extends GetxController {
   }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     pageController = PageController();
+    try {
+      quistionList = await examsService.getExercise(id: examId);
+      update();
+    } catch (e, st) {
+      catchLog("err$e", st);
+    }
     super.onInit();
   }
 

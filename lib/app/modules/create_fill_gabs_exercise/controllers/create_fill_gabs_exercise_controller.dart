@@ -37,7 +37,7 @@ class CreateFillGabsExerciseController extends GetxController {
       final mcqQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        image: question.image!.path,
+        // image: question.image!.path,
         question: question.questionC.text,
         rightAnswer: question.missingWordC.text,
         note: question.noteC.text,
