@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
-import 'package:quizhub/app/services/stundent_exercises.dart';
+import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/helper/func.dart';
 
 class ComplateExerciseController extends GetxController {
@@ -38,7 +38,7 @@ class ComplateExerciseController extends GetxController {
         );
         Get.offNamed(
           Routes.STUDENTS_GRADES,
-          arguments: "$degree / ${quistionList.length}",
+          arguments: ["$degree / ${quistionList.length}", examId],
         );
       }
     });

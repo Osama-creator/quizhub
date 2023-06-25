@@ -1,23 +1,16 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/envitations.dart';
+import 'package:quizhub/app/services/student_exercises.dart';
 
 class EnvitationsListController extends GetxController {
-  //TODO: Implement EnvitationsListController
-
-  final count = 0.obs;
+  final service = Get.find<StudentExamsService>();
+  List<Invitation> invitations = [];
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    invitations.addAll(
+      await service.getEnvitations(userId: "userId"),
+    );
+    update();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

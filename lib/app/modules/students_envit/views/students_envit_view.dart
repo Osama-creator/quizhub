@@ -1,30 +1,52 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/user.dart';
-
 import 'package:quizhub/app/modules/students_envit/controllers/students_envit_controller.dart';
 import 'package:quizhub/config/theme.dart';
 
 class StudentsEnvitView extends GetView<StudentsEnvitController> {
-  const StudentsEnvitView({super.key});
+  final TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('دعوه الطلاب'),
+        title: const Text('Invite Students'),
         centerTitle: true,
       ),
-      body: GetBuilder<StudentsEnvitController>(
-        init: controller,
-        builder: (_) {
-          return ListView.builder(
-            itemCount: controller.users.length,
-            itemBuilder: (context, index) {
-              return _buildStudentTile(context, controller.users[index]);
-            },
-          );
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              onChanged: (value) => controller.filterUsers(value),
+              decoration: InputDecoration(
+                labelText: 'Search',
+                prefixIcon: const Icon(
+                  Icons.search,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GetBuilder<StudentsEnvitController>(
+              init: controller,
+              builder: (_) {
+                return ListView.builder(
+                  itemCount: controller.filteredUsers.length,
+                  itemBuilder: (context, index) {
+                    final user = controller.filteredUsers[index];
+                    return _buildStudentTile(context, user);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -75,7 +97,7 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
                           ),
                         ),
                         child: const Text(
-                          'تم',
+                          'Done',
                           style: TextStyle(
                             color: Colors.grey,
                           ),
@@ -85,7 +107,7 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
                         onPressed: () {
                           controller.enviteFriend(forwordUserId: user.id);
                         },
-                        child: const Text('دعوه'),
+                        child: const Text('Invite'),
                       ),
               ),
             ],

@@ -62,6 +62,7 @@ class StudentHomeController extends GetxController {
         break;
       case "true_false":
         Get.toNamed(Routes.TRUE_FALSE_EXERCISE, arguments: exmaId);
+        print(exmaId);
         break;
       case "fill_gabs":
         Get.toNamed(Routes.COMPLATE_EXERCISE, arguments: exmaId);

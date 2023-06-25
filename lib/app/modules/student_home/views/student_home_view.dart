@@ -42,10 +42,13 @@ class StudentHomeView extends GetView<StudentHomeController> {
                     // ),
                     PopupMenuItem(
                       value: 'option2',
-                      child: Text(
-                        'دعوات الاصدقاء',
-                        style: context.textTheme.bodyText1!
-                            .copyWith(color: AppColors.light),
+                      child: InkWell(
+                        onTap: () => Get.toNamed(Routes.ENVITATIONS_LIST),
+                        child: Text(
+                          'دعوات الاصدقاء',
+                          style: context.textTheme.bodyText1!
+                              .copyWith(color: AppColors.light),
+                        ),
                       ),
                     ),
                     PopupMenuItem(

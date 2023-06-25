@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:quizhub/app/models/envitations.dart';
 import 'package:quizhub/app/modules/envitations_list/controllers/envitations_list_controller.dart';
 import 'package:quizhub/config/theme.dart';
-
 import 'package:quizhub/generated/assets.dart';
 
 class EnvitationsListView extends GetView<EnvitationsListController> {
   const EnvitationsListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,22 +15,22 @@ class EnvitationsListView extends GetView<EnvitationsListController> {
         title: const Text('دعوات الإصدقاء'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          _buildEnvtCard(context),
-          const SizedBox(
-            height: 20,
-          ),
-          _buildEnvtCard(context)
-        ],
+      body: GetBuilder<EnvitationsListController>(
+        init: controller,
+        builder: (_) {
+          return ListView.builder(
+            itemCount: controller.invitations.length,
+            itemBuilder: (context, index) {
+              final invitation = controller.invitations[index];
+              return _buildEnvtCard(context, invitation);
+            },
+          );
+        },
       ),
     );
   }
 
-  Padding _buildEnvtCard(BuildContext context) {
+  Padding _buildEnvtCard(BuildContext context, Invitation invitation) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: SizedBox(
@@ -60,35 +59,32 @@ class EnvitationsListView extends GetView<EnvitationsListController> {
                         ),
                       ),
                       Text(
-                        "أ/ خالد توفيق",
+                        invitation.toUserId[0].name,
                         style: context.textTheme.headline6,
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        " تاريخ :",
-                        style: context.textTheme.headline6!.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                      Text(
-                        "مصر القديمه",
-                        style: context.textTheme.headline6!.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    invitation.exams[0].examName,
+                    style: context.textTheme.headline6!.copyWith(
+                      color: AppColors.black,
+                    ),
+                  ),
+                  Text(
+                    ' ${invitation.exams[0].subjectName} ',
+                    style: context.textTheme.headline6!.copyWith(
+                      color: AppColors.black,
+                      fontSize: 15,
+                    ),
                   ),
                   Row(
                     children: [
                       Text(
-                        "17 حل",
+                        '${invitation.exams[0].createdBy.length} حل',
                         style: context.textTheme.headline6,
                       ),
                       Text(
-                        "46 سؤال",
+                        '${invitation.exams[0].question.length} سؤال',
                         style: context.textTheme.headline6,
                       ),
                     ],
@@ -116,9 +112,10 @@ class EnvitationsListView extends GetView<EnvitationsListController> {
                           backgroundColor: Colors.transparent,
                         ),
                         Text(
-                          "أ/ حامد زكي",
-                          style: context.textTheme.headline6!
-                              .copyWith(color: AppColors.light),
+                          'أ/ حامد زكي', // Replace with actual data
+                          style: context.textTheme.headline6!.copyWith(
+                            color: AppColors.light,
+                          ),
                         ),
                       ],
                     ),

@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/user.dart';
-
-import 'package:quizhub/app/services/stundent_exercises.dart';
+import 'package:quizhub/app/services/student_exercises.dart';
 
 class StudentsEnvitController extends GetxController {
   final List<String> examId = Get.arguments as List<String>;
   final studentExamsService = Get.find<StudentExamsService>();
   List<User> users = [];
+  List<User> filteredUsers = [];
+
   @override
   Future<void> onInit() async {
     users.addAll(
@@ -14,8 +15,23 @@ class StudentsEnvitController extends GetxController {
         userId: "64987339aefa7c31aa92b158",
       ),
     );
+    filteredUsers.addAll(users);
     update();
     super.onInit();
+  }
+
+  void filterUsers(String query) {
+    if (query.isEmpty) {
+      filteredUsers.clear();
+      filteredUsers.addAll(users);
+    } else {
+      filteredUsers.clear();
+      filteredUsers.addAll(
+        users.where(
+            (user) => user.name.toLowerCase().contains(query.toLowerCase())),
+      );
+    }
+    update();
   }
 
   void enviteFriend({

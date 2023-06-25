@@ -175,7 +175,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.STUDENTS_ENVIT,
-      page: () => const StudentsEnvitView(),
+      page: () => StudentsEnvitView(),
       binding: StudentsEnvitBinding(),
     ),
     GetPage(

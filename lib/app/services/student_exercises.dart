@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:quizhub/app/models/envitations.dart';
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
@@ -74,6 +75,37 @@ class StudentExamsService {
 
       if (response.statusCode == 200) {
         log("envite done $forwordUserId");
+      } else {
+        throw Exception('Failed to fetch user list');
+      }
+    } catch (e, st) {
+      throw Exception('Error: $e, $st');
+    }
+  }
+
+  Future<List<Invitation>> getEnvitations({
+    required String userId,
+  }) async {
+    try {
+      final response = await client.post(
+        Endpoints.getEnvitations,
+        body: {
+          "idUser": "6495d071a13af5b54e73ab3f",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonBody = response.data;
+        final List<dynamic> invitationsData =
+            jsonBody['Invitations'] as List<dynamic>;
+
+        final List<Invitation> invitations = invitationsData
+            .map(
+              (invitation) =>
+                  Invitation.fromJson(invitation as Map<String, dynamic>),
+            )
+            .toList();
+        return invitations;
       } else {
         throw Exception('Failed to fetch user list');
       }
