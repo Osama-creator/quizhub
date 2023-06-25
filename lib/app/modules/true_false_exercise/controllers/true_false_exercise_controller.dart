@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/app/services/stundent_exercises.dart';
 import 'package:quizhub/helper/func.dart';
 
 class TrueFalseExerciseController extends GetxController {
@@ -13,6 +14,8 @@ class TrueFalseExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
   final String examId = Get.arguments as String;
   late List<McqQuestion> quistionList = [];
+  int degree = 0;
+  final studentExamsService = Get.find<StudentExamsService>();
 
   // ignore: avoid_positional_boolean_parameters
   void selectChoice(String value) {
@@ -26,6 +29,7 @@ class TrueFalseExerciseController extends GetxController {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
       isTrue = true;
+      degree++;
     } else {
       isTrue = false;
     }
@@ -44,7 +48,15 @@ class TrueFalseExerciseController extends GetxController {
         Get.back();
         update();
       } else {
-        Get.toNamed(Routes.COMPLATE_EXERCISE);
+        studentExamsService.postDegree(
+          idUser: "6498688caefa7c31aa92b0a9",
+          degree: degree,
+          idexam: examId,
+        );
+        Get.offNamed(
+          Routes.STUDENTS_GRADES,
+          arguments: "$degree / ${quistionList.length}",
+        );
       }
     });
   }

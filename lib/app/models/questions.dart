@@ -13,6 +13,9 @@ class McqQuestion extends Equatable {
   String? wrongAns3;
   String? note;
   String? userChoice;
+  bool? isSelectedFWord;
+  bool? isSelectedSWord;
+  bool? isCorrect;
 
   McqQuestion({
     required this.teacherId,
@@ -26,6 +29,9 @@ class McqQuestion extends Equatable {
     this.wrongAns2,
     this.wrongAns3,
     this.note,
+    this.isSelectedFWord = false,
+    this.isSelectedSWord = false,
+    this.isCorrect = false,
   });
 
   factory McqQuestion.fromJson(Map<String, dynamic> json) {
@@ -57,7 +63,16 @@ class McqQuestion extends Equatable {
   }
 
   @override
-  List<Object?> get props => [teacherId, examId, question, image, rightAnswer];
+  List<Object?> get props => [
+        teacherId,
+        examId,
+        question,
+        image,
+        rightAnswer,
+        isCorrect,
+        isSelectedFWord,
+        isSelectedSWord
+      ];
 }
 
 class TrueFalseQuestion {

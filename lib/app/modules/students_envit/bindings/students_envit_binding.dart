@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../controllers/students_envit_controller.dart';
+import 'package:quizhub/app/modules/students_envit/controllers/students_envit_controller.dart';
 
 class StudentsEnvitBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<StudentsEnvitController>(
-      () => StudentsEnvitController(),
+    Get.put<StudentsEnvitController>(
+      StudentsEnvitController(),
     );
   }
 }

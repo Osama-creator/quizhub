@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
-
 import 'package:quizhub/app/routes/app_pages.dart';
-import 'package:quizhub/helper/func.dart';
-
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/app/services/stundent_exercises.dart';
+import 'package:quizhub/helper/func.dart';
 
 class ComplateExerciseController extends GetxController {
   late PageController pageController;
   final examsService = Get.find<ExamsService>();
   final String examId = Get.arguments as String;
   late List<McqQuestion> quistionList = [];
+  int degree = 0;
+  final studentExamsService = Get.find<StudentExamsService>();
 
   void checkAnswer() {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
+      degree++;
       showAnswerSheet(true);
     } else {
       showAnswerSheet(false);
@@ -29,7 +31,15 @@ class ComplateExerciseController extends GetxController {
         update();
         Get.back();
       } else {
-        Get.toNamed(Routes.MATCHING_EXERCISE);
+        studentExamsService.postDegree(
+          idUser: "6498688caefa7c31aa92b0a9",
+          degree: degree,
+          idexam: examId,
+        );
+        Get.offNamed(
+          Routes.STUDENTS_GRADES,
+          arguments: "$degree / ${quistionList.length}",
+        );
       }
     });
   }

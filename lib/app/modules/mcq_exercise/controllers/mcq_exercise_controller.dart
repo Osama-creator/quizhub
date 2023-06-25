@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/app/services/stundent_exercises.dart';
 import 'package:quizhub/helper/func.dart';
 
 class McqExerciseController extends GetxController {
@@ -12,6 +14,8 @@ class McqExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
   final String examId = Get.arguments as String;
   late List<McqQuestion> quistionList = [];
+  int degree = 0;
+  final studentExamsService = Get.find<StudentExamsService>();
 
   @override
   Future<void> onInit() async {
@@ -43,13 +47,14 @@ class McqExerciseController extends GetxController {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
       isTrue = true;
+      degree++;
     } else {
       isTrue = false;
     }
     update();
 
     showAnswerSheet(isTrue!, currentQuestion.rightAnswer);
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (qNumber < quistionList.length) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
@@ -59,7 +64,15 @@ class McqExerciseController extends GetxController {
         Get.back();
         update();
       } else {
-        // Get.toNamed(Routes.TRUE_FALSE_EXERCISE);
+        studentExamsService.postDegree(
+          idUser: "6498688caefa7c31aa92b0a9",
+          degree: degree,
+          idexam: examId,
+        );
+        Get.offNamed(
+          Routes.STUDENTS_GRADES,
+          arguments: ["$degree / ${quistionList.length}", examId],
+        );
       }
     });
   }

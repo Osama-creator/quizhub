@@ -82,61 +82,68 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                       const SizedBox(height: 8),
                       SizedBox(
                         height: context.height * 0.5,
-                        child: GridView.count(
+                        child: GridView.builder(
                           padding: const EdgeInsets.all(8),
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.2,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          children: controller
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.2,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          itemCount: controller
                                   .subjectExams[controller.selectedTeacher]
-                                  ?.map((exam) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(Routes.MCQ_EXERCISE);
-                                  },
-                                  child: SizedBox(
-                                    height: context.height * 0.07,
-                                    width: context.width * 0.35,
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      color: AppColors.primary,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            "تاريخ الفراعنه",
-                                            style: context.textTheme.headline6!
-                                                .copyWith(
-                                              color: AppColors.light,
-                                            ),
-                                          ),
-                                          Text(
-                                            "10 اسئله",
-                                            style: context.textTheme.headline6!
-                                                .copyWith(
-                                              color: AppColors.light,
-                                            ),
-                                          ),
-                                          Text(
-                                            "20 حل",
-                                            style: context.textTheme.headline6!
-                                                .copyWith(
-                                              color: AppColors.light,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                  ?.length ??
+                              0,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                // controller.goToExamPage(index, exercise);
+                              },
+                              child: SizedBox(
+                                height: context.height * 0.07,
+                                width: context.width * 0.35,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                );
-                              }).toList() ??
-                              [],
+                                  color: AppColors.primary,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        controller
+                                            .subjectExams[controller
+                                                .selectedTeacher]![index]
+                                            .arName,
+                                        style: context.textTheme.headline6!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${controller.subjectExams[controller.selectedTeacher]![index].quesiotnsNum.length} اسئله",
+                                        style: context.textTheme.headline6!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${controller.subjectExams[controller.selectedTeacher]![index].viewNum.length} حل",
+                                        style: context.textTheme.headline6!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

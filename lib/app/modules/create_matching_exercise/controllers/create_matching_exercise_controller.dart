@@ -37,7 +37,7 @@ class CreateMatchingExerciseController extends GetxController {
       final mcqQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        image: question.image!.path,
+        // image: question.imageString ?? "",
         question: question.word.text,
         rightAnswer: question.secondWord.text,
         note: question.note.text,

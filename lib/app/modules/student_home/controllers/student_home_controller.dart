@@ -58,6 +58,7 @@ class StudentHomeController extends GetxController {
     switch (selectedExam) {
       case "choose":
         Get.toNamed(Routes.MCQ_EXERCISE, arguments: exmaId);
+        print(exmaId);
         break;
       case "true_false":
         Get.toNamed(Routes.TRUE_FALSE_EXERCISE, arguments: exmaId);

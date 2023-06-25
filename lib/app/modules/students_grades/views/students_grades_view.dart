@@ -20,7 +20,10 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onTap: () => Get.toNamed(Routes.STUDENTS_ENVIT),
+              onTap: () => Get.toNamed(
+                Routes.STUDENTS_ENVIT,
+                arguments: controller.args,
+              ),
               child: Text(
                 "دعوة",
                 style: context.textTheme.headline6!
@@ -50,7 +53,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
               ),
             ),
             Text(
-              ' 10 / 15 ',
+              controller.degree,
               style: context.textTheme.headline5,
             ),
             Container(

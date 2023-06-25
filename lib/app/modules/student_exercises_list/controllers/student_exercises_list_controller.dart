@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exersice.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
+
+import '../../../models/exams_card.dart';
 
 class StudentExercisesListController extends GetxController {
   final Map<String, dynamic> args = Get.arguments as Map<String, dynamic>;
@@ -40,5 +43,25 @@ class StudentExercisesListController extends GetxController {
     final teacher = teachers[index];
     selectedTeacher = teacher;
     update();
+  }
+
+  void goToExamPage(int i, ExerciseCardModel exercise) {
+    final selectedExam = exercise.exercises[i].type;
+    final exmaId = exercise.exercises[i].id;
+
+    switch (selectedExam) {
+      case "choose":
+        Get.toNamed(Routes.MCQ_EXERCISE, arguments: exmaId);
+        break;
+      case "true_false":
+        Get.toNamed(Routes.TRUE_FALSE_EXERCISE, arguments: exmaId);
+        break;
+      case "fill_gabs":
+        Get.toNamed(Routes.COMPLATE_EXERCISE, arguments: exmaId);
+        break;
+      case "matching":
+        Get.toNamed(Routes.MATCHING_EXERCISE, arguments: exmaId);
+        break;
+    }
   }
 }

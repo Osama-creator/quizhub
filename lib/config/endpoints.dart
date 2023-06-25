@@ -23,4 +23,6 @@ abstract class Endpoints {
   /// ! student
   static const getexamswithTeacher = '/v6/use/getallhomePage';
   static const subjectNames = '/v6/use/getSubject';
+  static const postDegree = '/v6/use/thedegreeExam';
+  static const getUseres = '/v6/use/getallUser';
 }
