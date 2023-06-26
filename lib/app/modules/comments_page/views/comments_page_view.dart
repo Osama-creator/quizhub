@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/comment_model.dart';
 import 'package:quizhub/app/modules/comments_page/controllers/comments_page_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
@@ -14,52 +15,70 @@ class CommentsPageView extends GetView<CommentsPageController> {
         title: const Text('التعليقات'),
         centerTitle: true,
       ),
-      body: Column(
+      body: GetBuilder<CommentsPageController>(
+        init: controller,
+        builder: (_) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.comments.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onLongPress: () {
+                        controller.removeComment(controller.comments[index].id);
+                      },
+                      child: _buildComment(context, controller.comments[index]),
+                    );
+                  },
+                ),
+              ),
+              _buildPostInput(),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildPostInput() {
+    return Container(
+      height: 65,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: AppColors.primary,
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
         children: [
-          _buildComment(context),
-          _buildComment(context),
-          _buildComment(context),
-          const Spacer(),
-          Container(
-            height: context.height * 0.07,
-            width: context.width,
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.grey, width: 2),
+          Expanded(
+            child: TextField(
+              controller: controller.postController,
+              decoration: const InputDecoration(
+                hintText: 'Write your comment...',
+                border: InputBorder.none,
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "أكتب تعليق",
-                    style: context.textTheme.headline6!.copyWith(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: context.width * 0.15,
-                  color: AppColors.primary,
-                  child: const Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(
-                      Icons.arrow_back_sharp,
-                      textDirection: TextDirection.ltr,
-                      size: 35,
-                    ),
-                  ),
-                ),
-              ],
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.send,
+              color: AppColors.primary,
             ),
-          )
+            onPressed: () {
+              controller.addComment();
+              controller.postController.clear();
+            },
+          ),
         ],
       ),
     );
   }
 
-  Row _buildComment(BuildContext context) {
+  Row _buildComment(BuildContext context, Comment comment) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -80,13 +99,13 @@ class CommentsPageView extends GetView<CommentsPageController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "أ/ خالد توفيق",
+                  comment.createdBy.name,
                   style: context.textTheme.headline6!.copyWith(
                     color: AppColors.black,
                   ),
                 ),
                 Text(
-                  "هذا النص هو مثال  النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد،",
+                  comment.commBody,
                   style: context.textTheme.bodyText1!.copyWith(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
@@ -103,7 +122,7 @@ class CommentsPageView extends GetView<CommentsPageController> {
                     ),
                     const Spacer(),
                     Text(
-                      "15",
+                      comment.likes.length.toString(),
                       style: context.textTheme.headline6!.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,

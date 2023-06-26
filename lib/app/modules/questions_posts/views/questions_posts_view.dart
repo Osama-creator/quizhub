@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/post_model.dart';
 import 'package:quizhub/app/modules/questions_posts/controllers/questions_posts_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/generated/assets.dart';
 
 class QuestionsPostsView extends GetView<QuestionsPostsController> {
   const QuestionsPostsView({super.key});
@@ -15,19 +15,38 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
         title: const Text('الأسئله'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildPost(context),
-            _buildPost(context),
-            _buildPost(context)
-          ],
-        ),
+      body: GetBuilder<QuestionsPostsController>(
+        init: controller,
+        builder: (_) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.posts.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onLongPress: () {
+                        controller.deletePost(controller.posts[index].id);
+                      },
+                      onTap: () {
+                        Get.toNamed(Routes.COMMENTS_PAGE,
+                            arguments: controller.posts[index].id);
+                      },
+                      child: _buildPost(context, controller.posts[index]),
+                    );
+                  },
+                ),
+              ),
+              _buildPostInput(),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Column _buildPost(BuildContext context) {
+  Column _buildPost(BuildContext context, Post post) {
     return Column(
       children: [
         Row(
@@ -35,15 +54,17 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
-                maxRadius: 24,
-                backgroundImage: AssetImage(
-                  Asset.images.teacher,
+                maxRadius: 20,
+                backgroundImage: NetworkImage(
+                  post.createdBy.profilePic.isEmpty
+                      ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                      : post.createdBy.profilePic,
                 ),
                 backgroundColor: Colors.transparent,
               ),
             ),
             Text(
-              "أ/ خالد توفيق",
+              post.createdBy.name,
               style: context.textTheme.headline6!.copyWith(
                 color: AppColors.black,
               ),
@@ -52,7 +73,7 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
         ),
         // ignore: use_decorated_box
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4),
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -71,39 +92,38 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد،",
-                    style: context.textTheme.bodyText1!.copyWith(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      post.title,
+                      style: context.textTheme.bodyText1!.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.COMMENTS_PAGE);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "تعليق",
-                          style: context.textTheme.bodyText1!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "تعليق",
+                        style: context.textTheme.bodyText1!.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          "15",
-                          style: context.textTheme.headline6!.copyWith(
-                            fontWeight: FontWeight.normal,
-                          ),
+                      ),
+                      Text(
+                        "3",
+                        // post.comments ,
+                        style: context.textTheme.headline6!.copyWith(
+                          fontWeight: FontWeight.normal,
                         ),
-                        const Icon(
-                          Icons.mode_comment_outlined,
-                          color: Colors.black,
-                          size: 30,
-                        ),
-                      ],
-                    ),
+                      ),
+                      const Icon(
+                        Icons.mode_comment_outlined,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -111,6 +131,41 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPostInput() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: AppColors.primary,
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: controller.postController,
+              decoration: const InputDecoration(
+                hintText: 'Write your post...',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.send,
+              color: AppColors.primary,
+            ),
+            onPressed: () {
+              controller.addPost();
+              controller.postController.clear();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

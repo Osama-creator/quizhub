@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/helper/func.dart';
 
 class StudentHomeController extends GetxController {
   final service = Get.find<ExamsService>();
@@ -25,8 +26,10 @@ class StudentHomeController extends GetxController {
       );
       subjects = subjectsFromApi;
       selectedSubject = subjects[0];
+
       update();
-    } catch (e) {
+    } catch (e, st) {
+      catchLog(e, st);
       // Handle the error
     }
   }

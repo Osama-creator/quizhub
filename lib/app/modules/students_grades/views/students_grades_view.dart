@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/student_degree.dart';
 
 import 'package:quizhub/app/modules/students_grades/controllers/students_grades_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
@@ -66,21 +67,27 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
                   topRight: Radius.circular(50),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                    _buildStudentGradeTile(context),
-                  ],
-                ),
+              child: GetBuilder<StudentsGradesController>(
+                init: controller,
+                builder: (_) {
+                  return Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.studentsGrades.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: _buildStudentGradeTile(
+                            context,
+                            controller.studentsGrades[index],
+                            index + 1,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -89,12 +96,16 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
     );
   }
 
-  Row _buildStudentGradeTile(BuildContext context) {
+  Row _buildStudentGradeTile(
+    BuildContext context,
+    StudentDegree student,
+    int i,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '1',
+          i.toString(),
           style: context.textTheme.headline6!.copyWith(
             color: AppColors.light,
           ),
@@ -107,7 +118,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
           ),
         ),
         Text(
-          'أحمد سيد',
+          student.user.name,
           style: context.textTheme.headline6!.copyWith(
             color: AppColors.light,
           ),
@@ -116,7 +127,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            '15 / 15',
+            '${student.degreeExams[0].degree} / ${student.degreeExams[0].question.length}',
             style: context.textTheme.headline6!.copyWith(
               color: AppColors.light,
             ),

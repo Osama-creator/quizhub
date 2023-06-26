@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'http://192.168.1.106:4500/Node.js';
+  static const host = 'http://192.168.0.104:4500/Node.js';
   static const api = '$host/api';
 
   /// ! auth
@@ -26,4 +26,14 @@ abstract class Endpoints {
   static const postDegree = '/v6/use/thedegreeExam';
   static const getUseres = '/v6/use/getallUser';
   static const getEnvitations = '/v6/use/getallInvitations';
+  static const getUsersDegrees = '/v6/use/thedegreeUsers';
+
+  /// ! posts and comments
+
+  static const getPosts = '/v6/post/getallpost';
+  static const createPosts = '/v6/post/addPost';
+  static const deletePost = '/v6/post/deletePost';
+  static const getComments = '/v6/commint/getallComment';
+  static const addComment = '/v6/commint/addcommint';
+  static const deleteComment = '/v6/commint/addcommint';
 }

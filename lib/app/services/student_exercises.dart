@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:quizhub/app/models/envitations.dart';
+import 'package:quizhub/app/models/student_degree.dart';
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
@@ -111,6 +112,32 @@ class StudentExamsService {
       }
     } catch (e, st) {
       throw Exception('Error: $e, $st');
+    }
+  }
+
+  Future<List<StudentDegree>> fetchStudentDegrees(String idexam) async {
+    try {
+      final response = await client.post(
+        Endpoints.getUsersDegrees,
+        body: {
+          'idexam': idexam,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['data'] as List<dynamic>;
+        final studentDegrees = data
+            .map((item) => StudentDegree.fromJson(item as Map<String, dynamic>))
+            .toList();
+
+        return studentDegrees;
+      } else {
+        // Handle other status codes if needed
+        throw Exception('Failed to fetch student degrees');
+      }
+    } catch (e) {
+      // Handle error
+      throw Exception('Error: $e');
     }
   }
 }

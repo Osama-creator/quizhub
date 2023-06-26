@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../controllers/student_home_controller.dart';
+import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 
 class StudentHomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<StudentHomeController>(
-      () => StudentHomeController(),
+    Get.put<StudentHomeController>(
+      StudentHomeController(),
     );
   }
 }
