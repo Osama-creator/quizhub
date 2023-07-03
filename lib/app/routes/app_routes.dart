@@ -36,6 +36,9 @@ abstract class Routes {
   static const ADMIN_TEACHER_SUMMERY = _Paths.ADMIN_TEACHER_SUMMERY;
   static const CREATE_TRUE_FALSE_EXERCISE = _Paths.CREATE_TRUE_FALSE_EXERCISE;
   static const SEARCH_FOR_STUDENTS = _Paths.SEARCH_FOR_STUDENTS;
+  static const SEARCH_FOR_TEACHERS = _Paths.SEARCH_FOR_TEACHERS;
+  static const TEACHER_SUMMERY = _Paths.TEACHER_SUMMERY;
+  static const FOLWED_TEACHERS = _Paths.FOLWED_TEACHERS;
 }
 
 abstract class _Paths {
@@ -73,4 +76,7 @@ abstract class _Paths {
   static const ADMIN_TEACHER_SUMMERY = '/admin-teacher-summery';
   static const CREATE_TRUE_FALSE_EXERCISE = '/create-true-false-exercise';
   static const SEARCH_FOR_STUDENTS = '/search-for-students';
+  static const SEARCH_FOR_TEACHERS = '/search-for-teachers';
+  static const TEACHER_SUMMERY = '/teacher-summery';
+  static const FOLWED_TEACHERS = '/folwed-teachers';
 }

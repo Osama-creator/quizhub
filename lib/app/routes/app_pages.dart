@@ -26,6 +26,8 @@ import 'package:quizhub/app/modules/envitations_list/bindings/envitations_list_b
 import 'package:quizhub/app/modules/envitations_list/views/envitations_list_view.dart';
 import 'package:quizhub/app/modules/financial_dues/bindings/financial_dues_binding.dart';
 import 'package:quizhub/app/modules/financial_dues/views/financial_dues_view.dart';
+import 'package:quizhub/app/modules/folwed_teachers/bindings/folwed_teachers_binding.dart';
+import 'package:quizhub/app/modules/folwed_teachers/views/folwed_teachers_view.dart';
 import 'package:quizhub/app/modules/grade_exercises/bindings/grade_exercises_binding.dart';
 import 'package:quizhub/app/modules/grade_exercises/views/grade_exercises_view.dart';
 import 'package:quizhub/app/modules/home/bindings/home_binding.dart';
@@ -40,6 +42,8 @@ import 'package:quizhub/app/modules/questions_posts/bindings/questions_posts_bin
 import 'package:quizhub/app/modules/questions_posts/views/questions_posts_view.dart';
 import 'package:quizhub/app/modules/search_for_students/bindings/search_for_students_binding.dart';
 import 'package:quizhub/app/modules/search_for_students/views/search_for_students_view.dart';
+import 'package:quizhub/app/modules/search_for_teachers/bindings/search_for_teachers_binding.dart';
+import 'package:quizhub/app/modules/search_for_teachers/views/search_for_teachers_view.dart';
 import 'package:quizhub/app/modules/sign_in/bindings/sign_in_binding.dart';
 import 'package:quizhub/app/modules/sign_in/views/sign_in_view.dart';
 import 'package:quizhub/app/modules/sign_up/bindings/sign_up_binding.dart';
@@ -58,6 +62,8 @@ import 'package:quizhub/app/modules/students_grades/bindings/students_grades_bin
 import 'package:quizhub/app/modules/students_grades/views/students_grades_view.dart';
 import 'package:quizhub/app/modules/teacher_home/bindings/teacher_home_binding.dart';
 import 'package:quizhub/app/modules/teacher_home/views/teacher_home_view.dart';
+import 'package:quizhub/app/modules/teacher_summery/bindings/teacher_summery_binding.dart';
+import 'package:quizhub/app/modules/teacher_summery/views/teacher_summery_view.dart';
 import 'package:quizhub/app/modules/techer_page/bindings/techer_page_binding.dart';
 import 'package:quizhub/app/modules/techer_page/views/techer_page_view.dart';
 import 'package:quizhub/app/modules/true_false_exercise/bindings/true_false_exercise_binding.dart';
@@ -68,7 +74,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.PARENT_HOME;
+  static const INITIAL = Routes.STUDENT_HOME;
 
   static final routes = [
     GetPage(
@@ -225,6 +231,21 @@ class AppPages {
       name: _Paths.SEARCH_FOR_STUDENTS,
       page: () => SearchForStudentsView(),
       binding: SearchForStudentsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_FOR_TEACHERS,
+      page: () => SearchForTeachersView(),
+      binding: SearchForTeachersBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHER_SUMMERY,
+      page: () => const TeacherSummeryView(),
+      binding: TeacherSummeryBinding(),
+    ),
+    GetPage(
+      name: _Paths.FOLWED_TEACHERS,
+      page: () => const FolwedTeachersView(),
+      binding: FolwedTeachersBinding(),
     ),
   ];
 }

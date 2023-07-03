@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'http://192.168.0.104:4500/Node.js';
+  static const host = 'http://192.168.0.107:4500/Node.js';
   static const api = '$host/api';
 
   /// ! auth
@@ -42,4 +42,10 @@ abstract class Endpoints {
   static const folowStudent = '/v6/guard/followStudent';
   static const folowedStudent = '/v6/guard/parentOfUsers';
   static const getStudentProfile = '/v6/use/profileUser';
+
+  /// ! folow teacher section
+  static const getTeachers = '/v6/use/getallTeacherOfTheGrades';
+  static const folowTeacher = '/v6/use/followTeacher';
+  static const getFolowedTeacher = '/v6/use/UsersOfTeacher';
+  static const getTeachersummery = '/v6/com/getallTeacherofStudent';
 }

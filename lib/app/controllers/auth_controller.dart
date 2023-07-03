@@ -39,9 +39,9 @@ class AuthController extends GetxController {
     if (userRole == "Teacher") {
       Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
     } else if (userRole == "Parent") {
-      Get.offAllNamed(Routes.PARENT_HOME);
+      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
     } else {
-      Get.offAllNamed(Routes.STUDENT_HOME);
+      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
     }
   }
 

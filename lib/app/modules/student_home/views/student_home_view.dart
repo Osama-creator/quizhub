@@ -29,7 +29,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
               IconButton(
                 icon: const Icon(Icons.search),
                 onPressed: () {
-                  // Handle search action
+                  Get.toNamed(Routes.SEARCH_FOR_TEACHERS);
                 },
               ),
               PopupMenuButton(
@@ -46,6 +46,19 @@ class StudentHomeView extends GetView<StudentHomeController> {
                         onTap: () => Get.toNamed(Routes.ENVITATIONS_LIST),
                         child: Text(
                           'دعوات الاصدقاء',
+                          style: context.textTheme.bodyText1!
+                              .copyWith(color: AppColors.light),
+                        ),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'option3',
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(Routes.FOLWED_TEACHERS);
+                        },
+                        child: Text(
+                          'المدرسين ',
                           style: context.textTheme.bodyText1!
                               .copyWith(color: AppColors.light),
                         ),

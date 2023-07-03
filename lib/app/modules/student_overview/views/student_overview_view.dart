@@ -76,7 +76,7 @@ class SubjectTile extends StatelessWidget {
             shrinkWrap: true,
             itemCount: controller.exams.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // Display 2 items in each row
+              crossAxisCount: 2,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
               childAspectRatio: 3 / 2,

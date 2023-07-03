@@ -21,6 +21,7 @@ class TeacherHomeController extends GetxController {
     if (res != null || !gradesNames.contains(res)) {
       final GradeModel response =
           await service.addGrades(grade: res!, teacherId: teacherId);
+      print(teacherId);
       gradesNames.add(res);
       if (grades.contains(response)) {
         Alert.error("لقد تم إختياره بالفعل");
