@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
 
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/generated/assets.dart';
 import 'package:quizhub/views/divider.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -27,8 +26,10 @@ class HomeView extends GetView<HomeController> {
               Center(
                 child: CircleAvatar(
                   maxRadius: 85,
-                  backgroundImage: AssetImage(
-                    Asset.images.teacher,
+                  backgroundImage: NetworkImage(
+                    controller.teacher!.image.isEmpty
+                        ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdg7OR2pD_kj3sPHW5fmqpmXyhmDZwm_MHUXU36Ipvw4esNWqnz-iiA7AkWeqe1jla218&usqp=CAU"
+                        : controller.teacher!.image,
                   ),
                   backgroundColor: Colors.transparent,
                 ),

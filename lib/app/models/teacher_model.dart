@@ -33,11 +33,12 @@ class TeacherModel {
   final String phone;
   final String area;
   final String email;
-  final String password;
+  final String image;
   final String material;
   final String role;
   final bool isLoggedIn;
   final List<String> follow;
+
   final List<String> followStudent;
 
   final List<ExerciseModel> exams;
@@ -50,7 +51,7 @@ class TeacherModel {
     required this.phone,
     required this.area,
     required this.email,
-    required this.password,
+    this.image = "",
     required this.material,
     required this.role,
     required this.isLoggedIn,
@@ -59,8 +60,10 @@ class TeacherModel {
     required this.exams,
   });
 
-  factory TeacherModel.fromMap(Map<String, dynamic> map,
-      {required List<ExerciseModel> exams}) {
+  factory TeacherModel.fromMap(
+    Map<String, dynamic> map, {
+    required List<ExerciseModel> exams,
+  }) {
     return TeacherModel(
       id: map['_id'] as String,
       name: map['name'] as String,
@@ -69,7 +72,7 @@ class TeacherModel {
       phone: map['phone'] as String,
       area: map['Area'] as String,
       email: map['email'] as String,
-      password: map['password'] as String,
+      image: map['profile_pic'] as String? ?? '',
       material: map['material'] as String,
       role: map['role'] as String,
       isLoggedIn: map['isLoggedIn'] as bool,
