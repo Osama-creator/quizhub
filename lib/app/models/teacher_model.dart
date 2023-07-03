@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:quizhub/app/models/exersice.dart';
 
-class Teacher {
+// ignore: must_be_immutable
+class Teacher extends Equatable {
   String id;
   String name;
   String subj;
@@ -23,6 +25,9 @@ class Teacher {
       profilePic: json['profile_pic'] as String? ?? '',
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, subj, invited, profilePic];
 }
 
 class TeacherModel {

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
+import 'package:quizhub/app/services/admin.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -53,6 +54,7 @@ class AppBindings extends Bindings {
     Get.put<PostCommentervice>(PostCommentervice(client));
     Get.put<ParentService>(ParentService(client));
     Get.put<TeacherService>(TeacherService(client));
+    Get.put<AdminService>(AdminService(client));
     Get.put(AuthController(), permanent: true);
   }
 }

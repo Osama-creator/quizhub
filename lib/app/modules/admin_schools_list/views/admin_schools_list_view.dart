@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/school.dart';
 import 'package:quizhub/app/modules/admin_schools_list/controllers/admin_schools_list_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
@@ -18,50 +19,56 @@ class AdminSchoolsListView extends GetView<AdminSchoolsListController> {
         centerTitle: true,
         backgroundColor: AppColors.light,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: context.height,
-          width: context.width,
-          decoration: const BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50),
-              topRight: Radius.circular(50),
+      body: GetBuilder<AdminSchoolsListController>(
+        init: controller,
+        builder: (_) {
+          return SingleChildScrollView(
+            child: Container(
+              height: context.height,
+              width: context.width,
+              decoration: const BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.schools.length,
+                  itemBuilder: (context, index) {
+                    final school = controller.schools[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SchoolTile(
+                        school: school,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-                SchoolTile(),
-              ],
-            ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 }
 
 class SchoolTile extends StatelessWidget {
+  final SchoolModel school;
   const SchoolTile({
     super.key,
+    required this.school,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.ADMIN_TEACHERS_OF_SCHOOL);
+        Get.toNamed(Routes.ADMIN_TEACHERS_OF_SCHOOL, arguments: school.name);
       },
       child: Column(
         children: [
@@ -69,12 +76,12 @@ class SchoolTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "قاسم أمين الإعداديه",
+                school.name,
                 style: context.textTheme.headline6!
-                    .copyWith(color: AppColors.light),
+                    .copyWith(color: AppColors.light, fontSize: 20),
               ),
               Text(
-                "200 طالب",
+                " ${school.users} طالب",
                 style: context.textTheme.headline6!
                     .copyWith(color: AppColors.light),
               )

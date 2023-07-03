@@ -1,4 +1,6 @@
-class User {
+import 'package:equatable/equatable.dart';
+
+class User extends Equatable {
   String id;
   String name;
   String profilePic;
@@ -18,4 +20,8 @@ class User {
       profilePic: json['profile_pic'] as String? ?? '',
     );
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name, profilePic, invited];
 }

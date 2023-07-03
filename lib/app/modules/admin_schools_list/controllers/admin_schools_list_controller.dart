@@ -1,23 +1,14 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/school.dart';
+import 'package:quizhub/app/services/admin.dart';
 
 class AdminSchoolsListController extends GetxController {
-  //TODO: Implement AdminSchoolsListController
-
-  final count = 0.obs;
+  final service = Get.find<AdminService>();
+  List<SchoolModel> schools = [];
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    schools = await service.getUniqueSchoolList();
+    update();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
