@@ -7,6 +7,7 @@ import 'package:quizhub/app/controllers/auth_controller.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/app/services/parent.dart';
 import 'package:quizhub/app/services/post_comment.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/config/endpoints.dart';
@@ -49,6 +50,7 @@ class AppBindings extends Bindings {
     Get.put<CommonService>(CommonService(client));
     Get.put<StudentExamsService>(StudentExamsService(client));
     Get.put<PostCommentervice>(PostCommentervice(client));
+    Get.put<ParentService>(ParentService(client));
     Get.put(AuthController(), permanent: true);
   }
 }

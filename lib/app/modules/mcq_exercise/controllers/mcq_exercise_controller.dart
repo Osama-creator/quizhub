@@ -65,7 +65,7 @@ class McqExerciseController extends GetxController {
         update();
       } else {
         studentExamsService.postDegree(
-          idUser: "6498688caefa7c31aa92b0a9",
+          idUser: "6499a3f690230b8ecf61875a",
           degree: degree,
           idexam: examId,
         );

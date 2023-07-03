@@ -44,8 +44,11 @@ class AuthService {
       if (message != null) {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
         // ignore: avoid_dynamic_calls
+
+        Prefs.remove("role");
         final userRole = responseData['userExist']['role'] as String?;
         final userId = responseData['userExist']['_id'] as String?;
+        print(userId);
         if (userData != null) {
           await Prefs.setMap('auth.user', userData);
           await Prefs.setString('role', userRole!);

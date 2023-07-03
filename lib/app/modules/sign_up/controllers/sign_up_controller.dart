@@ -43,6 +43,7 @@ class SignUpController extends GetxController {
       // } else if (classS == null) {
       //   Alert.error("يجب إختيار الصف المناسب");
     } else {
+      print(getRoleName(roleName));
       try {
         isLoading = true;
         update();
@@ -115,8 +116,8 @@ class SignUpController extends GetxController {
         return 'Teacher';
       case UserRole.Student:
         return 'Student';
-      case UserRole.Admin:
-        return 'Admin';
+      case UserRole.Parent:
+        return 'Parent';
       default:
         return 'Student';
     }

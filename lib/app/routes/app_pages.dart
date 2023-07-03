@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:quizhub/app/modules/admin_home/bindings/admin_home_binding.dart';
 import 'package:quizhub/app/modules/admin_home/views/admin_home_view.dart';
 import 'package:quizhub/app/modules/admin_schools_list/bindings/admin_schools_list_binding.dart';
@@ -37,6 +38,8 @@ import 'package:quizhub/app/modules/parent_home/bindings/parent_home_binding.dar
 import 'package:quizhub/app/modules/parent_home/views/parent_home_view.dart';
 import 'package:quizhub/app/modules/questions_posts/bindings/questions_posts_binding.dart';
 import 'package:quizhub/app/modules/questions_posts/views/questions_posts_view.dart';
+import 'package:quizhub/app/modules/search_for_students/bindings/search_for_students_binding.dart';
+import 'package:quizhub/app/modules/search_for_students/views/search_for_students_view.dart';
 import 'package:quizhub/app/modules/sign_in/bindings/sign_in_binding.dart';
 import 'package:quizhub/app/modules/sign_in/views/sign_in_view.dart';
 import 'package:quizhub/app/modules/sign_up/bindings/sign_up_binding.dart';
@@ -65,7 +68,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.STUDENT_HOME;
+  static const INITIAL = Routes.PARENT_HOME;
 
   static final routes = [
     GetPage(
@@ -217,6 +220,11 @@ class AppPages {
       name: _Paths.CREATE_TRUE_FALSE_EXERCISE,
       page: () => const CreateTrueFalseExerciseView(),
       binding: CreateTrueFalseExerciseBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_FOR_STUDENTS,
+      page: () => SearchForStudentsView(),
+      binding: SearchForStudentsBinding(),
     ),
   ];
 }

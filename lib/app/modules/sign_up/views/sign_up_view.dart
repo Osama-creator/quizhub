@@ -147,8 +147,10 @@ class SignUpView extends GetView<SignUpController> {
                       buildRoleButton(UserRole.Teacher, 'Teacher'),
                       const SizedBox(width: 10),
                       buildRoleButton(UserRole.Student, 'Student'),
+                      // const SizedBox(width: 10),
+                      // buildRoleButton(UserRole.Admin, 'Admin'),
                       const SizedBox(width: 10),
-                      buildRoleButton(UserRole.Admin, 'Admin'),
+                      buildRoleButton(UserRole.Parent, 'Parent'),
                     ],
                   ),
                   Btn(

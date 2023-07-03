@@ -1,23 +1,14 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/user.dart';
+import 'package:quizhub/app/services/parent.dart';
 
 class ParentHomeController extends GetxController {
-  //TODO: Implement ParentHomeController
-
-  final count = 0.obs;
+  final service = Get.find<ParentService>();
+  List<User> students = [];
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    students = await service.fetchFolowedStudents("6499a65d90230b8ecf618780");
+    update();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

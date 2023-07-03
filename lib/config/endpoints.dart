@@ -36,4 +36,10 @@ abstract class Endpoints {
   static const getComments = '/v6/commint/getallComment';
   static const addComment = '/v6/commint/addcommint';
   static const deleteComment = '/v6/commint/addcommint';
+
+  /// ! parent section
+  static const getStudents = '/v6/guard/getallUserToGuardian';
+  static const folowStudent = '/v6/guard/followStudent';
+  static const folowedStudent = '/v6/guard/parentOfUsers';
+  static const getStudentProfile = '/v6/use/profileUser';
 }
