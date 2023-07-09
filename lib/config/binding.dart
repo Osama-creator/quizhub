@@ -8,6 +8,7 @@ import 'package:quizhub/app/services/admin.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/app/services/money_financials.dart';
 import 'package:quizhub/app/services/parent.dart';
 import 'package:quizhub/app/services/post_comment.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
@@ -55,6 +56,7 @@ class AppBindings extends Bindings {
     Get.put<ParentService>(ParentService(client));
     Get.put<TeacherService>(TeacherService(client));
     Get.put<AdminService>(AdminService(client));
+    Get.put<FinancialsService>(FinancialsService(client));
     Get.put(AuthController(), permanent: true);
   }
 }

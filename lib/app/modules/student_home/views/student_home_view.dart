@@ -46,7 +46,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                         onTap: () => Get.toNamed(Routes.ENVITATIONS_LIST),
                         child: Text(
                           'دعوات الاصدقاء',
-                          style: context.textTheme.bodyText1!
+                          style: context.textTheme.bodyLarge!
                               .copyWith(color: AppColors.light),
                         ),
                       ),
@@ -59,7 +59,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                         },
                         child: Text(
                           'المدرسين ',
-                          style: context.textTheme.bodyText1!
+                          style: context.textTheme.bodyLarge!
                               .copyWith(color: AppColors.light),
                         ),
                       ),
@@ -68,7 +68,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                       value: 'option3',
                       child: Text(
                         'تسجيل الخروج',
-                        style: context.textTheme.bodyText1!
+                        style: context.textTheme.bodyLarge!
                             .copyWith(color: AppColors.light),
                       ),
                     ),
@@ -92,7 +92,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                   ),
                   Text(
                     'أحمد محمود خليل',
-                    style: context.textTheme.headline6!
+                    style: context.textTheme.titleLarge!
                         .copyWith(color: AppColors.black),
                   ),
                 ],
@@ -102,7 +102,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   'المواد الدراسية',
-                  style: context.textTheme.headline5,
+                  style: context.textTheme.headlineSmall,
                 ),
               ),
               const SizedBox(height: 8),
@@ -217,12 +217,12 @@ class DetailsBody extends StatelessWidget {
                   children: [
                     Text(
                       controller.selectedSubject,
-                      style: context.textTheme.headline6,
+                      style: context.textTheme.titleLarge,
                     ),
                     const Spacer(),
                     Text(
                       "المزيد ...",
-                      style: context.textTheme.headline6!.copyWith(
+                      style: context.textTheme.titleLarge!.copyWith(
                         color: AppColors.black,
                         fontWeight: FontWeight.normal,
                       ),
@@ -282,7 +282,7 @@ class TeacherExamsTile extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Get.toNamed(Routes.TEACHER_PAGE);
+                // Get.toNamed(Routes.TEACHER_PAGE);
               },
               child: Row(
                 children: [
@@ -295,7 +295,7 @@ class TeacherExamsTile extends StatelessWidget {
                   ),
                   Text(
                     exerciseCard.teacherName,
-                    style: context.textTheme.headline6!
+                    style: context.textTheme.titleLarge!
                         .copyWith(color: AppColors.black),
                   ),
                 ],
@@ -324,17 +324,17 @@ class TeacherExamsTile extends StatelessWidget {
                           children: [
                             Text(
                               exerciseCard.exercises[index].arName,
-                              style: context.textTheme.headline6!
+                              style: context.textTheme.titleLarge!
                                   .copyWith(color: AppColors.light),
                             ),
                             Text(
                               "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
-                              style: context.textTheme.headline6!
+                              style: context.textTheme.titleLarge!
                                   .copyWith(color: AppColors.light),
                             ),
                             Text(
                               "${exerciseCard.exercises[index].viewNum.length} حل",
-                              style: context.textTheme.headline6!
+                              style: context.textTheme.titleLarge!
                                   .copyWith(color: AppColors.light),
                             ),
                           ],

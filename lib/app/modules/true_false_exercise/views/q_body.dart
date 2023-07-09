@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/true_false_exercise/controllers/true_false_exercise_controller.dart';
@@ -32,7 +34,7 @@ class TFQuestionBody extends StatelessWidget {
             child: Center(
               child: Text(
                 quistion,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),

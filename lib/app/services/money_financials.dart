@@ -1,0 +1,80 @@
+// ignore_for_file: avoid_dynamic_calls
+
+import 'dart:developer';
+
+import 'package:quizhub/app/models/teacher_model.dart';
+import 'package:quizhub/config/endpoints.dart';
+import 'package:quizhub/helper/client.dart';
+import 'package:quizhub/helper/func.dart';
+
+class FinancialsService {
+  final ApiClient client;
+
+  FinancialsService(this.client);
+  Future<void> addFolowersToTeacher({
+    required String teacherId,
+    required String folowersNumber,
+  }) async {
+    try {
+      final response = await client.post(
+        Endpoints.addfollowersEP,
+        body: {
+          "idTeacher": teacherId,
+          "addFolowers": int.parse(folowersNumber)
+        },
+      );
+
+      if (response.statusCode == 200) {
+        log("done");
+      } else {
+        throw Exception('Failed to add f');
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+    }
+  }
+
+  Future<void> confirmAddFOrder({
+    required String teacherId,
+    required String replay,
+  }) async {
+    try {
+      final response = await client.post(
+        Endpoints.confirmOrder,
+        body: {"idTeacher": teacherId, "text": replay},
+      );
+
+      if (response.statusCode == 200) {
+        log("done");
+      } else {
+        throw Exception('Failed to add f');
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+    }
+  }
+
+  Future<List<TeacherOreders>> getAddFoOrdersListForAdmin() async {
+    try {
+      final response = await client.get(
+        Endpoints.getAddFOrders,
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data['teachers'] as List<dynamic>;
+        final teachers = data
+            .map(
+              (item) => TeacherOreders.fromJson(item as Map<String, dynamic>),
+            )
+            .toList();
+
+        return teachers;
+      } else {
+        throw Exception('Failed to add f');
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+      throw Exception('Error: $e');
+    }
+  }
+}

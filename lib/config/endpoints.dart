@@ -52,4 +52,9 @@ abstract class Endpoints {
   /// ! admin
   static const getSchoolsForAdmin = '/v6/use/schoolsToStudent';
   static const getDetailsSchoolsForAdmin = '/v6/use/theSchool';
+
+  /// ! financails
+  static const addfollowersEP = '/v6/com/addFolower';
+  static const getAddFOrders = '/v6/com/getallTeacherAddFolowers';
+  static const confirmOrder = '/v6/com/addconfirm';
 }

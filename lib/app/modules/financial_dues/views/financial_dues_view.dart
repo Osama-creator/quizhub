@@ -26,12 +26,12 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
               children: [
                 Text(
                   "إجمالي المشاهدات",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black),
                 ),
                 Text(
                   "250 ",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black),
                 ),
               ],
@@ -41,12 +41,12 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
               children: [
                 Text(
                   ' عدد المتابعين',
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black),
                 ),
                 Text(
                   "450 ",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black),
                 ),
               ],
@@ -56,12 +56,12 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
               children: [
                 Text(
                   "إجمالي  المستحقات",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black),
                 ),
                 Text(
                   "200 ",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black),
                 ),
               ],
@@ -73,10 +73,12 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
               height: context.height * 0.06,
               width: context.width,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.addFolowers(context);
+                },
                 child: Text(
                   'طلب زيادة المتابعين',
-                  style: context.textTheme.headline6!.copyWith(
+                  style: context.textTheme.titleLarge!.copyWith(
                     fontSize: 18,
                     color: Colors.white,
                   ),
@@ -93,7 +95,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                 onPressed: () {},
                 child: Text(
                   'طلب سحب المستحقات',
-                  style: context.textTheme.headline6!.copyWith(
+                  style: context.textTheme.titleLarge!.copyWith(
                     fontSize: 18,
                     color: Colors.white,
                   ),

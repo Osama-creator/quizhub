@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:quizhub/app/modules/admin_add_folowers_orders/bindings/admin_add_folowers_orders_binding.dart';
+import 'package:quizhub/app/modules/admin_add_folowers_orders/views/admin_add_folowers_orders_view.dart';
 import 'package:quizhub/app/modules/admin_home/bindings/admin_home_binding.dart';
 import 'package:quizhub/app/modules/admin_home/views/admin_home_view.dart';
 import 'package:quizhub/app/modules/admin_schools_list/bindings/admin_schools_list_binding.dart';
@@ -74,7 +76,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ADMIN_SCHOOLS_LIST;
+  static const INITIAL = Routes.ADMIN_ADD_FOLOWERS_ORDERS;
 
   static final routes = [
     GetPage(
@@ -246,6 +248,11 @@ class AppPages {
       name: _Paths.FOLWED_TEACHERS,
       page: () => const FolwedTeachersView(),
       binding: FolwedTeachersBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADMIN_ADD_FOLOWERS_ORDERS,
+      page: () => const AdminAddFolowersOrdersView(),
+      binding: AdminAddFolowersOrdersBinding(),
     ),
   ];
 }

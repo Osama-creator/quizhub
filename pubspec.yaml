@@ -12,13 +12,13 @@ dependencies:
   equatable: ^2.0.5
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
+  # flutter_localizations:
+    # sdk: flutter
   # flutter_widget_from_html: ^0.8.5
   get: 4.6.5
   google_fonts: ^2.3.1
   image_picker: ^0.8.6+1
-  intl: ^0.17.0
+  intl: ^0.18.0
   laravel_exception: ^0.0.4
   pretty_dio_logger: ^1.2.0-beta-1
   queen:

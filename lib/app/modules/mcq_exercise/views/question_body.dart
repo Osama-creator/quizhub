@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +39,7 @@ class QuestionBody extends StatelessWidget {
                 children: [
                   Text(
                     quistion,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
@@ -84,7 +86,7 @@ class QuestionBody extends StatelessWidget {
                           option,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(color: AppColors.primary),
                         ),
                       ),

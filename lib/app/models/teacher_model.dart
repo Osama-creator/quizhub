@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:quizhub/app/models/exersice.dart';
 
-// ignore: must_be_immutable
 class Teacher extends Equatable {
   String id;
   String name;
@@ -28,6 +29,37 @@ class Teacher extends Equatable {
 
   @override
   List<Object?> get props => [id, name, subj, invited, profilePic];
+}
+
+class TeacherOreders extends Equatable {
+  String id;
+  String name;
+  String subj;
+  int confirm;
+
+  TeacherOreders({
+    required this.id,
+    required this.name,
+    required this.subj,
+    required this.confirm,
+  });
+
+  factory TeacherOreders.fromJson(Map<String, dynamic> json) {
+    return TeacherOreders(
+      id: json['_id'] as String,
+      name: json['name'] as String,
+      subj: json['material'] as String,
+      confirm: json['confirm'] as int,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        subj,
+        confirm,
+      ];
 }
 
 class TeacherModel {

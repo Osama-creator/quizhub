@@ -86,8 +86,8 @@ class InputField extends StatelessWidget {
             prefixIcon: prefix,
             suffixIcon: suffix,
             hintText: hint,
-            errorStyle:
-                context.bodyText1!.copyWith(color: context.theme.errorColor),
+            errorStyle: context.bodyText1!
+                .copyWith(color: context.theme.colorScheme.error),
             // enabledBorder: InputBorder.none,
             // focusedBorder: InputBorder.none,
             enabledBorder: OutlineInputBorder(
