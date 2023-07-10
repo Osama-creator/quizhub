@@ -57,4 +57,5 @@ abstract class Endpoints {
   static const addfollowersEP = '/v6/com/addFolower';
   static const getAddFOrders = '/v6/com/getallTeacherAddFolowers';
   static const confirmOrder = '/v6/com/addconfirm';
+  static const getFinancialData = '/v6/com/getallReceivablesPage';
 }

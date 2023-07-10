@@ -76,7 +76,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ADMIN_ADD_FOLOWERS_ORDERS;
+  static const INITIAL = Routes.FINANCIAL_DUES;
 
   static final routes = [
     GetPage(

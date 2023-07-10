@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:quizhub/app/models/financials_model.dart';
 import 'package:quizhub/app/models/teacher_model.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
@@ -71,6 +72,25 @@ class FinancialsService {
         return teachers;
       } else {
         throw Exception('Failed to add f');
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<FinancialsModel> getfinancialsData({required String teacherId}) async {
+    try {
+      final response = await client.post(
+        Endpoints.getFinancialData,
+        body: {"idTeacher": teacherId},
+      );
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = response.data as Map<String, dynamic>;
+        final financials = FinancialsModel.fromJson(data);
+        return financials;
+      } else {
+        throw Exception('Failed to get money data ');
       }
     } catch (e, st) {
       catchLog(e, st);
