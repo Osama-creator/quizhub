@@ -59,7 +59,7 @@ class ExamsService {
       final response = await client.post(
         Endpoints.getexamswithTeacher,
         body: {
-          'idUser': "6495d071a13af5b54e73ab3f",
+          'idUser': "6497133614d355c68609c7d2",
           'subject': subject,
         },
       );
@@ -72,6 +72,7 @@ class ExamsService {
 
         for (final data in dataList) {
           final String teacherName = data['teacher']['name'] as String;
+          final int advantage = data['teacher']['addFolowers'] as int;
           final List<dynamic> examList = data['exam'] as List<dynamic>;
 
           final List<ExerciseModel> exercises = examList.map((exerciseData) {
@@ -81,11 +82,13 @@ class ExamsService {
           exercisesCardList.add(
             ExerciseCardModel(
               teacherName: teacherName,
+              advantage: advantage,
               exercises: exercises,
             ),
           );
         }
-
+        exercisesCardList.sort((a, b) => b.advantage!.compareTo(a.advantage!));
+        exercisesCardList.removeWhere((element) => element.exercises.isEmpty);
         return exercisesCardList;
       } else {
         throw Exception('Failed to fetch exercises');

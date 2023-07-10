@@ -41,6 +41,7 @@ class StudentHomeController extends GetxController {
         subject: subjectName,
       );
       exercises = exercisesFromApi;
+
       update();
     } catch (e) {
       // Handle the error

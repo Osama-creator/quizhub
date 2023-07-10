@@ -77,57 +77,59 @@ class StudentHomeView extends GetView<StudentHomeController> {
               ),
             ],
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(Asset.images.teacher),
-                      backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage(Asset.images.teacher),
+                        backgroundColor: Colors.transparent,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'أحمد محمود خليل',
-                    style: context.textTheme.titleLarge!
-                        .copyWith(color: AppColors.black),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  'المواد الدراسية',
-                  style: context.textTheme.headlineSmall,
+                    Text(
+                      'أحمد محمود خليل',
+                      style: context.textTheme.titleLarge!
+                          .copyWith(color: AppColors.black),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 8),
-              SubjectList(
-                controller: controller,
-              ),
-              const SizedBox(height: 16),
-              const Divider(
-                color: AppColors.primary,
-                endIndent: 20,
-                indent: 20,
-                thickness: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  'الاختبارات',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'المواد الدراسية',
+                    style: context.textTheme.headlineSmall,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              DetailsBody(
-                controller: controller,
-              ),
-            ],
+                const SizedBox(height: 8),
+                SubjectList(
+                  controller: controller,
+                ),
+                const SizedBox(height: 16),
+                const Divider(
+                  color: AppColors.primary,
+                  endIndent: 20,
+                  indent: 20,
+                  thickness: 1,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'الاختبارات',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DetailsBody(
+                  controller: controller,
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -148,6 +150,7 @@ class SubjectList extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: ListView.builder(
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: controller.subjects.length,
         itemBuilder: (context, index) {
@@ -195,56 +198,51 @@ class DetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.toNamed(
-                    Routes.STUDENT_EXERCISES_LIST,
-                    arguments: {
-                      'subject': controller.selectedSubject,
-                      'userId': "6497133614d355c68609c7d2"
-                    },
-                  );
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {
+              Get.toNamed(
+                Routes.STUDENT_EXERCISES_LIST,
+                arguments: {
+                  'subject': controller.selectedSubject,
+                  'userId': "6497133614d355c68609c7d2"
                 },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      controller.selectedSubject,
-                      style: context.textTheme.titleLarge,
-                    ),
-                    const Spacer(),
-                    Text(
-                      "المزيد ...",
-                      style: context.textTheme.titleLarge!.copyWith(
-                        color: AppColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
+              );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  controller.selectedSubject,
+                  style: context.textTheme.titleLarge,
                 ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.exercises.length,
-                itemBuilder: (context, index) {
-                  final exerciseCard = controller.exercises[index];
-                  return TeacherExamsTile(
-                    controller: controller,
-                    exerciseCard: exerciseCard,
-                  );
-                },
-              ),
-            ],
+                const Spacer(),
+                Text(
+                  "المزيد ...",
+                  style: context.textTheme.titleLarge!.copyWith(
+                    color: AppColors.black,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: controller.exercises.length,
+            itemBuilder: (context, index) {
+              final exerciseCard = controller.exercises[index];
+              return TeacherExamsTile(
+                controller: controller,
+                exerciseCard: exerciseCard,
+              );
+            },
+          ),
+        ],
       ),
     );
   }
