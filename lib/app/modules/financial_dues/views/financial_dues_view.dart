@@ -99,7 +99,9 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                   height: context.height * 0.06,
                   width: context.width,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      askForMoneyButtomsheet(context, controller);
+                    },
                     child: Text(
                       'طلب سحب المستحقات',
                       style: context.textTheme.titleLarge!.copyWith(

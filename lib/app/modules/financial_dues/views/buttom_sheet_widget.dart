@@ -82,3 +82,75 @@ void addFolowersButtomsheet(
     },
   );
 }
+
+void askForMoneyButtomsheet(
+  BuildContext context,
+  FinancialDuesController controller,
+) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext bc) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Center(
+              child: Text(
+                'طلب المستحقات الماليه ',
+                style: context.textTheme.titleLarge,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InputField(
+                hint: 'المبلغ بالجنيه المصري',
+                label: 'المبلغ بالجنيه المصري',
+                keyboardType: TextInputType.number,
+                controller: controller.MNumberC,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InputField(
+                hint: 'رقم الهاتف',
+                label: 'رقم الهاتف',
+                keyboardType: TextInputType.phone,
+                controller: controller.PhoneNumberC,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: context.height * 0.05,
+                width: context.width,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await controller.makePhoneCall(
+                      phoneNumber: controller.PhoneNumberC.text,
+                      money: controller.MNumberC.text,
+                    );
+                    controller.MNumberC.clear();
+                    controller.PhoneNumberC.clear();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'إرسال',
+                    style: context.textTheme.titleLarge!.copyWith(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
