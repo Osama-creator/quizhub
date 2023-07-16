@@ -13,6 +13,9 @@ class ComplateExerciseController extends GetxController {
   late List<McqQuestion> quistionList = [];
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
+  final action = Get.find<ActionHandel>();
+  bool lauding = false;
+  bool error = false;
 
   void checkAnswer() {
     final currentQuestion = quistionList[pageController.page!.toInt()];
@@ -22,7 +25,7 @@ class ComplateExerciseController extends GetxController {
     } else {
       showAnswerSheet(false);
     }
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () async {
       if (pageController.page!.toInt() < quistionList.length - 1) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
@@ -31,11 +34,18 @@ class ComplateExerciseController extends GetxController {
         update();
         Get.back();
       } else {
-        studentExamsService.postDegree(
-          idUser: "6499a3f690230b8ecf61875a",
-          degree: degree,
-          idexam: examId,
+        await action.performAction(
+          () async {
+            studentExamsService.postDegree(
+              idUser: "6499a3f690230b8ecf61875a",
+              degree: degree,
+              idexam: examId,
+            );
+          },
+          lauding,
+          error,
         );
+
         Get.offNamed(
           Routes.STUDENTS_GRADES,
           arguments: ["$degree / ${quistionList.length}", examId],
@@ -77,12 +87,14 @@ class ComplateExerciseController extends GetxController {
   @override
   Future<void> onInit() async {
     pageController = PageController();
-    try {
-      quistionList = await examsService.getExercise(id: examId);
-      update();
-    } catch (e, st) {
-      catchLog("err$e", st);
-    }
+    await action.performAction(
+      () async {
+        quistionList = await examsService.getExercise(id: examId);
+      },
+      lauding,
+      error,
+    );
+
     super.onInit();
   }
 

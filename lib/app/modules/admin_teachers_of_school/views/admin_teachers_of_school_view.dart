@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans, ContextExtensionss;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/teacher_model.dart';
 import 'package:quizhub/app/models/user.dart';
 
@@ -9,6 +10,8 @@ import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
 import 'package:quizhub/generated/assets.dart';
+import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class AdminTeachersOfSchoolView
     extends GetView<AdminTeachersOfSchoolController> {
@@ -25,31 +28,53 @@ class AdminTeachersOfSchoolView
               title: Text(controller.schoolName),
               centerTitle: true,
               automaticallyImplyLeading: false,
-              bottom: const TabBar(
+              bottom: TabBar(
                 tabs: [
-                  Tab(text: "الطلاب"),
-                  Tab(text: "المدرسين"),
+                  Tab(text: Tr.students.tr),
+                  Tab(text: Tr.teachers.tr),
                 ],
               ),
             ),
             body: TabBarView(
               children: [
-                ListView.builder(
-                  itemCount: controller.school!.students.length,
-                  itemBuilder: (context, index) {
-                    return ListTileCustStudent(
-                      student: controller.school!.students[index],
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: controller.school!.teachers.length,
-                  itemBuilder: (context, index) {
-                    return ListTileCustTeacher(
-                      teacher: controller.school!.teachers[index],
-                    );
-                  },
-                ),
+                if (controller.lauding)
+                  const CenterLoading()
+                else
+                  controller.error
+                      ? Center(
+                          child: Text(Tr.errorMessage.tr),
+                        )
+                      : controller.school!.students.isEmpty
+                          ? Center(
+                              child: Text(Tr.noDataMessage.tr),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.school!.students.length,
+                              itemBuilder: (context, index) {
+                                return ListTileCustStudent(
+                                  student: controller.school!.students[index],
+                                );
+                              },
+                            ),
+                if (controller.lauding)
+                  const CenterLoading()
+                else
+                  controller.error
+                      ? Center(
+                          child: Text(Tr.errorMessage.tr),
+                        )
+                      : controller.school!.teachers.isEmpty
+                          ? Center(
+                              child: Text(Tr.noDataMessage.tr),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.school!.teachers.length,
+                              itemBuilder: (context, index) {
+                                return ListTileCustTeacher(
+                                  teacher: controller.school!.teachers[index],
+                                );
+                              },
+                            ),
               ],
             ),
           ),
@@ -90,14 +115,14 @@ class ListTileCustTeacher extends StatelessWidget {
               ),
               Text(
                 teacher.name,
-                style: context.textTheme.headline6,
+                style: context.textTheme.titleLarge,
               ),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  'مدرس  :${teacher.subj}',
-                  style: context.textTheme.headline6!
+                  '${Tr.teacherLabel.tr}  :${teacher.subj}',
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.black, fontSize: 18),
                 ),
               ),
@@ -143,7 +168,7 @@ class ListTileCustStudent extends StatelessWidget {
               ),
               Text(
                 student.name,
-                style: context.textTheme.headline6,
+                style: context.textTheme.titleLarge,
               ),
               const Spacer(),
               // Padding(

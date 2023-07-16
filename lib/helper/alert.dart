@@ -24,6 +24,6 @@ abstract class Alert {
 
   /// * show error alert
   static void notValidForm() {
-    return error(Tr.notValidForm.tr);
+    return error(Tr.add.tr);
   }
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/comment_model.dart';
 import 'package:quizhub/app/modules/comments_page/controllers/comments_page_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
+import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 //  TODO Size OF Page AND SCROLLING
 class CommentsPageView extends GetView<CommentsPageController> {
@@ -12,31 +15,46 @@ class CommentsPageView extends GetView<CommentsPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('التعليقات'),
+        title: Text(Tr.comments.tr),
         centerTitle: true,
       ),
       body: GetBuilder<CommentsPageController>(
         init: controller,
         builder: (_) {
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.comments.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onLongPress: () {
-                        controller.removeComment(controller.comments[index].id);
-                      },
-                      child: _buildComment(context, controller.comments[index]),
-                    );
-                  },
-                ),
-              ),
-              _buildPostInput(),
-            ],
-          );
+          return controller.lauding
+              ? const CenterLoading()
+              : controller.error
+                  ? Center(
+                      child: Text(Tr.errorMessage.tr),
+                    )
+                  : controller.comments.isEmpty
+                      ? Center(
+                          child: Text(Tr.noDataMessage.tr),
+                        )
+                      : Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: controller.comments.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onLongPress: () {
+                                      controller.removeComment(
+                                        controller.comments[index].id,
+                                      );
+                                    },
+                                    child: _buildComment(
+                                      context,
+                                      controller.comments[index],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            _buildPostInput(),
+                          ],
+                        );
         },
       ),
     );
@@ -57,8 +75,8 @@ class CommentsPageView extends GetView<CommentsPageController> {
           Expanded(
             child: TextField(
               controller: controller.postController,
-              decoration: const InputDecoration(
-                hintText: 'Write your comment...',
+              decoration: InputDecoration(
+                hintText: Tr.writeYourComment.tr,
                 border: InputBorder.none,
               ),
             ),
@@ -100,13 +118,13 @@ class CommentsPageView extends GetView<CommentsPageController> {
               children: [
                 Text(
                   comment.createdBy.name,
-                  style: context.textTheme.headline6!.copyWith(
+                  style: context.textTheme.titleLarge!.copyWith(
                     color: AppColors.black,
                   ),
                 ),
                 Text(
                   comment.commBody,
-                  style: context.textTheme.bodyText1!.copyWith(
+                  style: context.textTheme.bodyLarge!.copyWith(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
                   ),
@@ -114,8 +132,8 @@ class CommentsPageView extends GetView<CommentsPageController> {
                 Row(
                   children: [
                     Text(
-                      "أعجبني",
-                      style: context.textTheme.bodyText1!.copyWith(
+                      Tr.like.tr,
+                      style: context.textTheme.bodyLarge!.copyWith(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
                       ),
@@ -123,7 +141,7 @@ class CommentsPageView extends GetView<CommentsPageController> {
                     const Spacer(),
                     Text(
                       comment.likes.length.toString(),
-                      style: context.textTheme.headline6!.copyWith(
+                      style: context.textTheme.titleLarge!.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
                       ),

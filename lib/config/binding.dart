@@ -17,6 +17,7 @@ import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/config/lang.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/helper/client.dart';
+import 'package:quizhub/helper/func.dart';
 
 class AppBindings extends Bindings {
   @override
@@ -58,5 +59,6 @@ class AppBindings extends Bindings {
     Get.put<AdminService>(AdminService(client));
     Get.put<FinancialsService>(FinancialsService(client));
     Get.put(AuthController(), permanent: true);
+    Get.put(ActionHandel(), permanent: true);
   }
 }

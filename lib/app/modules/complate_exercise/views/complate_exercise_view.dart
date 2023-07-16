@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans, ContextExtensionss;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/complate_exercise/controllers/complate_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/input_feild.dart';
 import 'package:quizhub/views/timer.dart';
 
@@ -20,8 +22,8 @@ class ComplateExerciseView extends GetView<ComplateExerciseController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "أكمل",
-                  style: context.textTheme.headline6!
+                  Tr.fillGabs.tr,
+                  style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.light),
                 ),
               )
@@ -53,24 +55,16 @@ class ComplateExerciseView extends GetView<ComplateExerciseController> {
                             onChanged: (value) {
                               controller.quistionList[index].userChoice = value;
                             },
-                            hint: 'ادخل اجابتك  ...',
+                            hint: Tr.typeAnswer.tr,
                             height: context.height * 0.1,
                           ),
-                          // TextField(
-                          //   onChanged: (value) {
-                          //     controller.questionList[index].userAnswer = value;
-                          //   },
-                          //   decoration: const InputDecoration(
-                          //     hintText: 'ادخل اجابتك  ...',
-                          //   ),
-                          // ),
                           const Spacer(),
                           SizedBox(
                             height: context.height * 0.06,
                             width: context.width * 0.8,
                             child: ElevatedButton(
                               onPressed: controller.checkAnswer,
-                              child: const Text('تأكيد'),
+                              child: Text(Tr.confirm.tr),
                             ),
                           ),
                         ],
