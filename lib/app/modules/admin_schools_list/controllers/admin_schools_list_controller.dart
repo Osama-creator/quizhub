@@ -19,6 +19,7 @@ class AdminSchoolsListController extends GetxController {
       lauding,
       error,
     );
+    update();
 
     super.onInit();
   }

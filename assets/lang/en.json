@@ -20,5 +20,9 @@
   "admin":"Admin",
   "schoold":"Schools",
   "money_requists":"money_requists",
+  "notes":"Notes",
+  "phone":"Phone",
+  "amount":"Amount",
+  "senf":"Send",
   "add_f_requist":"Add Followers"
 }

@@ -3,15 +3,18 @@ import 'package:get/get.dart';
 
 import 'package:quizhub/app/modules/admin_get_money_req/controllers/admin_get_money_req_controller.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/helper/alert.dart';
+import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/input_feild.dart';
 
 Future<dynamic> confirmMoneyOrder(
   BuildContext context,
   AdminGetMoneyReqController controller,
+  String id,
 ) {
   return showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
+      final TextEditingController noteC = TextEditingController();
       return GetBuilder<AdminGetMoneyReqController>(
         init: controller,
         builder: (_) {
@@ -53,15 +56,24 @@ Future<dynamic> confirmMoneyOrder(
                   ],
                 ),
               ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.send),
-                title: const Text('submit'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Alert.success("تم الارسال بنجاح");
-                },
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: InputField(
+                  fillColor: AppColors.light,
+                  hint: Tr.notes.tr,
+                  controller: noteC,
+                ),
               ),
+              const Divider(),
+              ElevatedButton(
+                onPressed: () {
+                  controller.confirmOrder(id: id, img: controller.image!.path);
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  Tr.confirm.tr,
+                ),
+              )
             ],
           );
         },

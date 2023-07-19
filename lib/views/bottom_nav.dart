@@ -12,7 +12,7 @@ BottomNavyBarItem buildBottomItem({
     title: DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.next2Primary,
+        color: AppColors.primary,
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

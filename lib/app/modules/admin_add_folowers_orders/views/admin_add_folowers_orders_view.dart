@@ -12,15 +12,7 @@ class AdminAddFolowersOrdersView
   const AdminAddFolowersOrdersView({super.key});
   @override
   Widget build(BuildContext context) {
-    return
-        // Scaffold(
-        //   appBar: AppBar(
-        //     title: Text(Tr.dminNewFolowersOreders.tr),
-        //     centerTitle: true,
-        //   ),
-        //   body
-        //   :
-        GetBuilder<AdminAddFolowersOrdersController>(
+    return GetBuilder<AdminAddFolowersOrdersController>(
       init: controller,
       builder: (_) {
         return controller.lauding
@@ -97,7 +89,6 @@ class AdminAddFolowersOrdersView
                         },
                       );
       },
-      // ),
     );
   }
 }
