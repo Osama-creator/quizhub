@@ -5,8 +5,6 @@ import 'package:quizhub/app/modules/admin_add_folowers_orders/controllers/admin_
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 
-// import 'package:quizhub/views/center_loading.dart';
-
 class AdminAddFolowersOrdersView
     extends GetView<AdminAddFolowersOrdersController> {
   const AdminAddFolowersOrdersView({super.key});
