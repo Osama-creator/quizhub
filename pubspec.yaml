@@ -35,13 +35,14 @@ dev_dependencies:
 
 
 flutter: 
-  assets: 
+  assets:
     - assets/fonts/STV-Bold.ttf
     - assets/fonts/STV.ttf
     - assets/images/history.png
     - assets/images/logo.png
     - assets/images/teacher.jpeg
     - assets/lang/ar.json
+    - assets/lang/en.json
     - assets/svg/adults.svg
   uses-material-design: true
 

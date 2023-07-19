@@ -1,11 +1,13 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/admin_add_folowers_orders/views/admin_add_folowers_orders_view.dart';
 import 'package:quizhub/app/modules/admin_get_money_req/views/admin_get_money_req_view.dart';
 import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller.dart';
 import 'package:quizhub/app/modules/admin_schools_list/views/admin_schools_list_view.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/bottom_nav.dart';
 
 class AdminHomeView extends GetView<AdminHomeController> {
@@ -18,7 +20,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'الإداره',
+              Tr.admin.tr,
               style: context.textTheme.titleLarge,
             ),
             centerTitle: true,
@@ -40,17 +42,17 @@ class AdminHomeView extends GetView<AdminHomeController> {
             },
             items: <BottomNavyBarItem>[
               buildBottomItem(
-                title: "المدارس",
+                title: Tr.schoold.tr,
                 iconData: Icons.home,
                 isActive: controller.tabController.index == 0,
               ),
               buildBottomItem(
-                title: "طلبات المال",
+                title: Tr.moneyRequists.tr,
                 iconData: Icons.attach_money_sharp,
                 isActive: controller.tabController.index == 1,
               ),
               buildBottomItem(
-                title: "طلبات الزياده",
+                title: Tr.addFRequist.tr,
                 iconData: Icons.add_box_rounded,
                 isActive: controller.tabController.index == 2,
               ),
