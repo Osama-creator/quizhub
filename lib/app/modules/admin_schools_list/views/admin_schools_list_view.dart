@@ -12,60 +12,49 @@ class AdminSchoolsListView extends GetView<AdminSchoolsListController> {
   const AdminSchoolsListView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.light,
-      appBar: AppBar(
-        title: Text(
-          Tr.adminSchools.tr,
-          style: context.textTheme.headlineMedium,
-        ),
-        centerTitle: true,
-        backgroundColor: AppColors.light,
-      ),
-      body: GetBuilder<AdminSchoolsListController>(
-        init: controller,
-        builder: (_) {
-          return controller.lauding
-              ? const CenterLoading()
-              : controller.error
-                  ? Center(
-                      child: Text(Tr.errorMessage.tr),
-                    )
-                  : controller.schools.isEmpty
-                      ? Center(
-                          child: Text(Tr.noDataMessage.tr),
-                        )
-                      : SingleChildScrollView(
-                          child: Container(
-                            height: context.height,
-                            width: context.width,
-                            decoration: const BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(18),
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: controller.schools.length,
-                                itemBuilder: (context, index) {
-                                  final school = controller.schools[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SchoolTile(
-                                      school: school,
-                                    ),
-                                  );
-                                },
-                              ),
+    return GetBuilder<AdminSchoolsListController>(
+      init: controller,
+      builder: (_) {
+        return controller.lauding
+            ? const CenterLoading()
+            : controller.error
+                ? Center(
+                    child: Text(Tr.errorMessage.tr),
+                  )
+                : controller.schools.isEmpty
+                    ? Center(
+                        child: Text(Tr.noDataMessage.tr),
+                      )
+                    : SingleChildScrollView(
+                        child: Container(
+                          height: context.height,
+                          width: context.width,
+                          decoration: const BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
                             ),
                           ),
-                        );
-        },
-      ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: controller.schools.length,
+                              itemBuilder: (context, index) {
+                                final school = controller.schools[index];
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SchoolTile(
+                                    school: school,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+      },
     );
   }
 }

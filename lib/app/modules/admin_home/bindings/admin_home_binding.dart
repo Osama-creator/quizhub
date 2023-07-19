@@ -1,12 +1,17 @@
 import 'package:get/get.dart';
-
-import '../controllers/admin_home_controller.dart';
+import 'package:quizhub/app/modules/admin_add_folowers_orders/controllers/admin_add_folowers_orders_controller.dart';
+import 'package:quizhub/app/modules/admin_get_money_req/controllers/admin_get_money_req_controller.dart';
+import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller.dart';
+import 'package:quizhub/app/modules/admin_schools_list/controllers/admin_schools_list_controller.dart';
 
 class AdminHomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AdminHomeController>(
-      () => AdminHomeController(),
+    Get.put<AdminHomeController>(AdminHomeController());
+    Get.put<AdminSchoolsListController>(AdminSchoolsListController());
+    Get.put<AdminAddFolowersOrdersController>(
+      AdminAddFolowersOrdersController(),
     );
+    Get.put<AdminGetMoneyReqController>(AdminGetMoneyReqController());
   }
 }

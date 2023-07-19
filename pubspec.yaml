@@ -26,6 +26,7 @@ dependencies:
     git:
       url: https://github.com/FlutterQueen/queen.git
       ref: 19ac2497cec159d6c62bb2fe82123dc688693228
+  bottom_navy_bar: ^6.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
