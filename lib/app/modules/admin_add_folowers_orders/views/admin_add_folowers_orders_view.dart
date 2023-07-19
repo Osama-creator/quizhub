@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' hide Trans;
+import 'package:get/get.dart' hide Trans, ContextExtensionss;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/admin_add_folowers_orders/controllers/admin_add_folowers_orders_controller.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
+
+// import 'package:quizhub/views/center_loading.dart';
 
 class AdminAddFolowersOrdersView
     extends GetView<AdminAddFolowersOrdersController> {

@@ -40,6 +40,7 @@ abstract class Routes {
   static const TEACHER_SUMMERY = _Paths.TEACHER_SUMMERY;
   static const FOLWED_TEACHERS = _Paths.FOLWED_TEACHERS;
   static const ADMIN_ADD_FOLOWERS_ORDERS = _Paths.ADMIN_ADD_FOLOWERS_ORDERS;
+  static const ADMIN_GET_MONEY_REQ = _Paths.ADMIN_GET_MONEY_REQ;
 }
 
 abstract class _Paths {
@@ -81,4 +82,5 @@ abstract class _Paths {
   static const TEACHER_SUMMERY = '/teacher-summery';
   static const FOLWED_TEACHERS = '/folwed-teachers';
   static const ADMIN_ADD_FOLOWERS_ORDERS = '/admin-add-folowers-orders';
+  static const ADMIN_GET_MONEY_REQ = '/admin-get-money-req';
 }
