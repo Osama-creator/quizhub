@@ -7,7 +7,8 @@ import 'package:quizhub/helper/func.dart';
 class AdminTeachersOfSchoolController extends GetxController {
   final schoolName = Get.arguments as String;
   final service = Get.find<AdminService>();
-  SchoolDetailsModel? school;
+  SchoolDetailsModel? school =
+      const SchoolDetailsModel(students: [], teachers: []);
   final action = Get.find<ActionHandel>();
   bool lauding = false;
   bool error = false;
@@ -21,6 +22,7 @@ class AdminTeachersOfSchoolController extends GetxController {
       lauding,
       error,
     );
+    update();
     super.onInit();
   }
 }

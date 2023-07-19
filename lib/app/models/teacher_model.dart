@@ -22,7 +22,7 @@ class Teacher extends Equatable {
     return Teacher(
       id: json['_id'] as String,
       name: json['name'] as String,
-      subj: json['material'] as String,
+      subj: json['material'] as String? ?? '',
       profilePic: json['profile_pic'] as String? ?? '',
     );
   }

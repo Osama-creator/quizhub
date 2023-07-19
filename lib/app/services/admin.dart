@@ -11,7 +11,7 @@ class AdminService {
 
   AdminService(this.client);
 
-  Future<List<SchoolModel>> getUniqueSchoolList() async {
+  Future<List<SchoolModel>> getSchoolList() async {
     try {
       final response = await client.get(Endpoints.getSchoolsForAdmin);
 

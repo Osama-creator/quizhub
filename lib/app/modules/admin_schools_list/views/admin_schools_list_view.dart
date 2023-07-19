@@ -29,6 +29,7 @@ class AdminSchoolsListView extends GetView<AdminSchoolsListController> {
                         child: Container(
                           height: context.height,
                           width: context.width,
+                          margin: const EdgeInsets.only(top: 10),
                           decoration: const BoxDecoration(
                             color: AppColors.primary,
                             borderRadius: BorderRadius.only(
