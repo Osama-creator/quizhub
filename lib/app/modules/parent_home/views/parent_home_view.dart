@@ -50,26 +50,31 @@ class ParentHomeView extends GetView<ParentHomeController> {
                   .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
             ),
           ),
-          Expanded(
-            child: controller.lauding
-                ? const CenterLoading()
-                : controller.students.isEmpty
-                    ? const Center(
-                        child: Text("لا يوجد بيانات"),
-                      )
-                    : ListView.builder(
-                        itemCount: controller.students.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: StudentsListTile(
-                              controller: controller,
-                              student: controller.students[index],
-                            ),
-                          );
-                        },
-                      ),
+          GetBuilder<ParentHomeController>(
+            init: controller,
+            builder: (_) {
+              return Expanded(
+                child: controller.lauding
+                    ? const CenterLoading()
+                    : controller.students.isEmpty
+                        ? const Center(
+                            child: Text("لا يوجد بيانات"),
+                          )
+                        : ListView.builder(
+                            itemCount: controller.students.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: StudentsListTile(
+                                  controller: controller,
+                                  student: controller.students[index],
+                                ),
+                              );
+                            },
+                          ),
+              );
+            },
           ),
           InkWell(
             onTap: () {

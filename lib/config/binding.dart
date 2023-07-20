@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:queen/facades/app.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
 import 'package:quizhub/app/services/admin.dart';
@@ -20,13 +21,12 @@ import 'package:quizhub/config/lang.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/helper/client.dart';
 import 'package:quizhub/helper/func.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBindings extends Bindings {
   @override
   Future<void> dependencies() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await SharedPreferences.getInstance();
+    await GetStorage.init();
 
     await App.boot(
       nationsConfig: AppLangConfig(),

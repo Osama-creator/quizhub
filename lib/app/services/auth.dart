@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_dynamic_calls
 
-import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -47,10 +47,10 @@ class AuthService {
       final message = responseData['message'] as String?;
       if (message != null) {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
-
+        Prefs.remove("role");
         if (userData != null) {
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('auth.user', json.encode(userData));
+          await Prefs.setMap('auth.user', userData);
+          log(Prefs.getMap('auth.user').toString());
         }
         return message;
       }
