@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/func.dart';
 
 class StudentHomeController extends GetxController {
   final service = Get.find<ExamsService>();
+  final auth = Get.find<AuthService>();
 
   String selectedSubject = '';
 

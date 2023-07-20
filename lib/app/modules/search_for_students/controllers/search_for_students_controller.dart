@@ -2,17 +2,28 @@ import 'package:get/get.dart';
 
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/app/services/parent.dart';
+import 'package:quizhub/helper/func.dart';
 
 class SearchForStudentsController extends GetxController {
   final service = Get.find<ParentService>();
   List<User> filteredUsers = [];
 
   List<User> students = [];
+  final action = Get.find<ActionHandel>();
+  bool lauding = false;
+  bool error = false;
+
   @override
   Future<void> onInit() async {
-    students.addAll(await service.fetchStudents("6499a65d90230b8ecf618780"));
-    // students = ;
-    filteredUsers.addAll(students);
+    await action.performAction(
+      () async {
+        students
+            .addAll(await service.fetchStudents("6499a65d90230b8ecf618780"));
+        filteredUsers.addAll(students);
+      },
+      lauding,
+      error,
+    );
     update();
     super.onInit();
   }
@@ -32,14 +43,19 @@ class SearchForStudentsController extends GetxController {
     update();
   }
 
-  void folowStudent({
+  Future<void> folowStudent({
     required String forwordUserId,
-  }) {
-    service.folowStudent(
-      "6499a65d90230b8ecf618780",
-      forwordUserId,
+  }) async {
+    await action.performAction(
+      () async {
+        service.folowStudent(
+          "6499a65d90230b8ecf618780",
+          forwordUserId,
+        );
+      },
+      lauding,
+      error,
     );
-
     final invitedUser = students.firstWhere((user) => user.id == forwordUserId);
     invitedUser.invited = true;
     update();

@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:queen/facades/prefs.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
+import 'package:quizhub/config/user_data.dart';
 import 'package:quizhub/helper/client.dart';
 import 'package:quizhub/helper/log.dart';
 
@@ -34,14 +36,17 @@ class AuthController extends GetxController {
   }
 
   Future<void> navigateToProperPage() async {
-    final userRole = Prefs.getString('role');
-    final userId = Prefs.getString('userId');
-    if (userRole == "Teacher") {
-      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
-    } else if (userRole == "Parent") {
-      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
+    log(UserData.userRole.toString());
+    if (UserData.userRole == "Teacher") {
+      Get.offAllNamed(Routes.TEACHER_HOME, arguments: UserData.userId);
+    } else if (UserData.userRole == "Parent") {
+      Get.offAllNamed(Routes.PARENT_HOME, arguments: UserData.userId);
+    } else if (UserData.userRole == "Student") {
+      Get.offAllNamed(Routes.STUDENT_HOME, arguments: UserData.userId);
     } else {
-      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userId);
+      Get.offAllNamed(
+        Routes.ADMIN_HOME,
+      );
     }
   }
 
@@ -52,15 +57,13 @@ class AuthController extends GetxController {
 
   Future<void> checkAuthStatus() async {
     try {
-      // await service.userFromApi();
-      final userData = Prefs.getMap('auth.user');
-
-      if (userData.isNotEmpty) {
+      final userData = UserData.userId;
+      if (userData != null) {
         isLoggedIn = true;
       }
       authLog('checkAuthStatus isLoggedIn = $isLoggedIn');
     } on DioError {
-      // await service.signOut();
+      await service.signOut();
       update();
     } on ApiMessage catch (e) {
       // user is not logged in

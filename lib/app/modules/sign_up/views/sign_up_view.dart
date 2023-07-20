@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans, ContextExtensionss;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/sign_up/controllers/sign_up_controller.dart';
 import 'package:quizhub/app/modules/sign_up/views/wedgets.dart';
 import 'package:quizhub/config/enums.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/btn.dart';
 import 'package:quizhub/views/classes_options.dart';
 import 'package:quizhub/views/input_feild.dart';
@@ -57,29 +59,17 @@ class SignUpView extends GetView<SignUpController> {
                     height: context.height * 0.05,
                   ),
                   InputField(
-                    hint: 'الإسم ',
+                    hint: Tr.nameRequiredError.tr,
                     controller: controller.fNameC,
                     keyboardType: TextInputType.emailAddress,
-                    validators: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "يجب إدخال الاسم ";
-                      }
-                      return null;
-                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
                   ),
                   InputField(
-                    hint: 'البريد الإلكتروني',
+                    hint: Tr.emailHint.tr,
                     controller: controller.emailC,
                     keyboardType: TextInputType.emailAddress,
-                    validators: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "يجب إدخال  البريد الإلكتروني";
-                      }
-                      return null;
-                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
@@ -89,7 +79,7 @@ class SignUpView extends GetView<SignUpController> {
                       height: context.height * 0.01,
                     ),
                     InputField(
-                      hint: "رقم الهاتف",
+                      hint: Tr.phone.tr,
                       controller: controller.phoneC,
                       keyboardType: TextInputType.phone,
                     ),
@@ -98,29 +88,17 @@ class SignUpView extends GetView<SignUpController> {
                     height: context.height * 0.01,
                   ),
                   InputField(
-                    hint: "كلمه المرور",
+                    hint: Tr.passwordHint.tr,
                     controller: controller.passwordC,
                     obscure: true,
-                    validators: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "يجب إدخال  كلمه المرور";
-                      }
-                      return null;
-                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
                   ),
                   InputField(
-                    hint: "تأكيد كلمة المرور",
+                    hint: Tr.confirmPasswordHint.tr,
                     controller: controller.confermationPasswordC,
                     obscure: true,
-                    validators: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "يجب تأكيد  كلمه المرور";
-                      }
-                      return null;
-                    },
                   ),
                   SizedBox(
                     height: context.height * 0.01,
@@ -130,16 +108,16 @@ class SignUpView extends GetView<SignUpController> {
                       height: context.height * 0.01,
                     ),
                     BookingOption(
-                      title: 'الماده الدراسيه',
-                      subTitle: controller.subject ?? 'اختر  الماده الدراسيه',
+                      title: Tr.subjectTitle.tr,
+                      subTitle: controller.subject ?? Tr.selectSubject.tr,
                       icon: Icons.school,
                       onTap: controller.pickSubject,
                     ),
                   ],
                   if (controller.roleName != UserRole.Teacher) ...[
                     BookingOption(
-                      title: 'السنه الدراسيه',
-                      subTitle: controller.classS ?? 'اختر  السنه الدراسيه',
+                      title: Tr.yearTitle.tr,
+                      subTitle: controller.classS ?? Tr.selectYear.tr,
                       icon: Icons.class_,
                       onTap: controller.pickClass,
                     ),
@@ -151,8 +129,8 @@ class SignUpView extends GetView<SignUpController> {
                     height: context.height * 0.01,
                   ),
                   BookingOption(
-                    title: 'المحافظه',
-                    subTitle: controller.city ?? 'اختر  المحافظه ',
+                    title: Tr.governorateTitle.tr,
+                    subTitle: controller.city ?? Tr.selectYear.tr,
                     icon: Icons.location_city_rounded,
                     onTap: controller.pickCity,
                   ),
@@ -161,8 +139,8 @@ class SignUpView extends GetView<SignUpController> {
                   ),
                   if (controller.city != null) ...[
                     BookingOption(
-                      title: 'المدرسه',
-                      subTitle: controller.school ?? 'اختر  المدرسه ',
+                      title: Tr.schoolTitle.tr,
+                      subTitle: controller.school ?? Tr.selectSchool.tr,
                       icon: Icons.school,
                       onTap: controller.pickSchool,
                     ),
@@ -174,7 +152,7 @@ class SignUpView extends GetView<SignUpController> {
                     onTap: () {
                       controller.validationAndSubmit();
                     },
-                    label: "إنشاء حساب",
+                    label: Tr.createAccount.tr,
                     isLoading: controller.isLoading,
                   ),
                 ],

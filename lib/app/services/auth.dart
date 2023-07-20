@@ -1,10 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_dynamic_calls
 
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:queen/queen.dart' hide throwIfNot;
 import 'package:quizhub/app/models/user_model.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/endpoints.dart';
+import 'package:quizhub/config/user_data.dart';
 import 'package:quizhub/helper/client.dart';
 
 class AuthService {
@@ -43,18 +47,11 @@ class AuthService {
       final message = responseData['message'] as String?;
       if (message != null) {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
-        // ignore: avoid_dynamic_calls
 
-        Prefs.remove("role");
-        final userRole = responseData['userExist']['role'] as String?;
-        final userId = responseData['userExist']['_id'] as String?;
-        print(userId);
         if (userData != null) {
-          await Prefs.setMap('auth.user', userData);
-          await Prefs.setString('role', userRole!);
-          await Prefs.setString('userId', userId!);
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('auth.user', json.encode(userData));
         }
-
         return message;
       }
     }
@@ -98,7 +95,8 @@ class AuthService {
 
   Future<void> signOut() async {
     await Prefs.remove('auth.user');
-    // client.get('/logout');
+    UserData.clearUserData();
+    Get.offAndToNamed(Routes.SIGN_IN);
   }
 
   @override

@@ -14,7 +14,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
       appBar: AppBar(
         title: Text(
           'م/ ${controller.teacherName}',
-          style: context.textTheme.headline6,
+          style: context.textTheme.titleLarge,
         ),
         centerTitle: false,
         backgroundColor: AppColors.light,
@@ -32,12 +32,12 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
               children: [
                 Text(
                   'مدرس ${controller.teacherSubject} ',
-                  style: context.textTheme.bodyText1!
+                  style: context.textTheme.bodyLarge!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   " متابع: 20",
-                  style: context.textTheme.bodyText1!
+                  style: context.textTheme.bodyLarge!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -54,7 +54,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
             ),
             Text(
               'الصفوف الدراسيه',
-              style: context.textTheme.headline5!
+              style: context.textTheme.headlineSmall!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -94,7 +94,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                             child: Text(
                               controller.grades[index].arName,
                               textAlign: TextAlign.center,
-                              style: context.textTheme.headline6!
+                              style: context.textTheme.titleLarge!
                                   .copyWith(fontSize: 15),
                             ),
                           ),
@@ -111,7 +111,16 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
               },
               child: Text(
                 "  إضافه صف  + ",
-                style: context.textTheme.headline6,
+                style: context.textTheme.titleLarge,
+              ),
+            ),
+            InkWell(
+              onTap: () async {
+                await controller.authService.signOut();
+              },
+              child: Text(
+                "خروج",
+                style: context.textTheme.titleLarge,
               ),
             ),
             Align(
@@ -125,7 +134,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                   },
                   child: Text(
                     'المستحقات الماليه',
-                    style: context.textTheme.headline6!.copyWith(
+                    style: context.textTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.white,
                     ),

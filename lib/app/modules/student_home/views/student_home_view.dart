@@ -71,6 +71,9 @@ class StudentHomeView extends GetView<StudentHomeController> {
                         style: context.textTheme.bodyLarge!
                             .copyWith(color: AppColors.light),
                       ),
+                      onTap: () async {
+                        await controller.auth.signOut();
+                      },
                     ),
                   ];
                 },

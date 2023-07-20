@@ -2,10 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/enums.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/helper/pick.dart';
@@ -38,28 +40,26 @@ class SignUpController extends GetxController {
 
   Future<void> validationAndSubmit() async {
     if (fNameC.text.isEmpty || fNameC.text.length < 6) {
-      Alert.error("يجب إدخال الاسم كامل ");
+      Alert.error(Tr.nameRequiredError.tr);
     } else if (!emailC.text.isEmail || emailC.text.isEmpty) {
-      Alert.error("هناك خطأ في إدخال الحساب الالكتروني");
-    } else if (!emailC.text.isEmail || emailC.text.isEmpty) {
-      Alert.error("هناك خطأ في إدخال الحساب الالكتروني");
+      Alert.error(Tr.emailError.tr);
     } else if ((phoneC.text.isEmpty || phoneC.text.length < 10) &&
         roleName != UserRole.Student) {
-      Alert.error("يجب إدخال رقم هاتف صحيح");
+      Alert.error(Tr.phoneError.tr);
     } else if (passwordC.text.isEmpty || passwordC.text.length < 6) {
-      Alert.error("يجب إدخال كلمة مرور مكونة من 6 أحرف على الأقل");
+      Alert.error(Tr.passwordLengthError.tr);
     } else if (confermationPasswordC.text != passwordC.text) {
-      Alert.error("يجب أن يكون تأكيد كلمة المرور متطابق مع كلمة المرور");
+      Alert.error(Tr.passwordConfirmationError.tr);
     } else if ((classS == null || classS!.isEmpty) &&
         roleName != UserRole.Teacher) {
-      Alert.error("يجب اختيار الصف الدراسي");
+      Alert.error(Tr.classRequiredError.tr);
     } else if (city == null || city!.isEmpty) {
-      Alert.error("يجب اختيار المدينة");
+      Alert.error(Tr.cityRequiredError.tr);
     } else if (school == null || school!.isEmpty) {
-      Alert.error("يجب اختيار المدرسة");
+      Alert.error(Tr.schoolRequiredError.tr);
     } else if ((subject == null || subject!.isEmpty) &&
         roleName == UserRole.Teacher) {
-      Alert.error("يجب اختيار المادة الدراسية");
+      Alert.error(Tr.subjectRequiredError.tr);
     } else {
       await submit();
     }
@@ -85,9 +85,9 @@ class SignUpController extends GetxController {
       );
 
       await Get.find<AuthController>().checkAndNavigate();
-      Alert.success("تم بنجاح");
+      Alert.success(Tr.done.tr);
     } catch (e, st) {
-      Alert.error("عذرا هناك خطأ ما !!");
+      Alert.error(Tr.error.tr);
       catchLog(e, st);
     } finally {
       isLoading = false;

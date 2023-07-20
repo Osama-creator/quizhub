@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/grade.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
@@ -10,6 +11,7 @@ import 'package:quizhub/views/pick_utils.dart';
 
 class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
+  final authService = Get.find<AuthService>();
   String teacherId = Get.arguments as String;
   final List<GradeModel> grades = [];
   final List<String> gradesNames = [];
