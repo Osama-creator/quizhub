@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:queen/queen.dart';
 
-class InputField extends StatelessWidget {
+class InputField extends StatefulWidget {
   final String? label;
   final Function(String)? onChanged;
   final Function(String)? onFieldSubmitted;
@@ -47,66 +46,81 @@ class InputField extends StatelessWidget {
   });
 
   @override
+  _InputFieldState createState() => _InputFieldState();
+}
+
+class _InputFieldState extends State<InputField> {
+  bool passwordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null) ...[
-          Text(label!),
-          const SizedBox(height: 5),
+        if (widget.label != null) ...[
+          Text(
+            widget.label!,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 10),
         ],
         TextFormField(
-          validator: validators,
-          obscureText: obscure,
-          enabled: enabled,
-          controller: controller,
-          onChanged: onChanged,
-          onFieldSubmitted: onFieldSubmitted,
-          maxLines: obscure ? 1 : maxLines,
-          minLines: minLines,
-          keyboardType: keyboardType,
-          inputFormatters: inputFormatters,
+          validator: widget.validators,
+          obscureText: widget.obscure && !passwordVisible,
+          enabled: widget.enabled,
+          controller: widget.controller,
+          onChanged: widget.onChanged,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          maxLines: widget.obscure ? 1 : widget.maxLines,
+          minLines: widget.minLines,
+          keyboardType: widget.keyboardType,
+          inputFormatters: widget.inputFormatters,
           textAlign: TextAlign.right,
-          style: context.bodyText1,
+          style: const TextStyle(fontSize: 16, color: Colors.black),
           decoration: InputDecoration(
-            // contentPadding: EdgeInsets.only(
-            //   right: context.width * 0.05,
-            // ),
-            // label: labele == null
-            //     ? null
-            //     : Text(
-            //         labele!,
-            //         style: context.bodyText1?.copyWith(
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
             filled: true,
-            fillColor: fillColor ?? Colors.grey.shade200,
-            prefixIcon: prefix,
-            suffixIcon: suffix,
-            hintText: hint,
-            errorStyle: context.bodyText1!
-                .copyWith(color: context.theme.colorScheme.error),
-            // enabledBorder: InputBorder.none,
-            // focusedBorder: InputBorder.none,
+            fillColor: widget.fillColor ?? Colors.grey.shade200,
+            prefixIcon: widget.prefix,
+            suffixIcon: widget.obscure
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        passwordVisible = !passwordVisible;
+                      });
+                    },
+                    child: Icon(
+                      passwordVisible ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                  )
+                : widget.suffix,
+            hintText: widget.hint,
+            errorStyle: const TextStyle(
+              color: Colors.red,
+            ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: borderColor ?? Colors.grey,
+                color: widget.borderColor ?? Colors.grey,
               ),
-              borderRadius: BorderRadius.circular(radius),
+              borderRadius: BorderRadius.circular(widget.radius),
             ),
-
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                radius,
+              borderSide: const BorderSide(
+                color: Colors.blue,
+                width: 2,
               ),
+              borderRadius: BorderRadius.circular(widget.radius),
             ),
             errorBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: Colors.red,
               ),
-              borderRadius: BorderRadius.circular(radius),
+              borderRadius: BorderRadius.circular(widget.radius),
             ),
           ),
         ),

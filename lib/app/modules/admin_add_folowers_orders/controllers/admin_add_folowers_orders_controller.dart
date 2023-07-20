@@ -21,6 +21,7 @@ class AdminAddFolowersOrdersController extends GetxController {
       lauding,
       error,
     );
+    update();
     super.onInit();
   }
 
@@ -33,5 +34,6 @@ class AdminAddFolowersOrdersController extends GetxController {
       lauding,
       error,
     );
+    update();
   }
 }

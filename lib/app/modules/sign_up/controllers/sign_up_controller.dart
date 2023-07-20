@@ -26,7 +26,6 @@ class SignUpController extends GetxController {
   File? image;
   String? classS;
   String? subject;
-
   bool isLoading = false;
   Future<void> pickImage() async {
     final tempImage = await Pick.imageFromGallery();
@@ -37,40 +36,62 @@ class SignUpController extends GetxController {
     }
   }
 
-  Future<void> submit() async {
-    if (confermationPasswordC.text != passwordC.text) {
-      Alert.error("يجب أن يكون تأكيد كلمه المرور تناسب كلمه المرور");
-      // } else if (classS == null) {
-      //   Alert.error("يجب إختيار الصف المناسب");
+  Future<void> validationAndSubmit() async {
+    if (fNameC.text.isEmpty || fNameC.text.length < 6) {
+      Alert.error("يجب إدخال الاسم كامل ");
+    } else if (!emailC.text.isEmail || emailC.text.isEmpty) {
+      Alert.error("هناك خطأ في إدخال الحساب الالكتروني");
+    } else if (!emailC.text.isEmail || emailC.text.isEmpty) {
+      Alert.error("هناك خطأ في إدخال الحساب الالكتروني");
+    } else if ((phoneC.text.isEmpty || phoneC.text.length < 10) &&
+        roleName != UserRole.Student) {
+      Alert.error("يجب إدخال رقم هاتف صحيح");
+    } else if (passwordC.text.isEmpty || passwordC.text.length < 6) {
+      Alert.error("يجب إدخال كلمة مرور مكونة من 6 أحرف على الأقل");
+    } else if (confermationPasswordC.text != passwordC.text) {
+      Alert.error("يجب أن يكون تأكيد كلمة المرور متطابق مع كلمة المرور");
+    } else if ((classS == null || classS!.isEmpty) &&
+        roleName != UserRole.Teacher) {
+      Alert.error("يجب اختيار الصف الدراسي");
+    } else if (city == null || city!.isEmpty) {
+      Alert.error("يجب اختيار المدينة");
+    } else if (school == null || school!.isEmpty) {
+      Alert.error("يجب اختيار المدرسة");
+    } else if ((subject == null || subject!.isEmpty) &&
+        roleName == UserRole.Teacher) {
+      Alert.error("يجب اختيار المادة الدراسية");
     } else {
-      print(getRoleName(roleName));
-      try {
-        isLoading = true;
-        update();
-        await service.signUp(
-          name: fNameC.text,
-          email: emailC.text,
-          erea: "مصر",
-          governorate: city!,
-          school: school!,
-          confPassword: confermationPasswordC.text,
-          password: passwordC.text,
-          roleName: getRoleName(roleName),
-          phone: phoneC.text,
-          image: image,
-          classS: classS,
-          subject: subject,
-        );
+      await submit();
+    }
+  }
 
-        await Get.find<AuthController>().checkAndNavigate();
-        Alert.success("تم بنجاح");
-      } catch (e, st) {
-        Alert.error("عذرا هناك خطأ ما !!");
-        catchLog(e, st);
-      } finally {
-        isLoading = false;
-        update();
-      }
+  Future<void> submit() async {
+    try {
+      isLoading = true;
+      update();
+      await service.signUp(
+        name: fNameC.text,
+        email: emailC.text,
+        erea: "مصر",
+        governorate: city!,
+        school: school!,
+        confPassword: confermationPasswordC.text,
+        password: passwordC.text,
+        roleName: getRoleName(roleName),
+        phone: phoneC.text,
+        image: image,
+        classS: classS,
+        subject: subject,
+      );
+
+      await Get.find<AuthController>().checkAndNavigate();
+      Alert.success("تم بنجاح");
+    } catch (e, st) {
+      Alert.error("عذرا هناك خطأ ما !!");
+      catchLog(e, st);
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 
