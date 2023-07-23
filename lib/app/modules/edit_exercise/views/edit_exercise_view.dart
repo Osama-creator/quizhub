@@ -38,7 +38,9 @@ class EditExerciseView extends GetView<EditExerciseController> {
                 height: context.height * 0.06,
                 width: context.width * 0.35,
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // controller.printAsPdf();
+                  },
                   child: const Text("طباعه"),
                 ),
               ),
@@ -69,20 +71,23 @@ class EditExerciseView extends GetView<EditExerciseController> {
                               children: [
                                 Text(
                                   mcqQuestion.question,
-                                  style: context.textTheme.headline6!
+                                  style: context.textTheme.titleLarge!
                                       .copyWith(color: AppColors.black),
                                 ),
+                                if (mcqQuestion.image!.isNotEmpty) ...[
+                                  Image.network(mcqQuestion.image!),
+                                ],
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       mcqQuestion.rightAnswer,
-                                      style: context.textTheme.headline6,
+                                      style: context.textTheme.titleLarge,
                                     ),
                                     Text(
                                       mcqQuestion.wrongAns1 ?? "",
-                                      style: context.textTheme.headline6,
+                                      style: context.textTheme.titleLarge,
                                     ),
                                   ],
                                 ),
@@ -94,11 +99,11 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                     children: [
                                       Text(
                                         mcqQuestion.wrongAns2 ?? "",
-                                        style: context.textTheme.headline6,
+                                        style: context.textTheme.titleLarge,
                                       ),
                                       Text(
                                         mcqQuestion.wrongAns3 ?? "",
-                                        style: context.textTheme.headline6,
+                                        style: context.textTheme.titleLarge,
                                       ),
                                     ],
                                   ),
@@ -106,7 +111,7 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                 if (mcqQuestion.note != null) ...[
                                   Text(
                                     mcqQuestion.note!,
-                                    style: context.textTheme.headline6,
+                                    style: context.textTheme.titleLarge,
                                   ),
                                 ],
                               ],
