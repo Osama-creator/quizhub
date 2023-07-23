@@ -14,13 +14,15 @@ class PostCommentervice {
   final ApiClient client;
 
   PostCommentervice(this.client);
-  Future<List<Post>> fetchPosts(String userId) async {
+  Future<List<Post>> fetchPosts({
+    required String userId,
+    required String subName,
+  }) async {
     try {
+      log(userId + subName);
       final response = await client.post(
         Endpoints.getPosts,
-        body: {
-          'id': userId,
-        },
+        body: {'id': userId, "nameSubject": subName},
       );
 
       final responseData = response.data;
@@ -158,7 +160,7 @@ class PostCommentervice {
     required String commentId,
   }) async {
     try {
-      final response = await client.post(
+      final response = await client.delete(
         Endpoints.deleteComment,
         body: {"idcomment": commentId, "createdBy": userId},
       );
@@ -169,6 +171,28 @@ class PostCommentervice {
         log("comment has been deleted succfully");
       } else {
         throw Exception('Failed to delet comment');
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+    }
+  }
+
+  Future<void> likeComment({
+    required String userId,
+    required String commentId,
+  }) async {
+    try {
+      final response = await client.post(
+        Endpoints.likeComment,
+        body: {"idComment": commentId, "idUser": userId},
+      );
+
+      final responseData = response.data;
+
+      if (responseData['message'] == 'Done') {
+        log("comment has been liked succfully");
+      } else {
+        throw Exception('Failed to like comment');
       }
     } catch (e, st) {
       catchLog(e, st);

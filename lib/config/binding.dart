@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:queen/facades/app.dart';
 import 'package:quizhub/app/controllers/auth_controller.dart';
 import 'package:quizhub/app/services/admin.dart';
@@ -26,7 +25,6 @@ class AppBindings extends Bindings {
   @override
   Future<void> dependencies() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await GetStorage.init();
 
     await App.boot(
       nationsConfig: AppLangConfig(),

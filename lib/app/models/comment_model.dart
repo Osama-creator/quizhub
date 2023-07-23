@@ -5,12 +5,14 @@ class Comment {
   final String commBody;
   final User createdBy;
   final List<User> likes;
+  bool? like;
 
   Comment({
     required this.id,
     required this.commBody,
     required this.createdBy,
     required this.likes,
+    this.like = false,
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) {

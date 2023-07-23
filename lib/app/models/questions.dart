@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
@@ -39,6 +41,7 @@ class McqQuestion extends Equatable {
       teacherId: json['createdby'][0] as String,
       id: json['_id'] as String,
       examId: json['exam'][0] as String,
+      image: json['profile_pic'] as String? ?? "",
       question: json['question'] as String,
       rightAnswer: json['correct_Answer'] as String,
       wrongAns1: json['choose2'] as String?,
@@ -73,90 +76,4 @@ class McqQuestion extends Equatable {
         isSelectedFWord,
         isSelectedSWord
       ];
-}
-
-class TrueFalseQuestion {
-  final String? id;
-  final String question;
-  bool isTrue;
-  final String? image;
-  bool? userChoice;
-
-  TrueFalseQuestion({
-    this.id,
-    this.image,
-    this.userChoice,
-    required this.question,
-    required this.isTrue,
-  });
-}
-
-class FillTheGapsQuestion {
-  final String? id;
-  final String question;
-  final String correctAnswer;
-  String? userAnswer;
-
-  FillTheGapsQuestion({
-    this.id,
-    required this.question,
-    required this.correctAnswer,
-    this.userAnswer,
-  });
-}
-
-class MatchingQuestion {
-  final String? id;
-  final String fWord;
-  final String sWord;
-  bool isSelectedFWord = false;
-  bool isSelectedSWord = false;
-  bool isCorrect = false;
-
-  MatchingQuestion({
-    this.id,
-    required this.fWord,
-    required this.sWord,
-  });
-}
-
-class Myq2 {
-  List<TrueFalseQuestion> myquestions = [
-    TrueFalseQuestion(
-      question: "7 هل عدد قارات العالم",
-      image: "",
-      isTrue: true,
-    ),
-    TrueFalseQuestion(
-      question: "هل مصر دوله أفريقيه",
-      image: "",
-      isTrue: true,
-    ),
-    TrueFalseQuestion(
-      question: "هل مضاد كلمه الدنيا الاخره",
-      image: "",
-      isTrue: false,
-    ),
-  ];
-}
-
-class Myq3 {
-  List<MatchingQuestion> myquestions = [
-    MatchingQuestion(
-      fWord: "بيت",
-      sWord: "Home",
-    ),
-    MatchingQuestion(
-      fWord: "سياره",
-      sWord: "Car",
-    ),
-    MatchingQuestion(
-      fWord: "معلم",
-      sWord: "Teacher",
-    ),
-    MatchingQuestion(
-      fWord: "طالب",
-      sWord: "Student",
-    ),
-  ];
 }

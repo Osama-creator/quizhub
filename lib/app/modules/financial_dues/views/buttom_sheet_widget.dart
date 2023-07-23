@@ -129,10 +129,7 @@ void askForMoneyButtomsheet(
                 width: context.width,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await controller.makePhoneCall(
-                      phoneNumber: controller.PhoneNumberC.text,
-                      money: controller.MNumberC.text,
-                    );
+                    await controller.orderTeacher();
                     controller.MNumberC.clear();
                     controller.PhoneNumberC.clear();
                     // ignore: use_build_context_synchronously

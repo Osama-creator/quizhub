@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'http://192.168.0.107:4500/Node.js';
+  static const host = 'http://192.168.0.106:4500/Node.js';
   static const api = '$host/api';
 
   /// ! auth
@@ -35,7 +35,8 @@ abstract class Endpoints {
   static const deletePost = '/v6/post/deletePost';
   static const getComments = '/v6/commint/getallComment';
   static const addComment = '/v6/commint/addcommint';
-  static const deleteComment = '/v6/commint/addcommint';
+  static const deleteComment = '/v6/commint/deletecomment';
+  static const likeComment = '/v6/commint/addLikeComment';
 
   /// ! parent section
   static const getStudents = '/v6/guard/getallUserToGuardian';
@@ -55,7 +56,9 @@ abstract class Endpoints {
 
   /// ! financails
   static const addfollowersEP = '/v6/com/addFolower';
+  static const teacherMoneyOrder = '/v6/com/cash_Withdrawal';
   static const getAddFOrders = '/v6/com/getallTeacherAddFolowers';
+  static const teacherOrders = '/v6/com/TeacherOrders';
   static const confirmOrder = '/v6/com/addconfirm';
   static const getFinancialData = '/v6/com/getallReceivablesPage';
   static const moneyOrdres = '/v6/com/getallOrder';

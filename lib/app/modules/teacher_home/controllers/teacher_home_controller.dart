@@ -12,7 +12,8 @@ import 'package:quizhub/views/pick_utils.dart';
 class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
   final authService = Get.find<AuthService>();
-  String teacherId = Get.arguments as String;
+  String teacherId = "64ba6af4353d7780215fed5c";
+  // String teacherId = Get.arguments as String;
   final List<GradeModel> grades = [];
   final List<String> gradesNames = [];
   String teacherName = "";
@@ -23,7 +24,6 @@ class TeacherHomeController extends GetxController {
     if (res != null || !gradesNames.contains(res)) {
       final GradeModel response =
           await service.addGrades(grade: res!, teacherId: teacherId);
-      print(teacherId);
       gradesNames.add(res);
       if (grades.contains(response)) {
         Alert.error("لقد تم إختياره بالفعل");
@@ -37,6 +37,7 @@ class TeacherHomeController extends GetxController {
   @override
   void onInit() {
     fetchTeacherHomeData();
+    update();
     super.onInit();
   }
 

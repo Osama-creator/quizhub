@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:quizhub/app/modules/financial_dues/controllers/financial_dues_controller.dart';
 import 'package:quizhub/app/modules/financial_dues/views/buttom_sheet_widget.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
 class FinancialDuesView extends GetView<FinancialDuesController> {
@@ -111,6 +112,20 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                     ),
                   ),
                 ),
+                const Spacer(),
+                InkWell(
+                  onTap: () => Get.toNamed(
+                    Routes.TEACHER_PRV_REQUISTS,
+                    arguments: "6494a1acd694b4d94537d2b4",
+                  ),
+                  child: Text(
+                    "الطلبات السابقه",
+                    style: context.textTheme.titleLarge!.copyWith(
+                      fontSize: 18,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                )
               ],
             ),
           );

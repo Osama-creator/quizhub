@@ -22,12 +22,13 @@ dependencies:
   laravel_exception: ^0.0.4
   pretty_dio_logger: ^1.2.0-beta-1
   url_launcher: ^6.0.3
-  get_storage: ^2.0.3
+  shared_preferences: ^2.2.0
   queen:
     git:
       url: https://github.com/FlutterQueen/queen.git
       ref: 19ac2497cec159d6c62bb2fe82123dc688693228
   bottom_navy_bar: ^6.0.0
+  pdf: ^3.10.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

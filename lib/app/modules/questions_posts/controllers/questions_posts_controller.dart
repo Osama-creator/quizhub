@@ -5,13 +5,17 @@ import 'package:quizhub/app/services/post_comment.dart';
 
 class QuestionsPostsController extends GetxController {
   final TextEditingController postController = TextEditingController();
-
+  final args = Get.arguments as Map<String, dynamic>;
   List<Post> posts = [];
   final service = Get.find<PostCommentervice>();
-
+  bool isTeacher = false;
   @override
   Future<void> onInit() async {
-    posts = await service.fetchPosts("6498688caefa7c31aa92b0a9");
+    posts = await service.fetchPosts(
+      userId: args['id'] as String,
+      subName: args['sub_name'] as String,
+    );
+    isTeacher = args['is_teacher'] as bool;
     update();
     super.onInit();
   }

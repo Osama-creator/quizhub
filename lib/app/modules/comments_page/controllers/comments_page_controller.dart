@@ -5,16 +5,24 @@ import 'package:quizhub/app/services/post_comment.dart';
 import 'package:quizhub/helper/func.dart';
 
 class CommentsPageController extends GetxController {
-  final String postId = Get.arguments as String;
+  final args = Get.arguments as List;
   final TextEditingController postController = TextEditingController();
   final action = Get.find<ActionHandel>();
+  String postId = "";
+  String userId = "";
   bool lauding = false;
   bool error = false;
   List<Comment> comments = [];
+  bool isTeacher = false;
+
   final service = Get.find<PostCommentervice>();
 
   @override
   Future<void> onInit() async {
+    postId = args[0] as String;
+    userId = args[1] as String;
+    isTeacher = args[2] as bool;
+
     await action.performAction(
       () async {
         comments = await service.fetchComments(postId);
@@ -32,13 +40,14 @@ class CommentsPageController extends GetxController {
         final newComment = await service.createComment(
           commentBody: postController.text,
           postId: postId,
-          userId: "6498688caefa7c31aa92b0a9",
+          userId: userId,
         );
         comments.add(newComment);
       },
       lauding,
       error,
     );
+    update();
   }
 
   Future<void> removeComment(String commentId) async {
@@ -46,12 +55,30 @@ class CommentsPageController extends GetxController {
       () async {
         await service.deleteComment(
           commentId: commentId,
-          userId: "6498688caefa7c31aa92b0a9",
+          userId: userId,
         );
         comments.removeWhere((element) => element.id == postId);
       },
       lauding,
       error,
     );
+
+    update();
+  }
+
+  Future<void> addLike(Comment comment) async {
+    await action.performAction(
+      () async {
+        await service.likeComment(
+          commentId: comment.id,
+          userId: userId,
+        );
+        comment.like = true;
+        comment.likes.length++;
+      },
+      lauding,
+      error,
+    );
+    update();
   }
 }

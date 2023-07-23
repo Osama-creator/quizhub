@@ -60,6 +60,28 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
             SizedBox(
               height: context.height * 0.05,
             ),
+            Center(
+              child: SizedBox(
+                height: context.height * 0.08,
+                width: context.width * 0.9,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Get.toNamed(
+                      Routes.QUESTIONS_POSTS,
+                      arguments: {
+                        'id': controller.teacherId,
+                        'sub_name': controller.teacherSubject,
+                        'is_teacher': true
+                      },
+                    );
+                  },
+                  child: Text(
+                    "قسم أسئله الطلاب",
+                    style: context.textTheme.titleLarge,
+                  ),
+                ),
+              ),
+            ),
             GetBuilder<TeacherHomeController>(
               init: controller,
               builder: (_) {
@@ -111,15 +133,6 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
               },
               child: Text(
                 "  إضافه صف  + ",
-                style: context.textTheme.titleLarge,
-              ),
-            ),
-            InkWell(
-              onTap: () async {
-                await controller.authService.signOut();
-              },
-              child: Text(
-                "خروج",
                 style: context.textTheme.titleLarge,
               ),
             ),
