@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/helper/pdf_g.dart';
 
 class EditExerciseView extends GetView<EditExerciseController> {
   const EditExerciseView();
@@ -39,7 +41,10 @@ class EditExerciseView extends GetView<EditExerciseController> {
                 width: context.width * 0.35,
                 child: OutlinedButton(
                   onPressed: () {
-                    // controller.printAsPdf();
+                    final type = PdfGenerator.createPdf(
+                      controller.apiQuestions,
+                      controller.type,
+                    );
                   },
                   child: const Text("طباعه"),
                 ),

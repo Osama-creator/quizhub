@@ -1,24 +1,30 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/func.dart';
+import 'package:quizhub/helper/pdf_g.dart';
 
 class EditExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
-  final String examId = Get.arguments as String;
+  final List<String?> args = Get.arguments as List<String?>;
+  String examId = '';
+  String type = '';
   late List<McqQuestion> apiQuestions = [];
 
   @override
   Future<void> onInit() async {
+    examId = args[0]!;
+    type = args[1]!;
+    print(type);
     try {
       apiQuestions = await examsService.getExercise(id: examId);
-      log(examId);
       update();
     } catch (e, st) {
       catchLog("err$e", st);
     }
+    PdfGenerator.init();
+    update();
+
     super.onInit();
   }
 

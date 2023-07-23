@@ -37,7 +37,7 @@ class CreateChooseExerciseController extends GetxController {
       final mcqQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        image: question.image!.path,
+        image: question.image?.path ?? "",
         question: question.questionC.text,
         rightAnswer: question.rightAnswerC.text,
         wrongAns1: question.wrongAnswer1C.text,

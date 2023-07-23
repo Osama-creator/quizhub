@@ -14,7 +14,7 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
       appBar: AppBar(
         title: Text(
           'التمارين',
-          style: context.textTheme.headline5!
+          style: context.textTheme.headlineSmall!
               .copyWith(color: AppColors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -50,7 +50,10 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                       onTap: () {
                         Get.toNamed(
                           Routes.EDIT_EXERCISE,
-                          arguments: controller.exercises[index].id,
+                          arguments: [
+                            controller.exercises[index].id,
+                            controller.exercises[index].type
+                          ],
                         );
                       },
                       child: Card(
@@ -60,15 +63,15 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                           children: [
                             Text(
                               controller.exercises[index].arName,
-                              style: context.textTheme.headline6,
+                              style: context.textTheme.titleLarge,
                             ),
                             Text(
                               "${controller.exercises[index].quesiotnsNum.length} اسئله",
-                              style: context.textTheme.headline6,
+                              style: context.textTheme.titleLarge,
                             ),
                             Text(
                               "${controller.exercises[index].viewNum.length} حل",
-                              style: context.textTheme.headline6,
+                              style: context.textTheme.titleLarge,
                             ),
                           ],
                         ),
@@ -89,7 +92,7 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
         backgroundColor: AppColors.primary,
         label: Text(
           'إنشاء تمرين جديد',
-          style: context.textTheme.bodyText1!
+          style: context.textTheme.bodyLarge!
               .copyWith(fontSize: 16, color: AppColors.light),
         ),
         icon: const Icon(
@@ -116,7 +119,7 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
               controller.gradeName,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(color: AppColors.light, fontSize: 15),
             ),
           ),
