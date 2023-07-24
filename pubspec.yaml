@@ -66,5 +66,8 @@ flutter:
   fonts:
      - family: Cairo
        fonts:
-         - asset: assets/fonts/Cairo-Bold.ttf
+         - asset: assets/fonts/Cairo-Bold.ttf       
+     - family: NotoNaskhArabic
+       fonts:
+         - asset: assets/fonts/NotoNaskhArabic-Bold.ttf      
 
