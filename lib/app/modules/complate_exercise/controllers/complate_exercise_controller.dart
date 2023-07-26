@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -9,49 +11,62 @@ import 'package:quizhub/helper/func.dart';
 class ComplateExerciseController extends GetxController {
   late PageController pageController;
   final examsService = Get.find<ExamsService>();
+  late AudioPlayer audioPlayer;
   final String examId = Get.arguments as String;
   late List<McqQuestion> quistionList = [];
+  int qNumber = 1;
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
   final action = Get.find<ActionHandel>();
   bool lauding = false;
   bool error = false;
-
+  late Exam exam = Exam(
+    id: "id",
+    time: 0,
+    examName: "examName",
+    questions: [],
+  );
   void checkAnswer() {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
       degree++;
+      audioPlayer.play(AssetSource('audio/true.mp3'));
       showAnswerSheet(true);
     } else {
+      audioPlayer.play(AssetSource('audio/false.mp3'));
       showAnswerSheet(false);
     }
-    Future.delayed(const Duration(seconds: 3), () async {
-      if (pageController.page!.toInt() < quistionList.length - 1) {
+    Future.delayed(const Duration(seconds: 2), () async {
+      if (qNumber < quistionList.length) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
         );
+        qNumber++;
         update();
-        Get.back();
       } else {
-        await action.performAction(
-          () async {
-            studentExamsService.postDegree(
-              idUser: "6499a3f690230b8ecf61875a",
-              degree: degree,
-              idexam: examId,
-            );
-          },
-          lauding,
-          error,
-        );
-
-        Get.offNamed(
-          Routes.STUDENTS_GRADES,
-          arguments: ["$degree / ${quistionList.length}", examId],
-        );
+        finishExam();
       }
     });
+  }
+
+  Future<void> finishExam() async {
+    await action.performAction(
+      () async {
+        studentExamsService.postDegree(
+          idUser: "6499a3f690230b8ecf61875a",
+          degree: degree,
+          idexam: examId,
+        );
+      },
+      lauding,
+      error,
+    );
+
+    Get.offNamed(
+      Routes.STUDENTS_GRADES,
+      arguments: ["$degree / ${quistionList.length}", examId],
+    );
   }
 
   void showAnswerSheet(bool isCorrect) {
@@ -87,14 +102,16 @@ class ComplateExerciseController extends GetxController {
   @override
   Future<void> onInit() async {
     pageController = PageController();
+    audioPlayer = AudioPlayer();
     await action.performAction(
       () async {
-        quistionList = await examsService.getExercise(id: examId);
+        exam = await examsService.getExercise(id: examId);
+        quistionList = exam.questions;
       },
       lauding,
       error,
     );
-
+    update();
     super.onInit();
   }
 

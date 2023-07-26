@@ -33,7 +33,8 @@ dependencies:
       ref: 19ac2497cec159d6c62bb2fe82123dc688693228
   bottom_navy_bar: ^6.0.0
   pdf: ^3.10.4
-  http: ^0.13.6
+  http: ^0.13.6 
+  audioplayers:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,6 +46,8 @@ flutter:
   assets:
     - assets/fonts/Cairo-Black.ttf
     - assets/fonts/Cairo-Bold.ttf
+    - assets/audio/false.mp3
+    - assets/audio/true.mp3
     - assets/fonts/Cairo-ExtraBold.ttf
     - assets/fonts/Cairo-ExtraLight.ttf
     - assets/fonts/Cairo-Light.ttf

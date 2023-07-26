@@ -11,7 +11,7 @@ class ExerciseCardModel extends Equatable {
   const ExerciseCardModel({
     this.id,
     required this.teacherName,
-    this.teacherPhoto,
+    this.teacherPhoto = "",
     this.advantage,
     required this.exercises,
   });

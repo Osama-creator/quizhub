@@ -11,14 +11,23 @@ class McqExerciseView extends GetView<McqExerciseController> {
   const McqExerciseView({super.key});
   @override
   Widget build(BuildContext context) {
+    void onTimerEnd() {
+      controller.finishExam();
+    }
+
     return GetBuilder<McqExerciseController>(
       init: controller,
       builder: (_) {
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title: const Text("1/14"),
-              leading: const Icon(Icons.close),
+              title: Text(
+                "${controller.qNumber} / ${controller.quistionList.length}",
+              ),
+              leading: InkWell(
+                onTap: () => Get.back(),
+                child: const Icon(Icons.close),
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -34,7 +43,12 @@ class McqExerciseView extends GetView<McqExerciseController> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  const CountdownTimer(duration: 10),
+                  if (controller.exam.time != null) ...[
+                    CountdownTimer(
+                      durationInMinutes: controller.exam.time!,
+                      onTimerEnd: onTimerEnd,
+                    ),
+                  ],
                   Expanded(
                     child: PageView.builder(
                       physics: const NeverScrollableScrollPhysics(),

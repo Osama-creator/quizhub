@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
@@ -7,6 +8,12 @@ import 'package:quizhub/helper/func.dart';
 class MatchingExerciseController extends GetxController {
   final String examId = Get.arguments as String;
   late List<McqQuestion> questions = [];
+  late Exam exam = Exam(
+    id: "id",
+    examName: "examName",
+    questions: [],
+  );
+  late List<McqQuestion> quistionList = [];
   final examsService = Get.find<ExamsService>();
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
@@ -14,7 +21,8 @@ class MatchingExerciseController extends GetxController {
   @override
   Future<void> onInit() async {
     try {
-      questions = await examsService.getExercise(id: examId);
+      exam = await examsService.getExercise(id: examId);
+      quistionList = exam.questions;
       update();
     } catch (e, st) {
       catchLog("err$e", st);
@@ -49,6 +57,15 @@ class MatchingExerciseController extends GetxController {
       questions.removeWhere((q) => q.id == questionId);
       update();
     }
+  }
+
+  void finishExam() {
+    studentExamsService.postDegree(
+      idUser: "6499a3f690230b8ecf61875a",
+      degree: degree,
+      idexam: examId,
+    );
+    Get.back();
   }
 
   bool isAllAnswered() {

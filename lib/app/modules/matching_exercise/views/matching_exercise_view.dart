@@ -8,20 +8,25 @@ import 'package:quizhub/views/timer.dart';
 
 class MatchingExerciseView extends GetView<MatchingExerciseController> {
   const MatchingExerciseView({super.key});
+  void onTimerEnd() {
+    controller.finishExam();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("1/14"),
-        leading: const Icon(Icons.close),
+        leading: InkWell(
+          onTap: () => Get.back(),
+          child: const Icon(Icons.close),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "أختر الكلمات المتناسبة",
-              style:
-                  context.textTheme.headline6!.copyWith(color: AppColors.light),
+              style: context.textTheme.titleLarge!
+                  .copyWith(color: AppColors.light),
             ),
           )
         ],
@@ -34,7 +39,12 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const CountdownTimer(duration: 30),
+                    if (controller.exam.time != null) ...[
+                      CountdownTimer(
+                        durationInMinutes: controller.exam.time!,
+                        onTimerEnd: onTimerEnd,
+                      ),
+                    ],
                     Expanded(
                       child: GridView.builder(
                         gridDelegate:

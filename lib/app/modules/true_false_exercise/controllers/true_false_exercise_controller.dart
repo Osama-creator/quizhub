@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -9,14 +11,18 @@ import 'package:quizhub/helper/func.dart';
 class TrueFalseExerciseController extends GetxController {
   late PageController pageController;
   bool? isTrue;
-
   int qNumber = 1;
   final examsService = Get.find<ExamsService>();
+  late AudioPlayer aAudioPlayer;
   final String examId = Get.arguments as String;
-  late List<McqQuestion> quistionList = [];
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
-
+  late Exam exam = Exam(
+    id: "id",
+    examName: "examName",
+    questions: [],
+  );
+  late List<McqQuestion> quistionList = [];
   // ignore: avoid_positional_boolean_parameters
   void selectChoice(String value) {
     final currentQuestion = quistionList[pageController.page!.toInt()];
@@ -28,9 +34,11 @@ class TrueFalseExerciseController extends GetxController {
   void checkAnswer() {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
+      aAudioPlayer.play(AssetSource('audio/true.mp3'));
       isTrue = true;
       degree++;
     } else {
+      aAudioPlayer.play(AssetSource('audio/false.mp3'));
       isTrue = false;
     }
     update();
@@ -48,17 +56,21 @@ class TrueFalseExerciseController extends GetxController {
         Get.back();
         update();
       } else {
-        studentExamsService.postDegree(
-          idUser: "6499a3f690230b8ecf61875a",
-          degree: degree,
-          idexam: examId,
-        );
-        Get.offNamed(
-          Routes.STUDENTS_GRADES,
-          arguments: ["$degree / ${quistionList.length}", examId],
-        );
+        finishExam();
       }
     });
+  }
+
+  void finishExam() {
+    studentExamsService.postDegree(
+      idUser: "6499a3f690230b8ecf61875a",
+      degree: degree,
+      idexam: examId,
+    );
+    Get.offAndToNamed(
+      Routes.STUDENTS_GRADES,
+      arguments: ["$degree / ${quistionList.length}", examId],
+    );
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -97,9 +109,11 @@ class TrueFalseExerciseController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    aAudioPlayer = AudioPlayer();
     pageController = PageController();
     try {
-      quistionList = await examsService.getExercise(id: examId);
+      exam = await examsService.getExercise(id: examId);
+      quistionList = exam.questions;
       update();
     } catch (e, st) {
       catchLog("err$e", st);

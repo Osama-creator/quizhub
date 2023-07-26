@@ -11,13 +11,22 @@ class ComplateExerciseView extends GetView<ComplateExerciseController> {
   const ComplateExerciseView({super.key});
   @override
   Widget build(BuildContext context) {
+    void onTimerEnd() {
+      controller.finishExam();
+    }
+
     return GetBuilder<ComplateExerciseController>(
       init: controller,
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("1/14"),
-            leading: const Icon(Icons.close),
+            title: Text(
+              "${controller.qNumber} / ${controller.quistionList.length}",
+            ),
+            leading: InkWell(
+              onTap: () => Get.back(),
+              child: const Icon(Icons.close),
+            ),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -31,7 +40,12 @@ class ComplateExerciseView extends GetView<ComplateExerciseController> {
           ),
           body: Column(
             children: [
-              const CountdownTimer(duration: 50),
+              if (controller.exam.time != null) ...[
+                CountdownTimer(
+                  durationInMinutes: controller.exam.time!,
+                  onTimerEnd: onTimerEnd,
+                ),
+              ],
               Expanded(
                 child: PageView.builder(
                   controller: controller.pageController,

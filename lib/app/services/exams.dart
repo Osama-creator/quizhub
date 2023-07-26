@@ -2,10 +2,13 @@
 
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:quizhub/app/models/exams_card.dart';
+import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/exersice.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
 
@@ -142,7 +145,7 @@ class ExamsService {
     }
   }
 
-  Future<List<String>> fetchTeacherNames(String userId, String subject) async {
+  Future<List<User>> fetchTeacherNames(String userId, String subject) async {
     try {
       final response = await client.post(
         Endpoints.getexamswithTeacher,
@@ -156,16 +159,16 @@ class ExamsService {
         final responseData = response.data;
         final List<dynamic> arr = responseData['arr'] as List<dynamic>;
 
-        final List<String> teacherNames = [];
+        final List<User> teachers = [];
 
         for (final data in arr) {
-          final String teacherName = data['teacher']['name'] as String;
-          if (!teacherNames.contains(teacherName)) {
-            teacherNames.add(teacherName);
+          final teacherName = data['teacher'] as Map<String, dynamic>;
+          final User teacher = User.fromJson(teacherName);
+          if (!teachers.contains(teacher)) {
+            teachers.add(teacher);
           }
         }
-
-        return teacherNames;
+        return teachers;
       } else {
         throw Exception('Failed to fetch teacher names');
       }
@@ -293,9 +296,9 @@ class ExamsService {
       );
 
       request.send().then((response) {
-        if (response.statusCode == 200)
+        if (response.statusCode == 200) {
           log("Uploaded!");
-        else {}
+        } else {}
       });
     } catch (e, st) {
       throw Exception('Error: $e, $st');
@@ -324,7 +327,7 @@ class ExamsService {
     }
   }
 
-  Future<List<McqQuestion>> getExercise({
+  Future<Exam> getExercise({
     required String id,
   }) async {
     final response = await client.post(
@@ -337,16 +340,9 @@ class ExamsService {
       final responseData = response.data;
       final List<McqQuestion> questions = [];
       final List<dynamic> dataList = responseData['getexam'] as List<dynamic>;
-      for (final data in dataList) {
-        final List<dynamic> getQuestions = data['question'] as List<dynamic>;
-        for (final questionData in getQuestions) {
-          final McqQuestion question =
-              McqQuestion.fromJson(questionData as Map<String, dynamic>);
-          questions.add(question);
-        }
-      }
+      final Exam exam = Exam.fromJson(dataList.first as Map<String, dynamic>);
       log(' successfully');
-      return questions;
+      return exam;
     } else {
       throw Exception('Failed');
     }

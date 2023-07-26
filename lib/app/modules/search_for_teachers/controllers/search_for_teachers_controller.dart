@@ -9,8 +9,7 @@ class SearchForTeachersController extends GetxController {
   List<Teacher> teachers = [];
   @override
   Future<void> onInit() async {
-    teachers.addAll(await service.fetchTeachers("64a2b0e762f9f59127e4a3c5"));
-    // students = ;
+    teachers.addAll(await service.fetchTeachers("64a2c7216193b9068277571f"));
     filteredTeachers.addAll(teachers);
     update();
     super.onInit();
@@ -28,19 +27,6 @@ class SearchForTeachersController extends GetxController {
         ),
       );
     }
-    update();
-  }
-
-  void folowStudent({
-    required String forwordUserId,
-  }) {
-    service.folowTeacher(
-      idUser: "64a2b07262f9f59127e4a3bb",
-      idTeacher: forwordUserId,
-    );
-
-    final invitedUser = teachers.firstWhere((user) => user.id == forwordUserId);
-    invitedUser.invited = true;
     update();
   }
 }

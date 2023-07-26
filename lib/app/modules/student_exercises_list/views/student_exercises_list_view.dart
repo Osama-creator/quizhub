@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/modules/student_exercises_list/controllers/student_exercises_list_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/generated/assets.dart';
 
 class StudentExercisesListView extends GetView<StudentExercisesListController> {
   const StudentExercisesListView({super.key});
@@ -14,45 +13,44 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('الدرسات الإجتماعيه'),
+            title: Text(controller.subjName),
             centerTitle: true,
             automaticallyImplyLeading: false,
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: context.height * 0.01,
-              ),
-              Center(
-                child: SizedBox(
-                  height: context.height * 0.08,
-                  width: context.width * 0.9,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.QUESTIONS_POSTS);
-                    },
-                    child: Text(
-                      "قسم أسئله الطلاب",
-                      style: context.textTheme.headline6,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: context.height * 0.01,
+                ),
+                Center(
+                  child: SizedBox(
+                    height: context.height * 0.08,
+                    width: context.width * 0.9,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Get.toNamed(Routes.QUESTIONS_POSTS);
+                      },
+                      child: Text(
+                        "قسم أسئله الطلاب",
+                        style: context.textTheme.titleLarge,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: context.height * 0.01,
-              ),
-              _buildTechersList(context),
-              const Divider(
-                color: AppColors.primary,
-                endIndent: 20,
-                indent: 20,
-                thickness: 1,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
+                SizedBox(
+                  height: context.height * 0.01,
+                ),
+                _buildTechersList(context),
+                const Divider(
+                  color: AppColors.primary,
+                  endIndent: 20,
+                  indent: 20,
+                  thickness: 1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Row(
@@ -60,13 +58,17 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CircleAvatar(
-                              backgroundImage: AssetImage(Asset.images.teacher),
+                              backgroundImage: NetworkImage(
+                                controller.selectedTeacher.profilePic.isEmpty
+                                    ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                                    : controller.selectedTeacher.profilePic,
+                              ),
                               backgroundColor: Colors.transparent,
                             ),
                           ),
                           Text(
-                            "  ا  / ${controller.selectedTeacher}",
-                            style: context.textTheme.headline6!.copyWith(
+                            "  ا  / ${controller.selectedTeacher.name}",
+                            style: context.textTheme.titleLarge!.copyWith(
                               color: AppColors.black,
                             ),
                           ),
@@ -80,75 +82,92 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      SizedBox(
-                        height: context.height * 0.5,
-                        child: GridView.builder(
-                          padding: const EdgeInsets.all(8),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 1.2,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemCount: controller
-                                  .subjectExams[controller.selectedTeacher]
-                                  ?.length ??
-                              0,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                // controller.goToExamPage(index, exercise);
-                              },
-                              child: SizedBox(
-                                height: context.height * 0.07,
-                                width: context.width * 0.35,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  color: AppColors.primary,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        controller
-                                            .subjectExams[controller
-                                                .selectedTeacher]![index]
-                                            .arName,
-                                        style: context.textTheme.headline6!
-                                            .copyWith(
-                                          color: AppColors.light,
-                                        ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ),
+                        itemCount: controller
+                                .subjectExams[controller.selectedTeacher.name]
+                                ?.length ??
+                            0,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              final type = controller
+                                  .subjectExams[
+                                      controller.selectedTeacher.name]![index]
+                                  .type;
+                              final id = controller
+                                  .subjectExams[
+                                      controller.selectedTeacher.name]![index]
+                                  .id;
+                              controller.studentHome
+                                  .goToExamPage(exerciseType: type, id: id!);
+                            },
+                            child: SizedBox(
+                              height: context.height * 0.07,
+                              width: context.width * 0.35,
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                color: AppColors.primary,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      controller
+                                          .subjectExams[controller
+                                              .selectedTeacher.name]![index]
+                                          .arName,
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(
+                                        color: AppColors.light,
                                       ),
-                                      Text(
-                                        "${controller.subjectExams[controller.selectedTeacher]![index].quesiotnsNum.length} اسئله",
-                                        style: context.textTheme.headline6!
-                                            .copyWith(
-                                          color: AppColors.light,
-                                        ),
+                                    ),
+                                    Text(
+                                      "${controller.subjectExams[controller.selectedTeacher.name]![index].quesiotnsNum.length} اسئله",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(
+                                        color: AppColors.light,
+                                        fontSize: 14,
                                       ),
-                                      Text(
-                                        "${controller.subjectExams[controller.selectedTeacher]![index].viewNum.length} حل",
-                                        style: context.textTheme.headline6!
-                                            .copyWith(
-                                          color: AppColors.light,
-                                        ),
+                                    ),
+                                    Text(
+                                      "${controller.subjectExams[controller.selectedTeacher.name]![index].viewNum.length} حل",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(
+                                        color: AppColors.light,
+                                        fontSize: 14,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Text(
+                                      " النوع ${controller.subjectExams[controller.selectedTeacher.name]![index].type}",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(
+                                        color: AppColors.light,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       )
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         );
       },
@@ -184,23 +203,19 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CircleAvatar(
-                      backgroundImage: AssetImage(Asset.images.teacher),
+                      backgroundImage: NetworkImage(
+                        teacher.profilePic.isEmpty
+                            ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                            : teacher.profilePic,
+                      ),
                       backgroundColor: Colors.transparent,
                     ),
                   ),
                   Column(
                     children: [
                       Text(
-                        " ا /$teacher",
-                        style: context.textTheme.headline6!.copyWith(
-                          color: controller.selectedTeacher == teacher
-                              ? AppColors.light
-                              : AppColors.black,
-                        ),
-                      ),
-                      Text(
-                        "40 متابع",
-                        style: context.textTheme.bodySmall!.copyWith(
+                        " ا /${teacher.name}",
+                        style: context.textTheme.titleLarge!.copyWith(
                           color: controller.selectedTeacher == teacher
                               ? AppColors.light
                               : AppColors.black,

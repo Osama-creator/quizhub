@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/func.dart';
@@ -12,6 +13,12 @@ class EditExerciseController extends GetxController {
   String examId = '';
   String type = '';
   late List<McqQuestion> apiQuestions = [];
+  late Exam exam = Exam(
+    id: "id",
+    time: 0,
+    examName: "examName",
+    questions: [],
+  );
 
   @override
   Future<void> onInit() async {
@@ -19,7 +26,9 @@ class EditExerciseController extends GetxController {
     type = args[1]!;
     log(examId);
     try {
-      apiQuestions = await examsService.getExercise(id: examId);
+      exam = await examsService.getExercise(id: examId);
+      apiQuestions = exam.questions;
+      update();
       update();
     } catch (e, st) {
       catchLog("err$e", st);

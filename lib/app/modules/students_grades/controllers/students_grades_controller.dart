@@ -7,11 +7,12 @@ class StudentsGradesController extends GetxController {
   final service = Get.find<StudentExamsService>();
   List<StudentDegree> studentsGrades = [];
   String degree = '';
+  String examId = '';
   @override
   Future<void> onInit() async {
     degree = args[0] as String;
-    studentsGrades =
-        await service.fetchStudentDegrees("6495888458c9a0a165992a8a");
+    examId = args[1] as String;
+    studentsGrades = await service.fetchStudentDegrees(examId);
     update();
     super.onInit();
   }

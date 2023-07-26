@@ -8,7 +8,7 @@ import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller
 import 'package:quizhub/app/modules/admin_schools_list/views/admin_schools_list_view.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
-import 'package:quizhub/views/bottom_nav.dart';
+import 'package:quizhub/views/bottom_nav_admin.dart';
 
 class AdminHomeView extends GetView<AdminHomeController> {
   const AdminHomeView({super.key});

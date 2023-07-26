@@ -13,14 +13,23 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
   Widget build(BuildContext context) {
     final double h = MediaQuery.of(context).size.height;
     final double w = MediaQuery.of(context).size.width;
+    void onTimerEnd() {
+      controller.finishExam();
+    }
+
     return GetBuilder<TrueFalseExerciseController>(
       init: controller,
       builder: (_) {
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title: const Text("1/14"),
-              leading: const Icon(Icons.close),
+              title: Text(
+                "${controller.qNumber} / ${controller.quistionList.length}",
+              ),
+              leading: InkWell(
+                onTap: () => Get.back(),
+                child: const Icon(Icons.close),
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -36,7 +45,12 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
               padding: const EdgeInsets.all(8),
               child: Column(
                 children: [
-                  const CountdownTimer(duration: 20),
+                  if (controller.exam.time != null) ...[
+                    CountdownTimer(
+                      durationInMinutes: controller.exam.time!,
+                      onTimerEnd: onTimerEnd,
+                    ),
+                  ],
                   SizedBox(
                     height: h * 0.8,
                     width: w,

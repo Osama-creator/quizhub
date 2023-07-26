@@ -1,38 +1,34 @@
-// import 'package:equatable/equatable.dart';
-// import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/models/questions.dart';
 
-// class MCQExercise extends Equatable {
-//   final String? id;
-//   final String examName;
-//   final String examType;
-//   final List<McqQuestion> questions;
+class Exam {
+  final String id;
 
-//   const MCQExercise({
-//     this.id,
-//     required this.examName,
-//     required this.examType,
-//     required this.questions,
-//   });
+  final int? time;
+  final String examName;
 
-//   @override
-//   // TODO: implement props
-//   List<Object?> get props => throw UnimplementedError();
-// }
+  final List<McqQuestion> questions;
 
-// class TrueFalseExercise extends Equatable {
-//   final String? id;
-//   final String examName;
-//   final String examType;
-//   final List<McqQuestion> questions;
+  Exam({
+    required this.id,
+    this.time,
+    required this.examName,
+    required this.questions,
+  });
 
-//   const TrueFalseExercise({
-//     this.id,
-//     required this.examName,
-//     required this.examType,
-//     required this.questions,
-//   });
+  factory Exam.fromJson(Map<String, dynamic> json) {
+    List<McqQuestion> questions = [];
+    if (json['question'] != null && json['question'] is List) {
+      for (final questionData in json['question']) {
+        questions
+            .add(McqQuestion.fromJson(questionData as Map<String, dynamic>));
+      }
+    }
 
-//   @override
-//   // TODO: implement props
-//   List<Object?> get props => throw UnimplementedError();
-// }
+    return Exam(
+      id: json['_id'] as String,
+      time: json['time'] as int,
+      examName: json['exam_Name'] as String,
+      questions: questions,
+    );
+  }
+}

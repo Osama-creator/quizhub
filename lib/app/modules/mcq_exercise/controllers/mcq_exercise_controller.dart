@@ -1,5 +1,9 @@
+import 'dart:developer';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -9,10 +13,15 @@ import 'package:quizhub/helper/func.dart';
 class McqExerciseController extends GetxController {
   late PageController pageController;
   bool? isTrue;
-
+  late AudioPlayer aAudioPlayer;
   int qNumber = 1;
   final examsService = Get.find<ExamsService>();
   final String examId = Get.arguments as String;
+  Exam exam = Exam(
+    id: "id",
+    examName: "examName",
+    questions: [],
+  );
   late List<McqQuestion> quistionList = [];
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
@@ -20,8 +29,12 @@ class McqExerciseController extends GetxController {
   @override
   Future<void> onInit() async {
     pageController = PageController();
+
+    aAudioPlayer = AudioPlayer();
+    log(examId);
     try {
-      quistionList = await examsService.getExercise(id: examId);
+      exam = await examsService.getExercise(id: examId);
+      quistionList = exam.questions;
       update();
     } catch (e, st) {
       catchLog("err$e", st);
@@ -47,12 +60,13 @@ class McqExerciseController extends GetxController {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
       isTrue = true;
+      aAudioPlayer.play(AssetSource('audio/true.mp3'));
       degree++;
     } else {
       isTrue = false;
+      aAudioPlayer.play(AssetSource('audio/false.mp3'));
     }
     update();
-
     showAnswerSheet(isTrue!, currentQuestion.rightAnswer);
     Future.delayed(const Duration(seconds: 2), () {
       if (qNumber < quistionList.length) {
@@ -61,20 +75,24 @@ class McqExerciseController extends GetxController {
           curve: Curves.ease,
         );
         qNumber++;
-        Get.back();
+
         update();
       } else {
-        studentExamsService.postDegree(
-          idUser: "6499a3f690230b8ecf61875a",
-          degree: degree,
-          idexam: examId,
-        );
-        Get.offNamed(
-          Routes.STUDENTS_GRADES,
-          arguments: ["$degree / ${quistionList.length}", examId],
-        );
+        finishExam();
       }
     });
+  }
+
+  void finishExam() {
+    studentExamsService.postDegree(
+      idUser: "6499a3f690230b8ecf61875a",
+      degree: degree,
+      idexam: examId,
+    );
+    Get.offAndToNamed(
+      Routes.STUDENTS_GRADES,
+      arguments: ["$degree / ${quistionList.length}", examId],
+    );
   }
 
   // ignore: avoid_positional_boolean_parameters
