@@ -1,7 +1,8 @@
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, prefer_final_locals
 
 import 'dart:developer';
-
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/models/exersice.dart';
 import 'package:quizhub/app/models/questions.dart';
@@ -260,22 +261,43 @@ class ExamsService {
     }
   }
 
-  Future<void> postMcqQuestion(McqQuestion mcqQuestion) async {
+  Future<void> postMcqQuestion(McqQuestion question) async {
+    // List<int> imageBytes = File(question.image!.path).readAsBytesSync();
+    // final String baseimage = base64Encode(imageBytes);
+
+    log(question.image!.path);
     try {
-      final response = await client.post(
-        Endpoints.addQuesiton,
-        body: mcqQuestion.toJson(),
+      final request = http.MultipartRequest(
+        "POST",
+        Uri.parse("http://192.168.0.106:4500/Node.js/api/v6/com/addQuestion"),
+      );
+      Map<String, String> headers = {"Content-type": "multipart/form-data"};
+      request.headers.addAll(headers);
+
+      request.fields['correct_Answer'] = question.rightAnswer;
+      request.fields['choose2'] = question.wrongAns1!;
+      request.fields['choose3'] = question.wrongAns2!;
+      request.fields['choose4'] = question.wrongAns3!;
+      request.fields['test_node'] = question.note!;
+      request.fields['question'] = question.question;
+      request.fields['createdby'] = question.teacherId;
+      request.fields['Idexam'] = question.examId;
+      // request.fields['Idexam'] = question.examId;
+
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'image',
+          File(question.image!.path).readAsBytesSync(),
+          filename: question.image!.path.split("/").last,
+        ),
       );
 
-      if (response.statusCode == 200) {
-        // Handle success
-        log('Question posted successfully');
-      } else {
-        // Handle error
-        throw Exception('Failed to post question');
-      }
+      request.send().then((response) {
+        if (response.statusCode == 200)
+          log("Uploaded!");
+        else {}
+      });
     } catch (e, st) {
-      // Handle error
       throw Exception('Error: $e, $st');
     }
   }
