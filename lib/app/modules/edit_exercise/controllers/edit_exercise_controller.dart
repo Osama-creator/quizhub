@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -15,7 +17,7 @@ class EditExerciseController extends GetxController {
   Future<void> onInit() async {
     examId = args[0]!;
     type = args[1]!;
-    print(type);
+    log(examId);
     try {
       apiQuestions = await examsService.getExercise(id: examId);
       update();
@@ -37,8 +39,7 @@ class EditExerciseController extends GetxController {
         "IdQuestion": id,
         "question": mcqQuestion.question,
         "correct_Answer": mcqQuestion.rightAnswer,
-        if (mcqQuestion.image != null && mcqQuestion.image!.isNotEmpty)
-          'img': mcqQuestion.image,
+        if (mcqQuestion.image != null) 'img': mcqQuestion.image,
       };
 
       await examsService.updateQuestion(body: body);

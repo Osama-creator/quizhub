@@ -79,8 +79,8 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                   style: context.textTheme.titleLarge!
                                       .copyWith(color: AppColors.black),
                                 ),
-                                if (mcqQuestion.image!.isNotEmpty) ...[
-                                  Image.network(mcqQuestion.image!),
+                                if (mcqQuestion.pic!.isNotEmpty) ...[
+                                  Image.network(mcqQuestion.pic!),
                                 ],
                                 Row(
                                   mainAxisAlignment:

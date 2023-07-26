@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
@@ -8,7 +10,8 @@ class McqQuestion extends Equatable {
   final String? id;
   final String examId;
   String question;
-  String? image;
+  File? image;
+  String? pic;
   String rightAnswer;
   String? wrongAns1;
   String? wrongAns2;
@@ -24,6 +27,7 @@ class McqQuestion extends Equatable {
     required this.examId,
     required this.question,
     this.image,
+    this.pic,
     this.id,
     required this.rightAnswer,
     this.userChoice,
@@ -41,7 +45,7 @@ class McqQuestion extends Equatable {
       teacherId: json['createdby'][0] as String,
       id: json['_id'] as String,
       examId: json['exam'][0] as String,
-      image: json['profile_pic'] as String? ?? "",
+      pic: json['profile_pic'] as String? ?? "",
       question: json['question'] as String,
       rightAnswer: json['correct_Answer'] as String,
       wrongAns1: json['choose2'] as String?,
@@ -49,20 +53,6 @@ class McqQuestion extends Equatable {
       wrongAns3: json['choose4'] as String?,
       note: json['test_node'] as String?,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'createdby': teacherId,
-      'Idexam': examId,
-      'question': question,
-      'correct_Answer': rightAnswer,
-      'choose2': wrongAns1,
-      'choose3': wrongAns2,
-      'choose4': wrongAns3,
-      if (image != null && image!.isNotEmpty) 'img': image,
-      if (note != null && note!.isNotEmpty) 'test_node': note,
-    };
   }
 
   @override

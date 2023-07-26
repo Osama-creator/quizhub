@@ -1,10 +1,13 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/grade.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/common.dart';
+import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/views/pick_utils.dart';
@@ -12,6 +15,7 @@ import 'package:quizhub/views/pick_utils.dart';
 class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
   final authService = Get.find<AuthService>();
+  final ervice = Get.find<ExamsService>();
   String teacherId = "64ba6af4353d7780215fed5c";
   // String teacherId = Get.arguments as String;
   final List<GradeModel> grades = [];
@@ -35,7 +39,7 @@ class TeacherHomeController extends GetxController {
   }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     fetchTeacherHomeData();
     update();
     super.onInit();
@@ -56,6 +60,7 @@ class TeacherHomeController extends GetxController {
         for (final gradeData in theGrades) {
           final grade = gradeData['grades'] as String;
           final gradeId = gradeData['_id'] as String;
+          log(gradeId);
           grades.add(GradeModel(arName: grade, id: gradeId));
         }
         update();

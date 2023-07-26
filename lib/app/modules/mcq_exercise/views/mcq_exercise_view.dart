@@ -24,7 +24,7 @@ class McqExerciseView extends GetView<McqExerciseController> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "إختر",
-                    style: context.textTheme.headline6!
+                    style: context.textTheme.titleLarge!
                         .copyWith(color: AppColors.light),
                   ),
                 )
@@ -45,7 +45,7 @@ class McqExerciseView extends GetView<McqExerciseController> {
                           controller: controller,
                           index: index,
                           quistion: controller.quistionList[index].question,
-                          image: controller.quistionList[index].image ?? "",
+                          image: controller.quistionList[index].pic ?? "",
                           list: [
                             controller.quistionList[index].wrongAns1!,
                             controller.quistionList[index].wrongAns2!,

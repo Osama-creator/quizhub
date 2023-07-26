@@ -37,7 +37,7 @@ class CreateTrueFalseExerciseController extends GetxController {
       final apiQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        image: question.image?.path,
+        image: question.image,
         question: question.question.text,
         rightAnswer: question.answer!,
         note: question.note.text,

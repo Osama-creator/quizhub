@@ -26,12 +26,14 @@ dependencies:
   open_file: ^3.2.1
   printing:
   path_provider: ^2.0.11
+  http_parser: ^4.0.2
   queen:
     git:
       url: https://github.com/FlutterQueen/queen.git
       ref: 19ac2497cec159d6c62bb2fe82123dc688693228
   bottom_navy_bar: ^6.0.0
   pdf: ^3.10.4
+  http: ^0.13.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

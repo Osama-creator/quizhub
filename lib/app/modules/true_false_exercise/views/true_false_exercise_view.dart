@@ -26,7 +26,7 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "صح أو خطأ",
-                    style: context.textTheme.headline6!
+                    style: context.textTheme.titleLarge!
                         .copyWith(color: AppColors.light),
                   ),
                 )
@@ -49,7 +49,7 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
                           controller: controller,
                           index: index,
                           quistion: controller.quistionList[index].question,
-                          image: controller.quistionList[index].image ?? "",
+                          image: controller.quistionList[index].pic ?? "",
                         );
                       },
                     ),

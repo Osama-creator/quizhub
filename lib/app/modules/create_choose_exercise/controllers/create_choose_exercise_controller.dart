@@ -37,7 +37,7 @@ class CreateChooseExerciseController extends GetxController {
       final mcqQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        image: question.image?.path ?? "",
+        image: question.image,
         question: question.questionC.text,
         rightAnswer: question.rightAnswerC.text,
         wrongAns1: question.wrongAnswer1C.text,
@@ -45,11 +45,13 @@ class CreateChooseExerciseController extends GetxController {
         wrongAns3: question.wrongAnswer3C.text,
         note: question.note.text,
       );
+
       apiQuestions.add(mcqQuestion);
       log("done $i");
     }
     try {
       for (final question in apiQuestions) {
+        // log(question.image!.path);
         await examsService.postMcqQuestion(question);
       }
       Get.back();
@@ -68,8 +70,6 @@ class QuestionC {
   TextEditingController wrongAnswer3C = TextEditingController();
   TextEditingController wrongAnswer2C = TextEditingController();
   TextEditingController note = TextEditingController();
-  String imageString = "";
-  late bool imageUploaded;
   File? image;
 
   Future<void> pickFile() async {
