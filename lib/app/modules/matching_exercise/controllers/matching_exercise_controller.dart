@@ -13,7 +13,7 @@ class MatchingExerciseController extends GetxController {
     examName: "examName",
     questions: [],
   );
-  late List<McqQuestion> quistionList = [];
+
   final examsService = Get.find<ExamsService>();
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
@@ -22,11 +22,11 @@ class MatchingExerciseController extends GetxController {
   Future<void> onInit() async {
     try {
       exam = await examsService.getExercise(id: examId);
-      quistionList = exam.questions;
-      update();
+      questions = exam.questions;
     } catch (e, st) {
       catchLog("err$e", st);
     }
+    update();
     super.onInit();
   }
 
@@ -55,6 +55,9 @@ class MatchingExerciseController extends GetxController {
       question.isSelectedSWord = true;
       question.isCorrect = question.question == sWord;
       questions.removeWhere((q) => q.id == questionId);
+      if (questions.isEmpty) {
+        finishExam();
+      }
       update();
     }
   }
@@ -68,12 +71,13 @@ class MatchingExerciseController extends GetxController {
     Get.back();
   }
 
-  bool isAllAnswered() {
-    for (final question in questions) {
-      if (!question.isSelectedFWord! || !question.isSelectedSWord!) {
-        return false;
-      }
-    }
-    return true;
-  }
+//   bool isAllAnswered() {
+//     for (final question in questions) {
+//       if (!question.isSelectedFWord! || !question.isSelectedSWord!) {
+//         return false;
+//       }
+//     }
+//     finishExam();
+//     return true;
+//   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/matching_exercise/controllers/matching_exercise_controller.dart';
-import 'package:quizhub/app/routes/app_pages.dart';
 
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/views/timer.dart';
@@ -35,7 +34,7 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
         init: controller,
         builder: (_) {
           return controller.questions.isEmpty
-              ? const Center(child: Text("Congratulations"))
+              ? const Center(child: Text("Congratulations "))
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -130,22 +129,6 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
                           );
                         },
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (controller.isAllAnswered()) {
-                          Get.toNamed(Routes.STUDENTS_GRADES);
-                        } else {
-                          // Show a message or prompt to complete all answers
-                          Get.snackbar(
-                            'Incomplete Answers',
-                            'Please select all matching words.',
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
-                          );
-                        }
-                      },
-                      child: const Text('إنهاء'),
                     ),
                   ],
                 );

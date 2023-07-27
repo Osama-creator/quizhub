@@ -12,6 +12,24 @@ class StudentExercisesListController extends GetxController {
   User selectedTeacher = User(id: "id", name: "name");
   String subjName = '';
   Map<String, List<ExerciseModel>> subjectExams = {};
+  String searchQuery = '';
+
+  void setSearchQuery(String query) {
+    searchQuery = query;
+    update();
+  }
+
+  List<ExerciseModel>? get filteredExams {
+    final subjectExamsForSelectedTeacher = subjectExams[selectedTeacher.name];
+    if (subjectExamsForSelectedTeacher == null) {
+      return null;
+    }
+
+    return subjectExamsForSelectedTeacher
+        .where((exam) =>
+            exam.arName.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+  }
 
   @override
   Future<void> onInit() async {
