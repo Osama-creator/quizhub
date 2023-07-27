@@ -46,13 +46,16 @@ class TeacherHomeController extends GetxController {
   }
 
   Future<void> fetchTeacherHomeData() async {
+    final userData = await authService.cachedUser;
     try {
-      final response = await service.getTeacherHomeData(teacherId: teacherId);
+      final response =
+          await service.getTeacherHomeData(teacherId: userData!.id as String);
 
       if (response.statusCode == 200) {
         final responseData = response.data;
         final teacherData = responseData['Teacher'];
-        teacherName = teacherData['name'] as String;
+        teacherName = userData.name;
+        print(teacherName);
         teacherId = teacherData['_id'] as String;
         teacherSubject = teacherData['material'] as String;
         followLength = teacherData['follow'].length as int;

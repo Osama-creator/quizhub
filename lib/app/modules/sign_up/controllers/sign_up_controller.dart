@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:queen/queen.dart';
-import 'package:quizhub/app/controllers/auth_controller.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/enums.dart';
 import 'package:quizhub/generated/tr.dart';
@@ -84,7 +83,7 @@ class SignUpController extends GetxController {
         subject: subject,
       );
 
-      await Get.find<AuthController>().checkAndNavigate();
+      // await Get.find<AuthController>().checkAndNavigate();
       Alert.success(Tr.done.tr);
     } catch (e, st) {
       Alert.error(Tr.error.tr);

@@ -11,7 +11,7 @@ class AuthController extends GetxController {
   final service = Get.find<AuthService>();
   bool isLoggedIn = false;
   Future<void> navigateToProperPage() async {
-    final userData = service.cachedUser;
+    final userData = await service.cachedUser;
     log(userData!.name);
     if (userData.roleName == "Teacher") {
       Get.offAllNamed(Routes.TEACHER_HOME, arguments: userData.id);
@@ -33,7 +33,7 @@ class AuthController extends GetxController {
 
   Future<void> checkAuthStatus() async {
     try {
-      final userData = service.cachedUser;
+      final userData = await service.cachedUser;
       if (userData != null) {
         isLoggedIn = true;
       }

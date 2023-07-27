@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_dynamic_calls
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -21,18 +22,19 @@ class AuthService {
 
   bool get isLoggedOut => !isLoggedIn;
 
-  UserModel? get cachedUser {
-    final user = Prefs.getMap('auth.user');
+  Future<UserModel?> get cachedUser async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userString = prefs.getString('auth.user');
+    final user = await jsonDecode(userString!) as Map<String, dynamic>;
     if (user.isEmpty) return null;
     return UserModel.fromMap(user);
   }
-
-  UserModel get user => cachedUser ?? (throw 'user is not logged in !');
 
   Future<String?> signIn({
     required String email,
     required String password,
   }) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final res = await client.post(
       Endpoints.login,
       body: {
@@ -47,15 +49,32 @@ class AuthService {
       final message = responseData['message'] as String?;
       if (message != null) {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
-        Prefs.remove("role");
+        // Prefs.remove("role");
         if (userData != null) {
-          await Prefs.setMap('auth.user', userData);
-          log(Prefs.getMap('auth.user').toString());
+          prefs.setString('auth.user', jsonEncode(userData));
+          // prefs.reload();
+          navigateToProperPage();
         }
         return message;
       }
     }
     throw Exception('Invalid response data');
+  }
+
+  Future<void> navigateToProperPage() async {
+    final userData = await cachedUser;
+    log(userData!.name);
+    if (userData.roleName == "Teacher") {
+      Get.offAllNamed(Routes.TEACHER_HOME, arguments: userData.id);
+    } else if (userData.roleName == "Parent") {
+      Get.offAllNamed(Routes.PARENT_HOME, arguments: userData.id);
+    } else if (userData.roleName == "Student") {
+      Get.offAllNamed(Routes.STUDENT_HOME, arguments: userData.id);
+    } else {
+      Get.offAllNamed(
+        Routes.ADMIN_HOME,
+      );
+    }
   }
 
   Future<void> signUp({
@@ -83,7 +102,7 @@ class AuthService {
         'school': school,
         'Area': erea,
         'governorate': governorate,
-        if (classS != null && classS.isNotEmpty) 'the_line': classS,
+        if (classS != null && classS.isNotEmpty) 'the_grades': classS,
         if (subject != null && subject.isNotEmpty) 'material': subject,
         if (phone != null && phone.isNotEmpty) 'phone': phone,
         if (image != null && image.path.isNotEmpty) 'img': image.path,
