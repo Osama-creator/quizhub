@@ -15,7 +15,11 @@ BottomNavyBarItem buildBottomItem({
         color: AppColors.primary,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(
+          top: 4,
+          bottom: 4,
+          right: 15,
+        ),
         child: Text(
           title,
           style: const TextStyle(

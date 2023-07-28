@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
@@ -12,9 +14,10 @@ class StudentHomeController extends GetxController
   final auth = Get.find<AuthService>();
   late TabController tabController;
   String selectedSubject = '';
-
+  String userName = "";
+  String userImage = "";
+  String userId = "";
   List<String> subjects = [];
-
   List<ExerciseCardModel> exercises = [];
 
   @override
@@ -30,37 +33,48 @@ class StudentHomeController extends GetxController
 
   @override
   Future<void> onInit() async {
-    super.onInit();
     tabController = TabController(vsync: this, length: 3);
+    final userData = await auth.cachedUser;
+    userName = userData!.name;
+    userImage = userData.image!;
+    userId = userData.id!;
     tabController.addListener(update);
     await fetchSubjects();
+    super.onInit();
   }
 
   Future<void> fetchSubjects() async {
-    try {
-      final subjectsFromApi = await service.fetchStudentHomeSubjectNames(
-        "6495d071a13af5b54e73ab3f",
-      );
-      subjects = subjectsFromApi;
-      selectedSubject = subjects[0];
-      onSelectSubject(0);
-      update();
-    } catch (e, st) {
-      catchLog(e, st);
+    if (userId.isNotEmpty) {
+      try {
+        final subjectsFromApi = await service.fetchStudentHomeSubjectNames(
+          userId,
+        );
+        subjects = subjectsFromApi;
+        selectedSubject = subjects[0];
+        onSelectSubject(0);
+        update();
+      } catch (e, st) {
+        catchLog(e, st);
+      }
+    } else {
+      log(" user id is null");
     }
   }
 
   Future<void> fetchExercisesForSubject(String subjectName) async {
-    try {
-      final exercisesFromApi = await service.fetchStudentExercises(
-        userId: "6495d071a13af5b54e73ab3f",
-        subject: subjectName,
-      );
-      exercises = exercisesFromApi;
-
-      update();
-    } catch (e) {
-      // Handle the error
+    if (userId.isNotEmpty) {
+      try {
+        final exercisesFromApi = await service.fetchStudentExercises(
+          userId: userId,
+          subject: subjectName,
+        );
+        exercises = exercisesFromApi;
+        update();
+      } catch (e, st) {
+        catchLog(e, st);
+      }
+    } else {
+      log(" user id is null");
     }
   }
 

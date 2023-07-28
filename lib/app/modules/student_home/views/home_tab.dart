@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/generated/assets.dart';
 
 class HomeTab extends GetView<StudentHomeController> {
   const HomeTab({super.key});
@@ -26,12 +25,16 @@ class HomeTab extends GetView<StudentHomeController> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(Asset.images.teacher),
+                        backgroundImage: NetworkImage(
+                          controller.userImage.isEmpty
+                              ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                              : controller.userImage,
+                        ),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
                     Text(
-                      'أحمد محمود خليل',
+                      controller.userName,
                       style: context.textTheme.titleLarge!
                           .copyWith(color: AppColors.black),
                     ),
