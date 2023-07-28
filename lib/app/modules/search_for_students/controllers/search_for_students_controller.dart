@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 
 import 'package:quizhub/app/models/user.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/parent.dart';
 import 'package:quizhub/helper/func.dart';
 
 class SearchForStudentsController extends GetxController {
   final service = Get.find<ParentService>();
+  final authService = Get.find<AuthService>();
   List<User> filteredUsers = [];
 
   List<User> students = [];
@@ -15,10 +17,10 @@ class SearchForStudentsController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    final userData = await authService.cachedUser;
     await action.performAction(
       () async {
-        students
-            .addAll(await service.fetchStudents("6499a65d90230b8ecf618780"));
+        students.addAll(await service.fetchStudents(userData!.id!));
         filteredUsers.addAll(students);
       },
       lauding,
@@ -46,10 +48,11 @@ class SearchForStudentsController extends GetxController {
   Future<void> folowStudent({
     required String forwordUserId,
   }) async {
+    final userData = await authService.cachedUser;
     await action.performAction(
       () async {
         service.folowStudent(
-          "6499a65d90230b8ecf618780",
+          userData!.id!,
           forwordUserId,
         );
       },

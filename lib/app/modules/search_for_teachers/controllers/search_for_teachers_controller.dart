@@ -17,8 +17,7 @@ class SearchForTeachersController extends GetxController {
     final userData = await authService.cachedUser;
     if (userData!.id != null) {
       try {
-        teachers
-            .addAll(await service.fetchTeachers("64a2c7216193b9068277571f"));
+        teachers.addAll(await service.fetchTeachers(userData.id!));
         filteredTeachers.addAll(teachers);
         update();
       } catch (e, st) {

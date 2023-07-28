@@ -2,11 +2,14 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/exersice.dart';
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/helper/func.dart';
 
 class StudentExercisesListController extends GetxController {
   final Map<String, dynamic> args = Get.arguments as Map<String, dynamic>;
   final service = Get.find<ExamsService>();
+  final authService = Get.find<AuthService>();
   final studentHome = Get.find<StudentHomeController>();
   List<User> teachers = [];
   User selectedTeacher = User(id: "id", name: "name");
@@ -26,8 +29,10 @@ class StudentExercisesListController extends GetxController {
     }
 
     return subjectExamsForSelectedTeacher
-        .where((exam) =>
-            exam.arName.toLowerCase().contains(searchQuery.toLowerCase()))
+        .where(
+          (exam) =>
+              exam.arName.toLowerCase().contains(searchQuery.toLowerCase()),
+        )
         .toList();
   }
 
@@ -38,23 +43,25 @@ class StudentExercisesListController extends GetxController {
   }
 
   Future<void> fetchData() async {
+    final userData = await authService.cachedUser;
     subjName = args['subject'] as String;
     try {
       final teachersFromApi = await service.fetchTeacherNames(
-        "6495d071a13af5b54e73ab3f",
+        userData!.id!,
         subjName,
       );
       final exercisesFromApi = await service.fetchStudentExams(
-        // userId: args['userId'] as String,
-        "6495d071a13af5b54e73ab3f",
+        userData.id!,
         subjName,
       );
       subjectExams = exercisesFromApi;
       teachers = teachersFromApi;
       selectedTeacher = teachers[0];
       update();
-    } catch (e) {}
-
+    } catch (e, st) {
+      catchLog(e, st);
+    }
+    update();
     // Handle the error
   }
 
