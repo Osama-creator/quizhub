@@ -64,10 +64,7 @@ class ParentService {
     try {
       final response = await client.post(
         Endpoints.folowStudent,
-        body: {
-          "idStudent": idStudent,
-          "idGuardian": "6499a65d90230b8ecf618780"
-        },
+        body: {"idStudent": idStudent, "idGuardian": idGuardian},
       );
 
       if (response.statusCode == 200) {

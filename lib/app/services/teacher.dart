@@ -41,11 +41,12 @@ class TeacherService {
     }
   }
 
-  Future<TeacherModel> getFolowedTeachers({required String idTeacher}) async {
+  Future<TeacherModel> getFolowedTeachers(
+      {required String idTeacher, required String userId}) async {
     try {
       final response = await client.post(
         Endpoints.getTeachersummery,
-        body: {"idTeacher": idTeacher, "idUser": "64a2c7216193b9068277571f"},
+        body: {"idTeacher": idTeacher, "idUser": userId},
       );
 
       if (response.statusCode == 200) {

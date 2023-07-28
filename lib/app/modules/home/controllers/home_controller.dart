@@ -30,8 +30,16 @@ class HomeController extends GetxController {
   );
   @override
   Future<void> onInit() async {
+    final userData = await authService.cachedUser;
     log(teacherId);
-    teacher = await service.getFolowedTeachers(idTeacher: teacherId);
+    try {
+      teacher = await service.getFolowedTeachers(
+        idTeacher: teacherId,
+        userId: userData!.id!,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    }
     update();
     super.onInit();
   }

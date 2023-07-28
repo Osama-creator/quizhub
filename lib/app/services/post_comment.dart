@@ -129,11 +129,7 @@ class PostCommentervice {
     try {
       final response = await client.post(
         Endpoints.addComment,
-        body: {
-          "commBody": commentBody,
-          "postId": postId,
-          "createdby": "6498688caefa7c31aa92b0a9"
-        },
+        body: {"commBody": commentBody, "postId": postId, "createdby": userId},
       );
 
       final responseData = response.data;

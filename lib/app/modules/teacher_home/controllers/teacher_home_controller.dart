@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, cast_nullable_to_non_nullable
 
 import 'dart:developer';
 
@@ -16,8 +16,7 @@ class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
   final authService = Get.find<AuthService>();
   final ervice = Get.find<ExamsService>();
-  String teacherId = "64ba6af4353d7780215fed5c";
-  // String teacherId = Get.arguments as String;
+  String teacherId = "";
   final List<GradeModel> grades = [];
   final List<String> gradesNames = [];
   String teacherName = "";
@@ -55,7 +54,6 @@ class TeacherHomeController extends GetxController {
         final responseData = response.data;
         final teacherData = responseData['Teacher'];
         teacherName = userData.name;
-        print(teacherName);
         teacherId = teacherData['_id'] as String;
         teacherSubject = teacherData['material'] as String;
         followLength = teacherData['follow'].length as int;

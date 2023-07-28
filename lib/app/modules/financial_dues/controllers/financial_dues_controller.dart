@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/financials_model.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/money_financials.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
@@ -14,27 +17,49 @@ class FinancialDuesController extends GetxController {
   bool error = false;
 
   final service = Get.find<FinancialsService>();
+  final authService = Get.find<AuthService>();
+
   FinancialsModel? data = FinancialsModel(
     equation: 0,
     followLength: 0,
     name: "teacher name",
     result: 0,
   );
+
   @override
   Future<void> onInit() async {
-    data =
-        await service.getfinancialsData(teacherId: "6494a1acd694b4d94537d2b4");
+    final userData = await authService.cachedUser;
+
+    if (userData!.id != null) {
+      try {
+        data = await service.getfinancialsData(teacherId: userData.id!);
+      } catch (e, st) {
+        catchLog(e, st);
+      }
+    } else {
+      log("err in id");
+    }
 
     update();
     super.onInit();
   }
 
   Future<void> onAddFolSubmit() async {
+    final userData = await authService.cachedUser;
     if (data!.equation >= int.parse(fNumberC.text)) {
-      await service.addFolowersToTeacher(
-        teacherId: "6494a1acd694b4d94537d2b4",
-        folowersNumber: fNumberC.text,
-      );
+      if (userData!.id != null) {
+        try {
+          await service.addFolowersToTeacher(
+            teacherId: userData.id!,
+            folowersNumber: fNumberC.text,
+          );
+        } catch (e, st) {
+          catchLog(e, st);
+        }
+      } else {
+        log("err in id");
+      }
+
       Alert.success("تم ارسال الطلب بنجاح");
     } else {
       Alert.error("لا يوجد رصيد كافي لزياده المتابعين");
@@ -42,19 +67,24 @@ class FinancialDuesController extends GetxController {
   }
 
   Future<void> orderTeacher() async {
-    try {
-      isLoading = true;
-      await service.orderForMoney(
-        teacherId: "6494a1acd694b4d94537d2b4",
-        phone: int.parse(PhoneNumberC.text),
-        amount: int.parse(MNumberC.text),
-      );
-      Alert.success("تم ارسال الطلب بنجاح");
-    } catch (e, st) {
-      catchLog(e, st);
-    } finally {
-      isLoading = false;
-      update();
+    final userData = await authService.cachedUser;
+    if (userData!.id != null) {
+      try {
+        isLoading = true;
+        await service.orderForMoney(
+          teacherId: "6494a1acd694b4d94537d2b4",
+          phone: int.parse(PhoneNumberC.text),
+          amount: int.parse(MNumberC.text),
+        );
+        Alert.success("تم ارسال الطلب بنجاح");
+      } catch (e, st) {
+        catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
+      }
+    } else {
+      log("err in id");
     }
   }
 }

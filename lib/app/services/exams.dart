@@ -63,7 +63,7 @@ class ExamsService {
       final response = await client.post(
         Endpoints.getexamswithTeacher,
         body: {
-          'idUser': "6497133614d355c68609c7d2",
+          'idUser': userId,
           'subject': subject,
         },
       );
@@ -182,7 +182,7 @@ class ExamsService {
       final response = await client.post(
         Endpoints.subjectNames,
         body: {
-          'idUser': "6495d071a13af5b54e73ab3f",
+          'idUser': userId,
         },
       );
 

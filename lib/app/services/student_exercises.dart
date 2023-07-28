@@ -91,7 +91,7 @@ class StudentExamsService {
       final response = await client.post(
         Endpoints.getEnvitations,
         body: {
-          "idUser": "6495d071a13af5b54e73ab3f",
+          "idUser": userId,
         },
       );
 
