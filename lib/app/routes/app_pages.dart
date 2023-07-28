@@ -70,10 +70,6 @@ import 'package:quizhub/app/modules/teacher_home/bindings/teacher_home_binding.d
 import 'package:quizhub/app/modules/teacher_home/views/teacher_home_view.dart';
 import 'package:quizhub/app/modules/teacher_prv_requists/bindings/teacher_prv_requists_binding.dart';
 import 'package:quizhub/app/modules/teacher_prv_requists/views/teacher_prv_requists_view.dart';
-import 'package:quizhub/app/modules/teacher_summery/bindings/teacher_summery_binding.dart';
-import 'package:quizhub/app/modules/teacher_summery/views/teacher_summery_view.dart';
-import 'package:quizhub/app/modules/techer_page/bindings/techer_page_binding.dart';
-import 'package:quizhub/app/modules/techer_page/views/techer_page_view.dart';
 import 'package:quizhub/app/modules/true_false_exercise/bindings/true_false_exercise_binding.dart';
 import 'package:quizhub/app/modules/true_false_exercise/views/true_false_exercise_view.dart';
 
@@ -206,11 +202,6 @@ class AppPages {
       binding: MatchingExerciseBinding(),
     ),
     GetPage(
-      name: _Paths.TECHER_PAGE,
-      page: () => const TecherPageView(),
-      binding: TecherPageBinding(),
-    ),
-    GetPage(
       name: _Paths.COMPLATE_EXERCISE,
       page: () => const ComplateExerciseView(),
       binding: ComplateExerciseBinding(),
@@ -244,11 +235,6 @@ class AppPages {
       name: _Paths.SEARCH_FOR_TEACHERS,
       page: () => SearchForTeachersView(),
       binding: SearchForTeachersBinding(),
-    ),
-    GetPage(
-      name: _Paths.TEACHER_SUMMERY,
-      page: () => const TeacherSummeryView(),
-      binding: TeacherSummeryBinding(),
     ),
     GetPage(
       name: _Paths.FOLWED_TEACHERS,
