@@ -41,12 +41,11 @@ class AuthService {
         'password': password,
       },
     );
-
     throwIfNot(200, res);
     final responseData = res.data;
     if (responseData is Map<String, dynamic>) {
       final message = responseData['message'] as String?;
-      if (message != null) {
+      if (message != "Done") {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
         if (userData != null) {
           prefs.setString('auth.user', jsonEncode(userData));
@@ -112,7 +111,14 @@ class AuthService {
 
   Future<void> signOut() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userData = await cachedUser;
+    final res = await client.post(
+      Endpoints.signOut,
+      body: {"id": userData!.id},
+    );
+    throwIfNot(200, res);
     prefs.remove('auth.user');
+
     Get.offAndToNamed(Routes.SIGN_IN);
   }
 

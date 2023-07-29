@@ -5,6 +5,7 @@ abstract class Endpoints {
   /// ! auth
   static const register = '/v6/use/signUP';
   static const login = '/v6/use/login';
+  static const signOut = '/v6/use/logOut';
   static const cities = '/v6/use/getallGovernorates';
   static const grades = '/v6/use/getallgrades';
   static const subject = '/v6/use/subjects';

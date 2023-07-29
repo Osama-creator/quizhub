@@ -82,7 +82,6 @@ class SignUpController extends GetxController {
         classS: classS,
         subject: subject,
       );
-
       Alert.success(Tr.done.tr);
     } catch (e, st) {
       Alert.error(Tr.error.tr);
