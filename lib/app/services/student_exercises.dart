@@ -99,7 +99,6 @@ class StudentExamsService {
         final jsonBody = response.data;
         final List<dynamic> invitationsData =
             jsonBody['Invitations'] as List<dynamic>;
-
         final List<Invitation> invitations = invitationsData
             .map(
               (invitation) =>

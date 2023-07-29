@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/theme.dart';
 
 class SubjectList extends StatelessWidget {
@@ -240,7 +241,7 @@ class SettingButton extends StatelessWidget {
     required this.controller,
   });
 
-  final StudentHomeController controller;
+  final AuthService controller;
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +261,7 @@ class SettingButton extends StatelessWidget {
                   .copyWith(color: AppColors.primary),
             ),
             onTap: () async {
-              await controller.auth.signOut();
+              await controller.signOut();
             },
           ),
         ];

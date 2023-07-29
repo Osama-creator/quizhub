@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/post_model.dart';
 import 'package:quizhub/app/services/post_comment.dart';
+import 'package:quizhub/helper/func.dart';
 
 class QuestionsPostsController extends GetxController {
   final TextEditingController postController = TextEditingController();
   final args = Get.arguments as Map<String, dynamic>;
+
   List<Post> posts = [];
   final service = Get.find<PostCommentervice>();
   bool isTeacher = false;
+
   @override
   Future<void> onInit() async {
     posts = await service.fetchPosts(
@@ -21,18 +24,22 @@ class QuestionsPostsController extends GetxController {
   }
 
   Future<void> addPost() async {
-    final newPost = await service.createPost(
-      postBody: postController.text,
-      userId: "6498688caefa7c31aa92b0a9",
-    );
-    posts.add(newPost);
-    update();
+    try {
+      final newPost = await service.createPost(
+        postBody: postController.text,
+        userId: args['id'] as String,
+      );
+      posts.add(newPost);
+      update();
+    } catch (e, st) {
+      catchLog(e, st);
+    }
   }
 
   Future<void> deletePost(String postId) async {
     await service.deletePost(
       postId: postId,
-      userId: "6498688caefa7c31aa92b0a9",
+      userId: args['id'] as String,
     );
     posts.removeWhere((element) => element.id == postId);
     update();

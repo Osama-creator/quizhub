@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/sign_in/controllers/sign_in_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/views/text_field.dart';
+import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/input_feild.dart';
 
 class SignInView extends GetView<SignInController> {
   const SignInView({super.key});
@@ -14,26 +16,27 @@ class SignInView extends GetView<SignInController> {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
               height: context.height * 0.3,
               width: context.width * 0.5,
               child: Image.asset("assets/images/logo.png"),
             ),
-            MyTextFeild(
-              width: context.width * 0.8,
-              controller: controller.emailC,
-              hintText: 'example@gmail.com',
-              labelText: "الايميل",
-              keyboardType: TextInputType.emailAddress,
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: InputField(
+                hint: Tr.emailHint.tr,
+                controller: controller.emailC,
+                keyboardType: TextInputType.emailAddress,
+              ),
             ),
-            MyTextFeild(
-              width: context.width * 0.8,
-              controller: controller.passwordC,
-              hintText: "******",
-              labelText: "كلمه السر",
-              obscureText: true,
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: InputField(
+                hint: Tr.passwordHint.tr,
+                controller: controller.passwordC,
+                obscure: true,
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -49,7 +52,7 @@ class SignInView extends GetView<SignInController> {
                   },
                   child: Text(
                     'تسجيل الدخول',
-                    style: context.textTheme.headline6!.copyWith(
+                    style: context.textTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.white,
                     ),
@@ -65,46 +68,7 @@ class SignInView extends GetView<SignInController> {
                 ),
                 child: Text(
                   "إنشاء حساب جديد",
-                  style: context.textTheme.headline6!
-                      .copyWith(fontSize: 18, color: AppColors.primary),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () => Get.toNamed(Routes.PARENT_HOME),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.width * 0.1,
-                ),
-                child: Text(
-                  "صفحه ولي الامر",
-                  style: context.textTheme.headline6!
-                      .copyWith(fontSize: 18, color: AppColors.primary),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () => Get.toNamed(Routes.TEACHER_HOME),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.width * 0.1,
-                ),
-                child: Text(
-                  "صفحه المدرس",
-                  style: context.textTheme.headline6!
-                      .copyWith(fontSize: 18, color: AppColors.primary),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () => Get.toNamed(Routes.ADMIN_HOME),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.width * 0.1,
-                ),
-                child: Text(
-                  "صفحه الاداره",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(fontSize: 18, color: AppColors.primary),
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/app/modules/teacher_home/controllers/teacher_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
@@ -15,43 +16,51 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              'م/ ${controller.teacherName}',
-              style: context.textTheme.titleLarge,
+            title: Image.asset(
+              'assets/images/logo.png',
+              // Replace with your app logo image path
+              width: 100,
+              height: 100,
+              color: AppColors.light,
             ),
             centerTitle: false,
-            backgroundColor: AppColors.light,
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundImage: AssetImage(Asset.images.teacher),
-                backgroundColor: Colors.transparent,
-              ),
-            ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-                    Text(
-                      'مدرس ${controller.teacherSubject} ',
-                      style: context.textTheme.bodyLarge!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      " متابع: 20",
-                      style: context.textTheme.bodyLarge!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
+              SettingButton(controller: controller.authService),
             ],
-            elevation: 3,
           ),
           body: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage(Asset.images.teacher),
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ),
+                    Text(
+                      'م/ ${controller.teacherName}',
+                      style: context.textTheme.titleLarge,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                SizedBox(
+                  height: context.height * 0.01,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    controller.teacherSubject,
+                    style: context.textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: context.height * 0.05,
                 ),
@@ -59,6 +68,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                   'الصفوف الدراسيه',
                   style: context.textTheme.headlineSmall!
                       .copyWith(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: context.height * 0.05,
@@ -89,10 +99,16 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                   init: controller,
                   builder: (_) {
                     if (controller.grades.isEmpty) {
-                      return const Center(
-                        child: Text(
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: context.height * 0.2,
+                        ),
+                        child: const Text(
                           'لا يوجد صفوف حتى الان',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       );
                     } else {
@@ -139,26 +155,28 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                     style: context.textTheme.titleLarge,
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SizedBox(
-                    height: context.height * 0.06,
-                    width: context.width,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed(Routes.FINANCIAL_DUES);
-                      },
-                      child: Text(
-                        'المستحقات الماليه',
-                        style: context.textTheme.titleLarge!.copyWith(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                SizedBox(
+                  height: context.height * 0.1,
                 ),
               ],
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: SizedBox(
+            height: context.height * 0.06,
+            width: context.width,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(Routes.FINANCIAL_DUES);
+              },
+              child: Text(
+                'المستحقات الماليه',
+                style: context.textTheme.titleLarge!.copyWith(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         );

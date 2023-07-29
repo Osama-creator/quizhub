@@ -83,7 +83,6 @@ class SignUpController extends GetxController {
         subject: subject,
       );
 
-      // await Get.find<AuthController>().checkAndNavigate();
       Alert.success(Tr.done.tr);
     } catch (e, st) {
       Alert.error(Tr.error.tr);

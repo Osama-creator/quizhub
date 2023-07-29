@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:queen/queen.dart';
-import 'package:quizhub/app/controllers/auth_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/auth.dart';
 
 class SplashController extends GetxController {
   @override
@@ -11,8 +12,12 @@ class SplashController extends GetxController {
 
   Future<void> navigateToHomePage() async {
     await oneSecond();
-    final controller = Get.find<AuthController>();
-    await controller.checkAuthStatus();
-    await controller.navigateToProperPage();
+    final authService = Get.find<AuthService>();
+    final userData = await authService.cachedUser;
+    if (userData != null) {
+      authService.navigateToProperPage();
+    } else {
+      Get.offAllNamed(Routes.SIGN_IN);
+    }
   }
 }

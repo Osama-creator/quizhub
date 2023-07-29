@@ -63,7 +63,6 @@ void addFolowersButtomsheet(
                 child: ElevatedButton(
                   onPressed: () {
                     controller.onAddFolSubmit();
-                    controller.fNumberC.clear();
                     Navigator.pop(context);
                   },
                   child: Text(

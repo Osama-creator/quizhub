@@ -32,7 +32,9 @@ class PostCommentervice {
         final arr = responseData['arr'] as List<dynamic>;
         for (final postArr in arr) {
           final post = Post.fromJson(postArr[0] as Map<String, dynamic>);
-          postList.add(post);
+          if (!postList.contains(post)) {
+            postList.add(post);
+          }
         }
 
         return postList;
@@ -136,6 +138,7 @@ class PostCommentervice {
 
       if (responseData['message'] == 'Done') {
         log("post has been created succfully $postId");
+
         return Comment(
           id: "id",
           commBody: commentBody,
@@ -151,10 +154,11 @@ class PostCommentervice {
     }
   }
 
-  Future<void> deleteComment({
+  Future<bool?> deleteComment({
     required String userId,
     required String commentId,
   }) async {
+    bool done = false;
     try {
       final response = await client.delete(
         Endpoints.deleteComment,
@@ -165,12 +169,12 @@ class PostCommentervice {
 
       if (responseData['message'] == 'Done') {
         log("comment has been deleted succfully");
-      } else {
-        throw Exception('Failed to delet comment');
+        done = true;
       }
     } catch (e, st) {
       catchLog(e, st);
     }
+    return done;
   }
 
   Future<void> likeComment({

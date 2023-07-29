@@ -17,22 +17,14 @@ class FinancialsService {
     required String teacherId,
     required String folowersNumber,
   }) async {
-    try {
-      final response = await client.post(
-        Endpoints.addfollowersEP,
-        body: {
-          "idTeacher": teacherId,
-          "addFolowers": int.parse(folowersNumber)
-        },
-      );
-
-      if (response.statusCode == 200) {
-        log("done");
-      } else {
-        throw Exception('Failed to add f');
-      }
-    } catch (e, st) {
-      catchLog(e, st);
+    final response = await client.post(
+      Endpoints.addfollowersEP,
+      body: {"idTeacher": teacherId, "addFolowers": int.parse(folowersNumber)},
+    );
+    if (response.statusCode == 200) {
+      log("done");
+    } else {
+      throw Exception('Failed to add f');
     }
   }
 

@@ -9,7 +9,6 @@ import 'package:queen/queen.dart' hide throwIfNot;
 import 'package:quizhub/app/models/user_model.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/endpoints.dart';
-import 'package:quizhub/config/user_data.dart';
 import 'package:quizhub/helper/client.dart';
 
 class AuthService {
@@ -25,8 +24,8 @@ class AuthService {
   Future<UserModel?> get cachedUser async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final userString = prefs.getString('auth.user');
-    final user = await jsonDecode(userString!) as Map<String, dynamic>;
-    if (user.isEmpty) return null;
+    if (userString == null) return null;
+    final user = await jsonDecode(userString) as Map<String, dynamic>;
     return UserModel.fromMap(user);
   }
 
@@ -49,10 +48,8 @@ class AuthService {
       final message = responseData['message'] as String?;
       if (message != null) {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
-        // Prefs.remove("role");
         if (userData != null) {
           prefs.setString('auth.user', jsonEncode(userData));
-          // prefs.reload();
           navigateToProperPage();
         }
         return message;
@@ -64,6 +61,7 @@ class AuthService {
   Future<void> navigateToProperPage() async {
     final userData = await cachedUser;
     log(userData!.name);
+    log(userData.roleName);
     if (userData.roleName == "Teacher") {
       Get.offAllNamed(Routes.TEACHER_HOME, arguments: userData.id);
     } else if (userData.roleName == "Parent") {
@@ -113,8 +111,8 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    await Prefs.remove('auth.user');
-    UserData.clearUserData();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('auth.user');
     Get.offAndToNamed(Routes.SIGN_IN);
   }
 

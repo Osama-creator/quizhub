@@ -24,16 +24,15 @@ class TeacherHomeController extends GetxController {
   int? followLength;
   Future<void> pickClass() async {
     final res = await Get.bottomSheet<String?>(const PickClss());
-    if (res != null || !gradesNames.contains(res)) {
+    // print(!grades.map((e) => e.arName).contains(res));
+    if (res != null && !grades.map((e) => e.arName).contains(res)) {
       final GradeModel response =
-          await service.addGrades(grade: res!, teacherId: teacherId);
+          await service.addGrades(grade: res, teacherId: teacherId);
       gradesNames.add(res);
-      if (grades.contains(response)) {
-        Alert.error("لقد تم إختياره بالفعل");
-      } else {
-        grades.add(response);
-      }
+      grades.add(response);
       update();
+    } else {
+      Alert.error("لقد تم اختياره بالفعل ");
     }
   }
 

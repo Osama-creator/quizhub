@@ -62,7 +62,6 @@ class StudentExercisesListController extends GetxController {
       catchLog(e, st);
     }
     update();
-    // Handle the error
   }
 
   void onSelect(int index) {

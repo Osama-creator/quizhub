@@ -1,9 +1,8 @@
 // ignore_for_file: avoid_dynamic_calls, prefer_final_locals
 
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/exersice.dart';
@@ -264,89 +263,89 @@ class ExamsService {
     }
   }
 
-  // Future<void> postMcqQuestion(McqQuestion question) async {
-  //   // List<int> imageBytes = File(question.image!.path).readAsBytesSync();
-  //   // final String baseimage = base64Encode(imageBytes);
-
-  //   log(question.image!.path);
-  //   try {
-  //     final request = http.MultipartRequest(
-  //       "POST",
-  //       Uri.parse("http://192.168.0.106:4500/Node.js/api/v6/com/addQuestion"),
-  //     );
-  //     Map<String, String> headers = {"Content-type": "multipart/form-data"};
-  //     request.headers.addAll(headers);
-
-  //     request.fields['correct_Answer'] = question.rightAnswer;
-  //     request.fields['choose2'] = question.wrongAns1!;
-  //     request.fields['choose3'] = question.wrongAns2!;
-  //     request.fields['choose4'] = question.wrongAns3!;
-  //     request.fields['test_node'] = question.note!;
-  //     request.fields['question'] = question.question;
-  //     request.fields['createdby'] = question.teacherId;
-  //     request.fields['Idexam'] = question.examId;
-  //     // request.fields['Idexam'] = question.examId;
-
-  //     request.files.add(
-  //       http.MultipartFile.fromBytes(
-  //         'image',
-  //         File(question.image!.path).readAsBytesSync(),
-  //         filename: question.image!.path.split("/").last,
-  //       ),
-  //     );
-
-  //     request.send().then((response) {
-  //       if (response.statusCode == 200) {
-  //         log("Uploaded!");
-  //       } else {}
-  //     });
-  //   } catch (e, st) {
-  //     throw Exception('Error: $e, $st');
-  //   }
-  // }
   Future<void> postMcqQuestion(McqQuestion question) async {
+    // List<int> imageBytes = File(question.image!.path).readAsBytesSync();
+    // final String baseimage = base64Encode(imageBytes);
+
+    // log(question.image!.path);
     try {
-      final dio = Dio();
-      final formData = FormData();
-
-      formData.fields.addAll([
-        MapEntry('correct_Answer', question.rightAnswer),
-        MapEntry('choose2', question.wrongAns1!),
-        MapEntry('choose3', question.wrongAns2!),
-        MapEntry('choose4', question.wrongAns3!),
-        MapEntry('test_node', question.note!),
-        MapEntry('question', question.question),
-        MapEntry('createdby', question.teacherId),
-        MapEntry('Idexam', question.examId),
-      ]);
-
-      final file = File(question.image!.path);
-      formData.files.add(
-        MapEntry(
-          'image',
-          await MultipartFile.fromFile(
-            file.path,
-            filename: file.path.split('/').last,
-          ),
-        ),
+      final request = http.MultipartRequest(
+        "POST",
+        Uri.parse("http://192.168.0.106:4500/Node.js/api/v6/com/addQuestion"),
       );
+      Map<String, String> headers = {"Content-type": "multipart/form-data"};
+      request.headers.addAll(headers);
 
-      final response = await dio.post(
-        'http://192.168.0.106:4500/Node.js/api/v6/com/addQuestion',
-        data: formData,
-        options: Options(contentType: 'multipart/form-data'),
-      );
+      request.fields['correct_Answer'] = question.rightAnswer;
+      request.fields['choose2'] = question.wrongAns1!;
+      request.fields['choose3'] = question.wrongAns2!;
+      request.fields['choose4'] = question.wrongAns3!;
+      request.fields['test_node'] = question.note!;
+      request.fields['question'] = question.question;
+      request.fields['createdby'] = question.teacherId;
+      request.fields['Idexam'] = question.examId;
+      // request.fields['Idexam'] = question.examId;
 
-      if (response.statusCode == 200) {
-        log('Uploaded!');
-      } else {
-        log('Error');
-      }
+      // request.files.add(
+      //   http.MultipartFile.fromBytes(
+      //     'image',
+      //     File(question.image!.path).readAsBytesSync(),
+      //     filename: question.image!.path.split("/").last,
+      //   ),
+      // );
+
+      request.send().then((response) {
+        if (response.statusCode == 200) {
+          log("Uploaded!");
+        } else {}
+      });
     } catch (e, st) {
-      log('Error: $e, $st');
       throw Exception('Error: $e, $st');
     }
   }
+  // Future<void> postMcqQuestion(McqQuestion question) async {
+  //   try {
+  //     final dio = Dio();
+  //     final formData = FormData();
+
+  //     formData.fields.addAll([
+  //       MapEntry('correct_Answer', question.rightAnswer),
+  //       MapEntry('choose2', question.wrongAns1!),
+  //       MapEntry('choose3', question.wrongAns2!),
+  //       MapEntry('choose4', question.wrongAns3!),
+  //       MapEntry('test_node', question.note!),
+  //       MapEntry('question', question.question),
+  //       MapEntry('createdby', question.teacherId),
+  //       MapEntry('Idexam', question.examId),
+  //     ]);
+
+  //     final file = File(question.image!.path);
+  //     formData.files.add(
+  //       MapEntry(
+  //         'image',
+  //         await MultipartFile.fromFile(
+  //           file.path,
+  //           filename: file.path.split('/').last,
+  //         ),
+  //       ),
+  //     );
+
+  //     final response = await dio.post(
+  //       'http://192.168.0.106:4500/Node.js/api/v6/com/addQuestion',
+  //       data: formData,
+  //       options: Options(contentType: 'multipart/form-data'),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       log('Uploaded!');
+  //     } else {
+  //       log('Error');
+  //     }
+  //   } catch (e, st) {
+  //     log('Error: $e, $st');
+  //     throw Exception('Error: $e, $st');
+  //   }
+  // }
 
   Future<void> updateQuestion({
     required Map<String, dynamic> body,

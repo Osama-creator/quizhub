@@ -35,7 +35,7 @@ class StudentHomeView extends GetView<StudentHomeController> {
                   Get.toNamed(Routes.SEARCH_FOR_TEACHERS);
                 },
               ),
-              SettingButton(controller: controller),
+              SettingButton(controller: controller.auth),
             ],
           ),
           body: TabBarView(

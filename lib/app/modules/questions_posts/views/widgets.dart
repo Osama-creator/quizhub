@@ -69,13 +69,6 @@ Column buildPost(BuildContext context, Post post) {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      "3",
-                      // post.comments ,
-                      style: context.textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
                     const Icon(
                       Icons.mode_comment_outlined,
                       color: Colors.black,

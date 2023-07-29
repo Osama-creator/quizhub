@@ -59,10 +59,10 @@ class FinancialDuesController extends GetxController {
       } else {
         log("err in id");
       }
-
       Alert.success("تم ارسال الطلب بنجاح");
     } else {
       Alert.error("لا يوجد رصيد كافي لزياده المتابعين");
+      fNumberC.clear();
     }
   }
 
@@ -71,12 +71,16 @@ class FinancialDuesController extends GetxController {
     if (userData!.id != null) {
       try {
         isLoading = true;
-        await service.orderForMoney(
-          teacherId: "6494a1acd694b4d94537d2b4",
-          phone: int.parse(PhoneNumberC.text),
-          amount: int.parse(MNumberC.text),
-        );
-        Alert.success("تم ارسال الطلب بنجاح");
+        if (data!.equation > 100) {
+          await service.orderForMoney(
+            teacherId: userData.id!,
+            phone: int.parse(PhoneNumberC.text),
+            amount: int.parse(MNumberC.text),
+          );
+          Alert.success("تم ارسال الطلب بنجاح");
+        } else {
+          Alert.error("لا يوجد رصيد كافي ");
+        }
       } catch (e, st) {
         catchLog(e, st);
       } finally {

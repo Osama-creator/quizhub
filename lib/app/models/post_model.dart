@@ -1,14 +1,14 @@
+import 'package:equatable/equatable.dart';
 import 'package:quizhub/app/models/user.dart';
 
-class Post {
+class Post extends Equatable {
   final String id;
   final String title;
   final User createdBy;
   final DateTime createdAt;
-
   final String? comments;
 
-  Post({
+  const Post({
     required this.id,
     required this.title,
     required this.createdBy,
@@ -25,4 +25,7 @@ class Post {
       // comments: json['comments'] as String,
     );
   }
+
+  @override
+  List<Object?> get props => [id, title, createdAt, createdBy, comments];
 }

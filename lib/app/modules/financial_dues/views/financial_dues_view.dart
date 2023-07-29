@@ -116,7 +116,6 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                 InkWell(
                   onTap: () => Get.toNamed(
                     Routes.TEACHER_PRV_REQUISTS,
-                    arguments: "6494a1acd694b4d94537d2b4",
                   ),
                   child: Text(
                     "الطلبات السابقه",

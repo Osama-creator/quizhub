@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/comment_model.dart';
 import 'package:quizhub/app/services/post_comment.dart';
+import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 
 class CommentsPageController extends GetxController {
@@ -43,6 +44,7 @@ class CommentsPageController extends GetxController {
           userId: userId,
         );
         comments.add(newComment);
+        comments = await service.fetchComments(postId);
       },
       lauding,
       error,
@@ -51,18 +53,19 @@ class CommentsPageController extends GetxController {
   }
 
   Future<void> removeComment(String commentId) async {
-    await action.performAction(
-      () async {
-        await service.deleteComment(
-          commentId: commentId,
-          userId: userId,
-        );
-        comments.removeWhere((element) => element.id == postId);
-      },
-      lauding,
-      error,
-    );
-
+    try {
+      bool? done = await service.deleteComment(
+        commentId: commentId,
+        userId: userId,
+      );
+      if (done!) {
+        comments.removeWhere((element) => element.id == commentId);
+      } else {
+        Alert.error("لا يمكن فعل هذا الامر ");
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+    }
     update();
   }
 
