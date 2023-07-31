@@ -27,6 +27,7 @@ class HomeController extends GetxController {
     follow: [],
     followStudent: [],
     exams: [],
+    doneExams: [],
   );
   @override
   Future<void> onInit() async {

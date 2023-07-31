@@ -86,7 +86,8 @@ class ExamsService {
           final List<DoneExerciseModel> doneExercises =
               doneExamList.map((exerciseData) {
             return DoneExerciseModel.fromMap(
-                exerciseData as Map<String, dynamic>);
+              exerciseData as Map<String, dynamic>,
+            );
           }).toList();
 
           exercisesCardList.add(
@@ -99,7 +100,10 @@ class ExamsService {
           );
         }
         exercisesCardList.sort((a, b) => b.advantage!.compareTo(a.advantage!));
-        exercisesCardList.removeWhere((element) => element.exercises.isEmpty);
+        exercisesCardList.removeWhere(
+          (element) =>
+              element.exercises.isEmpty && element.doneExercises.isEmpty,
+        );
         return exercisesCardList;
       } else {
         throw Exception('Failed to fetch exercises');
@@ -131,16 +135,17 @@ class ExamsService {
         for (final data in arr) {
           final String teacherName = data['teacher']['name'] as String;
 
-          if (data['exam'] != null &&
-              (data['exam'] as List<dynamic>).isNotEmpty) {
-            final List<dynamic> examList = data['exam'] as List<dynamic>;
+          final List<dynamic> examList = data['exam'] as List<dynamic>;
+          final List<dynamic> doneExamList =
+              data['the_grades'] as List<dynamic>;
+          final List<ExerciseModel> exams = examList.map((exam) {
+            return ExerciseModel.fromMap(exam as Map<String, dynamic>);
+          }).toList();
+          final List<ExerciseModel> done = doneExamList.map((exam) {
+            return ExerciseModel.fromMap(exam as Map<String, dynamic>);
+          }).toList();
 
-            final List<ExerciseModel> exams = examList.map((exam) {
-              return ExerciseModel.fromMap(exam as Map<String, dynamic>);
-            }).toList();
-
-            subjectExams[teacherName] = exams;
-          }
+          subjectExams[teacherName] = exams + done;
         }
 
         return subjectExams;

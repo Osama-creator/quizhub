@@ -27,7 +27,7 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onLongPress: () {
-                        controller.deletePost(controller.posts[index].id);
+                        _dialogBuilder(context, controller.posts[index].id);
                       },
                       onTap: () {
                         Get.toNamed(
@@ -49,6 +49,41 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
           );
         },
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context, String id) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('حذف السؤال'),
+          content: const Text(
+            "هل انت متأكد من حذف السؤال",
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('نعم'),
+              onPressed: () {
+                controller.removePost(id);
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('لا'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

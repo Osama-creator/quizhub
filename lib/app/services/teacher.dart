@@ -41,8 +41,10 @@ class TeacherService {
     }
   }
 
-  Future<TeacherModel> getFolowedTeachers(
-      {required String idTeacher, required String userId}) async {
+  Future<TeacherModel> getFolowedTeachers({
+    required String idTeacher,
+    required String userId,
+  }) async {
     try {
       final response = await client.post(
         Endpoints.getTeachersummery,
@@ -53,10 +55,9 @@ class TeacherService {
         final Map<String, dynamic> responseData =
             response.data as Map<String, dynamic>;
 
-        final List<dynamic> theGrades =
-            responseData['thegrades'] as List<dynamic>;
+        final List<dynamic> data = responseData['data'] as List<dynamic>;
 
-        final List<ExerciseModel> exams = theGrades
+        final List<ExerciseModel> exams = data
             .expand(
               (grade) => (grade['exam'] as List<dynamic>)
                   .map(
@@ -66,11 +67,21 @@ class TeacherService {
                   .toList(),
             )
             .toList();
+        final List<DoneExerciseModel> doneExams = data
+            .expand(
+              (grade) => (grade['degreen'] as List<dynamic>)
+                  .map(
+                    (exam) =>
+                        DoneExerciseModel.fromMap(exam as Map<String, dynamic>),
+                  )
+                  .toList(),
+            )
+            .toList();
         final TeacherModel teacher = TeacherModel.fromMap(
           responseData['Teacher'] as Map<String, dynamic>,
           exams: exams,
+          doneExams: doneExams,
         );
-
         return teacher;
       } else {
         throw Exception('Failed to fetch data');

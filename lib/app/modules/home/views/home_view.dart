@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
+import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/views/divider.dart';
@@ -87,72 +88,80 @@ class HomeView extends GetView<HomeController> {
                 "ملخص التمارين",
                 style: context.textTheme.titleLarge!.copyWith(),
               ),
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: controller.teacher.exams.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 3 / 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    final exam = controller.teacher.exams;
-                    final id = exam[index].id;
-                    final type = exam[index].type;
-                    return GestureDetector(
-                      onTap: () {
-                        controller.examC
-                            .goToExamPage(id: id!, exerciseType: type);
-                      },
-                      child: SizedBox(
-                        height: context.height * 0.07,
-                        width: context.width * 0.35,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          color: AppColors.primary,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                exam[index].arName,
-                                style: context.textTheme.titleLarge!.copyWith(
-                                  color: AppColors.light,
-                                  fontSize: 14,
+              Wrap(
+                spacing: 10,
+                runSpacing: 8.0,
+                children: [
+                  ...controller.teacher.exams.map(
+                    (exam) {
+                      final id = exam.id;
+                      final type = exam.type;
+                      return GestureDetector(
+                        onTap: () {
+                          controller.examC
+                              .goToExamPage(id: id!, exerciseType: type!);
+                        },
+                        child: SizedBox(
+                          height: context.height * 0.15,
+                          width: context.width * 0.35,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            color: AppColors.next2Primary,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  exam.arName!,
+                                  style: context.textTheme.titleLarge!.copyWith(
+                                    color: AppColors.light,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "${exam[index].quesiotnsNum.length} اسئله",
-                                style: context.textTheme.titleLarge!.copyWith(
-                                  color: AppColors.light,
-                                  fontSize: 14,
+                                Text(
+                                  "${exam.quesiotnsNum!.length} اسئله",
+                                  style: context.textTheme.titleLarge!.copyWith(
+                                    color: AppColors.light,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "${exam[index].viewNum.length} حل",
-                                style: context.textTheme.titleLarge!.copyWith(
-                                  color: AppColors.light,
-                                  fontSize: 14,
+                                Text(
+                                  "${exam.viewNum!.length} حل",
+                                  style: context.textTheme.titleLarge!.copyWith(
+                                    color: AppColors.light,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "النوع $type ",
-                                style: context.textTheme.titleLarge!.copyWith(
-                                  color: AppColors.light,
-                                  fontSize: 14,
+                                Text(
+                                  "النوع $type ",
+                                  style: context.textTheme.titleLarge!.copyWith(
+                                    color: AppColors.light,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+                      );
+                    },
+                  ),
+                  ...controller.teacher.doneExams.map(
+                    (doneExam) {
+                      final index =
+                          controller.teacher.doneExams.indexOf(doneExam);
+                      return DoneExamCard(
+                        examName: controller
+                            .teacher.doneExams[index].exerciseModel.arName!,
+                        degree:
+                            " الدرجه ${controller.teacher.doneExams[index].degree} / ${controller.teacher.doneExams[index].exerciseModel.quesiotnsNum!.length} ",
+                        index: controller.teacher.doneExams.indexOf(doneExam),
+                      );
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         );

@@ -50,11 +50,12 @@ class PostCommentervice {
   Future<Post> createPost({
     required String userId,
     required String postBody,
+    required String subName,
   }) async {
     try {
       final response = await client.post(
         Endpoints.createPosts,
-        body: {"title": postBody, "createdBy": userId},
+        body: {"title": postBody, "createdBy": userId, "nameSubject": subName},
       );
 
       final responseData = response.data;
@@ -76,26 +77,28 @@ class PostCommentervice {
     }
   }
 
-  Future<void> deletePost({
+  Future<bool?> deletePost({
     required String userId,
     required String postId,
   }) async {
+    bool done = false;
+
     try {
-      final response = await client.post(
-        Endpoints.deleteComment,
+      final response = await client.delete(
+        Endpoints.deletePost,
         body: {"id": postId, "createdBy": userId},
       );
 
       final responseData = response.data;
 
       if (responseData['message'] == 'Done') {
-        log("post has been deleted succfully");
-      } else {
-        throw Exception('Failed to fetch posts');
+        log("comment has been deleted succfully");
+        done = true;
       }
     } catch (e, st) {
       catchLog(e, st);
     }
+    return done;
   }
 
   Future<List<Comment>> fetchComments(String postId) async {

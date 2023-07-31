@@ -79,6 +79,7 @@ class TeacherModel {
   final List<String> followStudent;
 
   final List<ExerciseModel> exams;
+  final List<DoneExerciseModel> doneExams;
 
   TeacherModel({
     required this.id,
@@ -95,11 +96,13 @@ class TeacherModel {
     required this.follow,
     required this.followStudent,
     required this.exams,
+    required this.doneExams,
   });
 
   factory TeacherModel.fromMap(
     Map<String, dynamic> map, {
     required List<ExerciseModel> exams,
+    required List<DoneExerciseModel> doneExams,
   }) {
     return TeacherModel(
       id: map['_id'] as String,
@@ -118,6 +121,7 @@ class TeacherModel {
           .map((e) => e as String)
           .toList(),
       exams: exams,
+      doneExams: doneExams,
     );
   }
 }

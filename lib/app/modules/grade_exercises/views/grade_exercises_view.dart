@@ -62,15 +62,15 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              controller.exercises[index].arName,
+                              controller.exercises[index].arName!,
                               style: context.textTheme.titleLarge,
                             ),
                             Text(
-                              "${controller.exercises[index].quesiotnsNum.length} اسئله",
+                              "${controller.exercises[index].quesiotnsNum!.length} اسئله",
                               style: context.textTheme.titleLarge,
                             ),
                             Text(
-                              "${controller.exercises[index].viewNum.length} حل",
+                              "${controller.exercises[index].viewNum!.length} حل",
                               style: context.textTheme.titleLarge,
                             ),
                           ],

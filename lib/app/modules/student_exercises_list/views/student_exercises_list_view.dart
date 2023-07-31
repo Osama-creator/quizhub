@@ -30,7 +30,14 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                     width: context.width * 0.9,
                     child: OutlinedButton(
                       onPressed: () {
-                        Get.toNamed(Routes.QUESTIONS_POSTS);
+                        Get.toNamed(
+                          Routes.QUESTIONS_POSTS,
+                          arguments: {
+                            "id": controller.userId,
+                            'sub_name': controller.subjName,
+                            'is_teacher': false
+                          },
+                        );
                       },
                       child: Text(
                         "قسم أسئله الطلاب",
@@ -94,13 +101,18 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                         ),
                         itemCount: controller.filteredExams?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
+                          final bool isDone =
+                              controller.filteredExams![index].degree == null;
                           return GestureDetector(
                             onTap: () {
                               final type =
                                   controller.filteredExams![index].type;
                               final id = controller.filteredExams![index].id;
-                              controller.studentHome
-                                  .goToExamPage(exerciseType: type, id: id!);
+
+                              if (isDone) {
+                                controller.studentHome
+                                    .goToExamPage(exerciseType: type!, id: id!);
+                              }
                             },
                             child: SizedBox(
                               height: context.height * 0.07,
@@ -115,36 +127,47 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      controller.filteredExams![index].arName,
+                                      controller.filteredExams![index].arName!,
                                       style: context.textTheme.titleLarge!
                                           .copyWith(
                                         color: AppColors.light,
                                       ),
                                     ),
-                                    Text(
-                                      "${controller.filteredExams![index].quesiotnsNum.length} اسئله",
-                                      style: context.textTheme.titleLarge!
-                                          .copyWith(
-                                        color: AppColors.light,
-                                        fontSize: 14,
+                                    if (isDone) ...[
+                                      Text(
+                                        "${controller.filteredExams![index].quesiotnsNum!.length} اسئله",
+                                        style: context.textTheme.titleLarge!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                          fontSize: 14,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "${controller.filteredExams![index].viewNum.length} حل",
-                                      style: context.textTheme.titleLarge!
-                                          .copyWith(
-                                        color: AppColors.light,
-                                        fontSize: 14,
+                                      Text(
+                                        "${controller.filteredExams![index].viewNum!.length} حل",
+                                        style: context.textTheme.titleLarge!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                          fontSize: 14,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      " النوع ${controller.filteredExams![index].type}",
-                                      style: context.textTheme.titleLarge!
-                                          .copyWith(
-                                        color: AppColors.light,
-                                        fontSize: 14,
+                                      Text(
+                                        " النوع ${controller.filteredExams![index].type}",
+                                        style: context.textTheme.titleLarge!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                          fontSize: 14,
+                                        ),
                                       ),
-                                    ),
+                                    ] else ...[
+                                      Text(
+                                        " الدرجه ${controller.filteredExams![index].degree}  / ${controller.filteredExams![index].quesiotnsNum!.length} ",
+                                        style: context.textTheme.titleLarge!
+                                            .copyWith(
+                                          color: AppColors.light,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ]
                                   ],
                                 ),
                               ),

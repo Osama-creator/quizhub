@@ -2,17 +2,19 @@ import 'package:equatable/equatable.dart';
 
 class ExerciseModel extends Equatable {
   final String? id;
-  final String arName;
-  final String type;
-  final List<dynamic> quesiotnsNum;
-  final List<dynamic> viewNum;
+  final String? arName;
+  final String? type;
+  final List<dynamic>? quesiotnsNum;
+  final List<dynamic>? viewNum;
+  final int? degree;
 
   const ExerciseModel({
-    required this.id,
-    required this.arName,
-    required this.quesiotnsNum,
-    required this.viewNum,
-    required this.type,
+    this.id,
+    this.arName,
+    this.quesiotnsNum,
+    this.viewNum,
+    this.type,
+    this.degree,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,25 +23,37 @@ class ExerciseModel extends Equatable {
       'exam_Name': arName,
       'question': quesiotnsNum,
       'creatdUser': viewNum,
-      'kindOf_questions': type
+      'kindOf_questions': type,
+      'degree': degree,
     };
   }
 
-  factory ExerciseModel.fromMap(
-    Map<String, dynamic> map,
-  ) {
-    return ExerciseModel(
-      id: map['_id'] as String,
-      arName: map['exam_Name'] as String,
-      type: map['kindOf_questions'] as String,
-      quesiotnsNum: map['question'] as List<dynamic>,
-      viewNum: map['creatdUser'] as List<dynamic>,
-    );
+  factory ExerciseModel.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('idexam')) {
+      final examData = map['idexam'] as Map<String, dynamic>;
+      return ExerciseModel(
+        id: examData['_id'] as String,
+        arName: examData['exam_Name'] as String,
+        type: examData['kindOf_questions'] as String,
+        quesiotnsNum: examData['question'] as List<dynamic>,
+        viewNum: examData['creatdUser'] as List<dynamic>,
+        degree: map['degree'] as int? ?? 0,
+      );
+    } else {
+      return ExerciseModel(
+        id: map['_id'] as String?,
+        arName: map['exam_Name'] as String?,
+        type: map['kindOf_questions'] as String?,
+        quesiotnsNum: map['question'] as List<dynamic>?,
+        viewNum: map['creatdUser'] as List<dynamic>?,
+        degree: map['degree'] as int?,
+      );
+    }
   }
 
   @override
-  List<Object> get props {
-    return [arName, quesiotnsNum, viewNum, type];
+  List<Object?> get props {
+    return [arName, quesiotnsNum, viewNum, type, degree];
   }
 }
 

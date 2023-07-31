@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
@@ -73,11 +75,12 @@ class DetailsBody extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
+              log(controller.selectedSubject + controller.userId);
               Get.toNamed(
                 Routes.STUDENT_EXERCISES_LIST,
                 arguments: {
                   'subject': controller.selectedSubject,
-                  'userId': "6497133614d355c68609c7d2"
+                  'userId': controller.userId
                 },
               );
             },
@@ -187,7 +190,10 @@ class TeacherExamsTile extends StatelessWidget {
                   } else {
                     final doneExamIndex = index - exerciseCard.exercises.length;
                     return DoneExamCard(
-                      exerciseCard: exerciseCard,
+                      examName: exerciseCard
+                          .doneExercises[doneExamIndex].exerciseModel.arName!,
+                      degree:
+                          "${exerciseCard.doneExercises[doneExamIndex].degree} / ${exerciseCard.doneExercises[doneExamIndex].exerciseModel.quesiotnsNum!.length} الدرجه ",
                       index: doneExamIndex,
                     );
                   }
@@ -220,7 +226,7 @@ class ExamCard extends StatelessWidget {
         final selectedExamType = exerciseCard.exercises[index].type;
         final exmaId = exerciseCard.exercises[index].id;
         controller.goToExamPage(
-          exerciseType: selectedExamType,
+          exerciseType: selectedExamType!,
           id: exmaId!,
         );
       },
@@ -236,19 +242,19 @@ class ExamCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                exerciseCard.exercises[index].arName,
+                exerciseCard.exercises[index].arName!,
                 style: context.textTheme.titleLarge!
                     .copyWith(color: AppColors.light),
               ),
               Text(
-                "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
+                "${exerciseCard.exercises[index].quesiotnsNum!.length} اسئله",
                 style: context.textTheme.titleLarge!.copyWith(
                   color: AppColors.light,
                   fontSize: 14,
                 ),
               ),
               Text(
-                "${exerciseCard.exercises[index].viewNum.length} حل",
+                "${exerciseCard.exercises[index].viewNum!.length} حل",
                 style: context.textTheme.titleLarge!.copyWith(
                   color: AppColors.light,
                   fontSize: 14,
@@ -272,11 +278,13 @@ class ExamCard extends StatelessWidget {
 class DoneExamCard extends StatelessWidget {
   const DoneExamCard({
     super.key,
-    required this.exerciseCard,
+    required this.examName,
+    required this.degree,
     required this.index,
   });
 
-  final ExerciseCardModel exerciseCard;
+  final String examName;
+  final String degree;
   final int index;
 
   @override
@@ -295,12 +303,12 @@ class DoneExamCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                exerciseCard.doneExercises[index].exerciseModel.arName,
+                examName,
                 style: context.textTheme.titleLarge!
                     .copyWith(color: AppColors.light),
               ),
               Text(
-                "${exerciseCard.doneExercises[index].degree} / ${exerciseCard.doneExercises[index].exerciseModel.quesiotnsNum.length} الدرجه ",
+                degree,
                 style: context.textTheme.titleLarge!.copyWith(
                   color: AppColors.light,
                   fontSize: 14,

@@ -49,7 +49,7 @@ abstract class Endpoints {
   static const getTeachers = '/v6/use/getallTeacherOfTheGrades';
   static const folowTeacher = '/v6/use/followTeacher';
   static const getFolowedTeacher = '/v6/use/UsersOfTeacher';
-  static const getTeachersummery = '/v6/com/getallTeacherofStudent';
+  static const getTeachersummery = '/v6/com/getallTeacherPage';
 
   /// ! admin
   static const getSchoolsForAdmin = '/v6/use/schoolsToStudent';
