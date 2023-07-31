@@ -20,7 +20,15 @@ class EnvitationsListView extends GetView<EnvitationsListController> {
             itemCount: controller.invitations.length,
             itemBuilder: (context, index) {
               final invitation = controller.invitations[index];
-              return buildEnvtCard(context, invitation);
+              return InkWell(
+                onTap: () {
+                  final id = invitation.exams[0].id;
+                  final exerciseType = invitation.exams[0].kindOfQuestions;
+                  controller.studentHome
+                      .goToExamPage(id: id, exerciseType: exerciseType);
+                },
+                child: buildEnvtCard(context, invitation),
+              );
             },
           );
         },

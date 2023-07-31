@@ -3,9 +3,8 @@ import 'package:get/route_manager.dart';
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/teacher_model.dart';
 import 'package:quizhub/app/models/user.dart';
-import 'package:quizhub/config/theme.dart';
-
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/config/theme.dart';
 
 class ListTileCustStudent extends StatelessWidget {
   final User student;
@@ -66,7 +65,7 @@ class ListTileCustTeacher extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
         onTap: () {
-          Get.toNamed(Routes.ADMIN_TEACHER_SUMMERY);
+          Get.toNamed(Routes.TEACHER_PRV_REQUISTS, arguments: teacher.id);
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 12),

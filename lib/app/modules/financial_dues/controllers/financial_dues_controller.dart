@@ -15,6 +15,7 @@ class FinancialDuesController extends GetxController {
   final fnumberText = ''.obs;
   bool isLoading = false;
   bool error = false;
+  String teacherId = '';
 
   final service = Get.find<FinancialsService>();
   final authService = Get.find<AuthService>();
@@ -31,8 +32,9 @@ class FinancialDuesController extends GetxController {
     final userData = await authService.cachedUser;
 
     if (userData!.id != null) {
+      teacherId = userData.id!;
       try {
-        data = await service.getfinancialsData(teacherId: userData.id!);
+        data = await service.getfinancialsData(teacherId: teacherId);
       } catch (e, st) {
         catchLog(e, st);
       }

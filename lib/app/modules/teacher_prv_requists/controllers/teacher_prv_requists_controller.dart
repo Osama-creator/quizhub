@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/teacher_prv_requist.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/money_financials.dart';
 import 'package:quizhub/helper/func.dart';
-import 'package:quizhub/app/services/auth.dart';
 
 class TeacherPrvRequistsController extends GetxController {
+  final userId = Get.arguments as String;
   List<PreviousRequest> prevOrders = [];
   final authService = Get.find<AuthService>();
 
@@ -15,11 +16,9 @@ class TeacherPrvRequistsController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    final userData = await authService.cachedUser;
-
     await action.performAction(
       () async {
-        prevOrders = await service.getTeacherPrvReq(id: userData!.id!);
+        prevOrders = await service.getTeacherPrvReq(id: userId);
       },
       lauding,
       error,
