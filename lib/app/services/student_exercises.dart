@@ -129,7 +129,7 @@ class StudentExamsService {
         final studentDegrees = data
             .map((item) => StudentDegree.fromJson(item as Map<String, dynamic>))
             .toList();
-
+        studentDegrees.sort((a, b) => b.degree.compareTo(a.degree));
         return studentDegrees;
       } else {
         // Handle other status codes if needed

@@ -4,6 +4,7 @@ class ExerciseModel extends Equatable {
   final String? id;
   final String? arName;
   final String? type;
+  final String? subName;
   final List<dynamic>? quesiotnsNum;
   final List<dynamic>? viewNum;
   final int? degree;
@@ -15,6 +16,7 @@ class ExerciseModel extends Equatable {
     this.viewNum,
     this.type,
     this.degree,
+    this.subName,
   });
 
   Map<String, dynamic> toMap() {

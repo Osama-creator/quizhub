@@ -37,6 +37,7 @@ class SubjectTile extends StatelessWidget {
                     GridView.builder(
                       shrinkWrap: true,
                       itemCount: controller.exams.length,
+                      physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -62,12 +63,12 @@ class SubjectTile extends StatelessWidget {
                                     .copyWith(color: AppColors.light),
                               ),
                               Text(
-                                "الماده :  ${controller.exams[index].subjectName}",
+                                "الماده :  ${controller.exams[index].subName}",
                                 style: context.textTheme.bodyLarge!
                                     .copyWith(color: AppColors.light),
                               ),
                               Text(
-                                ' الدرجه :  ${controller.exams[index].degree} من ${controller.exams[index].quesiotnsNum.length}',
+                                ' الدرجه :  ${controller.exams[index].degree} من ${controller.exams[index].quesiotnsNum!.length}',
                                 style: context.textTheme.bodyLarge!
                                     .copyWith(color: AppColors.light),
                               ),

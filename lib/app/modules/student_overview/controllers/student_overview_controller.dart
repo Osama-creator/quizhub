@@ -10,7 +10,7 @@ class StudentOverviewController extends GetxController {
   final studentData = Get.arguments as User;
   final service = Get.find<ParentService>();
   final authService = Get.find<AuthService>();
-  List<ExerciseModel2> exams = [];
+  List<ExerciseModel> exams = [];
   final action = Get.find<ActionHandel>();
   bool lauding = false;
   bool error = false;

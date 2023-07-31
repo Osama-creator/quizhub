@@ -105,7 +105,9 @@ class DetailsBody extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: controller.exercises.length,
+            itemCount: controller.exercises.length > 4
+                ? 4
+                : controller.exercises.length,
             itemBuilder: (context, index) {
               final exerciseCard = controller.exercises[index];
               return TeacherExamsTile(
@@ -326,26 +328,33 @@ class SettingButton extends StatelessWidget {
   const SettingButton({
     super.key,
     required this.controller,
+    this.color,
+    this.textColor,
   });
-
+  final Color? color;
+  final Color? textColor;
   final AuthService controller;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      color: AppColors.light,
+      color: color ?? AppColors.light,
       itemBuilder: (BuildContext context) {
         return [
-          const PopupMenuItem(
+          PopupMenuItem(
             value: 'option1',
-            child: Text('اللغه'),
+            child: Text(
+              'اللغه',
+              style: context.textTheme.bodyLarge!
+                  .copyWith(color: textColor ?? AppColors.primary),
+            ),
           ),
           PopupMenuItem(
             value: 'option3',
             child: Text(
               'تسجيل الخروج',
               style: context.textTheme.bodyLarge!
-                  .copyWith(color: AppColors.primary),
+                  .copyWith(color: textColor ?? AppColors.primary),
             ),
             onTap: () async {
               await controller.signOut();

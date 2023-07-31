@@ -27,71 +27,80 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
               ),
               child: Text(
                 "دعوة",
-                style: context.textTheme.headline6!
+                style: context.textTheme.titleLarge!
                     .copyWith(color: AppColors.light),
               ),
             ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: CircleAvatar(
-                maxRadius: 75,
-                backgroundImage: AssetImage(Asset.images.teacher),
-                backgroundColor: Colors.transparent,
-              ),
-            ),
-            Text(
-              ' أحمد سيد',
-              style: context.textTheme.headline4!.copyWith(
-                color: AppColors.black,
-              ),
-            ),
-            Text(
-              controller.degree,
-              style: context.textTheme.headline5,
-            ),
-            Container(
-              height: context.height * 0.7,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+      body: GetBuilder<StudentsGradesController>(
+        init: controller,
+        builder: (_) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              child: GetBuilder<StudentsGradesController>(
-                init: controller,
-                builder: (_) {
-                  return Padding(
-                    padding: const EdgeInsets.all(18),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.studentsGrades.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: _buildStudentGradeTile(
-                            context,
-                            controller.studentsGrades[index],
-                            index + 1,
-                          ),
-                        );
-                      },
+                Center(
+                  child: CircleAvatar(
+                    maxRadius: 75,
+                    backgroundImage: NetworkImage(
+                      controller.userImage.isEmpty
+                          ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                          : controller.userImage,
                     ),
-                  );
-                },
-              ),
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
+                Text(
+                  controller.userName,
+                  style: context.textTheme.headlineMedium!.copyWith(
+                    color: AppColors.black,
+                  ),
+                ),
+                Text(
+                  controller.degree,
+                  style: context.textTheme.headlineSmall,
+                ),
+                Container(
+                  height: context.height * 0.7,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
+                    ),
+                  ),
+                  child: GetBuilder<StudentsGradesController>(
+                    init: controller,
+                    builder: (_) {
+                      return Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.studentsGrades.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _buildStudentGradeTile(
+                                context,
+                                controller.studentsGrades[index],
+                                index + 1,
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -106,7 +115,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
       children: [
         Text(
           i.toString(),
-          style: context.textTheme.headline6!.copyWith(
+          style: context.textTheme.titleLarge!.copyWith(
             color: AppColors.light,
           ),
         ),
@@ -119,7 +128,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
         ),
         Text(
           student.user.name,
-          style: context.textTheme.headline6!.copyWith(
+          style: context.textTheme.titleLarge!.copyWith(
             color: AppColors.light,
           ),
         ),
@@ -127,8 +136,8 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            '${student.degreeExams[0].degree} / ${student.degreeExams[0].question.length}',
-            style: context.textTheme.headline6!.copyWith(
+            '${student.degree} / ${student.questionIds}',
+            style: context.textTheme.titleLarge!.copyWith(
               color: AppColors.light,
             ),
           ),

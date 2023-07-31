@@ -4,6 +4,7 @@ import 'package:quizhub/app/models/exersice.dart';
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
+import 'package:quizhub/helper/func.dart';
 
 class ParentService {
   final ApiClient client;
@@ -78,7 +79,7 @@ class ParentService {
     }
   }
 
-  Future<List<ExerciseModel2>> fetchExams({
+  Future<List<ExerciseModel>> fetchExams({
     required String userId,
     required String parentId,
   }) async {
@@ -92,13 +93,22 @@ class ParentService {
         final Map<String, dynamic> responseData =
             response.data as Map<String, dynamic>;
 
-        final List<dynamic> examsData = responseData['exam'] as List<dynamic>;
+        final List<dynamic> examsData = responseData['exams'] as List<dynamic>;
 
-        final List<ExerciseModel2> exams = examsData.map((item) {
-          final ExerciseModel2 exercise =
-              ExerciseModel2.fromMap(item as Map<String, dynamic>);
-
-          return exercise;
+        final List<ExerciseModel> exams = examsData.map((item) {
+          final Map<String, dynamic> examData =
+              item['doc'] as Map<String, dynamic>;
+          final Map<String, dynamic> idexamData =
+              examData['idexam'] as Map<String, dynamic>;
+          return ExerciseModel(
+            id: idexamData['_id'] as String?,
+            arName: idexamData['exam_Name'] as String?,
+            subName: idexamData['subject_Name'] as String?,
+            type: idexamData['kindOf_questions'] as String?,
+            quesiotnsNum: idexamData['question'] as List<dynamic>?,
+            viewNum: idexamData['creatdUser'] as List<dynamic>?,
+            degree: examData['degree'] as int?,
+          );
         }).toList();
 
         return exams;
@@ -106,8 +116,8 @@ class ParentService {
         // Handle other status codes if needed
         throw Exception('Failed to fetch exams');
       }
-    } catch (e) {
-      // Handle error
+    } catch (e, st) {
+      catchLog(e, st);
       throw Exception('Error: $e');
     }
   }
