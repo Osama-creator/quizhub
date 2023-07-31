@@ -18,15 +18,16 @@ class Invitation {
   });
 
   factory Invitation.fromJson(Map<String, dynamic> json) {
+    List<Exam> exams = [];
     return Invitation(
       id: json['_id'] as String,
-      userId: List<dynamic>.from(json['idUser'] as List<dynamic>),
+      userId: (json['idUser'] as List)
+          .map((user) => User.fromJson(user as Map<String, dynamic>))
+          .toList(),
       toUserId: (json['toUserId'] as List)
           .map((user) => User.fromJson(user as Map<String, dynamic>))
           .toList(),
-      exams: (json['idexam'] as List)
-          .map((exam) => Exam.fromJson(exam as Map<String, dynamic>))
-          .toList(),
+      exams: exams,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
     );
@@ -39,13 +40,12 @@ class Exam {
   final int time;
   final String examName;
   final String kindOfQuestions;
-  final List<String> createdBy;
+  final List<User> createdBy;
   final List<String> question;
   final List<String> grades;
   final List<String> createdUser;
   final String createdAt;
   final String updatedAt;
-  final int degree;
 
   Exam({
     required this.id,
@@ -59,7 +59,6 @@ class Exam {
     required this.createdUser,
     required this.createdAt,
     required this.updatedAt,
-    required this.degree,
   });
 
   factory Exam.fromJson(Map<String, dynamic> json) {
@@ -69,13 +68,14 @@ class Exam {
       time: json['time'] as int,
       examName: json['exam_Name'] as String,
       kindOfQuestions: json['kindOf_questions'] as String,
-      createdBy: List<String>.from(json['createdby'] as List<dynamic>),
+      createdBy: (json['createdby'] as List)
+          .map((user) => User.fromJson(user as Map<String, dynamic>))
+          .toList(),
       question: List<String>.from(json['question'] as List<dynamic>),
       grades: List<String>.from(json['Grades'] as List<dynamic>),
       createdUser: List<String>.from(json['creatdUser'] as List<dynamic>),
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
-      degree: json['degree'] as int,
     );
   }
 }

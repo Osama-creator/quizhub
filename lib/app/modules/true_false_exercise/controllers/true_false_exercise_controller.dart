@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/helper/func.dart';
@@ -13,6 +14,8 @@ class TrueFalseExerciseController extends GetxController {
   bool? isTrue;
   int qNumber = 1;
   final examsService = Get.find<ExamsService>();
+  final authService = Get.find<AuthService>();
+
   late AudioPlayer aAudioPlayer;
   final String examId = Get.arguments as String;
   int degree = 0;
@@ -46,7 +49,7 @@ class TrueFalseExerciseController extends GetxController {
     showAnswerSheet(
       isTrue!,
     );
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (qNumber < quistionList.length) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
@@ -61,9 +64,10 @@ class TrueFalseExerciseController extends GetxController {
     });
   }
 
-  void finishExam() {
+  Future<void> finishExam() async {
+    final userData = await authService.cachedUser;
     studentExamsService.postDegree(
-      idUser: "6499a3f690230b8ecf61875a",
+      idUser: userData!.id!,
       degree: degree,
       idexam: examId,
     );

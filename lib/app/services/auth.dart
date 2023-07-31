@@ -45,7 +45,7 @@ class AuthService {
     final responseData = res.data;
     if (responseData is Map<String, dynamic>) {
       final message = responseData['message'] as String?;
-      if (message != "Done") {
+      if (message == "Done") {
         final userData = responseData['userExist'] as Map<String, dynamic>?;
         if (userData != null) {
           prefs.setString('auth.user', jsonEncode(userData));

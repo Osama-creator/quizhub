@@ -38,6 +38,7 @@ class StudentHomeController extends GetxController
     userName = userData!.name;
     userImage = userData.image!;
     userId = userData.id!;
+
     tabController.addListener(update);
     await fetchSubjects();
     super.onInit();

@@ -7,6 +7,7 @@ class ExerciseCardModel extends Equatable {
   final String? teacherPhoto;
   final int? advantage;
   final List<ExerciseModel> exercises;
+  final List<DoneExerciseModel> doneExercises;
 
   const ExerciseCardModel({
     this.id,
@@ -14,10 +15,18 @@ class ExerciseCardModel extends Equatable {
     this.teacherPhoto = "",
     this.advantage,
     required this.exercises,
+    required this.doneExercises,
   });
 
   @override
   List<Object> get props {
-    return [teacherName, teacherPhoto!, id!, exercises, advantage!];
+    return [
+      teacherName,
+      teacherPhoto!,
+      id!,
+      exercises,
+      advantage!,
+      doneExercises
+    ];
   }
 }

@@ -85,3 +85,32 @@ class ExerciseModel2 extends Equatable {
     return [arName, quesiotnsNum, subjectName, degree];
   }
 }
+
+class DoneExerciseModel extends Equatable {
+  final ExerciseModel exerciseModel;
+  final int degree;
+
+  const DoneExerciseModel({
+    required this.exerciseModel,
+    required this.degree,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{'degree': degree, 'idexam': exerciseModel};
+  }
+
+  factory DoneExerciseModel.fromMap(
+    Map<String, dynamic> map,
+  ) {
+    return DoneExerciseModel(
+      degree: map['degree'] as int,
+      exerciseModel:
+          ExerciseModel.fromMap(map["idexam"] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  List<Object> get props {
+    return [exerciseModel, degree];
+  }
+}

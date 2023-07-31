@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/envitations.dart';
 import 'package:quizhub/config/theme.dart';
-import 'package:quizhub/generated/assets.dart';
 
 Padding buildEnvtCard(BuildContext context, Invitation invitation) {
   return Padding(
@@ -25,9 +24,11 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CircleAvatar(
-                        maxRadius: 24,
-                        backgroundImage: AssetImage(
-                          Asset.images.teacher,
+                        maxRadius: 25,
+                        backgroundImage: NetworkImage(
+                          invitation.toUserId[0].profilePic.isEmpty
+                              ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                              : invitation.toUserId[0].profilePic,
                         ),
                         backgroundColor: Colors.transparent,
                       ),
@@ -42,6 +43,7 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                   invitation.exams[0].examName,
                   style: context.textTheme.titleLarge!.copyWith(
                     color: AppColors.black,
+                    fontSize: 15,
                   ),
                 ),
                 Text(
@@ -51,15 +53,24 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                     fontSize: 15,
                   ),
                 ),
+                Text(
+                  ' ${invitation.exams[0].kindOfQuestions} ',
+                  style: context.textTheme.titleLarge!.copyWith(
+                    color: AppColors.black,
+                    fontSize: 12,
+                  ),
+                ),
                 Row(
                   children: [
                     Text(
                       '${invitation.exams[0].createdBy.length} حل',
-                      style: context.textTheme.titleLarge,
+                      style:
+                          context.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),
                     Text(
                       '${invitation.exams[0].question.length} سؤال',
-                      style: context.textTheme.titleLarge,
+                      style:
+                          context.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),
                   ],
                 ),
@@ -79,16 +90,19 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       CircleAvatar(
-                        radius: 35,
-                        backgroundImage: AssetImage(
-                          Asset.images.teacher,
+                        maxRadius: 35,
+                        backgroundImage: NetworkImage(
+                          invitation.exams[0].createdBy[0].profilePic.isEmpty
+                              ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                              : invitation.exams[0].createdBy[0].profilePic,
                         ),
                         backgroundColor: Colors.transparent,
                       ),
                       Text(
-                        'أ/ حامد زكي', // Replace with actual data
+                        invitation.exams[0].createdBy[0].name,
                         style: context.textTheme.titleLarge!.copyWith(
                           color: AppColors.light,
+                          fontSize: 15,
                         ),
                       ),
                     ],

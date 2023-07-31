@@ -171,64 +171,143 @@ class TeacherExamsTile extends StatelessWidget {
               height: context.height * 0.14,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: exerciseCard.exercises.length,
+                itemCount: exerciseCard.exercises.length +
+                    exerciseCard.doneExercises.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      final selectedExamType =
-                          exerciseCard.exercises[index].type;
-                      final exmaId = exerciseCard.exercises[index].id;
-                      controller.goToExamPage(
-                        exerciseType: selectedExamType,
-                        id: exmaId!,
-                      );
-                    },
-                    child: SizedBox(
-                      height: context.height * 0.07,
-                      width: context.width * 0.35,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  if (index < exerciseCard.exercises.length) {
+                    return Row(
+                      children: [
+                        ExamCard(
+                          exerciseCard: exerciseCard,
+                          controller: controller,
+                          index: index,
                         ),
-                        color: AppColors.next2Primary,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              exerciseCard.exercises[index].arName,
-                              style: context.textTheme.titleLarge!
-                                  .copyWith(color: AppColors.light),
-                            ),
-                            Text(
-                              "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
-                              style: context.textTheme.titleLarge!.copyWith(
-                                color: AppColors.light,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              "${exerciseCard.exercises[index].viewNum.length} حل",
-                              style: context.textTheme.titleLarge!.copyWith(
-                                color: AppColors.light,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              "النوع  ${exerciseCard.exercises[index].type} ",
-                              style: context.textTheme.titleLarge!.copyWith(
-                                color: AppColors.light,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                      ],
+                    );
+                  } else {
+                    final doneExamIndex = index - exerciseCard.exercises.length;
+                    return DoneExamCard(
+                      exerciseCard: exerciseCard,
+                      index: doneExamIndex,
+                    );
+                  }
                 },
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExamCard extends StatelessWidget {
+  const ExamCard({
+    super.key,
+    required this.exerciseCard,
+    required this.controller,
+    required this.index,
+  });
+
+  final ExerciseCardModel exerciseCard;
+  final StudentHomeController controller;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        final selectedExamType = exerciseCard.exercises[index].type;
+        final exmaId = exerciseCard.exercises[index].id;
+        controller.goToExamPage(
+          exerciseType: selectedExamType,
+          id: exmaId!,
+        );
+      },
+      child: SizedBox(
+        height: context.height * 0.15,
+        width: context.width * 0.35,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          color: AppColors.next2Primary,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                exerciseCard.exercises[index].arName,
+                style: context.textTheme.titleLarge!
+                    .copyWith(color: AppColors.light),
+              ),
+              Text(
+                "${exerciseCard.exercises[index].quesiotnsNum.length} اسئله",
+                style: context.textTheme.titleLarge!.copyWith(
+                  color: AppColors.light,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                "${exerciseCard.exercises[index].viewNum.length} حل",
+                style: context.textTheme.titleLarge!.copyWith(
+                  color: AppColors.light,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                "النوع  ${exerciseCard.exercises[index].type} ",
+                style: context.textTheme.titleLarge!.copyWith(
+                  color: AppColors.light,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DoneExamCard extends StatelessWidget {
+  const DoneExamCard({
+    super.key,
+    required this.exerciseCard,
+    required this.index,
+  });
+
+  final ExerciseCardModel exerciseCard;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: SizedBox(
+        height: context.height * 0.15,
+        width: context.width * 0.35,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          color: AppColors.primary,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                exerciseCard.doneExercises[index].exerciseModel.arName,
+                style: context.textTheme.titleLarge!
+                    .copyWith(color: AppColors.light),
+              ),
+              Text(
+                "${exerciseCard.doneExercises[index].degree} / ${exerciseCard.doneExercises[index].exerciseModel.quesiotnsNum.length} الدرجه ",
+                style: context.textTheme.titleLarge!.copyWith(
+                  color: AppColors.light,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

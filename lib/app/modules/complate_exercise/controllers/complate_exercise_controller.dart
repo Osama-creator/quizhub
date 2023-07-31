@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/helper/func.dart';
@@ -11,6 +12,8 @@ import 'package:quizhub/helper/func.dart';
 class ComplateExerciseController extends GetxController {
   late PageController pageController;
   final examsService = Get.find<ExamsService>();
+  final authService = Get.find<AuthService>();
+
   late AudioPlayer audioPlayer;
   final String examId = Get.arguments as String;
   late List<McqQuestion> quistionList = [];
@@ -53,8 +56,9 @@ class ComplateExerciseController extends GetxController {
   Future<void> finishExam() async {
     await action.performAction(
       () async {
+        final userData = await authService.cachedUser;
         studentExamsService.postDegree(
-          idUser: "6499a3f690230b8ecf61875a",
+          idUser: userData!.id!,
           degree: degree,
           idexam: examId,
         );

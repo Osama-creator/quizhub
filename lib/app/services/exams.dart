@@ -77,9 +77,16 @@ class ExamsService {
           final String teacherName = data['teacher']['name'] as String;
           final int advantage = data['teacher']['addFolowers'] as int;
           final List<dynamic> examList = data['exam'] as List<dynamic>;
+          final List<dynamic> doneExamList =
+              data['the_grades'] as List<dynamic>;
 
           final List<ExerciseModel> exercises = examList.map((exerciseData) {
             return ExerciseModel.fromMap(exerciseData as Map<String, dynamic>);
+          }).toList();
+          final List<DoneExerciseModel> doneExercises =
+              doneExamList.map((exerciseData) {
+            return DoneExerciseModel.fromMap(
+                exerciseData as Map<String, dynamic>);
           }).toList();
 
           exercisesCardList.add(
@@ -87,6 +94,7 @@ class ExamsService {
               teacherName: teacherName,
               advantage: advantage,
               exercises: exercises,
+              doneExercises: doneExercises,
             ),
           );
         }

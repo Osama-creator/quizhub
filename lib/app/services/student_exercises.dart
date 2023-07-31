@@ -67,15 +67,11 @@ class StudentExamsService {
     try {
       final response = await client.post(
         Endpoints.getUseres,
-        body: {
-          "iduser": "6495d071a13af5b54e73ab3f",
-          "idExam": "6495888458c9a0a165992a8a",
-          "IdToUser": "64986f53aefa7c31aa92b129"
-        },
+        body: {"iduser": forwordUserId, "idExam": examId, "IdToUser": userId},
       );
 
       if (response.statusCode == 200) {
-        log("envite done $forwordUserId");
+        log("envite done $examId");
       } else {
         throw Exception('Failed to fetch user list');
       }
@@ -97,14 +93,19 @@ class StudentExamsService {
 
       if (response.statusCode == 200) {
         final jsonBody = response.data;
-        final List<dynamic> invitationsData =
-            jsonBody['Invitations'] as List<dynamic>;
-        final List<Invitation> invitations = invitationsData
-            .map(
-              (invitation) =>
-                  Invitation.fromJson(invitation as Map<String, dynamic>),
-            )
-            .toList();
+        final List<Invitation> invitations = [];
+        if (jsonBody['data'] is List) {
+          for (final item in jsonBody['data']) {
+            final doc = item['doc'];
+            final examData = item['exam'][0];
+
+            final invitation = Invitation.fromJson(doc as Map<String, dynamic>);
+            final exam = Exam.fromJson(examData as Map<String, dynamic>);
+
+            invitation.exams.add(exam);
+            invitations.add(invitation);
+          }
+        }
         return invitations;
       } else {
         throw Exception('Failed to fetch user list');
