@@ -63,63 +63,70 @@ class EditExerciseView extends GetView<EditExerciseController> {
                     itemBuilder: (context, index) {
                       final mcqQuestion = controller.apiQuestions[index];
 
-                      return SizedBox(
-                        height: context.height * 0.3,
+                      return Expanded(
                         child: Card(
-                          color: AppColors.nextPrimary,
+                          color: AppColors.grey,
                           child: InkWell(
                             onTap: () {
                               _buildEditDialog(context, mcqQuestion);
                             },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  mcqQuestion.question,
-                                  style: context.textTheme.titleLarge!
-                                      .copyWith(color: AppColors.black),
-                                ),
-                                if (mcqQuestion.pic!.isNotEmpty) ...[
-                                  Image.network(mcqQuestion.pic!),
-                                ],
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    "السؤال  : ${mcqQuestion.question}",
+                                    style: context.textTheme.titleLarge!
+                                        .copyWith(color: AppColors.black),
+                                  ),
+                                  if (mcqQuestion.pic!.isNotEmpty) ...[
+                                    SizedBox(
+                                      height: context.height * 0.2,
+                                      width: double.infinity,
+                                      child: Image.network(
+                                        mcqQuestion.pic!,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    )
+                                  ],
+                                  Text(
+                                    "الإجابه الصحيحه :${mcqQuestion.rightAnswer}",
+                                    style: context.textTheme.titleLarge!
+                                        .copyWith(fontSize: 16),
+                                  ),
+                                  if (mcqQuestion.wrongAns2 != null ||
+                                      mcqQuestion.wrongAns3 != null) ...[
                                     Text(
-                                      mcqQuestion.rightAnswer,
-                                      style: context.textTheme.titleLarge,
+                                      " ج 2  :${mcqQuestion.wrongAns1}",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(fontSize: 16),
                                     ),
                                     Text(
-                                      mcqQuestion.wrongAns1 ?? "",
-                                      style: context.textTheme.titleLarge,
+                                      " ج 3 :${mcqQuestion.wrongAns2}",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "ج 4 :${mcqQuestion.wrongAns3}",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(fontSize: 16),
                                     ),
                                   ],
-                                ),
-                                if (mcqQuestion.wrongAns2 != null ||
-                                    mcqQuestion.wrongAns3 != null) ...[
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        mcqQuestion.wrongAns2 ?? "",
-                                        style: context.textTheme.titleLarge,
+                                  if (mcqQuestion.note != null) ...[
+                                    Text(
+                                      "ملاحظه :${mcqQuestion.note!}",
+                                      style: context.textTheme.titleLarge!
+                                          .copyWith(
+                                        fontSize: 16,
+                                        color: AppColors.black,
                                       ),
-                                      Text(
-                                        mcqQuestion.wrongAns3 ?? "",
-                                        style: context.textTheme.titleLarge,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ],
-                                if (mcqQuestion.note != null) ...[
-                                  Text(
-                                    mcqQuestion.note!,
-                                    style: context.textTheme.titleLarge,
-                                  ),
-                                ],
-                              ],
+                              ),
                             ),
                           ),
                         ),

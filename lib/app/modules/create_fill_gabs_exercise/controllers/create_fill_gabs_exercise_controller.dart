@@ -21,6 +21,7 @@ class CreateFillGabsExerciseController extends GetxController {
   void onInit() {
     teacherId = arguments['teacherId'] as String;
     examId = arguments['examId'] as String;
+    addQuestion();
     super.onInit();
   }
 
@@ -37,7 +38,7 @@ class CreateFillGabsExerciseController extends GetxController {
       final mcqQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        // image: question.image!.path,
+        image: question.image,
         question: question.questionC.text,
         rightAnswer: question.missingWordC.text,
         note: question.noteC.text,

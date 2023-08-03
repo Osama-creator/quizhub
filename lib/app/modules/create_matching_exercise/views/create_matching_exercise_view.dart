@@ -41,40 +41,6 @@ class CreateMatchingExerciseView
                               color: AppColors.primary,
                             ),
                           ),
-                          Stack(
-                            children: [
-                              Container(
-                                color: const Color(0x1AD1EC43),
-                                width: context.width,
-                                height: context.height * 0.15,
-                                child: InkWell(
-                                  onTap: controller.questions[index].pickFile,
-                                  child: controller.questions[index].image ==
-                                          null
-                                      ? const Icon(
-                                          Icons.camera_alt_outlined,
-                                          size: 40,
-                                          color: AppColors.black,
-                                        )
-                                      : Image.file(
-                                          controller.questions[index].image!,
-                                        ),
-                                ),
-                              ),
-                              if (controller.questions[index].image != null)
-                                Positioned(
-                                  left: 0,
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.delete_forever,
-                                    ),
-                                    onPressed: () {
-                                      controller.questions[index].image = null;
-                                    },
-                                  ),
-                                ),
-                            ],
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -98,11 +64,6 @@ class CreateMatchingExerciseView
                                 ),
                               )
                             ],
-                          ),
-                          MyTextFeild(
-                            controller: controller.questions[index].note,
-                            hintText: "ملاحظه  (اختياري) ",
-                            labelText: "ملاحظه  (اختياري) ",
                           ),
                         ],
                       ),
@@ -136,7 +97,7 @@ class CreateMatchingExerciseView
                           onPressed: () => controller.onSubmit(),
                           child: Text(
                             'إنشاء التدريب',
-                            style: context.textTheme.headline6!.copyWith(
+                            style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: AppColors.light,
                             ),

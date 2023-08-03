@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
-import 'package:quizhub/helper/pick.dart';
 
 class CreateMatchingExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
@@ -21,6 +19,7 @@ class CreateMatchingExerciseController extends GetxController {
   void onInit() {
     teacherId = arguments['teacherId'] as String;
     examId = arguments['examId'] as String;
+    addQuestion();
     super.onInit();
   }
 
@@ -37,10 +36,8 @@ class CreateMatchingExerciseController extends GetxController {
       final mcqQuestion = McqQuestion(
         examId: examId,
         teacherId: teacherId,
-        // image: question.imageString ?? "",
         question: question.word.text,
         rightAnswer: question.secondWord.text,
-        note: question.note.text,
       );
       apiQuestions.add(mcqQuestion);
       log("done $i");
@@ -61,16 +58,4 @@ class CreateMatchingExerciseController extends GetxController {
 class MatchingQuestionC {
   TextEditingController word = TextEditingController();
   TextEditingController secondWord = TextEditingController();
-  TextEditingController note = TextEditingController();
-
-  String imageString = "";
-
-  File? image;
-
-  Future<void> pickFile() async {
-    final tempImage = await Pick.imageFromGallery();
-    if (tempImage != null) {
-      image = tempImage;
-    }
-  }
 }

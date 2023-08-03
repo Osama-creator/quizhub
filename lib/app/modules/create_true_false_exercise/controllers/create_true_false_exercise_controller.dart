@@ -21,6 +21,7 @@ class CreateTrueFalseExerciseController extends GetxController {
   void onInit() {
     teacherId = arguments['teacherId'] as String;
     examId = arguments['examId'] as String;
+    addQuestion();
     super.onInit();
   }
 

@@ -101,7 +101,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                     if (controller.grades.isEmpty) {
                       return Padding(
                         padding: EdgeInsets.symmetric(
-                          vertical: context.height * 0.2,
+                          vertical: context.height * 0.15,
                         ),
                         child: const Text(
                           'لا يوجد صفوف حتى الان',

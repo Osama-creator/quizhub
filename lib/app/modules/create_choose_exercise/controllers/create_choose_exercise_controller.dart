@@ -21,13 +21,13 @@ class CreateChooseExerciseController extends GetxController {
   void onInit() {
     teacherId = arguments['teacherId'] as String;
     examId = arguments['examId'] as String;
+    addQuestion();
     super.onInit();
   }
 
   void addQuestion() {
     final questionC = QuestionC();
     questions.add(questionC);
-
     update();
   }
 

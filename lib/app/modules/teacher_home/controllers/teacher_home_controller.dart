@@ -24,7 +24,6 @@ class TeacherHomeController extends GetxController {
   int? followLength;
   Future<void> pickClass() async {
     final res = await Get.bottomSheet<String?>(const PickClss());
-    // print(!grades.map((e) => e.arName).contains(res));
     if (res != null && !grades.map((e) => e.arName).contains(res)) {
       final GradeModel response =
           await service.addGrades(grade: res, teacherId: teacherId);
