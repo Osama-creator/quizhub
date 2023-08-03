@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 class McqQuestion extends Equatable {
   final String teacherId;
   final String? id;
-  final String examId;
+  String? examId;
   String question;
   File? image;
   String? pic;
@@ -24,7 +24,7 @@ class McqQuestion extends Equatable {
 
   McqQuestion({
     required this.teacherId,
-    required this.examId,
+    this.examId,
     required this.question,
     this.image,
     this.pic,

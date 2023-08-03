@@ -28,7 +28,6 @@ class CreateFillGabsExerciseController extends GetxController {
   void addQuestion() {
     final questionC = FillQuestionC();
     questions.add(questionC);
-
     update();
   }
 

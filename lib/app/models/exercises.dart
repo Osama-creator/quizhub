@@ -23,7 +23,6 @@ class Exam {
             .add(McqQuestion.fromJson(questionData as Map<String, dynamic>));
       }
     }
-
     return Exam(
       id: json['_id'] as String,
       time: json['time'] as int,

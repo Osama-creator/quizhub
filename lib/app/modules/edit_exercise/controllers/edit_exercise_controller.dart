@@ -29,7 +29,6 @@ class EditExerciseController extends GetxController {
       exam = await examsService.getExercise(id: examId);
       apiQuestions = exam.questions;
       update();
-      update();
     } catch (e, st) {
       catchLog("err$e", st);
     }
@@ -44,14 +43,14 @@ class EditExerciseController extends GetxController {
     required String id,
   }) async {
     try {
-      final body = {
-        "IdQuestion": id,
-        "question": mcqQuestion.question,
-        "correct_Answer": mcqQuestion.rightAnswer,
-        if (mcqQuestion.image != null) 'img': mcqQuestion.image,
-      };
+      // final body = {
+      //   "IdQuestion": id,
+      //   "question": mcqQuestion.question,
+      //   "correct_Answer": mcqQuestion.rightAnswer,
+      //   if (mcqQuestion.image != null) 'img': mcqQuestion.image,
+      // };
 
-      await examsService.updateQuestion(body: body);
+      // await examsService.updateQuestion(body: body);
 
       // Handle success
     } catch (e, st) {

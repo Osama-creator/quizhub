@@ -43,8 +43,8 @@ class AppBindings extends Bindings {
         headers: {
           'accept': 'application/json',
         },
-        connectTimeout: 5000,
-        receiveTimeout: 3000,
+        connectTimeout: 10000,
+        receiveTimeout: 30000,
         validateStatus: (_) => true,
         listFormat: ListFormat.multiCompatible,
       ),

@@ -295,7 +295,7 @@ class ExamsService {
           MapEntry('test_node', question.note!),
         MapEntry('question', question.question),
         MapEntry('createdby', question.teacherId),
-        MapEntry('Idexam', question.examId),
+        MapEntry('Idexam', question.examId!),
       ]);
       if (question.image != null) {
         String fileName = question.image!.path.split('/').last;
@@ -333,19 +333,47 @@ class ExamsService {
   }
 
   Future<void> updateQuestion({
-    required Map<String, dynamic> body,
+    required McqQuestion question,
   }) async {
     try {
+      final formData = FormData();
+      formData.fields.addAll([
+        MapEntry('correct_Answer', question.rightAnswer),
+        MapEntry('IdQuestion', question.id!),
+        if (question.wrongAns1 != null && question.wrongAns1!.isNotEmpty)
+          MapEntry('choose2', question.wrongAns1!),
+        if (question.wrongAns2 != null && question.wrongAns2!.isNotEmpty)
+          MapEntry('choose3', question.wrongAns2!),
+        if (question.wrongAns3 != null && question.wrongAns3!.isNotEmpty)
+          MapEntry('choose4', question.wrongAns3!),
+        if (question.note != null && question.note!.isNotEmpty)
+          MapEntry('test_node', question.note!),
+        MapEntry('question', question.question),
+      ]);
+      if (question.image != null) {
+        String fileName = question.image!.path.split('/').last;
+        String? mimeType = mime(fileName);
+        String mimee = mimeType!.split('/')[0];
+        String type = mimeType.split('/')[1];
+        formData.files.add(
+          MapEntry(
+            'img',
+            await MultipartFile.fromFile(
+              question.image!.path,
+              filename: fileName,
+              contentType: MediaType(mimee, type),
+            ),
+          ),
+        );
+      }
       final response = await client.patch(
         Endpoints.updateQuesiton,
-        body: body,
+        body: formData,
+        contentType: 'multipart/form-data',
       );
-
       if (response.statusCode == 200) {
-        // Handle success
-        log('Question posted successfully');
+        log('Question updated successfully');
       } else {
-        // Handle error
         throw Exception('Failed to post question');
       }
     } catch (e, st) {

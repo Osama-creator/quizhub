@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/helper/pdf_g.dart';
 
@@ -77,6 +78,31 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          if (mcqQuestion.wrongAns3 != null) {
+                                            Get.toNamed(
+                                              Routes.EDIT_MCQ_QUISTION,
+                                              arguments: mcqQuestion,
+                                            );
+                                          }
+                                        },
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: AppColors.black,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: AppColors.black,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                   Text(
                                     "السؤال  : ${mcqQuestion.question}",
                                     style: context.textTheme.titleLarge!
