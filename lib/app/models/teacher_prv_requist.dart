@@ -34,3 +34,20 @@ class PreviousRequest extends Equatable {
   @override
   List<Object?> get props => [id, phone, amount, idTeacher, confirmed];
 }
+
+class OrderResponse {
+  String title;
+  String profilePic;
+
+  OrderResponse({
+    required this.title,
+    required this.profilePic,
+  });
+
+  factory OrderResponse.fromJson(Map<String, dynamic> json) {
+    return OrderResponse(
+      title: json['title'] as String,
+      profilePic: json['profile_pic'] as String,
+    );
+  }
+}

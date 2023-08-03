@@ -1,10 +1,15 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:quizhub/app/models/money_order.dart';
 import 'package:quizhub/app/models/school.dart';
 import 'package:quizhub/app/models/school_details.dart';
+import 'package:quizhub/app/models/teacher_prv_requist.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
 import 'package:quizhub/helper/func.dart';
@@ -67,21 +72,44 @@ class AdminService {
   Future<void> confirmMoneyOrder({
     required String idOrder,
     String? title,
-    required String img,
+    required File? img,
   }) async {
+    final formData = FormData();
+    formData.fields.addAll([
+      MapEntry("idOrder", idOrder),
+      MapEntry("title", title ?? ""),
+    ]);
+    if (img != null) {
+      final String fileName = img.path.split('/').last;
+      String? mimeType = mime(fileName);
+      final String mimee = mimeType!.split('/')[0];
+      final String type = mimeType.split('/')[1];
+      formData.files.add(
+        MapEntry(
+          'img',
+          await MultipartFile.fromFile(
+            img.path,
+            filename: fileName,
+            contentType: MediaType(mimee, type),
+          ),
+        ),
+      );
+    }
     try {
       final response = await client.post(
         Endpoints.confirmationOfMoneyOrder,
-        body: {"idOrder": idOrder, "img": img, "title": title ?? ""},
+        body: formData,
+        contentType: 'multipart/form-data',
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 &&
+          response.data["message"] as String == "Done") {
         log("confirm done");
       } else {
         throw Exception('Failed to fetch data');
       }
     } catch (e, st) {
       catchLog(e, st);
-      throw Exception('Failed to fetch data');
+      throw Exception('Failed to post data');
     }
   }
 
@@ -101,6 +129,32 @@ class AdminService {
     } catch (e, st) {
       catchLog(0, st);
       throw Exception('Failed to fetch orders: $e');
+    }
+  }
+
+  Future<OrderResponse> fetchOrderResponse({
+    required String teacherId,
+    required String orderId,
+  }) async {
+    try {
+      final Response response = await client.post(
+        Endpoints.confirmationOfMoneyOrderResponse,
+        body: {"idTeacher": teacherId, "idOrder": orderId},
+      );
+      if (response.statusCode == 200 &&
+          response.data["message"] as String == "Done") {
+        final OrderResponse orderResponse = OrderResponse.fromJson(
+          response.data["orders"] as Map<String, dynamic>,
+        );
+
+        return orderResponse;
+      } else {
+        throw Exception(
+          'Request failed with status code ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
     }
   }
 }

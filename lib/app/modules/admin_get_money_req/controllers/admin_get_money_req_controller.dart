@@ -28,8 +28,6 @@ class AdminGetMoneyReqController extends GetxController {
     super.onInit();
   }
 
-  String imageString = "";
-  late bool imageUploaded;
   File? image;
 
   Future<void> pickFile() async {
@@ -42,7 +40,7 @@ class AdminGetMoneyReqController extends GetxController {
 
   Future<void> confirmOrder({
     required String id,
-    required String img,
+    required File img,
     String? title,
   }) async {
     await action.performAction(
@@ -53,8 +51,7 @@ class AdminGetMoneyReqController extends GetxController {
       error,
     );
     update();
-
-    Alert.success("تم الارسال بنجاح");
+    Alert.success("تم التأكيد بنجاح");
   }
 
   Future<void> makePhoneCall({

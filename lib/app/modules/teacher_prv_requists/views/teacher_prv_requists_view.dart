@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/teacher_prv_requists/controllers/teacher_prv_requists_controller.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
@@ -30,34 +31,45 @@ class TeacherPrvRequistsView extends GetView<TeacherPrvRequistsController> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                color: controller.prevOrders[index].confirmed
-                                    ? AppColors.next2Primary
-                                    : Colors.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "المبلغ :   ${controller.prevOrders[index].amount} جنيه",
-                                        style: context.headline5!
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                      Text(
-                                        "رقم الهاتق :  ${controller.prevOrders[index].phone}",
-                                        style: context.headline5!
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                      Text(
-                                        controller.prevOrders[index].confirmed
-                                            ? "تم التأكيد : نعم "
-                                            : "تم التأكيد : لا ",
-                                        style: context.headline5!
-                                            .copyWith(fontSize: 18),
-                                      )
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed(
+                                    Routes.ORDER_RESPONSE,
+                                    arguments: [
+                                      "64bd197d8ddbd02b23d77d46",
+                                      "6494a1acd694b4d94537d2b4"
                                     ],
+                                  );
+                                },
+                                child: Card(
+                                  color: controller.prevOrders[index].confirmed
+                                      ? AppColors.nextPrimary
+                                      : Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "المبلغ :   ${controller.prevOrders[index].amount} جنيه",
+                                          style: context.headline5!
+                                              .copyWith(fontSize: 18),
+                                        ),
+                                        Text(
+                                          "رقم الهاتق :  ${controller.prevOrders[index].phone}",
+                                          style: context.headline5!
+                                              .copyWith(fontSize: 18),
+                                        ),
+                                        Text(
+                                          controller.prevOrders[index].confirmed
+                                              ? "تم التأكيد : نعم "
+                                              : "تم التأكيد : لا ",
+                                          style: context.headline5!
+                                              .copyWith(fontSize: 18),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
