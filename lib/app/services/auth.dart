@@ -4,7 +4,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get.dart' hide FormData, MultipartFile;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:queen/queen.dart' hide throwIfNot;
 import 'package:quizhub/app/models/user_model.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
@@ -88,22 +91,40 @@ class AuthService {
     String? phone,
     File? image,
   }) async {
+    final formData = FormData();
+    formData.fields.addAll([
+      MapEntry('name', name),
+      MapEntry('email', email),
+      MapEntry('password', password),
+      MapEntry('confirm_Password', confPassword),
+      MapEntry('role', roleName),
+      MapEntry('school', school),
+      MapEntry('governorate', governorate),
+      MapEntry('Area', erea),
+      if (classS != null && classS.isNotEmpty) MapEntry('the_grades', classS),
+      if (subject != null && subject.isNotEmpty) MapEntry('material', subject),
+      if (phone != null && phone.isNotEmpty) MapEntry('phone', phone),
+    ]);
+    if (image != null && image.path.isNotEmpty) {
+      final String fileName = image.path.split('/').last;
+      String? mimeType = mime(fileName);
+      final String mimee = mimeType!.split('/')[0];
+      final String type = mimeType.split('/')[1];
+      formData.files.add(
+        MapEntry(
+          'img',
+          await MultipartFile.fromFile(
+            image.path,
+            filename: fileName,
+            contentType: MediaType(mimee, type),
+          ),
+        ),
+      );
+    }
     final res = await client.post(
       Endpoints.register,
-      body: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'confirm_Password': confPassword,
-        'role': roleName,
-        'school': school,
-        'Area': erea,
-        'governorate': governorate,
-        if (classS != null && classS.isNotEmpty) 'the_grades': classS,
-        if (subject != null && subject.isNotEmpty) 'material': subject,
-        if (phone != null && phone.isNotEmpty) 'phone': phone,
-        if (image != null && image.path.isNotEmpty) 'img': image.path,
-      },
+      body: formData,
+      contentType: 'multipart/form-data',
     );
     throwIfNot(200, res);
     signIn(email: email, password: password);

@@ -36,8 +36,10 @@ class TeacherPrvRequistsView extends GetView<TeacherPrvRequistsController> {
                                   Get.toNamed(
                                     Routes.ORDER_RESPONSE,
                                     arguments: [
-                                      "64bd197d8ddbd02b23d77d46",
-                                      "6494a1acd694b4d94537d2b4"
+                                      controller.prevOrders[index].id,
+                                      controller.userId
+                                      // "64bd197d8ddbd02b23d77d46",
+                                      // "6494a1acd694b4d94537d2b4"
                                     ],
                                   );
                                 },

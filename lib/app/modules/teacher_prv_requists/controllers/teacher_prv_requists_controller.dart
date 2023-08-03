@@ -5,8 +5,7 @@ import 'package:quizhub/app/services/money_financials.dart';
 import 'package:quizhub/helper/func.dart';
 
 class TeacherPrvRequistsController extends GetxController {
-  final userId = "6494a1acd694b4d94537d2b4";
-  // Get.arguments as String;
+  final userId = Get.arguments as String;
   List<PreviousRequest> prevOrders = [];
   final authService = Get.find<AuthService>();
 
