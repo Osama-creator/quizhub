@@ -17,6 +17,7 @@ abstract class Endpoints {
   static const gradeExercise = '/v6/com/getallexamsofgrades';
   static const addExam = '/v6/com/addexam';
   static const deletExam = '/v6/com/deleteExam';
+  static const deletQuestion = '/v6/com/deleteQuestion';
   static const addQuesiton = '/v6/com/addQuestion';
   static const updateQuesiton = '/v6/com/updateQuestion';
   static const getExam = '/v6/com/getallexam';

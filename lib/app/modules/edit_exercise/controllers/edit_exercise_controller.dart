@@ -50,6 +50,17 @@ class EditExerciseController extends GetxController {
     }
   }
 
+  Future<void> deleteQuestion({required String id}) async {
+    try {
+      await examsService.deleteQuestion(qId: id);
+      apiQuestions.removeWhere((element) => element.id == id);
+      update();
+    } catch (e, st) {
+      catchLog(e, st);
+    }
+    update();
+  }
+
   Future<void> updateQuestion({
     required McqQuestion mcqQuestion,
   }) async {

@@ -278,6 +278,26 @@ class ExamsService {
     }
   }
 
+  Future<void> deleteQuestion({
+    required String qId,
+  }) async {
+    try {
+      final response = await client.delete(
+        Endpoints.deletQuestion,
+        body: {
+          'Question': qId,
+        },
+      );
+      if (response.statusCode == 200) {
+        log(" Deleted question Done");
+      } else {
+        throw Exception('Failed to fetch exercises');
+      }
+    } catch (e, st) {
+      throw Exception('Error: $e, $st');
+    }
+  }
+
   Future<void> postMcqQuestion(McqQuestion question) async {
     try {
       final dio = Dio();

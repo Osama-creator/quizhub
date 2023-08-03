@@ -88,8 +88,11 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                               arguments: mcqQuestion,
                                             );
                                           } else {
-                                            buildEditDialog(context,
-                                                mcqQuestion, controller);
+                                            buildEditDialog(
+                                              context,
+                                              mcqQuestion,
+                                              controller,
+                                            );
                                           }
                                         },
                                         icon: const Icon(
@@ -98,7 +101,11 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                         ),
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          controller.deleteQuestion(
+                                            id: mcqQuestion.id!,
+                                          );
+                                        },
                                         icon: const Icon(
                                           Icons.delete,
                                           color: AppColors.black,
