@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exercises.dart';
@@ -6,6 +7,7 @@ import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/helper/pdf_g.dart';
+import 'package:quizhub/helper/pick.dart';
 
 class EditExerciseController extends GetxController {
   final examsService = Get.find<ExamsService>();
@@ -38,20 +40,21 @@ class EditExerciseController extends GetxController {
     super.onInit();
   }
 
+  File? image;
+
+  Future<void> pickFile(McqQuestion mcqQuestion) async {
+    final tempImage = await Pick.imageFromGallery();
+    if (tempImage != null) {
+      image = tempImage;
+      update();
+    }
+  }
+
   Future<void> updateQuestion({
     required McqQuestion mcqQuestion,
-    required String id,
   }) async {
     try {
-      // final body = {
-      //   "IdQuestion": id,
-      //   "question": mcqQuestion.question,
-      //   "correct_Answer": mcqQuestion.rightAnswer,
-      //   if (mcqQuestion.image != null) 'img': mcqQuestion.image,
-      // };
-
-      // await examsService.updateQuestion(body: body);
-
+      await examsService.updateQuestion(question: mcqQuestion);
       // Handle success
     } catch (e, st) {
       // Handle error
