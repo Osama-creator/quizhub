@@ -32,7 +32,8 @@ class StudentHomeView extends GetView<StudentHomeController> {
               IconButton(
                 icon: const Icon(Icons.search),
                 onPressed: () {
-                  Get.toNamed(Routes.SEARCH_FOR_TEACHERS);
+                  Get.toNamed(Routes.SEARCH_FOR_TEACHERS)!
+                      .then((value) => Get.delete<StudentHomeController>());
                 },
               ),
               SettingButton(controller: controller.auth),

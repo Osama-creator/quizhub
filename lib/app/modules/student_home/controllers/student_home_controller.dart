@@ -33,6 +33,7 @@ class StudentHomeController extends GetxController
 
   @override
   Future<void> onInit() async {
+    super.onInit();
     tabController = TabController(vsync: this, length: 3);
     final userData = await auth.cachedUser;
     userName = userData!.name;
@@ -41,7 +42,6 @@ class StudentHomeController extends GetxController
 
     tabController.addListener(update);
     await fetchSubjects();
-    super.onInit();
   }
 
   Future<void> fetchSubjects() async {

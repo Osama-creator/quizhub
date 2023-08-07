@@ -78,7 +78,6 @@ class McqExerciseController extends GetxController {
           curve: Curves.ease,
         );
         qNumber++;
-
         update();
       } else {
         finishExam();
@@ -93,6 +92,7 @@ class McqExerciseController extends GetxController {
       degree: degree,
       idexam: examId,
     );
+    Get.until((route) => route.settings.name == Routes.MCQ_EXERCISE);
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,
       arguments: ["$degree / ${quistionList.length}", examId],

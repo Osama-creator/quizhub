@@ -71,6 +71,7 @@ class TrueFalseExerciseController extends GetxController {
       degree: degree,
       idexam: examId,
     );
+    Get.until((route) => route.settings.name == Routes.TRUE_FALSE_EXERCISE);
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,
       arguments: ["$degree / ${quistionList.length}", examId],

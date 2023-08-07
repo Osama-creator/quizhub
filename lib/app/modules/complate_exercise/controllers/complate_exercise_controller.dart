@@ -66,8 +66,8 @@ class ComplateExerciseController extends GetxController {
       lauding,
       error,
     );
-
-    Get.offNamed(
+    Get.until((route) => route.settings.name == Routes.COMPLATE_EXERCISE);
+    Get.offAndToNamed(
       Routes.STUDENTS_GRADES,
       arguments: ["$degree / ${quistionList.length}", examId],
     );

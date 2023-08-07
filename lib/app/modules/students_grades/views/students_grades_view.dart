@@ -16,6 +16,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("درجات الطلاب"),
+        automaticallyImplyLeading: false,
         centerTitle: false,
         actions: [
           Padding(
