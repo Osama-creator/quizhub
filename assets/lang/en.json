@@ -138,7 +138,7 @@
   "solution": "Solution",
   "academic_subjects": "Academic Subjects",
   "exams": "Exams",
-  "main_title": "Main",
+  "main_title": "Home",
   "teachers_title": "Teachers",
   "invitations_title": "Invitations",
   "language": "Language",
@@ -153,7 +153,5 @@
   "add_classroom": "Add Classroom +",
   "financial_dues": "Financial Dues",
   "confirmed": "Confirmed:",
-  "true": "True",
-  "false": "False",
   "true_or_false": "True or False"
 }

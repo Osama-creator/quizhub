@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/true_false_exercise/controllers/true_false_exercise_controller.dart';
 import 'package:quizhub/app/modules/true_false_exercise/views/q_body.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/timer.dart';
 
 class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
@@ -34,7 +35,7 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "صح أو خطأ",
+                    Tr.trueOrFalse.tr,
                     style: context.textTheme.titleLarge!
                         .copyWith(color: AppColors.light),
                   ),
