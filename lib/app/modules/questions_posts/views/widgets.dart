@@ -3,6 +3,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/post_model.dart';
 import 'package:quizhub/app/modules/questions_posts/controllers/questions_posts_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 Column buildPost(BuildContext context, Post post) {
   return Column(
@@ -64,7 +65,7 @@ Column buildPost(BuildContext context, Post post) {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "تعليق",
+                      Tr.comment.tr,
                       style: context.textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -99,8 +100,8 @@ Widget buildPostInput(QuestionsPostsController controller) {
         Expanded(
           child: TextField(
             controller: controller.postController,
-            decoration: const InputDecoration(
-              hintText: 'Write your post...',
+            decoration: InputDecoration(
+              hintText: Tr.writeYourPost.tr,
               border: InputBorder.none,
             ),
           ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/search_for_students/controllers/search_for_students_controller.dart';
 import 'package:quizhub/app/modules/search_for_students/views/widget.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 
 class SearchForStudentsView extends GetView<SearchForStudentsController> {
@@ -24,7 +26,7 @@ class SearchForStudentsView extends GetView<SearchForStudentsController> {
                     controller: searchController,
                     onChanged: (value) => controller.filterUsers(value),
                     decoration: InputDecoration(
-                      labelText: 'Search',
+                      labelText: Tr.search.tr,
                       prefixIcon: const Icon(
                         Icons.search,
                       ),
@@ -41,8 +43,10 @@ class SearchForStudentsView extends GetView<SearchForStudentsController> {
                       return controller.lauding
                           ? const CenterLoading()
                           : controller.students.isEmpty
-                              ? const Center(
-                                  child: Text("لا يوجد بيانات"),
+                              ? Center(
+                                  child: Text(
+                                    Tr.noDataAvailable.tr,
+                                  ),
                                 )
                               : ListView.builder(
                                   itemCount: controller.filteredUsers.length,

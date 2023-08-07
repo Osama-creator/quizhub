@@ -3,6 +3,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/app/modules/search_for_students/controllers/search_for_students_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class SearchStudentsListTile extends StatelessWidget {
   final User student;
@@ -70,7 +71,9 @@ class SearchStudentsListTile extends StatelessWidget {
                         onPressed: () {
                           controller.folowStudent(forwordUserId: student.id);
                         },
-                        child: const Text('متابعه'),
+                        child: Text(
+                          Tr.follow.tr,
+                        ),
                       ),
               ),
             ),

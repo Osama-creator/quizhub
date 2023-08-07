@@ -10,6 +10,7 @@
   "student": "student",
   "students": "students",
   "teachers": "teachers",
+  "matching": "matching",
   "comments": "Comments",
   "write_your_comment": "Write your comment...",
   "true_an":"True answer",
@@ -18,6 +19,8 @@
   "fill_gabs":"Fill the gabs",
   "type_answer":"type your answer ...",
   "admin":"Admin",
+  "ans":"Answer",
+  "type":"Type",
   "schoold":"Schools",
   "money_requists":"money_requists",
   "notes":"Notes",
@@ -153,5 +156,6 @@
   "add_classroom": "Add Classroom +",
   "financial_dues": "Financial Dues",
   "confirmed": "Confirmed:",
-  "true_or_false": "True or False"
+  "true_or_false": "True or False",
+  "choose": "Choose"
 }

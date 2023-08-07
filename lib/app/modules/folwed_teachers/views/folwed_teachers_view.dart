@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/folwed_teachers/controllers/folwed_teachers_controller.dart';
 import 'package:quizhub/app/modules/folwed_teachers/views/widget.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class FolwedTeachersView extends GetView<FolwedTeachersController> {
   const FolwedTeachersView({super.key});
@@ -19,7 +21,7 @@ class FolwedTeachersView extends GetView<FolwedTeachersController> {
               children: [
                 Center(
                   child: Text(
-                    'المدرسين الذين تتابعهم',
+                    Tr.teachersYouFollow,
                     style: context.textTheme.headlineSmall!
                         .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
                   ),
@@ -45,7 +47,7 @@ class FolwedTeachersView extends GetView<FolwedTeachersController> {
                   },
                   child: Center(
                     child: Text(
-                      'البحث عن مدرسين',
+                      Tr.searchTeachers.tr,
                       style: context.textTheme.titleLarge,
                     ),
                   ),

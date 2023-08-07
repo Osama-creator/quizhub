@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/student_degree.dart';
 
 import 'package:quizhub/app/modules/students_grades/controllers/students_grades_controller.dart';
@@ -8,6 +9,7 @@ import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
 import 'package:quizhub/generated/assets.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class StudentsGradesView extends GetView<StudentsGradesController> {
   const StudentsGradesView({super.key});
@@ -15,7 +17,9 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("درجات الطلاب"),
+        title: Text(
+          Tr.studentsGradesTitle.tr,
+        ),
         automaticallyImplyLeading: false,
         centerTitle: false,
         actions: [
@@ -27,7 +31,7 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
                 arguments: controller.args,
               ),
               child: Text(
-                "دعوة",
+                Tr.invite.tr,
                 style: context.textTheme.titleLarge!
                     .copyWith(color: AppColors.light),
               ),

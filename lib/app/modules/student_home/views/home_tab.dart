@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class HomeTab extends GetView<StudentHomeController> {
   const HomeTab({super.key});
@@ -44,7 +46,7 @@ class HomeTab extends GetView<StudentHomeController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'المواد الدراسية',
+                    Tr.academicSubjects.tr,
                     style: context.textTheme.headlineSmall,
                   ),
                 ),
@@ -59,11 +61,12 @@ class HomeTab extends GetView<StudentHomeController> {
                   indent: 20,
                   thickness: 1,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'الاختبارات',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    Tr.exams.tr,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 8),

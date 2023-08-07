@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/divider.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -17,7 +18,7 @@ class HomeView extends GetView<HomeController> {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("صفحه المدرس"),
+            title: Text(Tr.teacherPage.tr),
           ),
           body: Column(
             children: [
@@ -60,7 +61,7 @@ class HomeView extends GetView<HomeController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "مدرس ${controller.teacher.material}",
+                      "${Tr.teacherLabel} ${controller.teacher.material}",
                       style: context.textTheme.titleLarge!.copyWith(
                         color: AppColors.black,
                         fontWeight: FontWeight.normal,
@@ -73,11 +74,11 @@ class HomeView extends GetView<HomeController> {
                               onPressed: () {
                                 controller.folowStudent();
                               },
-                              child: const Text("متابعه"),
+                              child: Text(Tr.follow.tr),
                             )
                           : OutlinedButton(
                               onPressed: () {},
-                              child: const Text("متابع"),
+                              child: Text(Tr.following.tr),
                             ),
                     )
                   ],
@@ -85,7 +86,7 @@ class HomeView extends GetView<HomeController> {
               ),
               const MyDivider(),
               Text(
-                "ملخص التمارين",
+                Tr.exerciseSummary.tr,
                 style: context.textTheme.titleLarge!.copyWith(),
               ),
               Wrap(
@@ -120,21 +121,21 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 ),
                                 Text(
-                                  "${exam.quesiotnsNum!.length} اسئله",
+                                  "${exam.quesiotnsNum!.length} ${Tr.question.tr}",
                                   style: context.textTheme.titleLarge!.copyWith(
                                     color: AppColors.light,
                                     fontSize: 14,
                                   ),
                                 ),
                                 Text(
-                                  "${exam.viewNum!.length} حل",
+                                  "${exam.viewNum!.length} ${Tr.ans.tr}",
                                   style: context.textTheme.titleLarge!.copyWith(
                                     color: AppColors.light,
                                     fontSize: 14,
                                   ),
                                 ),
                                 Text(
-                                  "النوع $type ",
+                                  "${Tr.type.tr} $type ",
                                   style: context.textTheme.titleLarge!.copyWith(
                                     color: AppColors.light,
                                     fontSize: 14,
@@ -155,7 +156,7 @@ class HomeView extends GetView<HomeController> {
                         examName: controller
                             .teacher.doneExams[index].exerciseModel.arName!,
                         degree:
-                            " الدرجه ${controller.teacher.doneExams[index].degree} / ${controller.teacher.doneExams[index].exerciseModel.quesiotnsNum!.length} ",
+                            "${Tr.grade.tr} ${controller.teacher.doneExams[index].degree} / ${controller.teacher.doneExams[index].exerciseModel.quesiotnsNum!.length} ",
                         index: controller.teacher.doneExams.indexOf(doneExam),
                       );
                     },

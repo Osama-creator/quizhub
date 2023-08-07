@@ -8,6 +8,7 @@
    "cancel_button": "إلغاء",
    "admin_schools": "المدارس للمشرف",
   "student": "طالب",
+  "matching": "توصيل",
   "students": "الطلاب",
   "teachers": "المدرسين",
   "comments": "التعليقات",
@@ -129,6 +130,8 @@
   "write_your_post": "اكتب منشورك...",
   
   "search": "بحث",
+  "type": "النوع",
+  "ans": "حل",
   "create_new_account": "إنشاء حساب جديد",
   "login": "تسجيل الدخول",
   "egypt": "مصر",
@@ -136,6 +139,7 @@
   "exercise_summary": "ملخص التمارين",
   "questions": "أسئلة",
   "solution": "حل",
+  "choose": "إختر",
   "academic_subjects": "المواد الدراسية",
   "exams": "الاختبارات",
   "main_title": "الرئيسية",
@@ -152,7 +156,6 @@
   "no_classrooms_yet": "لا يوجد صفوف حتى الآن",
   "add_classroom": "إضافة صف +",
   "financial_dues": "المستحقات المالية",
-  
   "confirmed": "تم التأكيد:",
   "true_or_false": "صح أو خطأ"
  }

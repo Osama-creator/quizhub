@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/app/modules/students_envit/controllers/students_envit_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class StudentsEnvitView extends GetView<StudentsEnvitController> {
   final TextEditingController searchController = TextEditingController();
@@ -11,7 +14,7 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Invite Students'),
+        title: Text(Tr.friendsInvitations.tr),
         centerTitle: true,
       ),
       body: Column(
@@ -22,7 +25,7 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
               controller: searchController,
               onChanged: (value) => controller.filterUsers(value),
               decoration: InputDecoration(
-                labelText: 'Search',
+                labelText: Tr.search.tr,
                 prefixIcon: const Icon(
                   Icons.search,
                 ),
@@ -96,9 +99,9 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
                             ),
                           ),
                         ),
-                        child: const Text(
-                          'Done',
-                          style: TextStyle(
+                        child: Text(
+                          Tr.done.tr,
+                          style: const TextStyle(
                             color: Colors.grey,
                           ),
                         ),
@@ -107,7 +110,9 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
                         onPressed: () {
                           controller.enviteFriend(forwordUserId: user.id);
                         },
-                        child: const Text('Invite'),
+                        child: Text(
+                          Tr.invite.tr,
+                        ),
                       ),
               ),
             ],

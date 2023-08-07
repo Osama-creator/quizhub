@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/post_model.dart';
 import 'package:quizhub/app/services/post_comment.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 
@@ -53,7 +55,9 @@ class QuestionsPostsController extends GetxController {
       if (done!) {
         posts.removeWhere((element) => element.id == postId);
       } else {
-        Alert.error("لا يمكن فعل هذا الامر ");
+        Alert.error(
+          Tr.cannotPerformAction.tr,
+        );
       }
     } catch (e, st) {
       catchLog(e, st);

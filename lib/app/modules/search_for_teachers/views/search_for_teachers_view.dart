@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/teacher_model.dart';
 import 'package:quizhub/app/modules/search_for_teachers/controllers/search_for_teachers_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class SearchForTeachersView extends GetView<SearchForTeachersController> {
   SearchForTeachersView({super.key});
@@ -25,7 +27,7 @@ class SearchForTeachersView extends GetView<SearchForTeachersController> {
                     controller: searchController,
                     onChanged: (value) => controller.filterUsers(value),
                     decoration: InputDecoration(
-                      labelText: 'Search',
+                      labelText: Tr.search.tr,
                       prefixIcon: const Icon(
                         Icons.search,
                       ),
@@ -102,14 +104,14 @@ class SearchTeacherListTile extends StatelessWidget {
             ),
             Text(
               teacher.name,
-              style: context.textTheme.headline6!.copyWith(fontSize: 18),
+              style: context.textTheme.titleLarge!.copyWith(fontSize: 18),
             ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 teacher.subj,
-                style: context.textTheme.headline6!
+                style: context.textTheme.titleLarge!
                     .copyWith(fontSize: 18, color: AppColors.black),
               ),
             ),

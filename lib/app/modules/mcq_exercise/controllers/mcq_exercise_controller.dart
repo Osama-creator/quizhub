@@ -2,13 +2,15 @@ import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/func.dart';
 
 class McqExerciseController extends GetxController {
@@ -110,7 +112,7 @@ class McqExerciseController extends GetxController {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              isCorrect ? 'إجابه صحيحه' : 'إجابه خاطئه',
+              isCorrect ? Tr.trueAn.tr : Tr.falseAn.tr,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -121,7 +123,7 @@ class McqExerciseController extends GetxController {
             const SizedBox(height: 10.0),
             if (!isCorrect)
               Text(
-                'الإجابه الصحيحه هي: $correctAnswer',
+                '${Tr.trueAn.tr} هي: $correctAnswer',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,

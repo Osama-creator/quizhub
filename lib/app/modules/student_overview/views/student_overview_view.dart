@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/student_overview/controllers/student_overview_controller.dart';
 import 'package:quizhub/app/modules/student_overview/views/wedget.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class StudentOverviewView extends GetView<StudentOverviewController> {
   const StudentOverviewView({super.key});
@@ -11,7 +13,7 @@ class StudentOverviewView extends GetView<StudentOverviewController> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("صفحه الطالب"),
+          title: Text(Tr.studentPageTitle.tr),
         ),
         body: SingleChildScrollView(
           child: Column(

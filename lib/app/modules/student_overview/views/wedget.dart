@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/student_overview/controllers/student_overview_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 
 class SubjectTile extends StatelessWidget {
@@ -16,8 +17,10 @@ class SubjectTile extends StatelessWidget {
     return controller.lauding
         ? const CenterLoading()
         : controller.exams.isEmpty
-            ? const Center(
-                child: Text("لا يوجد بيانات"),
+            ? Center(
+                child: Text(
+                  Tr.noDataAvailable.tr,
+                ),
               )
             : Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -31,7 +34,7 @@ class SubjectTile extends StatelessWidget {
                       thickness: 1,
                     ),
                     Text(
-                      'الامتحانات ',
+                      Tr.exams.tr,
                       style: context.textTheme.headlineSmall,
                     ),
                     GridView.builder(
@@ -58,17 +61,19 @@ class SubjectTile extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                "العنوان :  ${controller.exams[index].arName}",
+                                "  ${controller.exams[index].arName}",
                                 style: context.textTheme.bodyLarge!
                                     .copyWith(color: AppColors.light),
                               ),
                               Text(
-                                "الماده :  ${controller.exams[index].subName}",
-                                style: context.textTheme.bodyLarge!
-                                    .copyWith(color: AppColors.light),
+                                "${Tr.subjectTitle.tr} :  ${controller.exams[index].subName}",
+                                style: context.textTheme.bodyLarge!.copyWith(
+                                  color: AppColors.light,
+                                  fontSize: 14,
+                                ),
                               ),
                               Text(
-                                ' الدرجه :  ${controller.exams[index].degree} من ${controller.exams[index].quesiotnsNum!.length}',
+                                ' ${Tr.grade.tr} :  ${controller.exams[index].degree} من ${controller.exams[index].quesiotnsNum!.length}',
                                 style: context.textTheme.bodyLarge!
                                     .copyWith(color: AppColors.light),
                               ),

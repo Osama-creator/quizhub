@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/student_exercises_list/controllers/student_exercises_list_controller.dart';
 import 'package:quizhub/app/modules/student_exercises_list/views/widget.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class StudentExercisesListView extends GetView<StudentExercisesListController> {
   const StudentExercisesListView({super.key});
@@ -40,7 +42,7 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                         );
                       },
                       child: Text(
-                        "قسم أسئله الطلاب",
+                        Tr.studentQuestionsSection.tr,
                         style: context.textTheme.titleLarge,
                       ),
                     ),
@@ -79,9 +81,9 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                           ),
                         ],
                       ),
-                      const Text(
-                        'ملخص التمارين',
-                        style: TextStyle(
+                      Text(
+                        Tr.exerciseSummary.tr,
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
@@ -160,7 +162,7 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                                       ),
                                     ] else ...[
                                       Text(
-                                        " الدرجه ${controller.filteredExams![index].degree}  / ${controller.filteredExams![index].quesiotnsNum!.length} ",
+                                        " ${Tr.grade.tr} ${controller.filteredExams![index].degree}  / ${controller.filteredExams![index].quesiotnsNum!.length} ",
                                         style: context.textTheme.titleLarge!
                                             .copyWith(
                                           color: AppColors.light,

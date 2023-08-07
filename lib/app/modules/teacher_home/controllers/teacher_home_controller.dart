@@ -2,12 +2,14 @@
 
 import 'dart:developer';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/grade.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/views/pick_utils.dart';
@@ -31,7 +33,9 @@ class TeacherHomeController extends GetxController {
       grades.add(response);
       update();
     } else {
-      Alert.error("لقد تم اختياره بالفعل ");
+      Alert.error(
+        Tr.alreadySelected.tr,
+      );
     }
   }
 

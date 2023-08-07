@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/questions_posts/controllers/questions_posts_controller.dart';
 import 'package:quizhub/app/modules/questions_posts/views/widgets.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class QuestionsPostsView extends GetView<QuestionsPostsController> {
   const QuestionsPostsView({super.key});
@@ -12,7 +14,9 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
     return Scaffold(
       backgroundColor: AppColors.light,
       appBar: AppBar(
-        title: const Text('الأسئله'),
+        title: Text(
+          Tr.questions.tr,
+        ),
         centerTitle: true,
       ),
       body: GetBuilder<QuestionsPostsController>(
@@ -57,16 +61,20 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('حذف السؤال'),
-          content: const Text(
-            "هل انت متأكد من حذف السؤال",
+          title: Text(
+            Tr.deleteQuestion.tr,
+          ),
+          content: Text(
+            Tr.confirmQuestionDeletion.tr,
           ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('نعم'),
+              child: Text(
+                Tr.yes.tr,
+              ),
               onPressed: () {
                 controller.removePost(id);
                 Navigator.of(context).pop();
@@ -76,7 +84,9 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('لا'),
+              child: Text(
+                Tr.no.tr,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

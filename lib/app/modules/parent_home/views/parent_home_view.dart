@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/parent_home/controllers/parent_home_controller.dart';
 import 'package:quizhub/app/modules/parent_home/views/widget.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 
 class ParentHomeView extends GetView<ParentHomeController> {
@@ -48,7 +50,7 @@ class ParentHomeView extends GetView<ParentHomeController> {
             children: [
               Center(
                 child: Text(
-                  'الطلاب الذين تتابعهم',
+                  Tr.studentsYouFollow.tr,
                   style: context.textTheme.headlineSmall!
                       .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
                 ),
@@ -60,8 +62,10 @@ class ParentHomeView extends GetView<ParentHomeController> {
                     child: controller.lauding
                         ? const CenterLoading()
                         : controller.students.isEmpty
-                            ? const Center(
-                                child: Text("لا يوجد بيانات"),
+                            ? Center(
+                                child: Text(
+                                  Tr.noDataAvailable.tr,
+                                ),
                               )
                             : ListView.builder(
                                 itemCount: controller.students.length,
@@ -85,7 +89,7 @@ class ParentHomeView extends GetView<ParentHomeController> {
                 },
                 child: Center(
                   child: Text(
-                    'البحث عن طلاب',
+                    Tr.searchStudents.tr,
                     style: context.textTheme.titleLarge,
                   ),
                 ),

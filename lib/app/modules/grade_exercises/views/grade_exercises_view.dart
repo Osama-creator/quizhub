@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/grade_exercises/controllers/grade_exercises_controller.dart';
 import 'package:quizhub/app/modules/grade_exercises/views/exersise_buttomSheet.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class GradeExercisesView extends GetView<GradeExercisesController> {
   const GradeExercisesView({super.key});
@@ -13,7 +15,7 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(
-          'التمارين',
+          Tr.exams.tr,
           style: context.textTheme.headlineSmall!
               .copyWith(color: AppColors.black, fontWeight: FontWeight.bold),
         ),
@@ -106,7 +108,7 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
         },
         backgroundColor: AppColors.primary,
         label: Text(
-          'إنشاء تمرين جديد',
+          Tr.createNewExercise.tr,
           style: context.textTheme.bodyLarge!
               .copyWith(fontSize: 16, color: AppColors.light),
         ),

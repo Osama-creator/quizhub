@@ -12,7 +12,7 @@ class TeacherPrvRequistsView extends GetView<TeacherPrvRequistsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("الطلبات السابقه")),
+      appBar: AppBar(title: Text(Tr.previousRequests.tr)),
       body: GetBuilder<TeacherPrvRequistsController>(
         init: controller,
         builder: (_) {
@@ -54,19 +54,19 @@ class TeacherPrvRequistsView extends GetView<TeacherPrvRequistsController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "المبلغ :   ${controller.prevOrders[index].amount} جنيه",
+                                          "${Tr.amount.tr} :   ${controller.prevOrders[index].amount} جنيه",
                                           style: context.headline5!
                                               .copyWith(fontSize: 18),
                                         ),
                                         Text(
-                                          "رقم الهاتق :  ${controller.prevOrders[index].phone}",
+                                          "${Tr.phoneNumber.tr}:  ${controller.prevOrders[index].phone}",
                                           style: context.headline5!
                                               .copyWith(fontSize: 18),
                                         ),
                                         Text(
                                           controller.prevOrders[index].confirmed
-                                              ? "تم التأكيد : نعم "
-                                              : "تم التأكيد : لا ",
+                                              ? "${Tr.confirmed.tr}  : ${Tr.yes.tr} "
+                                              : "${Tr.confirmed.tr}  : ${Tr.no.tr} ",
                                           style: context.headline5!
                                               .copyWith(fontSize: 18),
                                         )

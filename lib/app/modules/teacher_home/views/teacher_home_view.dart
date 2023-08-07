@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/app/modules/teacher_home/controllers/teacher_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/assets.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class TeacherHomeView extends GetView<TeacherHomeController> {
   const TeacherHomeView({super.key});
@@ -18,7 +21,6 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
           appBar: AppBar(
             title: Image.asset(
               'assets/images/logo.png',
-              // Replace with your app logo image path
               width: 100,
               height: 100,
               color: AppColors.light,
@@ -42,7 +44,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                       ),
                     ),
                     Text(
-                      'م/ ${controller.teacherName}',
+                      ' ${controller.teacherName}',
                       style: context.textTheme.titleLarge,
                     ),
                     const Spacer(),
@@ -65,7 +67,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                   height: context.height * 0.05,
                 ),
                 Text(
-                  'الصفوف الدراسيه',
+                  Tr.classrooms.tr,
                   style: context.textTheme.headlineSmall!
                       .copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
@@ -89,7 +91,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                         );
                       },
                       child: Text(
-                        "قسم أسئله الطلاب",
+                        Tr.studentQuestionsSection.tr,
                         style: context.textTheme.titleLarge,
                       ),
                     ),
@@ -103,9 +105,9 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                         padding: EdgeInsets.symmetric(
                           vertical: context.height * 0.15,
                         ),
-                        child: const Text(
-                          'لا يوجد صفوف حتى الان',
-                          style: TextStyle(
+                        child: Text(
+                          Tr.noClassroomsYet.tr,
+                          style: const TextStyle(
                             fontSize: 18,
                           ),
                           textAlign: TextAlign.center,
@@ -151,7 +153,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                     controller.pickClass();
                   },
                   child: Text(
-                    "  إضافه صف  + ",
+                    Tr.addClassroom.tr,
                     style: context.textTheme.titleLarge,
                   ),
                 ),
@@ -171,7 +173,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                 Get.toNamed(Routes.FINANCIAL_DUES);
               },
               child: Text(
-                'المستحقات الماليه',
+                Tr.financialDues.tr,
                 style: context.textTheme.titleLarge!.copyWith(
                   fontSize: 18,
                   color: Colors.white,

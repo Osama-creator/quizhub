@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/student_exercises_list/controllers/student_exercises_list_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 Widget buildSearchBar(
   BuildContext context,
@@ -14,7 +15,7 @@ Widget buildSearchBar(
         controller.setSearchQuery(query);
       },
       decoration: InputDecoration(
-        hintText: "Search exams",
+        hintText: Tr.search.tr,
         prefixIcon: const Icon(Icons.search),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

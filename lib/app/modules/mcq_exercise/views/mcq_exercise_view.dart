@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/mcq_exercise/controllers/mcq_exercise_controller.dart';
 import 'package:quizhub/app/modules/mcq_exercise/views/question_body.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/timer.dart';
 
 class McqExerciseView extends GetView<McqExerciseController> {
@@ -32,7 +33,7 @@ class McqExerciseView extends GetView<McqExerciseController> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "إختر",
+                    Tr.choose.tr,
                     style: context.textTheme.titleLarge!
                         .copyWith(color: AppColors.light),
                   ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/order_response/controllers/order_response_controller.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class OrderResponseView extends GetView<OrderResponseController> {
   const OrderResponseView({super.key});
@@ -10,7 +11,9 @@ class OrderResponseView extends GetView<OrderResponseController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('تفاصيل التأكيد'),
+        title: Text(
+          Tr.confirmationDetails.tr,
+        ),
         centerTitle: true,
       ),
       body: GetBuilder<OrderResponseController>(

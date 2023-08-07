@@ -1,6 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/envitations_list/views/envitations_list_view.dart';
 import 'package:quizhub/app/modules/folwed_teachers/views/folwed_teachers_view.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
@@ -8,6 +9,7 @@ import 'package:quizhub/app/modules/student_home/views/home_tab.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/bottom_nav_admin.dart';
 
 class StudentHomeView extends GetView<StudentHomeController> {
@@ -54,17 +56,17 @@ class StudentHomeView extends GetView<StudentHomeController> {
             },
             items: <BottomNavyBarItem>[
               buildBottomItem(
-                title: "الرئيسيه",
+                title: Tr.mainTitle.tr,
                 iconData: Icons.home,
                 isActive: controller.tabController.index == 0,
               ),
               buildBottomItem(
-                title: "المدرسين",
+                title: Tr.teachersTitle.tr,
                 iconData: Icons.people,
                 isActive: controller.tabController.index == 1,
               ),
               buildBottomItem(
-                title: " الدعوات",
+                title: Tr.invitationsTitle.tr,
                 iconData: Icons.email,
                 isActive: controller.tabController.index == 2,
               ),

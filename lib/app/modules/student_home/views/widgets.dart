@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/exams_card.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class SubjectList extends StatelessWidget {
   const SubjectList({
@@ -93,7 +95,7 @@ class DetailsBody extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  "المزيد ...",
+                  "${Tr.more.tr}....",
                   style: context.textTheme.titleLarge!.copyWith(
                     color: AppColors.black,
                     fontWeight: FontWeight.normal,
@@ -344,7 +346,7 @@ class SettingButton extends StatelessWidget {
           PopupMenuItem(
             value: 'option1',
             child: Text(
-              'اللغه',
+              Tr.language.tr,
               style: context.textTheme.bodyLarge!
                   .copyWith(color: textColor ?? AppColors.primary),
             ),
@@ -352,7 +354,7 @@ class SettingButton extends StatelessWidget {
           PopupMenuItem(
             value: 'option3',
             child: Text(
-              'تسجيل الخروج',
+              Tr.logout.tr,
               style: context.textTheme.bodyLarge!
                   .copyWith(color: textColor ?? AppColors.primary),
             ),

@@ -51,7 +51,7 @@ class SignInView extends GetView<SignInController> {
                     controller.submit();
                   },
                   child: Text(
-                    'تسجيل الدخول',
+                    Tr.login.tr,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.white,
@@ -67,7 +67,7 @@ class SignInView extends GetView<SignInController> {
                   horizontal: context.width * 0.1,
                 ),
                 child: Text(
-                  "إنشاء حساب جديد",
+                  Tr.createNewAccount.tr,
                   style: context.textTheme.titleLarge!
                       .copyWith(fontSize: 18, color: AppColors.primary),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/grade_exercises/controllers/grade_exercises_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 class ExerciseTypeSelection extends StatefulWidget {
@@ -67,21 +68,21 @@ void excDetailsBottomSheet(
           children: <Widget>[
             Center(
               child: Text(
-                'إنشاء تمرين جديد',
-                style: context.textTheme.headline6,
+                Tr.createNewExercise.tr,
+                style: context.textTheme.titleLarge,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: InputField(
-                hint: 'إسم التمرين',
+                hint: Tr.exerciseName.tr,
                 controller: controller.eNameC,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: InputField(
-                hint: 'وقت التمرين',
+                hint: Tr.exerciseTime.tr,
                 keyboardType: TextInputType.number,
                 controller: controller.eTimeC,
               ),
@@ -101,8 +102,8 @@ void excDetailsBottomSheet(
                     await controller.submet();
                   },
                   child: Text(
-                    'إنشاء',
-                    style: context.textTheme.headline6!.copyWith(
+                    Tr.create.tr,
+                    style: context.textTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.white,
                     ),
