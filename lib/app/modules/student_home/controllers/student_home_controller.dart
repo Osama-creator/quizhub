@@ -32,6 +32,12 @@ class StudentHomeController extends GetxController
   }
 
   @override
+  Future<void> onReady() async {
+    await fetchSubjects();
+    super.onReady();
+  }
+
+  @override
   Future<void> onInit() async {
     super.onInit();
     tabController = TabController(vsync: this, length: 3);
