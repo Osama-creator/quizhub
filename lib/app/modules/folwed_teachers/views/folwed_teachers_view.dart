@@ -21,7 +21,7 @@ class FolwedTeachersView extends GetView<FolwedTeachersController> {
               children: [
                 Center(
                   child: Text(
-                    Tr.teachersYouFollow,
+                    Tr.teachersYouFollow.tr,
                     style: context.textTheme.headlineSmall!
                         .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
                   ),

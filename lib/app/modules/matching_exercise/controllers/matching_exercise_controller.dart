@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
+import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/helper/func.dart';
@@ -68,6 +70,8 @@ class MatchingExerciseController extends GetxController {
       degree: degree,
       idexam: examId,
     );
+    Get.find<StudentHomeController>().fetchSubjects();
+    Get.find<HomeController>().refreshData();
     Get.back();
   }
 

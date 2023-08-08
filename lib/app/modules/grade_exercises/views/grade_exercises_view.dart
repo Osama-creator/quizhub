@@ -54,11 +54,11 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                             style: context.textTheme.titleLarge,
                           ),
                           Text(
-                            "${controller.exercises[index].quesiotnsNum!.length} اسئله",
+                            "${controller.exercises[index].quesiotnsNum!.length} ${Tr.questions.tr}",
                             style: context.textTheme.titleLarge,
                           ),
                           Text(
-                            "${controller.exercises[index].viewNum!.length} حل",
+                            "${controller.exercises[index].viewNum!.length} ${Tr.ans.tr}",
                             style: context.textTheme.titleLarge,
                           ),
                           Row(

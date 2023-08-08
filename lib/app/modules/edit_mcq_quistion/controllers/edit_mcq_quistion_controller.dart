@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/pick.dart';
 
@@ -58,6 +59,7 @@ class EditMcqQuistionController extends GetxController {
           wrongAns3: wrongAnswer3C.text,
         ),
       );
+      Get.find<EditExerciseController>().editOnInit();
       Get.back();
     } catch (e, st) {
       throw Exception('Error: $e, $st');

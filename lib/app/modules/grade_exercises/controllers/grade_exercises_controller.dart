@@ -25,6 +25,11 @@ class GradeExercisesController extends GetxController {
 
   @override
   void onInit() {
+    refershing();
+    super.onInit();
+  }
+
+  void refershing() {
     final Map<String, dynamic> arguments =
         Get.arguments as Map<String, dynamic>;
 
@@ -32,8 +37,6 @@ class GradeExercisesController extends GetxController {
     gradeId = arguments['gradeId'] as String;
     gradeName = arguments['gradeName'] as String;
     fetchExercises(teacherId, gradeId, examsService);
-
-    super.onInit();
   }
 
   Future<void> fetchExercises(

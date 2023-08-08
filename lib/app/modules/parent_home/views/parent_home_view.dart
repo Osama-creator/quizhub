@@ -11,6 +11,7 @@ import 'package:quizhub/views/center_loading.dart';
 
 class ParentHomeView extends GetView<ParentHomeController> {
   const ParentHomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ParentHomeController>(

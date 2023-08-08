@@ -5,6 +5,8 @@ import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
+import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -75,6 +77,8 @@ class TrueFalseExerciseController extends GetxController {
       idexam: examId,
     );
     Get.until((route) => route.settings.name == Routes.TRUE_FALSE_EXERCISE);
+    Get.find<StudentHomeController>().fetchSubjects();
+    Get.find<HomeController>().refreshData();
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,
       arguments: ["$degree / ${quistionList.length}", examId],

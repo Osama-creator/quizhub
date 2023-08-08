@@ -99,6 +99,7 @@ class DetailsBody extends StatelessWidget {
                   style: context.textTheme.titleLarge!.copyWith(
                     color: AppColors.black,
                     fontWeight: FontWeight.normal,
+                    fontSize: 15,
                   ),
                 ),
               ],

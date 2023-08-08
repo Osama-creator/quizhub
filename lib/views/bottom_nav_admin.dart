@@ -19,6 +19,7 @@ BottomNavyBarItem buildBottomItem({
           top: 4,
           bottom: 4,
           right: 15,
+          left: 15,
         ),
         child: Text(
           title,

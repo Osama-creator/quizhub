@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
+import 'package:quizhub/app/modules/folwed_teachers/controllers/folwed_teachers_controller.dart';
 import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 
@@ -30,7 +31,7 @@ class HomeView extends GetView<HomeController> {
                   maxRadius: 85,
                   backgroundImage: NetworkImage(
                     controller.teacher.image.isEmpty
-                        ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdg7OR2pD_kj3sPHW5fmqpmXyhmDZwm_MHUXU36Ipvw4esNWqnz-iiA7AkWeqe1jla218&usqp=CAU"
+                        ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
                         : controller.teacher.image,
                   ),
                   backgroundColor: Colors.transparent,
@@ -49,8 +50,9 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     Text(
-                      '${controller.teacher.followStudent.length} متابع ',
-                      style: context.textTheme.titleLarge!.copyWith(),
+                      '${controller.teacher.followStudent.length} ${Tr.following.tr}',
+                      style:
+                          context.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),
                   ],
                 ),
@@ -61,7 +63,7 @@ class HomeView extends GetView<HomeController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${Tr.teacherLabel} ${controller.teacher.material}",
+                      "${Tr.teacherLabel.tr} ${controller.teacher.material}",
                       style: context.textTheme.titleLarge!.copyWith(
                         color: AppColors.black,
                         fontWeight: FontWeight.normal,
@@ -71,8 +73,9 @@ class HomeView extends GetView<HomeController> {
                       width: context.width * 0.22,
                       child: !controller.follow
                           ? ElevatedButton(
-                              onPressed: () {
-                                controller.folowStudent();
+                              onPressed: () async {
+                                await controller.folowStudent();
+                                Get.find<FolwedTeachersController>().getData();
                               },
                               child: Text(Tr.follow.tr),
                             )

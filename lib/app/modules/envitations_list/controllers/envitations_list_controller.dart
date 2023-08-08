@@ -15,10 +15,15 @@ class EnvitationsListController extends GetxController {
   List<Invitation> invitations = [];
   @override
   Future<void> onInit() async {
+    refreshInv();
+    super.onInit();
+  }
+
+  Future<void> refreshInv() async {
     final userData = await authService.cachedUser;
     if (userData!.id != null) {
       try {
-        invitations.addAll(
+        invitations.assignAll(
           await service.getEnvitations(userId: userData.id!),
         );
       } catch (e, st) {
@@ -28,6 +33,5 @@ class EnvitationsListController extends GetxController {
       log("err in id");
     }
     update();
-    super.onInit();
   }
 }

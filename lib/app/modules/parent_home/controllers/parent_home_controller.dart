@@ -16,6 +16,7 @@ class ParentHomeController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    print("object");
     final userData = await auth.cachedUser;
     userName = userData!.name;
     userImage = userData.image!;

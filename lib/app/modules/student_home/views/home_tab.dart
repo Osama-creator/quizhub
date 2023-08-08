@@ -47,12 +47,16 @@ class HomeTab extends GetView<StudentHomeController> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     Tr.academicSubjects.tr,
-                    style: context.textTheme.headlineSmall,
+                    style:
+                        context.textTheme.headlineSmall!.copyWith(fontSize: 25),
                   ),
                 ),
                 const SizedBox(height: 8),
-                SubjectList(
-                  controller: controller,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: SubjectList(
+                    controller: controller,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 const Divider(
@@ -66,7 +70,9 @@ class HomeTab extends GetView<StudentHomeController> {
                   child: Text(
                     Tr.exams.tr,
                     style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),

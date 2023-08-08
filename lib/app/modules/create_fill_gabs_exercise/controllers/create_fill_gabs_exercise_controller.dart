@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/modules/grade_exercises/controllers/grade_exercises_controller.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
@@ -51,6 +52,7 @@ class CreateFillGabsExerciseController extends GetxController {
       for (final question in apiQuestions) {
         await examsService.postMcqQuestion(question);
       }
+      Get.find<GradeExercisesController>().refershing();
       Get.back();
       Alert.success(Tr.done.tr);
     } catch (e, st) {

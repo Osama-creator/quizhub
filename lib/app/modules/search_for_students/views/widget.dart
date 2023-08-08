@@ -60,10 +60,11 @@ class SearchStudentsListTile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: const Text(
-                          'تم',
-                          style: TextStyle(
+                        child: Text(
+                          Tr.following.tr,
+                          style: const TextStyle(
                             color: Colors.grey,
+                            fontSize: 10,
                           ),
                         ),
                       )

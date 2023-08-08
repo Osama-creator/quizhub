@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
@@ -117,6 +118,7 @@ Future<dynamic> buildEditDialog(
               controller.updateQuestion(
                 mcqQuestion: mcqQuestion,
               );
+              Get.find<EditExerciseController>().editOnInit();
               Navigator.pop(context);
             },
             child: Text(

@@ -4,6 +4,8 @@ import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
+import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
+import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
@@ -64,6 +66,8 @@ class ComplateExerciseController extends GetxController {
           degree: degree,
           idexam: examId,
         );
+        Get.find<StudentHomeController>().fetchSubjects();
+        Get.find<HomeController>().refreshData();
       },
       lauding,
       error,

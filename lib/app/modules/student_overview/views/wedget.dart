@@ -73,7 +73,7 @@ class SubjectTile extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                ' ${Tr.grade.tr} :  ${controller.exams[index].degree} من ${controller.exams[index].quesiotnsNum!.length}',
+                                ' ${Tr.grade.tr} :  ${controller.exams[index].degree} / ${controller.exams[index].quesiotnsNum!.length}',
                                 style: context.textTheme.bodyLarge!
                                     .copyWith(color: AppColors.light),
                               ),

@@ -12,10 +12,15 @@ class FolwedTeachersController extends GetxController {
   List<Teacher> teachers = [];
   @override
   Future<void> onInit() async {
+    getData();
+    super.onInit();
+  }
+
+  Future<void> getData() async {
     final userData = await authS.cachedUser;
     if (userData!.id != null) {
       try {
-        teachers.addAll(
+        teachers.assignAll(
           await service.fetchFolowedTeachers(userData.id!),
         );
         update();
@@ -25,6 +30,5 @@ class FolwedTeachersController extends GetxController {
     } else {
       log("user id is null");
     }
-    super.onInit();
   }
 }
