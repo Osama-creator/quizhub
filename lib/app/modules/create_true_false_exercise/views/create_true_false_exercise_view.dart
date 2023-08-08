@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/create_true_false_exercise/controllers/create_true_false_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class CreateTrueFalseExerciseView
@@ -33,7 +35,7 @@ class CreateTrueFalseExerciseView
                       child: Column(
                         children: [
                           Text(
-                            'بيانات السؤال ${index + 1}',
+                            '${Tr.questionData.tr} ${index + 1}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 23,
@@ -83,8 +85,8 @@ class CreateTrueFalseExerciseView
                                 child: MyTextFeild(
                                   controller:
                                       controller.questions[index].question,
-                                  hintText: "السؤال",
-                                  labelText: "السؤال",
+                                  hintText: Tr.question.tr,
+                                  labelText: Tr.question.tr,
                                 ),
                               ),
                               SizedBox(
@@ -92,8 +94,8 @@ class CreateTrueFalseExerciseView
                                 width: context.width * 0.45,
                                 child: DropdownButtonFormField<String>(
                                   value: controller.questions[index].answer,
-                                  decoration: const InputDecoration(
-                                    labelText: 'الإجابة الصحيحة',
+                                  decoration: InputDecoration(
+                                    labelText: Tr.correctAnswer.tr,
                                   ),
                                   onChanged: (newValue) {
                                     controller.questions[index].answer =
@@ -113,8 +115,8 @@ class CreateTrueFalseExerciseView
                           ),
                           MyTextFeild(
                             controller: controller.questions[index].note,
-                            hintText: "ملاحظه  (اختياري) ",
-                            labelText: "ملاحظه  (اختياري) ",
+                            hintText: Tr.optionalNote.tr,
+                            labelText: Tr.optionalNote.tr,
                           ),
                         ],
                       ),
@@ -147,8 +149,8 @@ class CreateTrueFalseExerciseView
                         child: ElevatedButton(
                           onPressed: () => controller.onSubmit(),
                           child: Text(
-                            'إنشاء التدريب',
-                            style: context.textTheme.headline6!.copyWith(
+                            Tr.createExercise.tr,
+                            style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: AppColors.light,
                             ),

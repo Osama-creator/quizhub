@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/create_matching_exercise/controllers/create_matching_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class CreateMatchingExerciseView
@@ -34,7 +36,7 @@ class CreateMatchingExerciseView
                       child: Column(
                         children: [
                           Text(
-                            'بيانات السؤال ${index + 1}',
+                            '${Tr.questionData.tr} ${index + 1}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 23,
@@ -49,8 +51,8 @@ class CreateMatchingExerciseView
                                 width: context.width * 0.45,
                                 child: MyTextFeild(
                                   controller: controller.questions[index].word,
-                                  hintText: "الكلمه ",
-                                  labelText: "الكلمه ",
+                                  hintText: Tr.word.tr,
+                                  labelText: Tr.word.tr,
                                 ),
                               ),
                               SizedBox(
@@ -59,8 +61,8 @@ class CreateMatchingExerciseView
                                 child: MyTextFeild(
                                   controller:
                                       controller.questions[index].secondWord,
-                                  hintText: "الكلمه التابعه",
-                                  labelText: "الكلمه التابعه",
+                                  hintText: Tr.relatedWord.tr,
+                                  labelText: Tr.relatedWord.tr,
                                 ),
                               )
                             ],
@@ -96,7 +98,7 @@ class CreateMatchingExerciseView
                         child: ElevatedButton(
                           onPressed: () => controller.onSubmit(),
                           child: Text(
-                            'إنشاء التدريب',
+                            Tr.createExercise.tr,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: AppColors.light,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/edit_mcq_quistion/controllers/edit_mcq_quistion_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
@@ -10,7 +12,9 @@ class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('تعديل السؤال'),
+        title: Text(
+          Tr.edit.tr,
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -23,8 +27,8 @@ class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
                 children: [
                   MyTextFeild(
                     controller: controller.questionC,
-                    hintText: "السؤال",
-                    labelText: "السؤال",
+                    hintText: Tr.question.tr,
+                    labelText: Tr.question.tr,
                   ),
                   Stack(
                     children: [
@@ -63,28 +67,28 @@ class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
                   ),
                   MyTextFeild(
                     controller: controller.rightAnswerC,
-                    hintText: "الإجابه الصحيحه",
-                    labelText: "الإجابه الصحيحه",
+                    hintText: Tr.trueAn.tr,
+                    labelText: Tr.trueAn.tr,
                   ),
                   MyTextFeild(
                     controller: controller.wrongAnswer1C,
-                    hintText: "الإجابه الخاطئه 1",
-                    labelText: "الإجابه الخاطئه 1",
+                    hintText: Tr.wrongAnswer1.tr,
+                    labelText: Tr.wrongAnswer1.tr,
                   ),
                   MyTextFeild(
                     controller: controller.wrongAnswer2C,
-                    hintText: "الإجابه الخاطئه 2",
-                    labelText: "الإجابه الخاطئه 2",
+                    hintText: Tr.wrongAnswer2.tr,
+                    labelText: Tr.wrongAnswer2.tr,
                   ),
                   MyTextFeild(
                     controller: controller.wrongAnswer3C,
-                    hintText: "الإجابه الخاطئه 3",
-                    labelText: "الإجابه الخاطئه 3",
+                    hintText: Tr.wrongAnswer3.tr,
+                    labelText: Tr.wrongAnswer3.tr,
                   ),
                   MyTextFeild(
                     controller: controller.note,
-                    hintText: "ملاحظه  (اختياري) ",
-                    labelText: "ملاحظه  (اختياري) ",
+                    hintText: Tr.optionalNote.tr,
+                    labelText: Tr.optionalNote.tr,
                   ),
                   SizedBox(
                     height: context.height * 0.05,
@@ -93,7 +97,9 @@ class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
                       onPressed: () {
                         controller.updateQuestion();
                       },
-                      child: const Text("تعديل"),
+                      child: Text(
+                        Tr.edit.tr,
+                      ),
                     ),
                   )
                 ],

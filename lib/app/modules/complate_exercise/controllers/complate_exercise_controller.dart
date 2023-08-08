@@ -1,12 +1,14 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/func.dart';
 
 class ComplateExerciseController extends GetxController {
@@ -83,7 +85,7 @@ class ComplateExerciseController extends GetxController {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              isCorrect ? 'إجابة صحيحة' : 'إجابة خاطئة',
+              isCorrect ? Tr.trueAn.tr : Tr.isWrong,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,

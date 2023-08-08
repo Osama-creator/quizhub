@@ -1,12 +1,13 @@
 import 'dart:io';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/money_order.dart';
 import 'package:quizhub/app/services/admin.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/helper/pick.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AdminGetMoneyReqController extends GetxController {
   final service = Get.find<AdminService>();
@@ -51,7 +52,7 @@ class AdminGetMoneyReqController extends GetxController {
       error,
     );
     update();
-    Alert.success("تم التأكيد بنجاح");
+    Alert.success(Tr.confirmed.tr);
   }
 
   Future<void> makePhoneCall({

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/financial_dues/controllers/financial_dues_controller.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 void addFolowersButtomsheet(
@@ -20,7 +22,7 @@ void addFolowersButtomsheet(
           children: <Widget>[
             Center(
               child: Text(
-                'طلب زياده المتابعين',
+                Tr.addFollowersRequest.tr,
                 style: context.textTheme.titleLarge,
               ),
             ),
@@ -32,8 +34,8 @@ void addFolowersButtomsheet(
                   SizedBox(
                     width: 150,
                     child: InputField(
-                      hint: 'عدد المتابعين',
-                      label: 'عدد المتابعين',
+                      hint: Tr.followersCount.tr,
+                      label: Tr.followersCount.tr,
                       keyboardType: TextInputType.number,
                       controller: controller.fNumberC,
                       onChanged: (val) {
@@ -45,7 +47,7 @@ void addFolowersButtomsheet(
                     width: 150,
                     child: Column(
                       children: [
-                        const Text("المبلع المدفوع"),
+                        Text(Tr.amountInEgp.tr),
                         Obx(() {
                           return Text("${controller.fnumberText.value} ج.م");
                         }),
@@ -66,7 +68,7 @@ void addFolowersButtomsheet(
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'إرسال',
+                    Tr.send.tr,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.white,
@@ -99,15 +101,15 @@ void askForMoneyButtomsheet(
           children: <Widget>[
             Center(
               child: Text(
-                'طلب المستحقات الماليه ',
+                Tr.requestFinancialDues.tr,
                 style: context.textTheme.titleLarge,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: InputField(
-                hint: 'المبلغ بالجنيه المصري',
-                label: 'المبلغ بالجنيه المصري',
+                hint: Tr.amountInEgp.tr,
+                label: Tr.amountInEgp.tr,
                 keyboardType: TextInputType.number,
                 controller: controller.MNumberC,
               ),
@@ -115,8 +117,8 @@ void askForMoneyButtomsheet(
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: InputField(
-                hint: 'رقم الهاتف',
-                label: 'رقم الهاتف',
+                hint: Tr.phoneHint.tr,
+                label: Tr.phoneHint.tr,
                 keyboardType: TextInputType.phone,
                 controller: controller.PhoneNumberC,
               ),
@@ -135,7 +137,7 @@ void askForMoneyButtomsheet(
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'إرسال',
+                    Tr.send.tr,
                     style: context.textTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.white,

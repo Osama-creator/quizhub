@@ -44,6 +44,7 @@ abstract class Routes {
   static const EDIT_MCQ_QUISTION = _Paths.EDIT_MCQ_QUISTION;
   static const TEACHER_PRV_REQUISTS = _Paths.TEACHER_PRV_REQUISTS;
   static const ORDER_RESPONSE = _Paths.ORDER_RESPONSE;
+  static const LANGUAGES = _Paths.LANGUAGES;
 }
 
 abstract class _Paths {
@@ -89,4 +90,5 @@ abstract class _Paths {
   static const EDIT_MCQ_QUISTION = '/edit-mcq-quistion';
   static const TEACHER_PRV_REQUISTS = '/teacher-prv-requists';
   static const ORDER_RESPONSE = '/order-response';
+  static const LANGUAGES = '/languages';
 }

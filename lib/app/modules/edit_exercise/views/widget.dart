@@ -1,9 +1,10 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
+import 'package:quizhub/generated/tr.dart';
 
 Future<dynamic> buildEditDialog(
   BuildContext context,
@@ -20,15 +21,17 @@ Future<dynamic> buildEditDialog(
       String? updatedAnswer3 = mcqQuestion.wrongAns2;
       String? updatedAnswer4 = mcqQuestion.wrongAns3;
       return AlertDialog(
-        title: const Text('Update Question'),
+        title: Text(
+          Tr.updateQuestion.tr,
+        ),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
               initialValue: mcqQuestion.question,
-              decoration: const InputDecoration(
-                labelText: 'Question',
+              decoration: InputDecoration(
+                labelText: Tr.question.tr,
               ),
               onChanged: (value) {
                 updatedQuestion = value;
@@ -47,8 +50,8 @@ Future<dynamic> buildEditDialog(
             ],
             TextFormField(
               initialValue: mcqQuestion.rightAnswer,
-              decoration: const InputDecoration(
-                labelText: 'Correct Answer',
+              decoration: InputDecoration(
+                labelText: Tr.correctAnswer.tr,
               ),
               onChanged: (value) {
                 updatedAnswer = value;
@@ -59,8 +62,8 @@ Future<dynamic> buildEditDialog(
                 mcqQuestion.wrongAns3 != null) ...[
               TextFormField(
                 initialValue: mcqQuestion.wrongAns1,
-                decoration: const InputDecoration(
-                  labelText: 'wrong Answer 1',
+                decoration: InputDecoration(
+                  labelText: Tr.wrongAnswer1.tr,
                 ),
                 onChanged: (value) {
                   updatedAnswer2 = value;
@@ -68,8 +71,8 @@ Future<dynamic> buildEditDialog(
               ),
               TextFormField(
                 initialValue: mcqQuestion.wrongAns2,
-                decoration: const InputDecoration(
-                  labelText: 'wrong Answer 2',
+                decoration: InputDecoration(
+                  labelText: Tr.wrongAnswer2.tr,
                 ),
                 onChanged: (value) {
                   updatedAnswer3 = value;
@@ -77,8 +80,8 @@ Future<dynamic> buildEditDialog(
               ),
               TextFormField(
                 initialValue: mcqQuestion.wrongAns3,
-                decoration: const InputDecoration(
-                  labelText: 'wrong Answer 3',
+                decoration: InputDecoration(
+                  labelText: Tr.wrongAnswer3.tr,
                 ),
                 onChanged: (value) {
                   updatedAnswer4 = value;
@@ -88,8 +91,8 @@ Future<dynamic> buildEditDialog(
             if (mcqQuestion.note != null) ...[
               TextFormField(
                 initialValue: mcqQuestion.note,
-                decoration: const InputDecoration(
-                  labelText: 'note',
+                decoration: InputDecoration(
+                  labelText: Tr.notes.tr,
                 ),
                 onChanged: (value) {
                   note = value;
@@ -103,7 +106,9 @@ Future<dynamic> buildEditDialog(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Cancel'),
+            child: Text(
+              Tr.cancel.tr,
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -114,7 +119,9 @@ Future<dynamic> buildEditDialog(
               );
               Navigator.pop(context);
             },
-            child: const Text('Update'),
+            child: Text(
+              Tr.edit.tr,
+            ),
           ),
         ],
       );

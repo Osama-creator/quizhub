@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/envitations.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 Padding buildEnvtCard(BuildContext context, Invitation invitation) {
   return Padding(
@@ -63,12 +64,12 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                 Row(
                   children: [
                     Text(
-                      '${invitation.exams[0].createdBy.length} حل',
+                      '${invitation.exams[0].createdBy.length} ${Tr.ans.tr}',
                       style:
                           context.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),
                     Text(
-                      '${invitation.exams[0].question.length} سؤال',
+                      "${invitation.exams[0].question.length} ${Tr.questions.tr}",
                       style:
                           context.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),

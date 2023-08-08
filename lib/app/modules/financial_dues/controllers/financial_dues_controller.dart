@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/financials_model.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/money_financials.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 
@@ -61,9 +63,9 @@ class FinancialDuesController extends GetxController {
       } else {
         log("err in id");
       }
-      Alert.success("تم ارسال الطلب بنجاح");
+      Alert.success(Tr.successMessage.tr);
     } else {
-      Alert.error("لا يوجد رصيد كافي لزياده المتابعين");
+      Alert.error(Tr.notEnoughBalance.tr);
       fNumberC.clear();
     }
   }
@@ -79,9 +81,9 @@ class FinancialDuesController extends GetxController {
             phone: int.parse(PhoneNumberC.text),
             amount: int.parse(MNumberC.text),
           );
-          Alert.success("تم ارسال الطلب بنجاح");
+          Alert.success(Tr.successMessage.tr);
         } else {
-          Alert.error("لا يوجد رصيد كافي ");
+          Alert.error(Tr.notEnough.tr);
         }
       } catch (e, st) {
         catchLog(e, st);

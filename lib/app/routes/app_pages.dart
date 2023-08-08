@@ -38,6 +38,8 @@ import 'package:quizhub/app/modules/grade_exercises/bindings/grade_exercises_bin
 import 'package:quizhub/app/modules/grade_exercises/views/grade_exercises_view.dart';
 import 'package:quizhub/app/modules/home/bindings/home_binding.dart';
 import 'package:quizhub/app/modules/home/views/home_view.dart';
+import 'package:quizhub/app/modules/languages/bindings/languages_binding.dart';
+import 'package:quizhub/app/modules/languages/views/languages_view.dart';
 import 'package:quizhub/app/modules/matching_exercise/bindings/matching_exercise_binding.dart';
 import 'package:quizhub/app/modules/matching_exercise/views/matching_exercise_view.dart';
 import 'package:quizhub/app/modules/mcq_exercise/bindings/mcq_exercise_binding.dart';
@@ -267,6 +269,11 @@ class AppPages {
       name: _Paths.ORDER_RESPONSE,
       page: () => const OrderResponseView(),
       binding: OrderResponseBinding(),
+    ),
+    GetPage(
+      name: _Paths.LANGUAGES,
+      page: () => LanguagesView(),
+      binding: LanguagesBinding(),
     ),
   ];
 }

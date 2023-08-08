@@ -1,12 +1,13 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/edit_exercise/controllers/edit_exercise_controller.dart';
 import 'package:quizhub/app/modules/edit_exercise/views/widget.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/pdf_g.dart';
 
 class EditExerciseView extends GetView<EditExerciseController> {
@@ -17,7 +18,9 @@ class EditExerciseView extends GetView<EditExerciseController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('تعديل'),
+        title: Text(
+          Tr.edit.tr,
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -34,7 +37,9 @@ class EditExerciseView extends GetView<EditExerciseController> {
                 width: context.width * 0.35,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text("إعاده نشر"),
+                  child: Text(
+                    Tr.repost.tr,
+                  ),
                 ),
               ),
               SizedBox(
@@ -47,7 +52,9 @@ class EditExerciseView extends GetView<EditExerciseController> {
                       controller.type,
                     );
                   },
-                  child: const Text("طباعه"),
+                  child: Text(
+                    Tr.print.tr,
+                  ),
                 ),
               ),
             ],
@@ -114,7 +121,7 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                     ],
                                   ),
                                   Text(
-                                    "السؤال  : ${mcqQuestion.question}",
+                                    "${Tr.question.tr}  : ${mcqQuestion.question}",
                                     style: context.textTheme.titleLarge!
                                         .copyWith(color: AppColors.black),
                                   ),
@@ -129,7 +136,7 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                     )
                                   ],
                                   Text(
-                                    "الإجابه الصحيحه :${mcqQuestion.rightAnswer}",
+                                    " ${Tr.correctAnswer.tr}:${mcqQuestion.rightAnswer}",
                                     style: context.textTheme.titleLarge!
                                         .copyWith(fontSize: 16),
                                   ),
@@ -153,7 +160,7 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                   ],
                                   if (mcqQuestion.note != null) ...[
                                     Text(
-                                      "ملاحظه :${mcqQuestion.note!}",
+                                      "${Tr.notes.tr} :${mcqQuestion.note!}",
                                       style: context.textTheme.titleLarge!
                                           .copyWith(
                                         fontSize: 16,

@@ -26,12 +26,6 @@ void main() async {
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           debugShowCheckedModeBanner: false,
-          // builder: (context, child) {
-          //   return QDebugBar(
-          //     enabled: false,
-          //     child: DevicePreview.appBuilder(context, child),
-          //   );
-          // },
         );
       },
     ),

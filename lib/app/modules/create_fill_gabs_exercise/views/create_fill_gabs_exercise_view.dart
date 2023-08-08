@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/create_fill_gabs_exercise/controllers/create_fill_gabs_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class CreateFillGabsExerciseView
@@ -34,7 +36,7 @@ class CreateFillGabsExerciseView
                       child: Column(
                         children: [
                           Text(
-                            'بيانات السؤال ${index + 1}',
+                            '${Tr.questionData.tr} ${index + 1}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 23,
@@ -77,19 +79,19 @@ class CreateFillGabsExerciseView
                           ),
                           MyTextFeild(
                             controller: controller.questions[index].questionC,
-                            hintText: "السؤال",
-                            labelText: "السؤال",
+                            hintText: Tr.question.tr,
+                            labelText: Tr.question.tr,
                           ),
                           MyTextFeild(
                             controller:
                                 controller.questions[index].missingWordC,
-                            hintText: "الكلمه الناقصه",
-                            labelText: "الكلمه الناقصه",
+                            hintText: Tr.missingWord.tr,
+                            labelText: Tr.missingWord.tr,
                           ),
                           MyTextFeild(
                             controller: controller.questions[index].noteC,
-                            hintText: "ملاحظه  (اختياري) ",
-                            labelText: "ملاحظه  (اختياري) ",
+                            hintText: Tr.optionalNote.tr,
+                            labelText: Tr.optionalNote.tr,
                           ),
                         ],
                       ),
@@ -122,8 +124,8 @@ class CreateFillGabsExerciseView
                         child: ElevatedButton(
                           onPressed: () => controller.onSubmit(),
                           child: Text(
-                            'إنشاء التدريب',
-                            style: context.textTheme.headline6!.copyWith(
+                            Tr.createExercise.tr,
+                            style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: AppColors.light,
                             ),

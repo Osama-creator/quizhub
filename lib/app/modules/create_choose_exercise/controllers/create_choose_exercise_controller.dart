@@ -2,9 +2,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/services/exams.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/helper/pick.dart';
@@ -55,10 +57,10 @@ class CreateChooseExerciseController extends GetxController {
         await examsService.postMcqQuestion(question);
       }
       Get.back();
-      Alert.success("تم بنجاح");
+      Alert.success(Tr.done.tr);
     } catch (e, st) {
       catchLog(e, st);
-      Alert.error("هناك خطأ ما");
+      Alert.error(Tr.error.tr);
     }
   }
 }

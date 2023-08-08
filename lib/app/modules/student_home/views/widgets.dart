@@ -345,10 +345,13 @@ class SettingButton extends StatelessWidget {
         return [
           PopupMenuItem(
             value: 'option1',
-            child: Text(
-              Tr.language.tr,
-              style: context.textTheme.bodyLarge!
-                  .copyWith(color: textColor ?? AppColors.primary),
+            child: InkWell(
+              onTap: () => Get.toNamed(Routes.LANGUAGES),
+              child: Text(
+                Tr.language.tr,
+                style: context.textTheme.bodyLarge!
+                    .copyWith(color: textColor ?? AppColors.primary),
+              ),
             ),
           ),
           PopupMenuItem(

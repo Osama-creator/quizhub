@@ -67,16 +67,16 @@ class CommentsPageView extends GetView<CommentsPageController> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('حذف التعليق'),
-          content: const Text(
-            "هل انت متأكد من حذف التعليق",
+          title: Text(Tr.deleteComment.tr),
+          content: Text(
+            Tr.confirmDeleteComment.tr,
           ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('نعم'),
+              child: Text(Tr.yes.tr),
               onPressed: () {
                 controller.removeComment(id);
                 Navigator.of(context).pop();
@@ -86,7 +86,7 @@ class CommentsPageView extends GetView<CommentsPageController> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('لا'),
+              child: Text(Tr.no.tr),
               onPressed: () {
                 Navigator.of(context).pop();
               },

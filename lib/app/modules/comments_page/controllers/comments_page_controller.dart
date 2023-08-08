@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/comment_model.dart';
 import 'package:quizhub/app/services/post_comment.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 
@@ -61,7 +63,7 @@ class CommentsPageController extends GetxController {
       if (done!) {
         comments.removeWhere((element) => element.id == commentId);
       } else {
-        Alert.error("لا يمكن فعل هذا الامر ");
+        Alert.error(Tr.cannotPerformAction.tr);
       }
     } catch (e, st) {
       catchLog(e, st);

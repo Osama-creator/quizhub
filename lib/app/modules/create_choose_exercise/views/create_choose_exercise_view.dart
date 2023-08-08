@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 
 import 'package:quizhub/app/modules/create_choose_exercise/controllers/create_choose_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
@@ -35,7 +37,7 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                       child: Column(
                         children: [
                           Text(
-                            'بيانات السؤال ${index + 1}',
+                            '${Tr.questionData.tr} ${index + 1}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 23,
@@ -44,8 +46,8 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                           ),
                           MyTextFeild(
                             controller: controller.questions[index].questionC,
-                            hintText: "السؤال",
-                            labelText: "السؤال",
+                            hintText: Tr.question.tr,
+                            labelText: Tr.question.tr,
                           ),
                           Stack(
                             children: [
@@ -84,31 +86,31 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                           MyTextFeild(
                             controller:
                                 controller.questions[index].rightAnswerC,
-                            hintText: "الإجابه الصحيحه",
-                            labelText: "الإجابه الصحيحه",
+                            hintText: Tr.correctAnswer.tr,
+                            labelText: Tr.correctAnswer.tr,
                           ),
                           MyTextFeild(
                             controller:
                                 controller.questions[index].wrongAnswer1C,
-                            hintText: "الإجابه الخاطئه 1",
-                            labelText: "الإجابه الخاطئه 1",
+                            hintText: Tr.wrongAnswer1.tr,
+                            labelText: Tr.wrongAnswer1.tr,
                           ),
                           MyTextFeild(
                             controller:
                                 controller.questions[index].wrongAnswer2C,
-                            hintText: "الإجابه الخاطئه 2",
-                            labelText: "الإجابه الخاطئه 2",
+                            hintText: Tr.wrongAnswer2.tr,
+                            labelText: Tr.wrongAnswer2.tr,
                           ),
                           MyTextFeild(
                             controller:
                                 controller.questions[index].wrongAnswer3C,
-                            hintText: "الإجابه الخاطئه 3",
-                            labelText: "الإجابه الخاطئه 3",
+                            hintText: Tr.wrongAnswer3.tr,
+                            labelText: Tr.wrongAnswer3.tr,
                           ),
                           MyTextFeild(
                             controller: controller.questions[index].note,
-                            hintText: "ملاحظه  (اختياري) ",
-                            labelText: "ملاحظه  (اختياري) ",
+                            hintText: Tr.optionalNote.tr,
+                            labelText: Tr.optionalNote.tr,
                           ),
                         ],
                       ),
@@ -141,8 +143,8 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                         child: ElevatedButton(
                           onPressed: () => controller.onSubmit(),
                           child: Text(
-                            'إنشاء التدريب',
-                            style: context.textTheme.headline6!.copyWith(
+                            Tr.createExercise.tr,
+                            style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: AppColors.light,
                             ),

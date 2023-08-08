@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/envitations_list/controllers/envitations_list_controller.dart';
 import 'package:quizhub/app/modules/envitations_list/views/widgets.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class EnvitationsListView extends GetView<EnvitationsListController> {
   const EnvitationsListView({super.key});
@@ -10,7 +12,7 @@ class EnvitationsListView extends GetView<EnvitationsListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('دعوات الإصدقاء'),
+        title: Text(Tr.friendsInvitations.tr),
         centerTitle: true,
       ),
       body: GetBuilder<EnvitationsListController>(
