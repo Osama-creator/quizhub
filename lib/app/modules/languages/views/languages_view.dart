@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/state_manager.dart';
 import 'package:queen/queen.dart';
-import 'package:quizhub/generated/tr.dart';
-
 import 'package:quizhub/app/modules/languages/controllers/languages_controller.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class LanguagesView extends GetView<LanguagesController> {
   @override
