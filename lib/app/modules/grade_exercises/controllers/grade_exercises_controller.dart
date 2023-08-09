@@ -24,18 +24,25 @@ class GradeExercisesController extends GetxController {
   }
 
   @override
-  void onInit() {
-    refershing();
+  Future<void> onInit() async {
+    final Map<String, dynamic> arguments =
+        Get.arguments as Map<String, dynamic>;
+    gradeId = arguments['gradeId'] as String;
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.getString("grade_id") != null) {
+      pref.remove("grade_id");
+      pref.setString("grade_id", gradeId);
+    } else {
+      pref.setString("grade_id", gradeId);
+    }
+    teacherId = arguments['teacherId'] as String;
+
+    gradeName = arguments['gradeName'] as String;
+    await refershing();
     super.onInit();
   }
 
-  void refershing() {
-    final Map<String, dynamic> arguments =
-        Get.arguments as Map<String, dynamic>;
-
-    teacherId = arguments['teacherId'] as String;
-    gradeId = arguments['gradeId'] as String;
-    gradeName = arguments['gradeName'] as String;
+  Future<void> refershing() async {
     fetchExercises(teacherId, gradeId, examsService);
   }
 

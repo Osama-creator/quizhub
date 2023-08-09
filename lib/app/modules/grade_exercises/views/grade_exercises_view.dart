@@ -44,54 +44,44 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                     childAspectRatio: 0.90,
                   ),
                   itemBuilder: (context, index) {
-                    return Card(
-                      color: AppColors.nextPrimary,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            controller.exercises[index].arName!,
-                            style: context.textTheme.titleLarge,
-                          ),
-                          Text(
-                            "${controller.exercises[index].quesiotnsNum!.length} ${Tr.questions.tr}",
-                            style: context.textTheme.titleLarge,
-                          ),
-                          Text(
-                            "${controller.exercises[index].viewNum!.length} ${Tr.ans.tr}",
-                            style: context.textTheme.titleLarge,
-                          ),
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Get.toNamed(
-                                    Routes.EDIT_EXERCISE,
-                                    arguments: [
-                                      controller.exercises[index].id,
-                                      controller.exercises[index].type
-                                    ],
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  controller.deleteExercise(
-                                    controller.exercises[index].id!,
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: AppColors.primary,
-                                ),
-                              )
-                            ],
-                          ),
+                    return InkWell(
+                      onTap: () => Get.toNamed(
+                        Routes.EDIT_EXERCISE,
+                        arguments: [
+                          controller.exercises[index].id,
+                          controller.exercises[index].type
                         ],
+                      ),
+                      child: Card(
+                        color: AppColors.nextPrimary,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              controller.exercises[index].arName!,
+                              style: context.textTheme.titleLarge,
+                            ),
+                            Text(
+                              "${controller.exercises[index].quesiotnsNum!.length} ${Tr.questions.tr}",
+                              style: context.textTheme.titleLarge,
+                            ),
+                            Text(
+                              "${controller.exercises[index].viewNum!.length} ${Tr.ans.tr}",
+                              style: context.textTheme.titleLarge,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                controller.deleteExercise(
+                                  controller.exercises[index].id!,
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
