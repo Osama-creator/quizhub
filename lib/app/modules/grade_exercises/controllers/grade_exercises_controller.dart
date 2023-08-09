@@ -36,7 +36,7 @@ class GradeExercisesController extends GetxController {
   }
 
   Future<void> refershing() async {
-    fetchExercises(teacherId, gradeId, examsService);
+    await fetchExercises(teacherId, gradeId, examsService);
   }
 
   Future<void> fetchExercises(

@@ -59,7 +59,7 @@ class EditMcqQuistionController extends GetxController {
           wrongAns3: wrongAnswer3C.text,
         ),
       );
-      Get.find<EditExerciseController>().editOnInit();
+      await Get.find<EditExerciseController>().editOnInit();
       Get.back();
     } catch (e, st) {
       throw Exception('Error: $e, $st');

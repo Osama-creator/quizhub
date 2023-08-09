@@ -70,13 +70,23 @@ class EditExerciseView extends GetView<EditExerciseController> {
                     itemCount: controller.apiQuestions.length,
                     itemBuilder: (context, index) {
                       final mcqQuestion = controller.apiQuestions[index];
-
                       return Expanded(
                         child: Card(
                           color: AppColors.grey,
                           child: InkWell(
                             onTap: () {
-                              buildEditDialog(context, mcqQuestion, controller);
+                              if (mcqQuestion.wrongAns3 != null) {
+                                Get.toNamed(
+                                  Routes.EDIT_MCQ_QUISTION,
+                                  arguments: mcqQuestion,
+                                );
+                              } else {
+                                buildEditDialog(
+                                  context,
+                                  mcqQuestion,
+                                  controller,
+                                );
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -85,40 +95,16 @@ class EditExerciseView extends GetView<EditExerciseController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          if (mcqQuestion.wrongAns3 != null) {
-                                            Get.toNamed(
-                                              Routes.EDIT_MCQ_QUISTION,
-                                              arguments: mcqQuestion,
-                                            );
-                                          } else {
-                                            buildEditDialog(
-                                              context,
-                                              mcqQuestion,
-                                              controller,
-                                            );
-                                          }
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: AppColors.black,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          controller.deleteQuestion(
-                                            id: mcqQuestion.id!,
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: AppColors.black,
-                                        ),
-                                      )
-                                    ],
+                                  IconButton(
+                                    onPressed: () {
+                                      controller.deleteQuestion(
+                                        id: mcqQuestion.id!,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: AppColors.black,
+                                    ),
                                   ),
                                   Text(
                                     "${Tr.question.tr}  : ${mcqQuestion.question}",

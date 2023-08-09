@@ -21,6 +21,7 @@ class EditExerciseController extends GetxController {
     examName: "examName",
     questions: [],
   );
+  bool hasImage = false;
 
   @override
   Future<void> onInit() async {
@@ -45,10 +46,11 @@ class EditExerciseController extends GetxController {
 
   File? image;
 
-  Future<void> pickFile(McqQuestion mcqQuestion) async {
+  Future<void> pickFile() async {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
       image = tempImage;
+      hasImage = true;
       update();
     }
   }
@@ -69,9 +71,7 @@ class EditExerciseController extends GetxController {
   }) async {
     try {
       await examsService.updateQuestion(question: mcqQuestion);
-      // Handle success
     } catch (e, st) {
-      // Handle error
       throw Exception('Error: $e, $st');
     }
   }

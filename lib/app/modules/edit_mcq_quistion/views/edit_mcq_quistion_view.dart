@@ -94,8 +94,8 @@ class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
                     height: context.height * 0.05,
                     width: context.width * 0.7,
                     child: ElevatedButton(
-                      onPressed: () {
-                        controller.updateQuestion();
+                      onPressed: () async {
+                        await controller.updateQuestion();
                       },
                       child: Text(
                         Tr.edit.tr,
