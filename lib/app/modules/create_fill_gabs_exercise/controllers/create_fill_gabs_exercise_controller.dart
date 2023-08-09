@@ -34,19 +34,30 @@ class CreateFillGabsExerciseController extends GetxController {
     update();
   }
 
+  void removeQuestion(int index) {
+    questions.removeAt(index);
+    update();
+  }
+
   Future<void> onSubmit() async {
     for (int i = 0; i < questions.length; i++) {
       final question = questions[i];
-      final mcqQuestion = McqQuestion(
-        examId: examId,
-        teacherId: teacherId,
-        image: question.image,
-        question: question.questionC.text,
-        rightAnswer: question.missingWordC.text,
-        note: question.noteC.text,
-      );
-      apiQuestions.add(mcqQuestion);
-      log("done $i");
+      if (question.questionC.text.isEmpty ||
+          question.missingWordC.text.isEmpty) {
+        Alert.error(Tr.fillAllFields.tr);
+        return;
+      } else {
+        final mcqQuestion = McqQuestion(
+          examId: examId,
+          teacherId: teacherId,
+          image: question.image,
+          question: question.questionC.text,
+          rightAnswer: question.missingWordC.text,
+          note: question.noteC.text,
+        );
+        apiQuestions.add(mcqQuestion);
+        log("done $i");
+      }
     }
     try {
       for (final question in apiQuestions) {
@@ -74,6 +85,7 @@ class FillQuestionC {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
       image = tempImage;
+      Get.find<CreateFillGabsExerciseController>().update();
     }
   }
 }

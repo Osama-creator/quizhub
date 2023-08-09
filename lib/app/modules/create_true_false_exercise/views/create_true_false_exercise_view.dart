@@ -34,6 +34,20 @@ class CreateTrueFalseExerciseView
                       color: AppColors.light,
                       child: Column(
                         children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  controller.removeQuestion(index);
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: AppColors.red,
+                                ),
+                              ),
+                              const Spacer()
+                            ],
+                          ),
                           Text(
                             '${Tr.questionData.tr} ${index + 1}',
                             style: const TextStyle(
@@ -139,17 +153,17 @@ class CreateTrueFalseExerciseView
                       SizedBox(
                         width: context.width * 0.2,
                         child: ElevatedButton(
-                          onPressed: () => controller.addQuestion(),
-                          child: const Icon(Icons.add),
+                          onPressed: () => controller.onSubmit(),
+                          child: const Icon(Icons.save),
                         ),
                       ),
                       const Spacer(),
                       SizedBox(
                         width: context.width * 0.57,
                         child: ElevatedButton(
-                          onPressed: () => controller.onSubmit(),
+                          onPressed: () => controller.addQuestion(),
                           child: Text(
-                            Tr.createExercise.tr,
+                            Tr.addQuestion.tr,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: AppColors.light,

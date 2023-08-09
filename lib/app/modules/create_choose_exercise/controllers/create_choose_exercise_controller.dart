@@ -34,23 +34,36 @@ class CreateChooseExerciseController extends GetxController {
     update();
   }
 
+  void removeQuestion(int index) {
+    questions.removeAt(index);
+    update();
+  }
+
   Future<void> onSubmit() async {
     for (int i = 0; i < questions.length; i++) {
       final question = questions[i];
-      final mcqQuestion = McqQuestion(
-        examId: examId,
-        teacherId: teacherId,
-        image: question.image,
-        question: question.questionC.text,
-        rightAnswer: question.rightAnswerC.text,
-        wrongAns1: question.wrongAnswer1C.text,
-        wrongAns2: question.wrongAnswer2C.text,
-        wrongAns3: question.wrongAnswer3C.text,
-        note: question.note.text,
-      );
-
-      apiQuestions.add(mcqQuestion);
-      log("done $i");
+      if (question.questionC.text.isEmpty ||
+          question.rightAnswerC.text.isEmpty ||
+          question.wrongAnswer1C.text.isEmpty ||
+          question.wrongAnswer2C.text.isEmpty ||
+          question.wrongAnswer3C.text.isEmpty) {
+        Alert.error(Tr.fillAllFields.tr);
+        return;
+      } else {
+        final mcqQuestion = McqQuestion(
+          examId: examId,
+          teacherId: teacherId,
+          image: question.image,
+          question: question.questionC.text,
+          rightAnswer: question.rightAnswerC.text,
+          wrongAns1: question.wrongAnswer1C.text,
+          wrongAns2: question.wrongAnswer2C.text,
+          wrongAns3: question.wrongAnswer3C.text,
+          note: question.note.text,
+        );
+        apiQuestions.add(mcqQuestion);
+        log("done $i");
+      }
     }
     try {
       for (final question in apiQuestions) {
@@ -80,6 +93,7 @@ class QuestionC {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
       image = tempImage;
+      Get.find<CreateChooseExerciseController>().update();
     }
   }
 }

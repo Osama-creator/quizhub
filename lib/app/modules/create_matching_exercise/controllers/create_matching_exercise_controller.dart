@@ -33,17 +33,27 @@ class CreateMatchingExerciseController extends GetxController {
     update();
   }
 
+  void removeQuestion(int index) {
+    questions.removeAt(index);
+    update();
+  }
+
   Future<void> onSubmit() async {
     for (int i = 0; i < questions.length; i++) {
       final question = questions[i];
-      final mcqQuestion = McqQuestion(
-        examId: examId,
-        teacherId: teacherId,
-        question: question.word.text,
-        rightAnswer: question.secondWord.text,
-      );
-      apiQuestions.add(mcqQuestion);
-      log("done $i");
+      if (question.word.text.isEmpty || question.secondWord.text.isEmpty) {
+        Alert.error(Tr.fillAllFields.tr);
+        return;
+      } else {
+        final mcqQuestion = McqQuestion(
+          examId: examId,
+          teacherId: teacherId,
+          question: question.word.text,
+          rightAnswer: question.secondWord.text,
+        );
+        apiQuestions.add(mcqQuestion);
+        log("done $i");
+      }
     }
     try {
       for (final question in apiQuestions) {

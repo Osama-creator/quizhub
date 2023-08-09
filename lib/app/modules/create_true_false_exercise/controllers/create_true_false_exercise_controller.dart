@@ -35,19 +35,31 @@ class CreateTrueFalseExerciseController extends GetxController {
     update();
   }
 
+  void removeQuestion(int index) {
+    questions.removeAt(index);
+    update();
+  }
+
   Future<void> onSubmit() async {
     for (int i = 0; i < questions.length; i++) {
       final question = questions[i];
-      final apiQuestion = McqQuestion(
-        examId: examId,
-        teacherId: teacherId,
-        image: question.image,
-        question: question.question.text,
-        rightAnswer: question.answer!,
-        note: question.note.text,
-      );
-      apiQuestions.add(apiQuestion);
-      log("done $i");
+      if (question.question.text.isEmpty ||
+          question.answer!.isEmpty ||
+          question.answer == null) {
+        Alert.error(Tr.fillAllFields.tr);
+        return;
+      } else {
+        final apiQuestion = McqQuestion(
+          examId: examId,
+          teacherId: teacherId,
+          image: question.image,
+          question: question.question.text,
+          rightAnswer: question.answer!,
+          note: question.note.text,
+        );
+        apiQuestions.add(apiQuestion);
+        log("done $i");
+      }
     }
     try {
       for (final question in apiQuestions) {
@@ -78,6 +90,7 @@ class TrueFalseQuestion {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
       image = tempImage;
+      Get.find<CreateTrueFalseExerciseController>().update();
     }
   }
 }

@@ -28,17 +28,10 @@ class GradeExercisesController extends GetxController {
     final Map<String, dynamic> arguments =
         Get.arguments as Map<String, dynamic>;
     gradeId = arguments['gradeId'] as String;
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    if (pref.getString("grade_id") != null) {
-      pref.remove("grade_id");
-      pref.setString("grade_id", gradeId);
-    } else {
-      pref.setString("grade_id", gradeId);
-    }
     teacherId = arguments['teacherId'] as String;
-
     gradeName = arguments['gradeName'] as String;
     await refershing();
+    update();
     super.onInit();
   }
 

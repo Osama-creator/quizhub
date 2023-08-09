@@ -87,7 +87,10 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
                   },
                 );
               },
-            )
+            ),
+            SizedBox(
+              height: context.height * 0.05,
+            ),
           ],
         ),
       ),
