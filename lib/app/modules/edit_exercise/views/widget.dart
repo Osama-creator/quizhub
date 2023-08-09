@@ -55,7 +55,7 @@ Future<dynamic> buildEditDialog(
                     ),
                   ),
                 ],
-                if (controller.hasImage) ...[
+                if (controller.hasImage || mcqQuestion.pic == null) ...[
                   Container(
                     color: const Color(0x1AD1EC43),
                     width: context.width,

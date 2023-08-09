@@ -45,6 +45,7 @@ abstract class Routes {
   static const TEACHER_PRV_REQUISTS = _Paths.TEACHER_PRV_REQUISTS;
   static const ORDER_RESPONSE = _Paths.ORDER_RESPONSE;
   static const LANGUAGES = _Paths.LANGUAGES;
+  static const ADD_NEW_QUISTION = _Paths.ADD_NEW_QUISTION;
 }
 
 abstract class _Paths {
@@ -91,4 +92,5 @@ abstract class _Paths {
   static const TEACHER_PRV_REQUISTS = '/teacher-prv-requists';
   static const ORDER_RESPONSE = '/order-response';
   static const LANGUAGES = '/languages';
+  static const ADD_NEW_QUISTION = '/add-new-quistion';
 }

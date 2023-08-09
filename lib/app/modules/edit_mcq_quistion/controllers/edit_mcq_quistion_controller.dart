@@ -14,14 +14,13 @@ class EditMcqQuistionController extends GetxController {
   String pic = "";
   @override
   void onInit() {
-    pic = question.pic!;
+    pic = question.pic ?? "";
     questionC.text = question.question;
     rightAnswerC.text = question.rightAnswer;
     wrongAnswer1C.text = question.wrongAns1!;
     wrongAnswer2C.text = question.wrongAns2!;
     wrongAnswer3C.text = question.wrongAns3!;
-    note.text = question.note!;
-
+    note.text = question.note ?? "";
     update();
     log(question.id!);
     super.onInit();

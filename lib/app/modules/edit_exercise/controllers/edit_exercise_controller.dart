@@ -25,14 +25,14 @@ class EditExerciseController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    editOnInit();
+    examId = args[0]!;
+    type = args[1]!;
+    log(type);
+    await editOnInit();
     super.onInit();
   }
 
   Future<void> editOnInit() async {
-    examId = args[0]!;
-    type = args[1]!;
-    log(examId);
     try {
       exam = await examsService.getExercise(id: examId);
       apiQuestions = exam.questions;

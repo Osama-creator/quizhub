@@ -168,6 +168,23 @@ class EditExerciseView extends GetView<EditExerciseController> {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.toNamed(Routes.ADD_NEW_QUISTION,
+              arguments: [controller.examId, controller.type]);
+        },
+        backgroundColor: AppColors.primary,
+        label: Text(
+          Tr.addQuestion.tr,
+          style: context.textTheme.bodyLarge!
+              .copyWith(fontSize: 16, color: AppColors.light),
+        ),
+        icon: const Icon(
+          Icons.add,
+          color: AppColors.light,
+        ),
+      ),
     );
   }
 }
