@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'http://192.168.0.106:4500/Node.js';
+  static const host = 'https://tack-orcin.vercel.app/Node.js';
   static const api = '$host/api';
 
   /// ! auth
@@ -29,6 +29,7 @@ abstract class Endpoints {
   static const getUseres = '/v6/use/getallUser';
   static const getEnvitations = '/v6/use/getallInvitations';
   static const getUsersDegrees = '/v6/use/thedegreeUsers';
+  static const envite = '/v6/use/theInvitation';
 
   /// ! posts and comments
 

@@ -55,7 +55,7 @@ class AdminService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData =
             response.data as Map<String, dynamic>;
-
+        SchoolDetailsModel.fromJson(responseData).students.toSet().toList();
         final SchoolDetailsModel school =
             SchoolDetailsModel.fromJson(responseData);
 

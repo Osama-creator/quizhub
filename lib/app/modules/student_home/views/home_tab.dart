@@ -15,8 +15,6 @@ class HomeTab extends GetView<StudentHomeController> {
       init: controller,
       builder: (_) {
         return Scaffold(
-          // backgroundColor: AppColors.light,
-
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,6 +39,15 @@ class HomeTab extends GetView<StudentHomeController> {
                           .copyWith(color: AppColors.black),
                     ),
                   ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    Tr.tashgee3.tr,
+                    style: context.textTheme.titleLarge!.copyWith(
+                      color: AppColors.orangeColor,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Padding(

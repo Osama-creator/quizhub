@@ -61,6 +61,7 @@ class McqExerciseView extends GetView<McqExerciseController> {
                           index: index,
                           quistion: controller.quistionList[index].question,
                           image: controller.quistionList[index].pic ?? "",
+                          notes: controller.quistionList[index].note ?? "",
                           list: [
                             controller.quistionList[index].wrongAns1!,
                             controller.quistionList[index].wrongAns2!,

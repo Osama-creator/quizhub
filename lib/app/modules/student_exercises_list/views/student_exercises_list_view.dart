@@ -114,6 +114,14 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                               if (isDone) {
                                 controller.studentHome
                                     .goToExamPage(exerciseType: type!, id: id!);
+                              } else {
+                                Get.toNamed(
+                                  Routes.STUDENTS_GRADES,
+                                  arguments: [
+                                    "${controller.filteredExams![index].degree}  / ${controller.filteredExams![index].quesiotnsNum!.length}",
+                                    controller.filteredExams![index].id
+                                  ],
+                                );
                               }
                             },
                             child: SizedBox(

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/modules/true_false_exercise/controllers/true_false_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 
 class TFQuestionBody extends StatelessWidget {
   final String quistion;
+  final String notes;
   final int index;
 
   final String image;
@@ -18,10 +20,31 @@ class TFQuestionBody extends StatelessWidget {
     required this.controller,
     required this.quistion,
     required this.image,
+    required this.notes,
   });
 
   @override
   Widget build(BuildContext context) {
+    void _openDialog(String body) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Notes"),
+            content: Text(body),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Close"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     final double h = MediaQuery.of(context).size.height;
     final double w = MediaQuery.of(context).size.width;
     return Column(
@@ -42,6 +65,21 @@ class TFQuestionBody extends StatelessWidget {
             ),
           ),
         ),
+        if (notes.isNotEmpty)
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  _openDialog(notes);
+                },
+                icon: const Icon(
+                  Icons.question_mark_outlined,
+                  color: AppColors.primary,
+                ),
+              ),
+              Text(Tr.notes.tr),
+            ],
+          ),
         const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -5,6 +5,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/folwed_teachers/controllers/folwed_teachers_controller.dart';
 import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
+import 'package:quizhub/app/routes/app_pages.dart';
 
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
@@ -155,12 +156,23 @@ class HomeView extends GetView<HomeController> {
                     (doneExam) {
                       final index =
                           controller.teacher.doneExams.indexOf(doneExam);
-                      return DoneExamCard(
-                        examName: controller
-                            .teacher.doneExams[index].exerciseModel.arName!,
-                        degree:
-                            "${Tr.grade.tr} ${controller.teacher.doneExams[index].degree} / ${controller.teacher.doneExams[index].exerciseModel.quesiotnsNum!.length} ",
-                        index: controller.teacher.doneExams.indexOf(doneExam),
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.STUDENTS_GRADES,
+                            arguments: [
+                              "${controller.teacher.doneExams[index].degree} / ${controller.teacher.doneExams[index].exerciseModel.quesiotnsNum!.length}",
+                              controller.teacher.doneExams[index].id
+                            ],
+                          );
+                        },
+                        child: DoneExamCard(
+                          examName: controller
+                              .teacher.doneExams[index].exerciseModel.arName!,
+                          degree:
+                              "${Tr.grade.tr} ${controller.teacher.doneExams[index].degree} / ${controller.teacher.doneExams[index].exerciseModel.quesiotnsNum!.length} ",
+                          index: controller.teacher.doneExams.indexOf(doneExam),
+                        ),
                       );
                     },
                   ),

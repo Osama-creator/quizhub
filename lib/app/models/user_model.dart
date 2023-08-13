@@ -86,9 +86,9 @@ class UserModel extends Equatable {
       image: map['profile_pic'] as String? ?? "",
       roleName: map['role'] as String,
       className: map['the_grades'] as String? ?? "",
-      area: map['Area'] as String,
-      school: map['school'] as String,
-      governorate: map['governorate'] as String,
+      area: map['Area'] as String? ?? "",
+      school: map['school'] as String? ?? "",
+      governorate: map['governorate'] as String? ?? "",
       subject: map['material'] as String? ?? "",
     );
   }

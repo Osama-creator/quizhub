@@ -37,20 +37,22 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
         builder: (_) {
           return controller.questions.isEmpty
               ? const Center(child: Text("Congratulations "))
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (controller.exam.time != null) ...[
-                      CountdownTimer(
-                        durationInMinutes: controller.exam.time!,
-                        onTimerEnd: onTimerEnd,
-                      ),
-                    ],
-                    Expanded(
-                      child: GridView.builder(
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (controller.exam.time != null) ...[
+                        CountdownTimer(
+                          durationInMinutes: controller.exam.time!,
+                          onTimerEnd: onTimerEnd,
+                        ),
+                      ],
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                          crossAxisCount: 3,
                           childAspectRatio: 2.0,
                         ),
                         itemCount: controller.questions.length,
@@ -89,12 +91,20 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
                           );
                         },
                       ),
-                    ),
-                    Expanded(
-                      child: GridView.builder(
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.width * 0.1,
+                        ),
+                        child: const Divider(
+                          color: Colors.black,
+                          thickness: 1,
+                        ),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                          crossAxisCount: 3,
                           childAspectRatio: 2.0,
                         ),
                         itemCount: controller.questions.length,
@@ -131,8 +141,8 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
                           );
                         },
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
         },
       ),

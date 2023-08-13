@@ -25,7 +25,7 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CircleAvatar(
-                        maxRadius: 25,
+                        maxRadius: 20,
                         backgroundImage: NetworkImage(
                           invitation.toUserId[0].profilePic.isEmpty
                               ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
@@ -36,7 +36,8 @@ Padding buildEnvtCard(BuildContext context, Invitation invitation) {
                     ),
                     Text(
                       invitation.toUserId[0].name,
-                      style: context.textTheme.titleLarge,
+                      style: context.textTheme.titleSmall!
+                          .copyWith(color: AppColors.black),
                     ),
                   ],
                 ),

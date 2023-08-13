@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/exercises.dart';
 import 'package:quizhub/app/models/questions.dart';
-import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
@@ -14,37 +15,61 @@ import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/func.dart';
 
 class ComplateExerciseController extends GetxController {
+  final String examId = Get.arguments as String;
   late PageController pageController;
+  late AudioPlayer audioPlayer;
   final examsService = Get.find<ExamsService>();
   final authService = Get.find<AuthService>();
-
-  late AudioPlayer audioPlayer;
-  final String examId = Get.arguments as String;
-  late List<McqQuestion> quistionList = [];
-  int qNumber = 1;
-  int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
   final action = Get.find<ActionHandel>();
+  List<McqQuestion> quistionList = [];
+  int qNumber = 1;
+  int degree = 0;
   bool lauding = false;
   bool error = false;
   late Exam exam = Exam(
     id: "id",
-    time: 0,
     examName: "examName",
     questions: [],
   );
+  @override
+  Future<void> onInit() async {
+    pageController = PageController();
+    audioPlayer = AudioPlayer();
+    log(examId);
+    try {
+      exam = await examsService.getExercise(id: examId);
+      quistionList = exam.questions;
+      update();
+    } catch (e, st) {
+      catchLog("err$e", st);
+    }
+    update();
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
+  }
+
   void checkAnswer() {
     final currentQuestion = quistionList[pageController.page!.toInt()];
-    if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
-      degree++;
+    final userChoice = currentQuestion.userChoice;
+    final rightAnswer = currentQuestion.rightAnswer;
+    if (rightAnswer.contains(userChoice!)) {
+      showAnswerSheet(true, currentQuestion.rightAnswer);
       audioPlayer.play(AssetSource('audio/true.mp3'));
-      showAnswerSheet(true);
+      degree++;
     } else {
+      showAnswerSheet(false, currentQuestion.rightAnswer);
       audioPlayer.play(AssetSource('audio/false.mp3'));
-      showAnswerSheet(false);
     }
+    update();
     Future.delayed(const Duration(seconds: 2), () async {
       if (qNumber < quistionList.length) {
+        Get.back();
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
@@ -66,8 +91,6 @@ class ComplateExerciseController extends GetxController {
           degree: degree,
           idexam: examId,
         );
-        Get.find<StudentHomeController>().fetchSubjects();
-        Get.find<HomeController>().refreshData();
       },
       lauding,
       error,
@@ -77,9 +100,11 @@ class ComplateExerciseController extends GetxController {
       Routes.STUDENTS_GRADES,
       arguments: ["$degree / ${quistionList.length}", examId],
     );
+    await Get.find<StudentHomeController>().fetchSubjects();
+    // await Get.find<HomeController>().refreshData();
   }
 
-  void showAnswerSheet(bool isCorrect) {
+  void showAnswerSheet(bool isCorrect, String correctAnswer) {
     Get.bottomSheet(
       Container(
         color: isCorrect ? Colors.green : Colors.red,
@@ -89,7 +114,7 @@ class ComplateExerciseController extends GetxController {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              isCorrect ? Tr.trueAn.tr : Tr.isWrong,
+              isCorrect ? Tr.trueAn.tr : Tr.isWrong.tr,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -97,6 +122,15 @@ class ComplateExerciseController extends GetxController {
               ),
               textAlign: TextAlign.center,
             ),
+            if (!isCorrect)
+              Text(
+                '${Tr.trueAn.tr} هي: $correctAnswer',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+                textAlign: TextAlign.center,
+              ),
           ],
         ),
       ),
@@ -107,27 +141,5 @@ class ComplateExerciseController extends GetxController {
       ),
       isDismissible: false,
     );
-  }
-
-  @override
-  Future<void> onInit() async {
-    pageController = PageController();
-    audioPlayer = AudioPlayer();
-    await action.performAction(
-      () async {
-        exam = await examsService.getExercise(id: examId);
-        quistionList = exam.questions;
-      },
-      lauding,
-      error,
-    );
-    update();
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    pageController.dispose();
-    super.onClose();
   }
 }

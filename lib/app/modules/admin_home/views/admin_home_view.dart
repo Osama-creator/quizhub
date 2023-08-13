@@ -6,6 +6,8 @@ import 'package:quizhub/app/modules/admin_add_folowers_orders/views/admin_add_fo
 import 'package:quizhub/app/modules/admin_get_money_req/views/admin_get_money_req_view.dart';
 import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller.dart';
 import 'package:quizhub/app/modules/admin_schools_list/views/admin_schools_list_view.dart';
+import 'package:quizhub/app/modules/student_home/views/widgets.dart';
+import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/bottom_nav_admin.dart';
@@ -19,6 +21,12 @@ class AdminHomeView extends GetView<AdminHomeController> {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
+            actions: [
+              SettingButton(
+                controller: Get.find<AuthService>(),
+                color: AppColors.primary,
+              )
+            ],
             title: Text(
               Tr.admin.tr,
               style: context.textTheme.titleLarge,

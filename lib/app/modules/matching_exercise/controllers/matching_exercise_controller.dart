@@ -25,6 +25,7 @@ class MatchingExerciseController extends GetxController {
     try {
       exam = await examsService.getExercise(id: examId);
       questions = exam.questions;
+      questions.shuffle();
     } catch (e, st) {
       catchLog("err$e", st);
     }

@@ -16,27 +16,27 @@ import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/func.dart';
 
 class McqExerciseController extends GetxController {
-  late PageController pageController;
-  bool? isTrue;
-  late AudioPlayer aAudioPlayer;
-  int qNumber = 1;
-  final authService = Get.find<AuthService>();
-
-  final examsService = Get.find<ExamsService>();
   final String examId = Get.arguments as String;
+  late PageController pageController;
+  late AudioPlayer aAudioPlayer;
+  final authService = Get.find<AuthService>();
+  final examsService = Get.find<ExamsService>();
+  final studentExamsService = Get.find<StudentExamsService>();
+  List<McqQuestion> quistionList = [];
+  bool? isTrue;
+  int qNumber = 1;
+  int degree = 0;
+  bool lauding = false;
+  bool error = false;
   Exam exam = Exam(
     id: "id",
     examName: "examName",
     questions: [],
   );
-  late List<McqQuestion> quistionList = [];
-  int degree = 0;
-  final studentExamsService = Get.find<StudentExamsService>();
 
   @override
   Future<void> onInit() async {
     pageController = PageController();
-
     aAudioPlayer = AudioPlayer();
     log(examId);
     try {
@@ -77,6 +77,7 @@ class McqExerciseController extends GetxController {
     showAnswerSheet(isTrue!, currentQuestion.rightAnswer);
     Future.delayed(const Duration(seconds: 2), () {
       if (qNumber < quistionList.length) {
+        Get.back();
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
@@ -96,13 +97,14 @@ class McqExerciseController extends GetxController {
       degree: degree,
       idexam: examId,
     );
-    Get.find<StudentHomeController>().fetchSubjects();
-    Get.find<HomeController>().refreshData();
+
     Get.until((route) => route.settings.name == Routes.MCQ_EXERCISE);
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,
       arguments: ["$degree / ${quistionList.length}", examId],
     );
+    await Get.find<StudentHomeController>().fetchSubjects();
+    await Get.find<HomeController>().refreshData();
   }
 
   // ignore: avoid_positional_boolean_parameters

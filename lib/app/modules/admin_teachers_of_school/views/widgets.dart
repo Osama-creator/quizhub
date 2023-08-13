@@ -17,38 +17,33 @@ class ListTileCustStudent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(Routes.ADMIN_TEACHER_SUMMERY);
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: AppColors.nextPrimary,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          height: context.height * 0.1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    student.profilePic.isEmpty
-                        ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
-                        : student.profilePic,
-                  ),
-                  backgroundColor: Colors.transparent,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: AppColors.nextPrimary,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        height: context.height * 0.1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                  student.profilePic.isEmpty
+                      ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                      : student.profilePic,
                 ),
+                backgroundColor: Colors.transparent,
               ),
-              Text(
-                student.name,
-                style: context.textTheme.titleLarge,
-              ),
-              const Spacer(),
-            ],
-          ),
+            ),
+            Text(
+              student.name,
+              style: context.textTheme.titleLarge,
+            ),
+            const Spacer(),
+          ],
         ),
       ),
     );

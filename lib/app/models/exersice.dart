@@ -105,10 +105,12 @@ class ExerciseModel2 extends Equatable {
 class DoneExerciseModel extends Equatable {
   final ExerciseModel exerciseModel;
   final int degree;
+  final String id;
 
   const DoneExerciseModel({
     required this.exerciseModel,
     required this.degree,
+    required this.id,
   });
 
   Map<String, dynamic> toMap() {
@@ -119,6 +121,7 @@ class DoneExerciseModel extends Equatable {
     Map<String, dynamic> map,
   ) {
     return DoneExerciseModel(
+      id: ExerciseModel.fromMap(map["idexam"] as Map<String, dynamic>).id!,
       degree: map['degree'] as int,
       exerciseModel:
           ExerciseModel.fromMap(map["idexam"] as Map<String, dynamic>),

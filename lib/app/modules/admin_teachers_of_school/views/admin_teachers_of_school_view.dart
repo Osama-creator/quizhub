@@ -5,6 +5,8 @@ import 'package:queen/queen.dart';
 
 import 'package:quizhub/app/modules/admin_teachers_of_school/controllers/admin_teachers_of_school_controller.dart';
 import 'package:quizhub/app/modules/admin_teachers_of_school/views/widgets.dart';
+import 'package:quizhub/app/modules/student_home/views/widgets.dart';
+import 'package:quizhub/app/services/auth.dart';
 
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';

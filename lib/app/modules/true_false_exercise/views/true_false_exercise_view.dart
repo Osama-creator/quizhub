@@ -63,6 +63,7 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
                         return TFQuestionBody(
                           controller: controller,
                           index: index,
+                          notes: controller.quistionList[index].note ?? "",
                           quistion: controller.quistionList[index].question,
                           image: controller.quistionList[index].pic ?? "",
                         );

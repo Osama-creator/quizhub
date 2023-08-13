@@ -194,12 +194,24 @@ class TeacherExamsTile extends StatelessWidget {
                     );
                   } else {
                     final doneExamIndex = index - exerciseCard.exercises.length;
-                    return DoneExamCard(
-                      examName: exerciseCard
-                          .doneExercises[doneExamIndex].exerciseModel.arName!,
-                      degree:
-                          "${exerciseCard.doneExercises[doneExamIndex].degree} / ${exerciseCard.doneExercises[doneExamIndex].exerciseModel.quesiotnsNum!.length} الدرجه ",
-                      index: doneExamIndex,
+                    return InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          Routes.STUDENTS_GRADES,
+                          arguments: [
+                            "${exerciseCard.doneExercises[doneExamIndex].degree} / ${exerciseCard.doneExercises[doneExamIndex].exerciseModel.quesiotnsNum!.length}",
+                            exerciseCard
+                                .doneExercises[doneExamIndex].exerciseModel.id
+                          ],
+                        );
+                      },
+                      child: DoneExamCard(
+                        examName: exerciseCard
+                            .doneExercises[doneExamIndex].exerciseModel.arName!,
+                        degree:
+                            "${exerciseCard.doneExercises[doneExamIndex].degree} / ${exerciseCard.doneExercises[doneExamIndex].exerciseModel.quesiotnsNum!.length} الدرجه ",
+                        index: doneExamIndex,
+                      ),
                     );
                   }
                 },
@@ -294,33 +306,30 @@ class DoneExamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: SizedBox(
-        height: context.height * 0.15,
-        width: context.width * 0.35,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          color: AppColors.primary,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                examName,
-                style: context.textTheme.titleLarge!
-                    .copyWith(color: AppColors.light),
+    return SizedBox(
+      height: context.height * 0.15,
+      width: context.width * 0.35,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        color: AppColors.primary,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              examName,
+              style: context.textTheme.titleLarge!
+                  .copyWith(color: AppColors.light),
+            ),
+            Text(
+              degree,
+              style: context.textTheme.titleLarge!.copyWith(
+                color: AppColors.light,
+                fontSize: 14,
               ),
-              Text(
-                degree,
-                style: context.textTheme.titleLarge!.copyWith(
-                  color: AppColors.light,
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

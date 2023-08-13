@@ -66,7 +66,7 @@ class StudentExamsService {
   }) async {
     try {
       final response = await client.post(
-        Endpoints.getUseres,
+        Endpoints.envite,
         body: {"iduser": forwordUserId, "idExam": examId, "IdToUser": userId},
       );
 

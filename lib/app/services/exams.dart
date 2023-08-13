@@ -300,7 +300,6 @@ class ExamsService {
 
   Future<void> postMcqQuestion(McqQuestion question) async {
     try {
-      final dio = Dio();
       final formData = FormData();
 
       formData.fields.addAll([
@@ -333,12 +332,10 @@ class ExamsService {
           ),
         );
       }
-      final options = Options(contentType: 'multipart/form-data');
-      final response = await dio.post(
-        // Endpoints.addQuesiton,
-        "http://192.168.0.106:4500/Node.js/api/v6/com/addQuestion",
-        data: formData,
-        options: options,
+      final response = await client.post(
+        Endpoints.addQuesiton,
+        body: formData,
+        contentType: 'multipart/form-data',
       );
       if (response.statusCode == 200) {
         log("done");

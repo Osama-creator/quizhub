@@ -1,9 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart' hide ContextExtensionss, Trans;
-import 'package:queen/queen.dart';
-import 'package:quizhub/app/models/exercises.dart';
+import 'package:get/get.dart';
 import 'package:quizhub/app/models/questions.dart';
 import 'package:quizhub/app/modules/home/controllers/home_controller.dart';
 import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
@@ -14,54 +11,46 @@ import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/func.dart';
 
-class TrueFalseExerciseController extends GetxController {
+import 'package:quizhub/app/models/exercises.dart';
+
+mixin ExerciseControllerMixin<T extends GetxController> on GetxController {
   late PageController pageController;
-  bool? isTrue;
-  int qNumber = 1;
-  final examsService = Get.find<ExamsService>();
   final authService = Get.find<AuthService>();
 
-  late AudioPlayer aAudioPlayer;
+  final examsService = Get.find<ExamsService>();
+  late AudioPlayer audioPlayer;
   final String examId = Get.arguments as String;
+  late List<McqQuestion> questionList = [];
+  int qNumber = 1;
   int degree = 0;
   final studentExamsService = Get.find<StudentExamsService>();
+  final action = Get.find<ActionHandel>();
+  bool loading = false;
+  bool error = false;
   late Exam exam = Exam(
     id: "id",
+    time: 0,
     examName: "examName",
     questions: [],
   );
-  late List<McqQuestion> quistionList = [];
-  // ignore: avoid_positional_boolean_parameters
-  void selectChoice(String value) {
-    final currentQuestion = quistionList[pageController.page!.toInt()];
-    currentQuestion.userChoice = value;
-    update();
-    checkAnswer();
-  }
 
   void checkAnswer() {
-    final currentQuestion = quistionList[pageController.page!.toInt()];
+    final currentQuestion = questionList[pageController.page!.toInt()];
     if (currentQuestion.userChoice == currentQuestion.rightAnswer) {
-      aAudioPlayer.play(AssetSource('audio/true.mp3'));
-      isTrue = true;
       degree++;
+      audioPlayer.play(AssetSource('audio/true.mp3'));
+      showAnswerSheet(true);
     } else {
-      aAudioPlayer.play(AssetSource('audio/false.mp3'));
-      isTrue = false;
+      audioPlayer.play(AssetSource('audio/false.mp3'));
+      showAnswerSheet(false);
     }
-    update();
-
-    showAnswerSheet(
-      isTrue!,
-    );
-    Future.delayed(const Duration(seconds: 2), () {
-      if (qNumber < quistionList.length) {
+    Future.delayed(const Duration(seconds: 2), () async {
+      if (qNumber < questionList.length) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
           curve: Curves.ease,
         );
         qNumber++;
-        Get.back();
         update();
       } else {
         finishExam();
@@ -70,27 +59,28 @@ class TrueFalseExerciseController extends GetxController {
   }
 
   Future<void> finishExam() async {
-    final userData = await authService.cachedUser;
-    studentExamsService.postDegree(
-      idUser: userData!.id!,
-      degree: degree,
-      idexam: examId,
+    await action.performAction(
+      () async {
+        final userData = await authService.cachedUser;
+        studentExamsService.postDegree(
+          idUser: userData!.id!,
+          degree: degree,
+          idexam: examId,
+        );
+      },
+      loading,
+      error,
     );
-
-    Get.until((route) => route.settings.name == Routes.TRUE_FALSE_EXERCISE);
+    Get.until((route) => route.settings.name == Routes.COMPLATE_EXERCISE);
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,
-      arguments: ["$degree / ${quistionList.length}", examId],
+      arguments: ["$degree / ${questionList.length}", examId],
     );
     await Get.find<StudentHomeController>().fetchSubjects();
     await Get.find<HomeController>().refreshData();
   }
 
-  // ignore: avoid_positional_boolean_parameters
-  void showAnswerSheet(
-    // ignore: avoid_positional_boolean_parameters
-    bool isCorrect,
-  ) {
+  void showAnswerSheet(bool isCorrect) {
     Get.bottomSheet(
       Container(
         color: isCorrect ? Colors.green : Colors.red,
@@ -100,7 +90,7 @@ class TrueFalseExerciseController extends GetxController {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              isCorrect ? Tr.trueAn.tr : Tr.isWrong.tr,
+              isCorrect ? Tr.trueAn.tr : Tr.isWrong,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -122,15 +112,23 @@ class TrueFalseExerciseController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    aAudioPlayer = AudioPlayer();
     pageController = PageController();
-    try {
-      exam = await examsService.getExercise(id: examId);
-      quistionList = exam.questions;
-      update();
-    } catch (e, st) {
-      catchLog("err$e", st);
-    }
+    audioPlayer = AudioPlayer();
+    await action.performAction(
+      () async {
+        exam = await examsService.getExercise(id: examId);
+        questionList = exam.questions;
+      },
+      loading,
+      error,
+    );
+    update();
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
   }
 }

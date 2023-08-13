@@ -70,7 +70,7 @@ class AuthService {
       Get.offAllNamed(Routes.PARENT_HOME, arguments: userData.id);
     } else if (userData.roleName == "Student") {
       Get.offAllNamed(Routes.STUDENT_HOME, arguments: userData.id);
-    } else {
+    } else if (userData.roleName == "Admin") {
       Get.offAllNamed(
         Routes.ADMIN_HOME,
       );

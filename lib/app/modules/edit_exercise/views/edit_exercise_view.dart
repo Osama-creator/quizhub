@@ -171,8 +171,10 @@ class EditExerciseView extends GetView<EditExerciseController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.toNamed(Routes.ADD_NEW_QUISTION,
-              arguments: [controller.examId, controller.type]);
+          Get.toNamed(
+            Routes.ADD_NEW_QUISTION,
+            arguments: [controller.examId, controller.type],
+          );
         },
         backgroundColor: AppColors.primary,
         label: Text(
