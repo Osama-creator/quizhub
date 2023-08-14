@@ -4,6 +4,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/create_fill_gabs_exercise/controllers/create_fill_gabs_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class CreateFillGabsExerciseView
@@ -129,7 +130,9 @@ class CreateFillGabsExerciseView
                         width: context.width * 0.2,
                         child: ElevatedButton(
                           onPressed: () => controller.onSubmit(),
-                          child: const Icon(Icons.save),
+                          child: controller.isLaoding
+                              ? const CenterLoading()
+                              : const Icon(Icons.save),
                         ),
                       ),
                       const Spacer(),

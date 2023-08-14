@@ -40,11 +40,15 @@ class McqExerciseController extends GetxController {
     aAudioPlayer = AudioPlayer();
     log(examId);
     try {
+      lauding = true;
+      update();
       exam = await examsService.getExercise(id: examId);
       quistionList = exam.questions;
-      update();
     } catch (e, st) {
       catchLog("err$e", st);
+    } finally {
+      lauding = false;
+      update();
     }
     super.onInit();
   }
@@ -92,12 +96,21 @@ class McqExerciseController extends GetxController {
 
   Future<void> finishExam() async {
     final userData = await authService.cachedUser;
-    studentExamsService.postDegree(
-      idUser: userData!.id!,
-      degree: degree,
-      idexam: examId,
-    );
 
+    try {
+      lauding = true;
+      update();
+      studentExamsService.postDegree(
+        idUser: userData!.id!,
+        degree: degree,
+        idexam: examId,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
     Get.until((route) => route.settings.name == Routes.MCQ_EXERCISE);
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,

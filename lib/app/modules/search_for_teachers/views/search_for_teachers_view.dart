@@ -6,6 +6,7 @@ import 'package:quizhub/app/modules/search_for_teachers/controllers/search_for_t
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class SearchForTeachersView extends GetView<SearchForTeachersController> {
   SearchForTeachersView({super.key});
@@ -41,19 +42,21 @@ class SearchForTeachersView extends GetView<SearchForTeachersController> {
                   child: GetBuilder<SearchForTeachersController>(
                     init: controller,
                     builder: (_) {
-                      return ListView.builder(
-                        itemCount: controller.filteredTeachers.length,
-                        itemBuilder: (context, index) {
-                          final user = controller.filteredTeachers[index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SearchTeacherListTile(
-                              teacher: user,
-                              controller: controller,
-                            ),
-                          );
-                        },
-                      );
+                      return controller.loading
+                          ? const CenterLoading()
+                          : ListView.builder(
+                              itemCount: controller.filteredTeachers.length,
+                              itemBuilder: (context, index) {
+                                final user = controller.filteredTeachers[index];
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SearchTeacherListTile(
+                                    teacher: user,
+                                    controller: controller,
+                                  ),
+                                );
+                              },
+                            );
                     },
                   ),
                 ),

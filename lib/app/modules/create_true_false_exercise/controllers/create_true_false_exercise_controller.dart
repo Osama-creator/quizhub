@@ -19,7 +19,7 @@ class CreateTrueFalseExerciseController extends GetxController {
   late String teacherId;
   final List<TrueFalseQuestion> questions = [];
   final List<McqQuestion> apiQuestions = [];
-
+  bool isLoading = false;
   @override
   void onInit() {
     teacherId = arguments['teacherId'] as String;
@@ -62,6 +62,8 @@ class CreateTrueFalseExerciseController extends GetxController {
       }
     }
     try {
+      isLoading = true;
+      update();
       for (final question in apiQuestions) {
         await examsService.postMcqQuestion(question);
         Get.find<GradeExercisesController>().refershing();
@@ -73,6 +75,9 @@ class CreateTrueFalseExerciseController extends GetxController {
       Alert.error(
         Tr.errorMessage.tr,
       );
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 }

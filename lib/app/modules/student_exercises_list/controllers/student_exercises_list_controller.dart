@@ -17,7 +17,7 @@ class StudentExercisesListController extends GetxController {
   String subjName = '';
   Map<String, List<ExerciseModel>> subjectExams = {};
   String searchQuery = '';
-
+  bool isLoading = false;
   void setSearchQuery(String query) {
     searchQuery = query;
     update();
@@ -48,6 +48,8 @@ class StudentExercisesListController extends GetxController {
     userId = userData!.id!;
     subjName = args['subject'] as String;
     try {
+      isLoading = true;
+      update();
       final teachersFromApi = await service.fetchTeacherNames(
         userData.id!,
         subjName,
@@ -62,8 +64,10 @@ class StudentExercisesListController extends GetxController {
       update();
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      isLoading = false;
+      update();
     }
-    update();
   }
 
   void onSelect(int index) {

@@ -11,11 +11,11 @@ class EnvitationsListController extends GetxController {
   final service = Get.find<StudentExamsService>();
   final authService = Get.find<AuthService>();
   final studentHome = Get.find<StudentHomeController>();
-
+  bool loading = false;
   List<Invitation> invitations = [];
   @override
   Future<void> onInit() async {
-    refreshInv();
+    await refreshInv();
     super.onInit();
   }
 
@@ -23,11 +23,16 @@ class EnvitationsListController extends GetxController {
     final userData = await authService.cachedUser;
     if (userData!.id != null) {
       try {
+        loading = true;
+        update();
         invitations.assignAll(
           await service.getEnvitations(userId: userData.id!),
         );
       } catch (e, st) {
         catchLog(e, st);
+      } finally {
+        loading = false;
+        update();
       }
     } else {
       log("err in id");

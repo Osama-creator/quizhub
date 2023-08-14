@@ -6,6 +6,7 @@ import 'package:quizhub/app/modules/grade_exercises/views/exersise_buttomSheet.d
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class GradeExercisesView extends GetView<GradeExercisesController> {
   const GradeExercisesView({super.key});
@@ -34,58 +35,62 @@ class GradeExercisesView extends GetView<GradeExercisesController> {
             GetBuilder<GradeExercisesController>(
               init: controller,
               builder: (_) {
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.exercises.length,
-                  padding: const EdgeInsets.all(5),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.90,
-                  ),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () => Get.toNamed(
-                        Routes.EDIT_EXERCISE,
-                        arguments: [
-                          controller.exercises[index].id,
-                          controller.exercises[index].type
-                        ],
-                      ),
-                      child: Card(
-                        color: AppColors.nextPrimary,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              controller.exercises[index].arName!,
-                              style: context.textTheme.titleLarge,
+                return controller.loading
+                    ? const CenterLoading()
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.exercises.length,
+                        padding: const EdgeInsets.all(5),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.90,
+                        ),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () => Get.toNamed(
+                              Routes.EDIT_EXERCISE,
+                              arguments: [
+                                controller.exercises[index].id,
+                                controller.exercises[index].type
+                              ],
                             ),
-                            Text(
-                              "${controller.exercises[index].quesiotnsNum!.length} ${Tr.questions.tr}",
-                              style: context.textTheme.titleLarge,
-                            ),
-                            Text(
-                              "${controller.exercises[index].viewNum!.length} ${Tr.ans.tr}",
-                              style: context.textTheme.titleLarge,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                controller.deleteExercise(
-                                  controller.exercises[index].id!,
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.delete,
-                                color: AppColors.primary,
+                            child: Card(
+                              color: AppColors.nextPrimary,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    controller.exercises[index].arName!,
+                                    style: context.textTheme.titleLarge,
+                                  ),
+                                  Text(
+                                    "${controller.exercises[index].quesiotnsNum!.length} ${Tr.questions.tr}",
+                                    style: context.textTheme.titleLarge,
+                                  ),
+                                  Text(
+                                    "${controller.exercises[index].viewNum!.length} ${Tr.ans.tr}",
+                                    style: context.textTheme.titleLarge,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      controller.deleteExercise(
+                                        controller.exercises[index].id!,
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                          );
+                        },
+                      );
               },
             ),
             SizedBox(

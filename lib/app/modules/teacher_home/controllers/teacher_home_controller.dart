@@ -23,19 +23,29 @@ class TeacherHomeController extends GetxController {
   final List<String> gradesNames = [];
   String teacherName = "";
   String teacherSubject = "";
+  String image = "";
   int? followLength;
+  bool loading = false;
   Future<void> pickClass() async {
-    final res = await Get.bottomSheet<String?>(const PickClss());
-    if (res != null && !grades.map((e) => e.arName).contains(res)) {
-      final GradeModel response =
-          await service.addGrades(grade: res, teacherId: teacherId);
-      gradesNames.add(res);
-      grades.add(response);
+    try {
+      loading = true;
       update();
-    } else {
-      Alert.error(
-        Tr.alreadySelected.tr,
-      );
+      final res = await Get.bottomSheet<String?>(const PickClss());
+      if (res != null && !grades.map((e) => e.arName).contains(res)) {
+        final GradeModel response =
+            await service.addGrades(grade: res, teacherId: teacherId);
+        gradesNames.add(res);
+        grades.add(response);
+      } else {
+        Alert.error(
+          Tr.alreadySelected.tr,
+        );
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
     }
   }
 
@@ -49,6 +59,8 @@ class TeacherHomeController extends GetxController {
   Future<void> fetchTeacherHomeData() async {
     final userData = await authService.cachedUser;
     try {
+      loading = true;
+      update();
       final response =
           await service.getTeacherHomeData(teacherId: userData!.id as String);
 
@@ -57,6 +69,7 @@ class TeacherHomeController extends GetxController {
         final teacherData = responseData['Teacher'];
         teacherName = userData.name;
         teacherId = teacherData['_id'] as String;
+        image = teacherData['profile_pic'] as String? ?? "";
         teacherSubject = teacherData['material'] as String;
         followLength = teacherData['follow'].length as int;
         final theGrades = responseData['thegrades'] as List<dynamic>;
@@ -66,13 +79,15 @@ class TeacherHomeController extends GetxController {
           log(gradeId);
           grades.add(GradeModel(arName: grade, id: gradeId));
         }
-        update();
       } else {
         throw Exception('Failed to fetch teacher home data');
       }
     } catch (e, st) {
       // log('Error: $e');
       catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
     }
   }
 

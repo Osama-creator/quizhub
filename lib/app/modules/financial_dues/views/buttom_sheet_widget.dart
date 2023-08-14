@@ -3,6 +3,7 @@ import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/financial_dues/controllers/financial_dues_controller.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 void addFolowersButtomsheet(
@@ -67,13 +68,15 @@ void addFolowersButtomsheet(
                     controller.onAddFolSubmit();
                     Navigator.pop(context);
                   },
-                  child: Text(
-                    Tr.send.tr,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: controller.isLoading
+                      ? const CenterLoading()
+                      : Text(
+                          Tr.send.tr,
+                          style: context.textTheme.titleLarge!.copyWith(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
             ),

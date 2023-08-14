@@ -45,58 +45,62 @@ class ParentHomeView extends GetView<ParentHomeController> {
             ],
             elevation: 3,
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Center(
-                child: Text(
-                  Tr.studentsYouFollow.tr,
-                  style: context.textTheme.headlineSmall!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
-                ),
-              ),
-              GetBuilder<ParentHomeController>(
-                init: controller,
-                builder: (_) {
-                  return Expanded(
-                    child: controller.lauding
-                        ? const CenterLoading()
-                        : controller.students.isEmpty
-                            ? Center(
-                                child: Text(
-                                  Tr.noDataAvailable.tr,
-                                ),
-                              )
-                            : ListView.builder(
-                                itemCount: controller.students.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: StudentsListTile(
-                                      controller: controller,
-                                      student: controller.students[index],
+          body: controller.lauding
+              ? const CenterLoading()
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Center(
+                      child: Text(
+                        Tr.studentsYouFollow.tr,
+                        style: context.textTheme.headlineSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                        ),
+                      ),
+                    ),
+                    GetBuilder<ParentHomeController>(
+                      init: controller,
+                      builder: (_) {
+                        return Expanded(
+                          child: controller.lauding
+                              ? const CenterLoading()
+                              : controller.students.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                        Tr.noDataAvailable.tr,
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      itemCount: controller.students.length,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: StudentsListTile(
+                                            controller: controller,
+                                            student: controller.students[index],
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
-                  );
-                },
-              ),
-              InkWell(
-                onTap: () {
-                  Get.toNamed(Routes.SEARCH_FOR_STUDENTS);
-                },
-                child: Center(
-                  child: Text(
-                    Tr.searchStudents.tr,
-                    style: context.textTheme.titleLarge,
-                  ),
+                        );
+                      },
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.SEARCH_FOR_STUDENTS);
+                      },
+                      child: Center(
+                        child: Text(
+                          Tr.searchStudents.tr,
+                          style: context.textTheme.titleLarge,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         );
       },
     );

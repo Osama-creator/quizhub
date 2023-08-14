@@ -15,34 +15,45 @@ class QuestionsPostsController extends GetxController {
   final service = Get.find<PostCommentervice>();
   bool isTeacher = false;
   String subName = "";
+  bool loading = false;
   @override
   Future<void> onInit() async {
     subName = args['sub_name'] as String;
-    posts = await service.fetchPosts(
-      userId: args['id'] as String,
-      subName: subName,
-    );
-
     isTeacher = args['is_teacher'] as bool;
-    update();
+    try {
+      loading = true;
+      update();
+      posts = await service.fetchPosts(
+        userId: args['id'] as String,
+        subName: subName,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
+    }
+
     super.onInit();
   }
 
   Future<void> addPost() async {
     try {
-      final newPost = await service.createPost(
-        subName: subName,
-        postBody: postController.text,
-        userId: args['id'] as String,
-      );
-      posts.add(newPost);
-      await service.fetchPosts(
-        userId: args['id'] as String,
-        subName: args['sub_name'] as String,
-      );
+      loading = true;
       update();
+      if (postController.text.isNotEmpty) {
+        await service.createPost(
+          userId: args['id'] as String,
+          subName: args['sub_name'] as String,
+          postBody: postController.text,
+        );
+      }
+      Get.find<QuestionsPostsController>().onInit();
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
     }
   }
 
@@ -62,7 +73,6 @@ class QuestionsPostsController extends GetxController {
     } catch (e, st) {
       catchLog(e, st);
     }
-
     update();
   }
 }

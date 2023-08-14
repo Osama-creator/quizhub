@@ -24,7 +24,7 @@ class SignInController extends GetxController {
           email: emailC.text,
           password: passwordC.text,
         );
-        Alert.success(Tr.done.tr);
+        Alert.success("تم التسجيل بنجاح");
       } catch (e, st) {
         Alert.error(Tr.error.tr);
         catchLog(e, st);

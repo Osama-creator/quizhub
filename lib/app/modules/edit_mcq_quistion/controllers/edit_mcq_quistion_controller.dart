@@ -12,6 +12,7 @@ class EditMcqQuistionController extends GetxController {
   final question = Get.arguments as McqQuestion;
   final examsService = Get.find<ExamsService>();
   String pic = "";
+  bool loading = false;
   @override
   void onInit() {
     pic = question.pic ?? "";
@@ -46,6 +47,8 @@ class EditMcqQuistionController extends GetxController {
 
   Future<void> updateQuestion() async {
     try {
+      loading = true;
+      update();
       await examsService.updateQuestion(
         question: McqQuestion(
           teacherId: "teacherId",
@@ -62,6 +65,9 @@ class EditMcqQuistionController extends GetxController {
       Get.back();
     } catch (e, st) {
       throw Exception('Error: $e, $st');
+    } finally {
+      loading = false;
+      update();
     }
   }
 }

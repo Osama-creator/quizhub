@@ -66,7 +66,9 @@ class AdminAddFolowersOrdersView
                                               controller.teachers[index].id,
                                             );
                                           },
-                                          child: Text(Tr.confirm.tr),
+                                          child: controller.lauding
+                                              ? const CenterLoading()
+                                              : Text(Tr.confirm.tr),
                                         ),
                                         OutlinedButton(
                                           onPressed: () async {
@@ -75,7 +77,9 @@ class AdminAddFolowersOrdersView
                                               controller.teachers[index].id,
                                             );
                                           },
-                                          child: Text(Tr.cancel.tr),
+                                          child: controller.lauding
+                                              ? const CenterLoading()
+                                              : Text(Tr.cancel.tr),
                                         )
                                       ],
                                     )

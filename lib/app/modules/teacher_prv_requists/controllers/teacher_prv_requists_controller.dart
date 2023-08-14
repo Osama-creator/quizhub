@@ -16,14 +16,17 @@ class TeacherPrvRequistsController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await action.performAction(
-      () async {
-        prevOrders = await service.getTeacherPrvReq(id: userId);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      prevOrders = await service.getTeacherPrvReq(id: userId);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     super.onInit();
   }
 }

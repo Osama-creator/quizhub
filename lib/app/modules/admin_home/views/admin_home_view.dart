@@ -25,6 +25,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
               SettingButton(
                 controller: Get.find<AuthService>(),
                 color: AppColors.primary,
+                textColor: AppColors.light,
               )
             ],
             title: Text(

@@ -14,6 +14,7 @@ class EditExerciseController extends GetxController {
   final List<String?> args = Get.arguments as List<String?>;
   String examId = '';
   String type = '';
+  bool lauding = false;
   late List<McqQuestion> apiQuestions = [];
   late Exam exam = Exam(
     id: "id",
@@ -27,20 +28,25 @@ class EditExerciseController extends GetxController {
   Future<void> onInit() async {
     examId = args[0]!;
     type = args[1]!;
+    PdfGenerator.init();
     log(type);
-    await editOnInit();
+    try {
+      lauding = true;
+      update();
+      await editOnInit();
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     super.onInit();
   }
 
   Future<void> editOnInit() async {
-    try {
-      exam = await examsService.getExercise(id: examId);
-      apiQuestions = exam.questions;
-      update();
-    } catch (e, st) {
-      catchLog("err$e", st);
-    }
-    PdfGenerator.init();
+    exam = await examsService.getExercise(id: examId);
+    apiQuestions = exam.questions;
     update();
   }
 
@@ -57,22 +63,31 @@ class EditExerciseController extends GetxController {
 
   Future<void> deleteQuestion({required String id}) async {
     try {
+      lauding = true;
+      update();
       await examsService.deleteQuestion(qId: id);
       apiQuestions.removeWhere((element) => element.id == id);
       update();
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
     }
-    update();
   }
 
   Future<void> updateQuestion({
     required McqQuestion mcqQuestion,
   }) async {
     try {
+      lauding = true;
+      update();
       await examsService.updateQuestion(question: mcqQuestion);
     } catch (e, st) {
       throw Exception('Error: $e, $st');
+    } finally {
+      lauding = false;
+      update();
     }
   }
 }

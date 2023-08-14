@@ -6,6 +6,7 @@ import 'package:quizhub/app/modules/true_false_exercise/controllers/true_false_e
 import 'package:quizhub/app/modules/true_false_exercise/views/q_body.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/timer.dart';
 
 class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
@@ -52,24 +53,27 @@ class TrueFalseExerciseView extends GetView<TrueFalseExerciseController> {
                       onTimerEnd: onTimerEnd,
                     ),
                   ],
-                  SizedBox(
-                    height: h * 0.8,
-                    width: w,
-                    child: PageView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: controller.pageController,
-                      itemCount: controller.quistionList.length,
-                      itemBuilder: (context, index) {
-                        return TFQuestionBody(
-                          controller: controller,
-                          index: index,
-                          notes: controller.quistionList[index].note ?? "",
-                          quistion: controller.quistionList[index].question,
-                          image: controller.quistionList[index].pic ?? "",
-                        );
-                      },
+                  if (controller.isLoading)
+                    CenterLoading()
+                  else
+                    SizedBox(
+                      height: h * 0.8,
+                      width: w,
+                      child: PageView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: controller.pageController,
+                        itemCount: controller.quistionList.length,
+                        itemBuilder: (context, index) {
+                          return TFQuestionBody(
+                            controller: controller,
+                            index: index,
+                            notes: controller.quistionList[index].note ?? "",
+                            quistion: controller.quistionList[index].question,
+                            image: controller.quistionList[index].pic ?? "",
+                          );
+                        },
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

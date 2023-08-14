@@ -6,6 +6,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/create_choose_exercise/controllers/create_choose_exercise_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
@@ -148,7 +149,9 @@ class CreateChooseExerciseView extends GetView<CreateChooseExerciseController> {
                         width: context.width * 0.2,
                         child: ElevatedButton(
                           onPressed: () => controller.onSubmit(),
-                          child: const Icon(Icons.save),
+                          child: controller.isLaoding
+                              ? const CenterLoading()
+                              : const Icon(Icons.save),
                         ),
                       ),
                       const Spacer(),

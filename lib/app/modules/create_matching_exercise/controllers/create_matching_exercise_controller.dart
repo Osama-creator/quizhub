@@ -17,7 +17,7 @@ class CreateMatchingExerciseController extends GetxController {
   late String teacherId;
   final List<MatchingQuestionC> questions = [];
   final List<McqQuestion> apiQuestions = [];
-
+  bool isLoading = false;
   @override
   void onInit() {
     teacherId = arguments['teacherId'] as String;
@@ -56,6 +56,8 @@ class CreateMatchingExerciseController extends GetxController {
       }
     }
     try {
+      isLoading = true;
+      update();
       for (final question in apiQuestions) {
         await examsService.postMcqQuestion(question);
       }
@@ -65,6 +67,9 @@ class CreateMatchingExerciseController extends GetxController {
     } catch (e, st) {
       catchLog(e, st);
       Alert.error(Tr.error.tr);
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 }

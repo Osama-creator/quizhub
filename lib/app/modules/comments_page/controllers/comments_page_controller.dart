@@ -25,37 +25,42 @@ class CommentsPageController extends GetxController {
     postId = args[0] as String;
     userId = args[1] as String;
     isTeacher = args[2] as bool;
+    try {
+      lauding = true;
+      update();
+      comments = await service.fetchComments(postId);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
 
-    await action.performAction(
-      () async {
-        comments = await service.fetchComments(postId);
-      },
-      lauding,
-      error,
-    );
-    update();
     super.onInit();
   }
 
   Future<void> addComment() async {
-    await action.performAction(
-      () async {
-        final newComment = await service.createComment(
-          commentBody: postController.text,
-          postId: postId,
-          userId: userId,
-        );
-        comments.add(newComment);
-        comments = await service.fetchComments(postId);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      await service.createComment(
+        commentBody: postController.text,
+        postId: postId,
+        userId: userId,
+      );
+      comments = await service.fetchComments(postId);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
   }
 
   Future<void> removeComment(String commentId) async {
     try {
+      lauding = true;
+      update();
       bool? done = await service.deleteComment(
         commentId: commentId,
         userId: userId,
@@ -67,23 +72,27 @@ class CommentsPageController extends GetxController {
       }
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
     }
-    update();
   }
 
   Future<void> addLike(Comment comment) async {
-    await action.performAction(
-      () async {
-        await service.likeComment(
-          commentId: comment.id,
-          userId: userId,
-        );
-        comment.like = true;
-        comment.likes.length++;
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      await service.likeComment(
+        commentId: comment.id,
+        userId: userId,
+      );
+      comment.like = true;
+      comment.likes.length++;
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
   }
 }

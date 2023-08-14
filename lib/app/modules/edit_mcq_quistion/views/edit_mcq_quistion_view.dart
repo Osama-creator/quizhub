@@ -4,6 +4,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/edit_mcq_quistion/controllers/edit_mcq_quistion_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
@@ -97,9 +98,11 @@ class EditMcqQuistionView extends GetView<EditMcqQuistionController> {
                       onPressed: () async {
                         await controller.updateQuestion();
                       },
-                      child: Text(
-                        Tr.edit.tr,
-                      ),
+                      child: controller.loading
+                          ? const CenterLoading()
+                          : Text(
+                              Tr.edit.tr,
+                            ),
                     ),
                   )
                 ],

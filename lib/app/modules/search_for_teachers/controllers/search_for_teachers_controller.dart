@@ -10,18 +10,23 @@ class SearchForTeachersController extends GetxController {
   final service = Get.find<TeacherService>();
   final authService = Get.find<AuthService>();
   List<Teacher> filteredTeachers = [];
-
+  bool loading = false;
   List<Teacher> teachers = [];
   @override
   Future<void> onInit() async {
     final userData = await authService.cachedUser;
     if (userData!.id != null) {
       try {
+        loading = true;
+        update();
         teachers.addAll(await service.fetchTeachers(userData.id!));
         filteredTeachers.addAll(teachers);
         update();
       } catch (e, st) {
         catchLog(e, st);
+      } finally {
+        loading = false;
+        update();
       }
     } else {
       log("id error");

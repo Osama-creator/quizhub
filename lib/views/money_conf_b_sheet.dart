@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/modules/admin_get_money_req/controllers/admin_get_money_req_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 Future<dynamic> confirmMoneyOrder(
@@ -75,9 +76,11 @@ Future<dynamic> confirmMoneyOrder(
                     controller.confirmOrder(id: id, img: controller.image!);
                     Navigator.of(context).pop();
                   },
-                  child: Text(
-                    Tr.confirm.tr,
-                  ),
+                  child: controller.lauding
+                      ? const CenterLoading()
+                      : Text(
+                          Tr.confirm.tr,
+                        ),
                 )
               ],
             ),

@@ -14,26 +14,26 @@ class AdminAddFolowersOrdersController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await action.performAction(
-      () async {
-        teachers = await service.getAddFoOrdersListForAdmin();
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      teachers = await service.getAddFoOrdersListForAdmin();
+    } finally {
+      lauding = false;
+      update();
+    }
     super.onInit();
   }
 
   Future<void> confirm(String text, String id) async {
-    await action.performAction(
-      () async {
-        await service.confirmAddFOrder(teacherId: id, replay: text);
-        teachers.removeWhere((element) => element.id == id);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      await service.confirmAddFOrder(teacherId: id, replay: text);
+      teachers.removeWhere((element) => element.id == id);
+    } finally {
+      lauding = false;
+      update();
+    }
   }
 }

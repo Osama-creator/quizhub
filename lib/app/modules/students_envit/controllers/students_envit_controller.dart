@@ -5,7 +5,7 @@ import 'package:quizhub/app/services/student_exercises.dart';
 import 'package:quizhub/helper/func.dart';
 
 class StudentsEnvitController extends GetxController {
-  final List<String> examId = Get.arguments as List<String>;
+  final List<String?> examId = Get.arguments as List<String?>;
   final studentExamsService = Get.find<StudentExamsService>();
   final authService = Get.find<AuthService>();
   List<User> users = [];
@@ -15,14 +15,25 @@ class StudentsEnvitController extends GetxController {
     return userData!.id!;
   }
 
+  bool loading = false;
+
   @override
   Future<void> onInit() async {
     final String id = await userId();
-    users.addAll(
-      await studentExamsService.fetchStudentToEnvite(
-        userId: id,
-      ),
-    );
+    try {
+      loading = true;
+      update();
+      users.addAll(
+        await studentExamsService.fetchStudentToEnvite(
+          userId: id,
+        ),
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
+    }
     filteredUsers.addAll(users);
     update();
     super.onInit();
@@ -48,9 +59,11 @@ class StudentsEnvitController extends GetxController {
   }) async {
     final String id = await userId();
     try {
+      loading = true;
+      update();
       studentExamsService.eviteFriend(
         forwordUserId: forwordUserId,
-        examId: examId[1],
+        examId: examId[1]!,
         userId: id,
       );
 
@@ -58,8 +71,9 @@ class StudentsEnvitController extends GetxController {
       invitedUser.invited = true;
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
     }
-
-    update();
   }
 }

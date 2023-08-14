@@ -10,22 +10,27 @@ class OrderResponseController extends GetxController {
   final service = Get.find<AdminService>();
   String orderId = "";
   String teacherId = "";
+  bool loading = false;
   OrderResponse res = OrderResponse(title: "title", profilePic: "pic");
   @override
   Future<void> onInit() async {
     orderId = args[0];
     teacherId = args[1];
     try {
+      loading = true;
+      update();
       res = await service.fetchOrderResponse(
         orderId: orderId,
         teacherId: teacherId,
       );
       log(res.profilePic);
-      update();
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
     }
-    update();
+
     super.onInit();
   }
 }

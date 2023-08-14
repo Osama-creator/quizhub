@@ -6,6 +6,7 @@ import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/app/modules/students_envit/controllers/students_envit_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class StudentsEnvitView extends GetView<StudentsEnvitController> {
   final TextEditingController searchController = TextEditingController();
@@ -39,13 +40,15 @@ class StudentsEnvitView extends GetView<StudentsEnvitController> {
             child: GetBuilder<StudentsEnvitController>(
               init: controller,
               builder: (_) {
-                return ListView.builder(
-                  itemCount: controller.filteredUsers.length,
-                  itemBuilder: (context, index) {
-                    final user = controller.filteredUsers[index];
-                    return _buildStudentTile(context, user);
-                  },
-                );
+                return controller.loading
+                    ? const CenterLoading()
+                    : ListView.builder(
+                        itemCount: controller.filteredUsers.length,
+                        itemBuilder: (context, index) {
+                          final user = controller.filteredUsers[index];
+                          return _buildStudentTile(context, user);
+                        },
+                      );
               },
             ),
           ),

@@ -19,7 +19,7 @@ class StudentHomeController extends GetxController
   String userId = "";
   List<String> subjects = [];
   List<ExerciseCardModel> exercises = [];
-
+  bool isLoading = false;
   @override
   void onClose() {
     tabController.dispose();
@@ -53,15 +53,19 @@ class StudentHomeController extends GetxController
   Future<void> fetchSubjects() async {
     if (userId.isNotEmpty) {
       try {
+        isLoading = true;
+        update();
         final subjectsFromApi = await service.fetchStudentHomeSubjectNames(
           userId,
         );
         subjects = subjectsFromApi;
         selectedSubject = subjects[0];
         onSelectSubject(0);
-        update();
       } catch (e, st) {
         catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
       }
     } else {
       log(" user id is null");
@@ -71,14 +75,18 @@ class StudentHomeController extends GetxController
   Future<void> fetchExercisesForSubject(String subjectName) async {
     if (userId.isNotEmpty) {
       try {
+        isLoading = true;
+        update();
         final exercisesFromApi = await service.fetchStudentExercises(
           userId: userId,
           subject: subjectName,
         );
         exercises = exercisesFromApi;
-        update();
       } catch (e, st) {
         catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
       }
     } else {
       log(" user id is null");

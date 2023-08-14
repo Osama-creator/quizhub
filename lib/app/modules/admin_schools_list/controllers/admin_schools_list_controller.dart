@@ -12,14 +12,16 @@ class AdminSchoolsListController extends GetxController {
   List<SchoolModel> schools = [];
   @override
   Future<void> onInit() async {
-    await action.performAction(
-      () async {
-        schools = await service.getSchoolList();
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      schools = await service.getSchoolList();
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
 
     super.onInit();
   }

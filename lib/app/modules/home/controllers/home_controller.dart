@@ -13,6 +13,7 @@ class HomeController extends GetxController {
   final authService = Get.find<AuthService>();
   final examC = Get.find<StudentHomeController>();
   bool follow = false;
+  bool loading = false;
   TeacherModel teacher = TeacherModel(
     id: "id",
     name: "name",
@@ -39,28 +40,36 @@ class HomeController extends GetxController {
     final userData = await authService.cachedUser;
     log(teacherId);
     try {
+      loading = true;
+      update();
       teacher = await service.getFolowedTeachers(
         idTeacher: teacherId,
         userId: userData!.id!,
       );
     } catch (e, st) {
       catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
     }
-    update();
   }
 
   Future<void> folowStudent() async {
     final userData = await authService.cachedUser;
     if (userData!.id != null) {
       try {
+        loading = true;
+        update();
         await service.folowTeacher(
           idUser: userData.id!,
           idTeacher: teacherId,
         );
         follow = true;
-        update();
       } catch (e, st) {
         catchLog(e, st);
+      } finally {
+        loading = false;
+        update();
       }
     } else {
       log("id error");

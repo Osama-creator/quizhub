@@ -18,14 +18,15 @@ class AdminGetMoneyReqController extends GetxController {
   List<MoneyOrder> orders = [];
   @override
   Future<void> onInit() async {
-    await action.performAction(
-      () async {
-        orders = await service.getMoneyOrders();
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      orders = await service.getMoneyOrders();
+    } finally {
+      lauding = false;
+      update();
+    }
+
     super.onInit();
   }
 
@@ -44,14 +45,15 @@ class AdminGetMoneyReqController extends GetxController {
     required File img,
     String? title,
   }) async {
-    await action.performAction(
-      () async {
-        service.confirmMoneyOrder(idOrder: id, img: img, title: title);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      await service.confirmMoneyOrder(idOrder: id, img: img, title: title);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     Alert.success(Tr.confirmed.tr);
   }
 

@@ -5,6 +5,7 @@ import 'package:quizhub/app/modules/matching_exercise/controllers/matching_exerc
 
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/timer.dart';
 
 class MatchingExerciseView extends GetView<MatchingExerciseController> {
@@ -37,113 +38,115 @@ class MatchingExerciseView extends GetView<MatchingExerciseController> {
         builder: (_) {
           return controller.questions.isEmpty
               ? const Center(child: Text("Congratulations "))
-              : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (controller.exam.time != null) ...[
-                        CountdownTimer(
-                          durationInMinutes: controller.exam.time!,
-                          onTimerEnd: onTimerEnd,
-                        ),
-                      ],
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 2.0,
-                        ),
-                        itemCount: controller.questions.length,
-                        itemBuilder: (context, index) {
-                          final question = controller.questions[index];
-                          return GestureDetector(
-                            onTap: () {
-                              if (!question.isSelectedFWord! &&
-                                  !question.isSelectedSWord!) {
-                                controller.selectFWord(
-                                  question.id!,
-                                  question.question,
-                                );
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: question.isSelectedFWord!
-                                    ? question.isCorrect!
-                                        ? Colors.red
-                                        : Colors.green
-                                    : Colors.white,
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Text(
-                                question.question,
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+              : controller.loading
+                  ? const CenterLoading()
+                  : SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (controller.exam.time != null) ...[
+                            CountdownTimer(
+                              durationInMinutes: controller.exam.time!,
+                              onTimerEnd: onTimerEnd,
+                            ),
+                          ],
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 2.0,
+                            ),
+                            itemCount: controller.questions.length,
+                            itemBuilder: (context, index) {
+                              final question = controller.questions[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  if (!question.isSelectedFWord! &&
+                                      !question.isSelectedSWord!) {
+                                    controller.selectFWord(
+                                      question.id!,
+                                      question.question,
+                                    );
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    color: question.isSelectedFWord!
+                                        ? question.isCorrect!
+                                            ? Colors.red
+                                            : Colors.green
+                                        : Colors.white,
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Text(
+                                    question.question,
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: context.width * 0.1,
-                        ),
-                        child: const Divider(
-                          color: Colors.black,
-                          thickness: 1,
-                        ),
-                      ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 2.0,
-                        ),
-                        itemCount: controller.questions.length,
-                        itemBuilder: (context, index) {
-                          final question = controller.questions[index];
-                          return GestureDetector(
-                            onTap: () {
-                              if (question.isSelectedFWord! &&
-                                  !question.isSelectedSWord! &&
-                                  !question.isCorrect!) {
-                                controller.selectSWord(
-                                  question.id!,
-                                  question.rightAnswer,
-                                );
-                              }
+                              );
                             },
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: question.isSelectedSWord!
-                                    ? question.isCorrect!
-                                        ? Colors.red
-                                        : Colors.green
-                                    : Colors.white,
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Text(
-                                question.rightAnswer,
-                                style: const TextStyle(fontSize: 18.0),
-                              ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: context.width * 0.1,
                             ),
-                          );
-                        },
+                            child: const Divider(
+                              color: Colors.black,
+                              thickness: 1,
+                            ),
+                          ),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 2.0,
+                            ),
+                            itemCount: controller.questions.length,
+                            itemBuilder: (context, index) {
+                              final question = controller.questions[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  if (question.isSelectedFWord! &&
+                                      !question.isSelectedSWord! &&
+                                      !question.isCorrect!) {
+                                    controller.selectSWord(
+                                      question.id!,
+                                      question.rightAnswer,
+                                    );
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    color: question.isSelectedSWord!
+                                        ? question.isCorrect!
+                                            ? Colors.red
+                                            : Colors.green
+                                        : Colors.white,
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Text(
+                                    question.rightAnswer,
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
+                    );
         },
       ),
     );

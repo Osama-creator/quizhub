@@ -19,14 +19,17 @@ class ParentHomeController extends GetxController {
     final userData = await auth.cachedUser;
     userName = userData!.name;
     userImage = userData.image!;
-    await action.performAction(
-      () async {
-        students = await service.fetchFolowedStudents(userData.id!);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      students = await service.fetchFolowedStudents(userData.id!);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     super.onInit();
   }
 }

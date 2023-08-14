@@ -19,7 +19,7 @@ class CreateFillGabsExerciseController extends GetxController {
   late String teacherId;
   final List<FillQuestionC> questions = [];
   final List<McqQuestion> apiQuestions = [];
-
+  bool isLaoding = false;
   @override
   void onInit() {
     teacherId = arguments['teacherId'] as String;
@@ -60,6 +60,8 @@ class CreateFillGabsExerciseController extends GetxController {
       }
     }
     try {
+      isLaoding = true;
+      update();
       for (final question in apiQuestions) {
         await examsService.postMcqQuestion(question);
       }
@@ -69,6 +71,9 @@ class CreateFillGabsExerciseController extends GetxController {
     } catch (e, st) {
       catchLog(e, st);
       Alert.error(Tr.error.tr);
+    } finally {
+      isLaoding = false;
+      update();
     }
   }
 }

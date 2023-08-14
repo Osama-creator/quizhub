@@ -19,7 +19,7 @@ class CreateChooseExerciseController extends GetxController {
   late String teacherId;
   final List<QuestionC> questions = [];
   final List<McqQuestion> apiQuestions = [];
-
+  bool isLaoding = false;
   @override
   void onInit() {
     teacherId = arguments['teacherId'] as String;
@@ -66,8 +66,9 @@ class CreateChooseExerciseController extends GetxController {
       }
     }
     try {
+      isLaoding = true;
+      update();
       for (final question in apiQuestions) {
-        // log(question.image!.path);
         await examsService.postMcqQuestion(question);
       }
       Get.find<GradeExercisesController>().refershing();
@@ -76,6 +77,9 @@ class CreateChooseExerciseController extends GetxController {
     } catch (e, st) {
       catchLog(e, st);
       Alert.error(Tr.error.tr);
+    } finally {
+      isLaoding = false;
+      update();
     }
   }
 }

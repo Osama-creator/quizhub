@@ -18,15 +18,18 @@ class SearchForStudentsController extends GetxController {
   @override
   Future<void> onInit() async {
     final userData = await authService.cachedUser;
-    await action.performAction(
-      () async {
-        students.addAll(await service.fetchStudents(userData!.id!));
-        filteredUsers.addAll(students);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      students.addAll(await service.fetchStudents(userData!.id!));
+      filteredUsers.addAll(students);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     super.onInit();
   }
 
@@ -49,16 +52,20 @@ class SearchForStudentsController extends GetxController {
     required String forwordUserId,
   }) async {
     final userData = await authService.cachedUser;
-    await action.performAction(
-      () async {
-        service.folowStudent(
-          userData!.id!,
-          forwordUserId,
-        );
-      },
-      lauding,
-      error,
-    );
+    try {
+      lauding = true;
+      update();
+      await service.folowStudent(
+        userData!.id!,
+        forwordUserId,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     final invitedUser = students.firstWhere((user) => user.id == forwordUserId);
     invitedUser.invited = true;
     update();

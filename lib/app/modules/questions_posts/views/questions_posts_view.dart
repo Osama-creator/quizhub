@@ -6,6 +6,7 @@ import 'package:quizhub/app/modules/questions_posts/views/widgets.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class QuestionsPostsView extends GetView<QuestionsPostsController> {
   const QuestionsPostsView({super.key});
@@ -22,35 +23,40 @@ class QuestionsPostsView extends GetView<QuestionsPostsController> {
       body: GetBuilder<QuestionsPostsController>(
         init: controller,
         builder: (_) {
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.posts.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onLongPress: () {
-                        _dialogBuilder(context, controller.posts[index].id);
-                      },
-                      onTap: () {
-                        Get.toNamed(
-                          Routes.COMMENTS_PAGE,
-                          arguments: [
-                            controller.posts[index].id,
-                            controller.args['id'] as String,
-                            controller.isTeacher
-                          ],
-                        );
-                      },
-                      child: buildPost(context, controller.posts[index]),
-                    );
-                  },
-                ),
-              ),
-              if (!controller.isTeacher) ...[buildPostInput(controller)],
-            ],
-          );
+          return controller.loading
+              ? const CenterLoading()
+              : Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.posts.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onLongPress: () {
+                              _dialogBuilder(
+                                context,
+                                controller.posts[index].id,
+                              );
+                            },
+                            onTap: () {
+                              Get.toNamed(
+                                Routes.COMMENTS_PAGE,
+                                arguments: [
+                                  controller.posts[index].id,
+                                  controller.args['id'] as String,
+                                  controller.isTeacher
+                                ],
+                              );
+                            },
+                            child: buildPost(context, controller.posts[index]),
+                          );
+                        },
+                      ),
+                    ),
+                    if (!controller.isTeacher) ...[buildPostInput(controller)],
+                  ],
+                );
         },
       ),
     );

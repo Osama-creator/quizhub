@@ -13,7 +13,7 @@ Column buildPost(BuildContext context, Post post) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
-              maxRadius: 20,
+              maxRadius: 18,
               backgroundImage: NetworkImage(
                 post.createdBy.profilePic.isEmpty
                     ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
@@ -26,6 +26,7 @@ Column buildPost(BuildContext context, Post post) {
             post.createdBy.name,
             style: context.textTheme.titleLarge!.copyWith(
               color: AppColors.black,
+              fontSize: 15,
             ),
           ),
         ],

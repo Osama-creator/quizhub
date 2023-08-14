@@ -20,6 +20,7 @@ class AddNewQuistionController extends GetxController {
   TextEditingController? wrongAnswer3C = TextEditingController();
   TextEditingController? wrongAnswer2C = TextEditingController();
   String? answer;
+  bool isLoading = false;
   TextEditingController? note = TextEditingController();
   final authService = Get.find<AuthService>();
   final examsService = Get.find<ExamsService>();
@@ -40,12 +41,12 @@ class AddNewQuistionController extends GetxController {
   void onInit() {
     id = args[0];
     type = args[1];
-
     super.onInit();
   }
 
   Future<void> addQuesion() async {
     final userData = await authService.cachedUser;
+
     final question = McqQuestion(
       examId: id,
       teacherId: userData!.id!,
@@ -58,13 +59,19 @@ class AddNewQuistionController extends GetxController {
       note: note!.text,
     );
     try {
+      isLoading = true;
+      update();
       await examsService.postMcqQuestion(question);
-      await Get.find<EditExerciseController>().editOnInit();
+
       Get.back();
+      await Get.find<EditExerciseController>().editOnInit();
       Alert.success(Tr.done.tr);
     } catch (e, st) {
       catchLog(e, st);
       Alert.error(Tr.error.tr);
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 }

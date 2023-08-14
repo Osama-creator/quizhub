@@ -18,17 +18,20 @@ class StudentOverviewController extends GetxController {
   @override
   Future<void> onInit() async {
     final userData = await authService.cachedUser;
-    await action.performAction(
-      () async {
-        exams = await service.fetchExams(
-          userId: studentData.id,
-          parentId: userData!.id!,
-        );
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      exams = await service.fetchExams(
+        userId: studentData.id,
+        parentId: userData!.id!,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     super.onInit();
   }
 }

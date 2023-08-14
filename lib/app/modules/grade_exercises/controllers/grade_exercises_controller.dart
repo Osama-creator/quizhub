@@ -18,6 +18,7 @@ class GradeExercisesController extends GetxController {
   String gradeName = "";
   String selectedExerciseType = '';
   String examId = "";
+  bool loading = false;
   // ignore: use_setters_to_change_properties
   void setSelectedExerciseType(String exerciseType) {
     selectedExerciseType = exerciseType;
@@ -36,7 +37,16 @@ class GradeExercisesController extends GetxController {
   }
 
   Future<void> refershing() async {
-    await fetchExercises(teacherId, gradeId, examsService);
+    try {
+      loading = true;
+      update();
+      await fetchExercises(teacherId, gradeId, examsService);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
+    }
   }
 
   Future<void> fetchExercises(
@@ -44,21 +54,18 @@ class GradeExercisesController extends GetxController {
     String gradeId,
     ExamsService examsService,
   ) async {
-    try {
-      exercises = await examsService.fetchExercises(
-        teacherId: teacherId,
-        gradeId: gradeId,
-      );
-      update();
-    } catch (e, st) {
-      catchLog(e, st);
-    }
+    exercises = await examsService.fetchExercises(
+      teacherId: teacherId,
+      gradeId: gradeId,
+    );
   }
 
   Future<void> deleteExercise(
     String exId,
   ) async {
     try {
+      loading = true;
+      update();
       await examsService.deleteExam(
         examId: exId,
       );
@@ -68,23 +75,34 @@ class GradeExercisesController extends GetxController {
     } catch (e, st) {
       catchLog(e, st);
       Alert.error(Tr.error.tr);
+    } finally {
+      loading = false;
+      update();
     }
   }
 
   Future<void> submet() async {
     trans();
-
-    examId = await examsService.createExam(
-      examName: eNameC.text,
-      examType: selectedExerciseType,
-      gradeId: gradeId,
-      teacherId: teacherId,
-      examTime: int.parse(eTimeC.text),
-    );
-    eNameC.text = "";
-    eTimeC.text = "";
-    Get.back();
-    getPreperPage();
+    try {
+      loading = true;
+      update();
+      examId = await examsService.createExam(
+        examName: eNameC.text,
+        examType: selectedExerciseType,
+        gradeId: gradeId,
+        teacherId: teacherId,
+        examTime: int.parse(eTimeC.text),
+      );
+      eNameC.text = "";
+      eTimeC.text = "";
+      Get.back();
+      getPreperPage();
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
+    }
   }
 
   void getPreperPage() {

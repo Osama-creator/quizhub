@@ -6,6 +6,7 @@ import 'package:quizhub/app/modules/mcq_exercise/controllers/mcq_exercise_contro
 import 'package:quizhub/app/modules/mcq_exercise/views/question_body.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/timer.dart';
 
 class McqExerciseView extends GetView<McqExerciseController> {
@@ -50,28 +51,31 @@ class McqExerciseView extends GetView<McqExerciseController> {
                       onTimerEnd: onTimerEnd,
                     ),
                   ],
-                  Expanded(
-                    child: PageView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: controller.pageController,
-                      itemCount: controller.quistionList.length,
-                      itemBuilder: (context, index) {
-                        return QuestionBody(
-                          controller: controller,
-                          index: index,
-                          quistion: controller.quistionList[index].question,
-                          image: controller.quistionList[index].pic ?? "",
-                          notes: controller.quistionList[index].note ?? "",
-                          list: [
-                            controller.quistionList[index].wrongAns1!,
-                            controller.quistionList[index].wrongAns2!,
-                            controller.quistionList[index].wrongAns3!,
-                            controller.quistionList[index].rightAnswer,
-                          ],
-                        );
-                      },
+                  if (controller.lauding)
+                    const CenterLoading()
+                  else
+                    Expanded(
+                      child: PageView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: controller.pageController,
+                        itemCount: controller.quistionList.length,
+                        itemBuilder: (context, index) {
+                          return QuestionBody(
+                            controller: controller,
+                            index: index,
+                            quistion: controller.quistionList[index].question,
+                            image: controller.quistionList[index].pic ?? "",
+                            notes: controller.quistionList[index].note ?? "",
+                            list: [
+                              controller.quistionList[index].wrongAns1!,
+                              controller.quistionList[index].wrongAns2!,
+                              controller.quistionList[index].wrongAns3!,
+                              controller.quistionList[index].rightAnswer,
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
                   SizedBox(
                     width: context.width * 0.8,
                     height: context.width * 0.1,
@@ -79,11 +83,14 @@ class McqExerciseView extends GetView<McqExerciseController> {
                       onPressed: () {
                         controller.checkAnswer();
                       },
-                      child: Text(
-                        controller.qNumber == controller.quistionList.length
-                            ? "إنهاء"
-                            : "تأكيد",
-                      ),
+                      child: controller.lauding
+                          ? const CenterLoading()
+                          : Text(
+                              controller.qNumber ==
+                                      controller.quistionList.length
+                                  ? "إنهاء"
+                                  : "تأكيد",
+                            ),
                     ),
                   )
                 ],

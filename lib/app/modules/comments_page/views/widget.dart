@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/comment_model.dart';
 import 'package:quizhub/app/modules/comments_page/controllers/comments_page_controller.dart';
@@ -61,59 +62,69 @@ Row buildComment(
           backgroundColor: Colors.transparent,
         ),
       ),
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                comment.createdBy.name,
-                style: context.textTheme.titleLarge!.copyWith(
-                  color: AppColors.black,
-                ),
-              ),
-              Text(
-                comment.commBody,
-                style: context.textTheme.bodyLarge!.copyWith(
-                  color: controller.isTeacher
-                      ? AppColors.black
-                      : AppColors.darkBlue,
-                  fontWeight: controller.isTeacher
-                      ? FontWeight.bold
-                      : FontWeight.normal,
-                ),
-              ),
-              Row(
+      GetBuilder<CommentsPageController>(
+        init: controller,
+        builder: (_) {
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  GestureDetector(
-                    onTap: () => controller.addLike(comment),
-                    child: Text(
-                      Tr.like.tr,
-                      style: context.textTheme.bodyLarge!.copyWith(
-                        color: comment.like == true ? Colors.red : Colors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
                   Text(
-                    comment.likes.length.toString(),
+                    comment.createdBy.name,
                     style: context.textTheme.titleLarge!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
+                      color: AppColors.black,
+                      fontWeight: controller.isTeacher
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      fontSize: 17,
                     ),
                   ),
-                  const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 30,
+                  Text(
+                    comment.commBody,
+                    style: context.textTheme.bodyLarge!.copyWith(
+                      color: controller.isTeacher
+                          ? AppColors.black
+                          : AppColors.darkBlue,
+                      fontWeight: controller.isTeacher
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => controller.addLike(comment),
+                        child: Text(
+                          Tr.like.tr,
+                          style: context.textTheme.bodyLarge!.copyWith(
+                            color:
+                                comment.like == true ? Colors.red : Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        comment.likes.length.toString(),
+                        style: context.textTheme.titleLarge!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       )
     ],
   );

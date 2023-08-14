@@ -38,13 +38,17 @@ class ComplateExerciseController extends GetxController {
     audioPlayer = AudioPlayer();
     log(examId);
     try {
+      lauding = true;
+      update();
       exam = await examsService.getExercise(id: examId);
       quistionList = exam.questions;
-      update();
     } catch (e, st) {
       catchLog("err$e", st);
+    } finally {
+      lauding = false;
+      update();
     }
-    update();
+
     super.onInit();
   }
 
@@ -83,18 +87,22 @@ class ComplateExerciseController extends GetxController {
   }
 
   Future<void> finishExam() async {
-    await action.performAction(
-      () async {
-        final userData = await authService.cachedUser;
-        studentExamsService.postDegree(
-          idUser: userData!.id!,
-          degree: degree,
-          idexam: examId,
-        );
-      },
-      lauding,
-      error,
-    );
+    try {
+      lauding = true;
+      update();
+      final userData = await authService.cachedUser;
+      studentExamsService.postDegree(
+        idUser: userData!.id!,
+        degree: degree,
+        idexam: examId,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
+
     Get.until((route) => route.settings.name == Routes.COMPLATE_EXERCISE);
     Get.offAndToNamed(
       Routes.STUDENTS_GRADES,

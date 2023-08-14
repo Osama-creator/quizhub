@@ -78,8 +78,8 @@ class CommentsPageView extends GetView<CommentsPageController> {
               ),
               child: Text(Tr.yes.tr),
               onPressed: () {
-                controller.removeComment(id);
                 Navigator.of(context).pop();
+                controller.removeComment(id);
               },
             ),
             TextButton(

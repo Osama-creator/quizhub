@@ -20,7 +20,7 @@ class TrueFalseExerciseController extends GetxController {
   int qNumber = 1;
   final examsService = Get.find<ExamsService>();
   final authService = Get.find<AuthService>();
-
+  bool isLoading = false;
   late AudioPlayer aAudioPlayer;
   final String examId = Get.arguments as String;
   int degree = 0;
@@ -70,12 +70,21 @@ class TrueFalseExerciseController extends GetxController {
   }
 
   Future<void> finishExam() async {
-    final userData = await authService.cachedUser;
-    studentExamsService.postDegree(
-      idUser: userData!.id!,
-      degree: degree,
-      idexam: examId,
-    );
+    try {
+      isLoading = true;
+      update();
+      final userData = await authService.cachedUser;
+      studentExamsService.postDegree(
+        idUser: userData!.id!,
+        degree: degree,
+        idexam: examId,
+      );
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      isLoading = false;
+      update();
+    }
 
     Get.until((route) => route.settings.name == Routes.TRUE_FALSE_EXERCISE);
     Get.offAndToNamed(
@@ -125,11 +134,15 @@ class TrueFalseExerciseController extends GetxController {
     aAudioPlayer = AudioPlayer();
     pageController = PageController();
     try {
+      isLoading = true;
+      update();
       exam = await examsService.getExercise(id: examId);
       quistionList = exam.questions;
-      update();
     } catch (e, st) {
       catchLog("err$e", st);
+    } finally {
+      isLoading = false;
+      update();
     }
     super.onInit();
   }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quizhub/app/models/student_degree.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/student_exercises.dart';
+import 'package:quizhub/helper/func.dart';
 
 class StudentsGradesController extends GetxController {
   final List args = Get.arguments as List;
@@ -14,6 +15,7 @@ class StudentsGradesController extends GetxController {
   String examId = '';
   String userName = '';
   String userImage = '';
+  bool loading = false;
   @override
   Future<void> onInit() async {
     final userData = await auth.cachedUser;
@@ -22,7 +24,17 @@ class StudentsGradesController extends GetxController {
     userImage = userData.image!;
     degree = args[0] as String;
     examId = args[1] as String;
-    studentsGrades = await service.fetchStudentDegrees(examId);
+    try {
+      loading = true;
+      update();
+      studentsGrades = await service.fetchStudentDegrees(examId);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      loading = false;
+      update();
+    }
+
     update();
     super.onInit();
   }

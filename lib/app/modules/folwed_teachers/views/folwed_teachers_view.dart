@@ -5,6 +5,7 @@ import 'package:quizhub/app/modules/folwed_teachers/controllers/folwed_teachers_
 import 'package:quizhub/app/modules/folwed_teachers/views/widget.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class FolwedTeachersView extends GetView<FolwedTeachersController> {
   const FolwedTeachersView({super.key});
@@ -26,21 +27,24 @@ class FolwedTeachersView extends GetView<FolwedTeachersController> {
                         .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: controller.teachers.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TeachersListTile(
-                          controller: controller,
-                          teacher: controller.teachers[index],
-                        ),
-                      );
-                    },
+                if (controller.loading)
+                  CenterLoading()
+                else
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: controller.teachers.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TeachersListTile(
+                            controller: controller,
+                            teacher: controller.teachers[index],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
                 InkWell(
                   onTap: () {
                     Get.toNamed(Routes.SEARCH_FOR_TEACHERS);

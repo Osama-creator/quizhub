@@ -6,6 +6,7 @@ import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/add_new_quistion/controllers/add_new_quistion_controller.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/text_field.dart';
 
 class AddNewQuistionView extends GetView<AddNewQuistionController> {
@@ -43,7 +44,9 @@ class AddNewQuistionView extends GetView<AddNewQuistionController> {
                     onPressed: () async {
                       await controller.addQuesion();
                     },
-                    child: Text(Tr.save.tr),
+                    child: controller.isLoading
+                        ? const CenterLoading()
+                        : Text(Tr.save.tr),
                   )
                 ],
               ),

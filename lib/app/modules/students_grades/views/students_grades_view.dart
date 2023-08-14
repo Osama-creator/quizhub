@@ -8,8 +8,8 @@ import 'package:quizhub/app/modules/students_grades/controllers/students_grades_
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 
-import 'package:quizhub/generated/assets.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class StudentsGradesView extends GetView<StudentsGradesController> {
   const StudentsGradesView({super.key});
@@ -84,20 +84,22 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
                     builder: (_) {
                       return Padding(
                         padding: const EdgeInsets.all(18),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: controller.studentsGrades.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: _buildStudentGradeTile(
-                                context,
-                                controller.studentsGrades[index],
-                                index + 1,
+                        child: controller.loading
+                            ? const CenterLoading()
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: controller.studentsGrades.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: _buildStudentGradeTile(
+                                      context,
+                                      controller.studentsGrades[index],
+                                      index + 1,
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       );
                     },
                   ),
@@ -127,7 +129,11 @@ class StudentsGradesView extends GetView<StudentsGradesController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: CircleAvatar(
-            backgroundImage: AssetImage(Asset.images.teacher),
+            backgroundImage: NetworkImage(
+              controller.userImage.isEmpty
+                  ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                  : controller.userImage,
+            ),
             backgroundColor: Colors.transparent,
           ),
         ),

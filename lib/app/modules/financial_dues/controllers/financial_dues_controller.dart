@@ -36,9 +36,14 @@ class FinancialDuesController extends GetxController {
     if (userData!.id != null) {
       teacherId = userData.id!;
       try {
+        isLoading = true;
+        update();
         data = await service.getfinancialsData(teacherId: teacherId);
       } catch (e, st) {
         catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
       }
     } else {
       log("err in id");
@@ -53,12 +58,17 @@ class FinancialDuesController extends GetxController {
     if (data!.equation >= int.parse(fNumberC.text)) {
       if (userData!.id != null) {
         try {
+          isLoading = true;
+          update();
           await service.addFolowersToTeacher(
             teacherId: userData.id!,
             folowersNumber: fNumberC.text,
           );
         } catch (e, st) {
           catchLog(e, st);
+        } finally {
+          isLoading = false;
+          update();
         }
       } else {
         log("err in id");
@@ -75,6 +85,7 @@ class FinancialDuesController extends GetxController {
     if (userData!.id != null) {
       try {
         isLoading = true;
+        update();
         if (data!.equation > 100) {
           await service.orderForMoney(
             teacherId: userData.id!,

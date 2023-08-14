@@ -5,6 +5,7 @@ import 'package:quizhub/app/modules/student_home/controllers/student_home_contro
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 
 class HomeTab extends GetView<StudentHomeController> {
   const HomeTab({super.key});
@@ -15,80 +16,85 @@ class HomeTab extends GetView<StudentHomeController> {
       init: controller,
       builder: (_) {
         return Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          controller.userImage.isEmpty
-                              ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
-                              : controller.userImage,
-                        ),
-                        backgroundColor: Colors.transparent,
+          body: controller.isLoading
+              ? const CenterLoading()
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                controller.userImage.isEmpty
+                                    ? "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg"
+                                    : controller.userImage,
+                              ),
+                              backgroundColor: Colors.transparent,
+                            ),
+                          ),
+                          Text(
+                            controller.userName,
+                            style: context.textTheme.titleLarge!
+                                .copyWith(color: AppColors.black),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      controller.userName,
-                      style: context.textTheme.titleLarge!
-                          .copyWith(color: AppColors.black),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Text(
-                    Tr.tashgee3.tr,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      color: AppColors.orangeColor,
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          Tr.tashgee3.tr,
+                          style: context.textTheme.titleLarge!.copyWith(
+                            color: AppColors.orangeColor,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          Tr.academicSubjects.tr,
+                          style: context.textTheme.headlineSmall!
+                              .copyWith(fontSize: 25),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: SubjectList(
+                          controller: controller,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      const Divider(
+                        color: AppColors.primary,
+                        endIndent: 20,
+                        indent: 20,
+                        thickness: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          Tr.exams.tr,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      if (controller.isLoading)
+                        CenterLoading()
+                      else
+                        DetailsBody(
+                          controller: controller,
+                        ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    Tr.academicSubjects.tr,
-                    style:
-                        context.textTheme.headlineSmall!.copyWith(fontSize: 25),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: SubjectList(
-                    controller: controller,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Divider(
-                  color: AppColors.primary,
-                  endIndent: 20,
-                  indent: 20,
-                  thickness: 1,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    Tr.exams.tr,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                DetailsBody(
-                  controller: controller,
-                ),
-              ],
-            ),
-          ),
         );
       },
     );

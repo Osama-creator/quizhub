@@ -15,14 +15,16 @@ class AdminTeachersOfSchoolController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await action.performAction(
-      () async {
-        school = await service.getSchoolMembers(schoolName: schoolName);
-      },
-      lauding,
-      error,
-    );
-    update();
+    try {
+      lauding = true;
+      update();
+      school = await service.getSchoolMembers(schoolName: schoolName);
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      lauding = false;
+      update();
+    }
     super.onInit();
   }
 }

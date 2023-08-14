@@ -47,7 +47,7 @@ class PostCommentervice {
     }
   }
 
-  Future<Post> createPost({
+  Future<Post?> createPost({
     required String userId,
     required String postBody,
     required String subName,
@@ -62,12 +62,6 @@ class PostCommentervice {
 
       if (responseData['message'] == 'Done') {
         log("post has been created succfully");
-        return Post(
-          id: "id",
-          title: postBody,
-          createdBy: User(id: userId, name: "osama"),
-          createdAt: DateTime.now(),
-        );
       } else {
         throw Exception('Failed to fetch posts');
       }
@@ -126,7 +120,7 @@ class PostCommentervice {
     }
   }
 
-  Future<Comment> createComment({
+  Future<Comment?> createComment({
     required String userId,
     required String postId,
     required String commentBody,
@@ -141,13 +135,6 @@ class PostCommentervice {
 
       if (responseData['message'] == 'Done') {
         log("post has been created succfully $postId");
-
-        return Comment(
-          id: "id",
-          commBody: commentBody,
-          createdBy: User(id: userId, name: "osama"),
-          likes: [],
-        );
       } else {
         throw Exception('Failed to fetch posts');
       }

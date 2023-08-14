@@ -5,6 +5,7 @@ import 'package:quizhub/app/modules/sign_in/controllers/sign_in_controller.dart'
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 class SignInView extends GetView<SignInController> {
@@ -38,27 +39,34 @@ class SignInView extends GetView<SignInController> {
                 obscure: true,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.width * 0.1,
-                vertical: context.height * 0.05,
-              ),
-              child: SizedBox(
-                height: context.height * 0.06,
-                width: context.width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    controller.submit();
-                  },
-                  child: Text(
-                    Tr.login.tr,
-                    style: context.textTheme.titleLarge!.copyWith(
-                      fontSize: 18,
-                      color: Colors.white,
+            GetBuilder<SignInController>(
+              init: controller,
+              builder: (_) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.width * 0.1,
+                    vertical: context.height * 0.05,
+                  ),
+                  child: SizedBox(
+                    height: context.height * 0.06,
+                    width: context.width,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        controller.submit();
+                      },
+                      child: controller.isLoading
+                          ? const CenterLoading()
+                          : Text(
+                              Tr.login.tr,
+                              style: context.textTheme.titleLarge!.copyWith(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
             InkWell(
               onTap: () => Get.toNamed(Routes.SIGN_UP),
