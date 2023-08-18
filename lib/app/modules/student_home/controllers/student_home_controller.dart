@@ -114,6 +114,9 @@ class StudentHomeController extends GetxController
       case "matching":
         Get.toNamed(Routes.MATCHING_EXERCISE, arguments: id);
         break;
+      case "collect_words":
+        Get.toNamed(Routes.COLLECTWORDS_EXERCISE, arguments: id);
+        break;
     }
   }
 }

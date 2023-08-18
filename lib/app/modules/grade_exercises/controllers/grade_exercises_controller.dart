@@ -131,6 +131,12 @@ class GradeExercisesController extends GetxController {
           arguments: {'teacherId': teacherId, 'examId': examId},
         );
         break;
+      case "collect_words":
+        Get.toNamed(
+          Routes.CREATE_COLLECTWORDS_EXERCISE,
+          arguments: {'teacherId': teacherId, 'examId': examId},
+        );
+        break;
       default:
         Alert.error("يجب إختيار نوع التدريب");
         break;
@@ -153,6 +159,10 @@ class GradeExercisesController extends GetxController {
         break;
       case "توصيل":
         selectedExerciseType = "matching";
+
+        break;
+      case "ترتيب":
+        selectedExerciseType = "collect_words";
 
         break;
       default:

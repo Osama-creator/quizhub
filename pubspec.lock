@@ -891,6 +891,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.4"
+  word_collector:
+    dependency: "direct main"
+    description:
+      name: word_collector
+      sha256: "4bd401f30866fd139b48aaa539bdf4d0b8992e9680a5cd3eb6abe62ed7f7db49"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   xdg_directories:
     dependency: transitive
     description:

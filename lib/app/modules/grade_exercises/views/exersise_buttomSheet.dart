@@ -27,6 +27,7 @@ class _ExerciseTypeSelectionState extends State<ExerciseTypeSelection> {
         exerciseButton('صح وخطأ'),
         exerciseButton('أكمل'),
         exerciseButton('توصيل'),
+        exerciseButton('ترتيب'),
       ],
     );
   }
@@ -44,7 +45,7 @@ class _ExerciseTypeSelectionState extends State<ExerciseTypeSelection> {
           widget.onExerciseTypeSelected(exerciseType);
         },
         height: context.height * 0.05,
-        minWidth: context.width * 0.2,
+        minWidth: context.width * 0.15,
         color: isSelected ? AppColors.primary : AppColors.grey,
         textColor: isSelected ? AppColors.light : AppColors.black,
         child: Text(exerciseType),

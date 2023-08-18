@@ -50,6 +50,9 @@ abstract class Routes {
   static const TEACHERS_ACCOUNT_DETAILS = _Paths.TEACHERS_ACCOUNT_DETAILS;
   static const ADMIN_ADD_ADVICE = _Paths.ADMIN_ADD_ADVICE;
   static const GET_ADVICE_LIST = _Paths.GET_ADVICE_LIST;
+  static const CREATE_COLLECTWORDS_EXERCISE =
+      _Paths.CREATE_COLLECTWORDS_EXERCISE;
+  static const COLLECTWORDS_EXERCISE = _Paths.COLLECTWORDS_EXERCISE;
 }
 
 abstract class _Paths {
@@ -101,4 +104,6 @@ abstract class _Paths {
   static const TEACHERS_ACCOUNT_DETAILS = '/teachers-account-details';
   static const ADMIN_ADD_ADVICE = '/admin-add-advice';
   static const GET_ADVICE_LIST = '/get-advice-list';
+  static const CREATE_COLLECTWORDS_EXERCISE = '/create-collectwords-exercise';
+  static const COLLECTWORDS_EXERCISE = '/collectwords-exercise';
 }

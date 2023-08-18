@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 
 import 'package:quizhub/app/modules/get_advice_list/controllers/get_advice_list_controller.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 
 class GetAdviceListView extends GetView<GetAdviceListController> {
@@ -11,7 +13,7 @@ class GetAdviceListView extends GetView<GetAdviceListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('النصائح'),
+        title: Text(Tr.advices.tr),
         centerTitle: true,
       ),
       body: GetBuilder<GetAdviceListController>(
@@ -20,7 +22,7 @@ class GetAdviceListView extends GetView<GetAdviceListController> {
           return controller.lauding
               ? const CenterLoading()
               : controller.advices.isEmpty
-                  ? const Center(child: Text("لا يوحد بيانات"))
+                  ? Center(child: Text(Tr.noDataAvailable.tr))
                   : ListView.builder(
                       itemCount: controller.advices.length,
                       itemBuilder: (context, index) {

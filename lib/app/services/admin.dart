@@ -207,7 +207,7 @@ class AdminService {
       final response = await client.post(
         Endpoints.getAdvice,
         body: {
-          "id": "64dfa53eb0e99521efa0f5d7",
+          "id": userId,
         },
       );
       if (response.statusCode == 200) {
