@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
+import 'package:quizhub/app/models/advice.dart';
 import 'package:quizhub/app/models/money_order.dart';
 import 'package:quizhub/app/models/school.dart';
 import 'package:quizhub/app/models/school_details.dart';
@@ -196,6 +197,40 @@ class AdminService {
       }
     } catch (e, st) {
       catchLog(0, st);
+    }
+  }
+
+  Future<List<Advice>> getAdvices({
+    required String userId,
+  }) async {
+    try {
+      final response = await client.post(
+        Endpoints.getAdvice,
+        body: {
+          "id": "64dfa53eb0e99521efa0f5d7",
+        },
+      );
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonResponse =
+            response.data as Map<String, dynamic>;
+        final List<dynamic> advicesData =
+            jsonResponse['advices'] as List<dynamic>;
+
+        if (advicesData.isNotEmpty) {
+          final List<Advice> advices = advicesData.map((adviceData) {
+            return Advice.fromMap(adviceData as Map<String, dynamic>);
+          }).toList();
+
+          return advices;
+        } else {
+          throw Exception('No advice found');
+        }
+      } else {
+        throw Exception('Failed to fetch advices');
+      }
+    } catch (e, st) {
+      catchLog(0, st);
+      throw Exception('Failed to fetch advices');
     }
   }
 

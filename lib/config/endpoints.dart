@@ -71,6 +71,7 @@ abstract class Endpoints {
   static const moneyOrdres = '/v6/com/getallOrder';
   static const confirmationOfMoneyOrder = '/v6/com/confirmOrder';
   static const addAdvice = '/v6/com/addAdvice';
+  static const getAdvice = '/v6/com/getallAdvices';
   static const confirmationOfaccount = '/v6/com/addconfirmTeacher';
   static const confirmationOfMoneyOrderResponse =
       '/v6/com/TeacherOrdersMessage';

@@ -49,6 +49,7 @@ abstract class Routes {
   static const TEACHERS_PROFILES_LIST = _Paths.TEACHERS_PROFILES_LIST;
   static const TEACHERS_ACCOUNT_DETAILS = _Paths.TEACHERS_ACCOUNT_DETAILS;
   static const ADMIN_ADD_ADVICE = _Paths.ADMIN_ADD_ADVICE;
+  static const GET_ADVICE_LIST = _Paths.GET_ADVICE_LIST;
 }
 
 abstract class _Paths {
@@ -99,4 +100,5 @@ abstract class _Paths {
   static const TEACHERS_PROFILES_LIST = '/teachers-profiles-list';
   static const TEACHERS_ACCOUNT_DETAILS = '/teachers-account-details';
   static const ADMIN_ADD_ADVICE = '/admin-add-advice';
+  static const GET_ADVICE_LIST = '/get-advice-list';
 }

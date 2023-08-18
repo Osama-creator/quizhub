@@ -356,6 +356,17 @@ class SettingButton extends StatelessWidget {
           PopupMenuItem(
             value: 'option1',
             child: InkWell(
+              onTap: () => Get.toNamed(Routes.GET_ADVICE_LIST),
+              child: Text(
+                "النصائح",
+                style: context.textTheme.bodyLarge!
+                    .copyWith(color: textColor ?? AppColors.primary),
+              ),
+            ),
+          ),
+          PopupMenuItem(
+            value: 'option1',
+            child: InkWell(
               onTap: () => Get.toNamed(Routes.LANGUAGES),
               child: Text(
                 Tr.language.tr,
