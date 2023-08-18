@@ -178,6 +178,27 @@ class AdminService {
     }
   }
 
+  Future<void> postAdvice({
+    required String title,
+    required String body,
+    required String userRole,
+  }) async {
+    try {
+      final response = await client.post(
+        Endpoints.addAdvice,
+        body: {"body": body, "title": title, "to": userRole},
+      );
+
+      if (response.statusCode == 200) {
+        log("done ");
+      } else {
+        throw Exception('Failed to post advice');
+      }
+    } catch (e, st) {
+      catchLog(0, st);
+    }
+  }
+
   Future<OrderResponse> fetchOrderResponse({
     required String teacherId,
     required String orderId,

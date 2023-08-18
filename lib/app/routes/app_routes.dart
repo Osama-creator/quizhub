@@ -48,6 +48,7 @@ abstract class Routes {
   static const ADD_NEW_QUISTION = _Paths.ADD_NEW_QUISTION;
   static const TEACHERS_PROFILES_LIST = _Paths.TEACHERS_PROFILES_LIST;
   static const TEACHERS_ACCOUNT_DETAILS = _Paths.TEACHERS_ACCOUNT_DETAILS;
+  static const ADMIN_ADD_ADVICE = _Paths.ADMIN_ADD_ADVICE;
 }
 
 abstract class _Paths {
@@ -97,4 +98,5 @@ abstract class _Paths {
   static const ADD_NEW_QUISTION = '/add-new-quistion';
   static const TEACHERS_PROFILES_LIST = '/teachers-profiles-list';
   static const TEACHERS_ACCOUNT_DETAILS = '/teachers-account-details';
+  static const ADMIN_ADD_ADVICE = '/admin-add-advice';
 }

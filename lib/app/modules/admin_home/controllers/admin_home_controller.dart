@@ -7,7 +7,7 @@ class AdminHomeController extends GetxController
 
   @override
   void onInit() {
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 5, vsync: this);
     tabController.addListener(update); // Use 'this' as vsync
     super.onInit();
   }

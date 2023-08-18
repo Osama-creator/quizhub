@@ -69,58 +69,63 @@ class _InputFieldState extends State<InputField> {
           ),
           const SizedBox(height: 10),
         ],
-        TextFormField(
-          validator: widget.validators,
-          obscureText: widget.obscure && !passwordVisible,
-          enabled: widget.enabled,
-          controller: widget.controller,
-          onChanged: widget.onChanged,
-          onFieldSubmitted: widget.onFieldSubmitted,
-          maxLines: widget.obscure ? 1 : widget.maxLines,
-          minLines: widget.minLines,
-          keyboardType: widget.keyboardType,
-          inputFormatters: widget.inputFormatters,
-          textAlign: TextAlign.right,
-          style: const TextStyle(fontSize: 16, color: Colors.black),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: widget.fillColor ?? Colors.grey.shade200,
-            prefixIcon: widget.prefix,
-            suffixIcon: widget.obscure
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        passwordVisible = !passwordVisible;
-                      });
-                    },
-                    child: Icon(
-                      passwordVisible ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey,
-                    ),
-                  )
-                : widget.suffix,
-            hintText: widget.hint,
-            errorStyle: const TextStyle(
-              color: Colors.red,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: widget.borderColor ?? Colors.grey,
-              ),
-              borderRadius: BorderRadius.circular(widget.radius),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.blue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(widget.radius),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
+        SizedBox(
+          height: widget.height,
+          child: TextFormField(
+            validator: widget.validators,
+            obscureText: widget.obscure && !passwordVisible,
+            enabled: widget.enabled,
+            controller: widget.controller,
+            onChanged: widget.onChanged,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            maxLines: widget.obscure ? 1 : widget.maxLines,
+            minLines: widget.minLines,
+            keyboardType: widget.keyboardType,
+            inputFormatters: widget.inputFormatters,
+            textAlign: TextAlign.right,
+            style: const TextStyle(fontSize: 16, color: Colors.black),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: widget.fillColor ?? Colors.grey.shade200,
+              prefixIcon: widget.prefix,
+              suffixIcon: widget.obscure
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          passwordVisible = !passwordVisible;
+                        });
+                      },
+                      child: Icon(
+                        passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                    )
+                  : widget.suffix,
+              hintText: widget.hint,
+              errorStyle: const TextStyle(
                 color: Colors.red,
               ),
-              borderRadius: BorderRadius.circular(widget.radius),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: widget.borderColor ?? Colors.grey,
+                ),
+                borderRadius: BorderRadius.circular(widget.radius),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.blue,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(widget.radius),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                ),
+                borderRadius: BorderRadius.circular(widget.radius),
+              ),
             ),
           ),
         ),

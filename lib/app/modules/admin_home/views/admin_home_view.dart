@@ -2,8 +2,8 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
+import 'package:quizhub/app/modules/admin_add_advice/views/admin_add_advice_view.dart';
 import 'package:quizhub/app/modules/admin_add_folowers_orders/views/admin_add_folowers_orders_view.dart';
-import 'package:quizhub/app/modules/admin_get_money_req/views/admin_get_money_req_view.dart';
 import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller.dart';
 import 'package:quizhub/app/modules/admin_schools_list/views/admin_schools_list_view.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
@@ -43,7 +43,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
               AdminSchoolsListView(),
               TeachersProfilesListView(),
               AdminAddFolowersOrdersView(),
-              AdminGetMoneyReqView(),
+              AdminAddAdviceView(),
             ],
           ),
           bottomNavigationBar: BottomNavyBar(
@@ -59,7 +59,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
               ),
               buildBottomItem(
                 title: "تاكيد",
-                iconData: Icons.add_box_rounded,
+                iconData: Icons.confirmation_num,
                 isActive: controller.tabController.index == 1,
               ),
               buildBottomItem(
@@ -71,6 +71,11 @@ class AdminHomeView extends GetView<AdminHomeController> {
                 title: Tr.addFRequist.tr,
                 iconData: Icons.add_box_rounded,
                 isActive: controller.tabController.index == 3,
+              ),
+              buildBottomItem(
+                title: "النصائح",
+                iconData: Icons.subject_rounded,
+                isActive: controller.tabController.index == 4,
               ),
             ],
           ),

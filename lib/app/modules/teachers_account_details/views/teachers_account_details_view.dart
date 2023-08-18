@@ -11,9 +11,6 @@ class TeachersAccountDetailsView
 
   @override
   Widget build(BuildContext context) {
-    final teacher =
-        controller.account; // Get the teacher data from the controller
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('تفاصيل المعلم'),

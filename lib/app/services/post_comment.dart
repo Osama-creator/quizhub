@@ -4,10 +4,8 @@ import 'dart:developer';
 
 import 'package:quizhub/app/models/comment_model.dart';
 import 'package:quizhub/app/models/post_model.dart';
-import 'package:quizhub/app/models/user.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
-
 import 'package:quizhub/helper/func.dart';
 
 class PostCommentervice {
