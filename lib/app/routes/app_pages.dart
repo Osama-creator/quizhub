@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'package:quizhub/app/modules/add_new_quistion/bindings/add_new_quistion_binding.dart';
 import 'package:quizhub/app/modules/add_new_quistion/views/add_new_quistion_view.dart';
 import 'package:quizhub/app/modules/admin_add_folowers_orders/bindings/admin_add_folowers_orders_binding.dart';
@@ -10,7 +9,6 @@ import 'package:quizhub/app/modules/admin_home/bindings/admin_home_binding.dart'
 import 'package:quizhub/app/modules/admin_home/views/admin_home_view.dart';
 import 'package:quizhub/app/modules/admin_schools_list/bindings/admin_schools_list_binding.dart';
 import 'package:quizhub/app/modules/admin_schools_list/views/admin_schools_list_view.dart';
-
 import 'package:quizhub/app/modules/admin_teachers_of_school/bindings/admin_teachers_of_school_binding.dart';
 import 'package:quizhub/app/modules/admin_teachers_of_school/views/admin_teachers_of_school_view.dart';
 import 'package:quizhub/app/modules/comments_page/bindings/comments_page_binding.dart';
@@ -75,6 +73,8 @@ import 'package:quizhub/app/modules/teacher_home/bindings/teacher_home_binding.d
 import 'package:quizhub/app/modules/teacher_home/views/teacher_home_view.dart';
 import 'package:quizhub/app/modules/teacher_prv_requists/bindings/teacher_prv_requists_binding.dart';
 import 'package:quizhub/app/modules/teacher_prv_requists/views/teacher_prv_requists_view.dart';
+import 'package:quizhub/app/modules/teachers_account_details/bindings/teachers_account_details_binding.dart';
+import 'package:quizhub/app/modules/teachers_account_details/views/teachers_account_details_view.dart';
 import 'package:quizhub/app/modules/true_false_exercise/bindings/true_false_exercise_binding.dart';
 import 'package:quizhub/app/modules/true_false_exercise/views/true_false_exercise_view.dart';
 
@@ -275,6 +275,11 @@ class AppPages {
       name: _Paths.ADD_NEW_QUISTION,
       page: () => const AddNewQuistionView(),
       binding: AddNewQuistionBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHERS_ACCOUNT_DETAILS,
+      page: () => const TeachersAccountDetailsView(),
+      binding: TeachersAccountDetailsBinding(),
     ),
   ];
 }

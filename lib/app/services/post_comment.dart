@@ -69,6 +69,7 @@ class PostCommentervice {
       catchLog(e, st);
       throw Exception('Error: $e');
     }
+    return null;
   }
 
   Future<bool?> deletePost({
@@ -120,6 +121,7 @@ class PostCommentervice {
     }
   }
 
+  // ignore: body_might_complete_normally_nullable
   Future<Comment?> createComment({
     required String userId,
     required String postId,

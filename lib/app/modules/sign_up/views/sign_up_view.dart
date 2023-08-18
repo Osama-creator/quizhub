@@ -111,7 +111,9 @@ class SignUpView extends GetView<SignUpController> {
                       title: Tr.subjectTitle.tr,
                       subTitle: controller.subject ?? Tr.selectSubject.tr,
                       icon: Icons.school,
-                      onTap: controller.pickSubject,
+                      onTap: () async {
+                        await controller.pickSubject(context);
+                      },
                     ),
                   ],
                   if (controller.roleName != UserRole.Teacher) ...[
@@ -142,7 +144,9 @@ class SignUpView extends GetView<SignUpController> {
                       title: Tr.schoolTitle.tr,
                       subTitle: controller.school ?? Tr.selectSchool.tr,
                       icon: Icons.school,
-                      onTap: controller.pickSchool,
+                      onTap: () async {
+                        await controller.pickSchool(context);
+                      },
                     ),
                   ],
                   SizedBox(

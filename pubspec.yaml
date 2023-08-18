@@ -38,6 +38,7 @@ dependencies:
   audioplayers:
   mime_type: ^1.0.0
   quickalert: ^1.0.1
+  internet_connection_checker: ^1.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -47,16 +48,20 @@ dev_dependencies:
 
 flutter: 
   assets:
-    - assets/fonts/Cairo-Black.ttf
-    - assets/fonts/Cairo-Bold.ttf
     - assets/audio/false.mp3
     - assets/audio/true.mp3
+    - assets/fonts/Cairo-Black.ttf
+    - assets/fonts/Cairo-Bold.ttf
     - assets/fonts/Cairo-ExtraBold.ttf
     - assets/fonts/Cairo-ExtraLight.ttf
     - assets/fonts/Cairo-Light.ttf
     - assets/fonts/Cairo-Medium.ttf
     - assets/fonts/Cairo-Regular.ttf
     - assets/fonts/Cairo-SemiBold.ttf
+    - assets/fonts/NotoNaskhArabic-Bold.ttf
+    - assets/fonts/NotoNaskhArabic-Medium.ttf
+    - assets/fonts/NotoNaskhArabic-Regular.ttf
+    - assets/fonts/NotoNaskhArabic-SemiBold.ttf
     - assets/fonts/NotoSansArabic-Black.ttf
     - assets/fonts/NotoSansArabic-Bold.ttf
     - assets/fonts/NotoSansArabic-Light.ttf
@@ -66,6 +71,7 @@ flutter:
     - assets/fonts/STV.ttf
     - assets/images/history.png
     - assets/images/logo.png
+    - assets/images/noconnection.png
     - assets/images/teacher.jpeg
     - assets/lang/ar.json
     - assets/lang/en.json

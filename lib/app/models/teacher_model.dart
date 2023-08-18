@@ -75,9 +75,7 @@ class TeacherModel {
   final String role;
   final bool isLoggedIn;
   final List<String> follow;
-
   final List<String> followStudent;
-
   final List<ExerciseModel> exams;
   final List<DoneExerciseModel> doneExams;
 

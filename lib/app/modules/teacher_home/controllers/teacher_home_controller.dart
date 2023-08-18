@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide ContextExtensionss, Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/models/grade.dart';
@@ -12,25 +13,45 @@ import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
+import 'package:quizhub/views/center_loading.dart';
+import 'package:quizhub/views/input_feild.dart';
 import 'package:quizhub/views/pick_utils.dart';
 
 class TeacherHomeController extends GetxController {
   final service = Get.find<CommonService>();
   final authService = Get.find<AuthService>();
   final ervice = Get.find<ExamsService>();
+  final classC = TextEditingController();
+
   String teacherId = "";
   final List<GradeModel> grades = [];
   final List<String> gradesNames = [];
   String teacherName = "";
+  bool isConfirmed = false;
   String teacherSubject = "";
   String image = "";
   int? followLength;
   bool loading = false;
-  Future<void> pickClass() async {
+  Future<void> pickClass(BuildContext context) async {
     try {
       loading = true;
       update();
-      final res = await Get.bottomSheet<String?>(const PickClss());
+      final res = await Get.bottomSheet<String?>(
+        PickClss(
+          onPressed: () {
+            Get.back();
+            addDialog(
+              context,
+              "اضافه صف",
+              "إسم الصف",
+              classC,
+              () async {
+                addGrade(classC.text);
+              },
+            );
+          },
+        ),
+      );
       if (res != null && !grades.map((e) => e.arName).contains(res)) {
         final GradeModel response =
             await service.addGrades(grade: res, teacherId: teacherId);
@@ -46,6 +67,52 @@ class TeacherHomeController extends GetxController {
     } finally {
       loading = false;
       update();
+    }
+  }
+
+  Future<void> addDialog(
+    BuildContext context,
+    String title,
+    String hint,
+    TextEditingController controller,
+    VoidCallback onTap,
+  ) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                InputField(
+                  controller: controller,
+                  hint: hint,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: onTap,
+                  child: loading ? const CenterLoading() : const Text("اضافه"),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> addGrade(String classjName) async {
+    try {
+      await service.addClass(classjName: classjName);
+      log("done");
+    } catch (e, st) {
+      catchLog(e, st);
+    } finally {
+      classC.clear();
+      Get.back();
     }
   }
 
@@ -69,6 +136,7 @@ class TeacherHomeController extends GetxController {
         final teacherData = responseData['Teacher'];
         teacherName = userData.name;
         teacherId = teacherData['_id'] as String;
+        isConfirmed = teacherData['confirmTeachers'] as bool;
         image = teacherData['profile_pic'] as String? ?? "";
         teacherSubject = teacherData['material'] as String;
         followLength = teacherData['follow'].length as int;

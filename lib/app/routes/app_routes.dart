@@ -46,6 +46,8 @@ abstract class Routes {
   static const ORDER_RESPONSE = _Paths.ORDER_RESPONSE;
   static const LANGUAGES = _Paths.LANGUAGES;
   static const ADD_NEW_QUISTION = _Paths.ADD_NEW_QUISTION;
+  static const TEACHERS_PROFILES_LIST = _Paths.TEACHERS_PROFILES_LIST;
+  static const TEACHERS_ACCOUNT_DETAILS = _Paths.TEACHERS_ACCOUNT_DETAILS;
 }
 
 abstract class _Paths {
@@ -93,4 +95,6 @@ abstract class _Paths {
   static const ORDER_RESPONSE = '/order-response';
   static const LANGUAGES = '/languages';
   static const ADD_NEW_QUISTION = '/add-new-quistion';
+  static const TEACHERS_PROFILES_LIST = '/teachers-profiles-list';
+  static const TEACHERS_ACCOUNT_DETAILS = '/teachers-account-details';
 }

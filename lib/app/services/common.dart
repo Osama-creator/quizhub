@@ -53,7 +53,7 @@ class CommonService {
       throw Exception('Failed to fetch schools');
     }
 
-    final List<dynamic> schoolList = response.data['school'] as List<dynamic>;
+    final List<dynamic> schoolList = response.data['schools'] as List<dynamic>;
     final List<String> schoolNames =
         schoolList.map((item) => item.toString()).toList();
 
@@ -91,5 +91,44 @@ class CommonService {
       throw Exception('Failed to fetch schools');
     }
     return response;
+  }
+
+  Future<void> addSubj({
+    required String subjName,
+  }) async {
+    final response = await client.post(
+      Endpoints.addSub,
+      body: {"nameSubject": subjName},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add subj');
+    }
+  }
+
+  Future<void> addClass({
+    required String classjName,
+  }) async {
+    final response = await client.post(
+      Endpoints.addClass,
+      body: {"namegrade": classjName},
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add class');
+    }
+  }
+
+  Future<void> addSchool({
+    required String school,
+    required String city,
+  }) async {
+    final response = await client.post(
+      Endpoints.addSchool,
+      body: {"nameSchool": school, "namegovernorate": city},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add school');
+    }
   }
 }

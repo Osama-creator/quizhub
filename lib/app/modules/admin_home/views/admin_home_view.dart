@@ -7,6 +7,7 @@ import 'package:quizhub/app/modules/admin_get_money_req/views/admin_get_money_re
 import 'package:quizhub/app/modules/admin_home/controllers/admin_home_controller.dart';
 import 'package:quizhub/app/modules/admin_schools_list/views/admin_schools_list_view.dart';
 import 'package:quizhub/app/modules/student_home/views/widgets.dart';
+import 'package:quizhub/app/modules/teachers_profiles_list/views/teachers_profiles_list_view.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
@@ -40,6 +41,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
             controller: controller.tabController,
             children: const [
               AdminSchoolsListView(),
+              TeachersProfilesListView(),
               AdminAddFolowersOrdersView(),
               AdminGetMoneyReqView(),
             ],
@@ -56,14 +58,19 @@ class AdminHomeView extends GetView<AdminHomeController> {
                 isActive: controller.tabController.index == 0,
               ),
               buildBottomItem(
+                title: "تاكيد",
+                iconData: Icons.add_box_rounded,
+                isActive: controller.tabController.index == 1,
+              ),
+              buildBottomItem(
                 title: Tr.moneyRequists.tr,
                 iconData: Icons.attach_money_sharp,
-                isActive: controller.tabController.index == 1,
+                isActive: controller.tabController.index == 2,
               ),
               buildBottomItem(
                 title: Tr.addFRequist.tr,
                 iconData: Icons.add_box_rounded,
-                isActive: controller.tabController.index == 2,
+                isActive: controller.tabController.index == 3,
               ),
             ],
           ),

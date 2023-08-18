@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'https://tack-orcin.vercel.app/Node.js';
+  static const host = 'http://192.168.1.105:4500/Node.js';
   static const api = '$host/api';
 
   /// ! auth
@@ -10,6 +10,9 @@ abstract class Endpoints {
   static const grades = '/v6/use/getallgrades';
   static const subject = '/v6/use/subjects';
   static const schools = '/v6/use/getallschool';
+  static const addSub = '/v6/use/addsubjects';
+  static const addClass = '/v6/use/addgrade';
+  static const addSchool = '/v6/use//addSchool';
 
   /// ! teacher
   static const addGrade = '/v6/com/addgrades';
@@ -56,6 +59,7 @@ abstract class Endpoints {
   /// ! admin
   static const getSchoolsForAdmin = '/v6/use/schoolsToStudent';
   static const getDetailsSchoolsForAdmin = '/v6/use/theSchool';
+  static const getAccountOrder = '/v6/com/getallconfirmTeacher';
 
   /// ! financails
   static const addfollowersEP = '/v6/com/addFolower';
@@ -66,6 +70,7 @@ abstract class Endpoints {
   static const getFinancialData = '/v6/com/getallReceivablesPage';
   static const moneyOrdres = '/v6/com/getallOrder';
   static const confirmationOfMoneyOrder = '/v6/com/confirmOrder';
+  static const confirmationOfaccount = '/v6/com/addconfirmTeacher';
   static const confirmationOfMoneyOrderResponse =
       '/v6/com/TeacherOrdersMessage';
 }

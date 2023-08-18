@@ -5,19 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:queen/queen.dart';
 import 'package:quizhub/app/services/auth.dart';
+import 'package:quizhub/app/services/common.dart';
 import 'package:quizhub/config/enums.dart';
 import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/helper/pick.dart';
+import 'package:quizhub/views/center_loading.dart';
+import 'package:quizhub/views/input_feild.dart';
 import 'package:quizhub/views/pick_utils.dart';
 
 class SignUpController extends GetxController {
   final service = Get.find<AuthService>();
+  final commonService = Get.find<CommonService>();
   final fNameC = TextEditingController();
   final lNameC = TextEditingController();
   final emailC = TextEditingController();
   final phoneC = TextEditingController();
+  final subController = TextEditingController();
+  final schoolController = TextEditingController();
   final passwordC = TextEditingController();
   final confermationPasswordC = TextEditingController();
   UserRole roleName = UserRole.Student;
@@ -92,20 +98,114 @@ class SignUpController extends GetxController {
     }
   }
 
+  Future<void> addSubject(String subName) async {
+    if (roleName == UserRole.Teacher) {
+      try {
+        isLoading = true;
+        update();
+        await commonService.addSubj(subjName: subName);
+        log("done");
+      } catch (e, st) {
+        catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
+        subController.clear();
+        Get.back();
+      }
+    } else {
+      Alert.error("لايمكن تنفيذ طلبك");
+    }
+  }
+
+  Future<void> addSchool(String school, String city) async {
+    if (roleName == UserRole.Teacher) {
+      try {
+        isLoading = true;
+        update();
+        await commonService.addSchool(city: city, school: school);
+        log("done");
+      } catch (e, st) {
+        catchLog(e, st);
+      } finally {
+        isLoading = false;
+        update();
+        schoolController.clear();
+        Get.back();
+      }
+    } else {
+      Alert.error("لايمكن تنفيذ طلبك");
+    }
+  }
+
   Future<void> pickClass() async {
-    final res = await Get.bottomSheet<String?>(const PickClss());
+    final res = await Get.bottomSheet<String?>(
+      PickClss(
+        onPressed: () {},
+      ),
+    );
     if (res != null) {
       classS = res;
       update();
     }
   }
 
-  Future<void> pickSubject() async {
-    final res = await Get.bottomSheet<String?>(const PickSub());
+  Future<void> pickSubject(BuildContext context) async {
+    final res = await Get.bottomSheet<String?>(
+      PickSub(
+        onPressed: () {
+          Get.back();
+          addDialog(
+            context,
+            "اضافه ماده",
+            "إسم الماده",
+            subController,
+            () async {
+              addSubject(subController.text);
+            },
+          );
+        },
+      ),
+    );
     if (res != null) {
       subject = res;
       update();
     }
+  }
+
+  Future<void> addDialog(
+    BuildContext context,
+    String title,
+    String hint,
+    TextEditingController controller,
+    VoidCallback onTap,
+  ) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                InputField(
+                  controller: controller,
+                  hint: hint,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: onTap,
+                  child:
+                      isLoading ? const CenterLoading() : const Text("اضافه"),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> pickCity() async {
@@ -116,10 +216,22 @@ class SignUpController extends GetxController {
     }
   }
 
-  Future<void> pickSchool() async {
+  Future<void> pickSchool(BuildContext context) async {
     final res = await Get.bottomSheet<String?>(
       PickSchool(
         city: city!,
+        onPressed: () {
+          Get.back();
+          addDialog(
+            context,
+            "اضافه مدرسه",
+            "إسم المدرسه",
+            schoolController,
+            () async {
+              addSchool(schoolController.text, city!);
+            },
+          );
+        },
       ),
     );
     if (res != null) {

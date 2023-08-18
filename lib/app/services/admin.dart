@@ -9,6 +9,7 @@ import 'package:mime_type/mime_type.dart';
 import 'package:quizhub/app/models/money_order.dart';
 import 'package:quizhub/app/models/school.dart';
 import 'package:quizhub/app/models/school_details.dart';
+import 'package:quizhub/app/models/teacher_model.dart';
 import 'package:quizhub/app/models/teacher_prv_requist.dart';
 import 'package:quizhub/config/endpoints.dart';
 import 'package:quizhub/helper/client.dart';
@@ -60,6 +61,33 @@ class AdminService {
             SchoolDetailsModel.fromJson(responseData);
 
         return school;
+      } else {
+        throw Exception('Failed to fetch data');
+      }
+    } catch (e, st) {
+      catchLog(e, st);
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+  Future<List<TeacherModel>> getNonConfirmedAccounts() async {
+    try {
+      final response = await client.get(
+        Endpoints.getAccountOrder,
+      );
+
+      if (response.statusCode == 200) {
+        final ordersList = response.data['teachers'] as List<dynamic>;
+        final orders = ordersList
+            .map(
+              (json) => TeacherModel.fromMap(
+                json as Map<String, dynamic>,
+                doneExams: [],
+                exams: [],
+              ),
+            )
+            .toList();
+        return orders;
       } else {
         throw Exception('Failed to fetch data');
       }
@@ -123,6 +151,24 @@ class AdminService {
             .map((json) => MoneyOrder.fromJson(json as Map<String, dynamic>))
             .toList();
         return orders;
+      } else {
+        throw Exception('Failed to fetch orders');
+      }
+    } catch (e, st) {
+      catchLog(0, st);
+      throw Exception('Failed to fetch orders: $e');
+    }
+  }
+
+  Future<void> confirmAccount(String teacherId) async {
+    try {
+      final response = await client.post(
+        Endpoints.confirmationOfaccount,
+        body: {"idTeacher": teacherId, "message": "confirm"},
+      );
+
+      if (response.statusCode == 200) {
+        log("confirmed");
       } else {
         throw Exception('Failed to fetch orders');
       }

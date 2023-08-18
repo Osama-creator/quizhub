@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/services/common.dart';
+import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/input_feild.dart';
 
 class PickClss extends StatefulWidget {
-  const PickClss({super.key});
+  final VoidCallback onPressed;
+  const PickClss({super.key, required this.onPressed});
 
   @override
   State<PickClss> createState() => _PickClssState();
@@ -74,6 +76,18 @@ class _PickClssState extends State<PickClss> {
                     ],
                   ),
                 ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: widget.onPressed,
+                      icon: const Icon(
+                        Icons.add,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    const Text("اضافه صف جديد")
+                  ],
+                ),
                 Expanded(
                   child: itemsToDisplay.isEmpty
                       ? const Center(
@@ -105,7 +119,8 @@ class _PickClssState extends State<PickClss> {
 }
 
 class PickSub extends StatefulWidget {
-  const PickSub({super.key});
+  const PickSub({super.key, required this.onPressed});
+  final VoidCallback onPressed;
 
   @override
   State<PickSub> createState() => _PickSubState();
@@ -171,6 +186,18 @@ class _PickSubState extends State<PickSub> {
                       )
                     ],
                   ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: widget.onPressed,
+                      icon: const Icon(
+                        Icons.add,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    const Text("اضافه ماده")
+                  ],
                 ),
                 Expanded(
                   child: itemsToDisplay.isEmpty
@@ -296,7 +323,8 @@ class _PickCityState extends State<PickCity> {
 
 class PickSchool extends StatefulWidget {
   final String city;
-  const PickSchool({super.key, required this.city});
+  final VoidCallback onPressed;
+  const PickSchool({super.key, required this.city, required this.onPressed});
 
   @override
   State<PickSchool> createState() => _PickSchoolState();
@@ -361,6 +389,18 @@ class _PickSchoolState extends State<PickSchool> {
                       )
                     ],
                   ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: widget.onPressed,
+                      icon: const Icon(
+                        Icons.add,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    const Text("اضافه مدرسه")
+                  ],
                 ),
                 Expanded(
                   child: itemsToDisplay.isEmpty
