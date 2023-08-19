@@ -79,7 +79,7 @@ class UserModel extends Equatable {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['_id'] as String,
-      name: map['name'] as String,
+      name: map['name'] as String? ?? "",
       email: map['email'] as String,
       mobile: map['phone'] as String? ?? "",
       password: map['password'] as String,

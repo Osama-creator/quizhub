@@ -52,7 +52,7 @@ class CollectwordsExerciseView extends GetView<CollectwordsExerciseController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  Tr.fillGabs.tr,
+                  "رتب الكلمات",
                   style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.light),
                 ),
@@ -111,7 +111,7 @@ class CollectwordsExerciseView extends GetView<CollectwordsExerciseController> {
                           WordCollector(
                             controller: controller.wordCController,
                             pageIndex: index,
-                            words: controller.quistionList[index].question
+                            words: controller.quistionList[index].words!
                                 .split(" "),
                             bottomPanelWidth: context.width * 0.9,
                             topPanelWidth: context.width * 0.9,

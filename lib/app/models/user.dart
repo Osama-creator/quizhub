@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 class User extends Equatable {
   String id;
   String name;
+  String? role;
   String profilePic;
   bool? invited;
 
@@ -12,6 +13,7 @@ class User extends Equatable {
     required this.id,
     required this.name,
     this.profilePic = '',
+    this.role,
     this.invited = false,
   });
 
@@ -19,10 +21,11 @@ class User extends Equatable {
     return User(
       id: json['_id'] as String,
       name: json['name'] as String,
+      role: json['role'] as String? ?? "",
       profilePic: json['profile_pic'] as String? ?? '',
     );
   }
 
   @override
-  List<Object?> get props => [id, name, profilePic, invited];
+  List<Object?> get props => [id, name, profilePic, invited, role];
 }

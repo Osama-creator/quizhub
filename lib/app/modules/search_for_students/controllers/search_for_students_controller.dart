@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'package:quizhub/app/models/user.dart';
+import 'package:quizhub/app/modules/parent_home/controllers/parent_home_controller.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/parent.dart';
 import 'package:quizhub/helper/func.dart';
@@ -68,6 +69,7 @@ class SearchForStudentsController extends GetxController {
 
     final invitedUser = students.firstWhere((user) => user.id == forwordUserId);
     invitedUser.invited = true;
+    await Get.find<ParentHomeController>().onInit();
     update();
   }
 }

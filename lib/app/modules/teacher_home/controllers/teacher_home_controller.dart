@@ -123,6 +123,17 @@ class TeacherHomeController extends GetxController {
     super.onInit();
   }
 
+  Future<void> openWhatsApp() async {
+    const phoneNumber = "+201062059515";
+    const url = "whatsapp://send?phone=$phoneNumber";
+
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw Exception('Could not launch WhatsApp');
+    }
+  }
+
   Future<void> fetchTeacherHomeData() async {
     final userData = await authService.cachedUser;
     try {

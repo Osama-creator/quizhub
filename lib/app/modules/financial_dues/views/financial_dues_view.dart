@@ -68,7 +68,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                                 .copyWith(color: AppColors.black),
                           ),
                           Text(
-                            "${controller.data!.equation}  جنيه",
+                            "${controller.data!.equation * 200}  جنيه",
                             style: context.textTheme.titleLarge!.copyWith(
                               color: controller.data!.equation == 100
                                   ? AppColors.black

@@ -19,6 +19,8 @@ class AddNewQuistionView extends GetView<AddNewQuistionController> {
         return _trueFalseWidget(context);
       case "fill_gabs":
         return _fillGabsWidget(context);
+      case "collect_words":
+        return _collectWidget(context);
       case "matching":
         return _matchingWidget(context);
       default:
@@ -164,6 +166,26 @@ class AddNewQuistionView extends GetView<AddNewQuistionController> {
           controller: controller.rightAnswerC,
           hintText: Tr.missingWord.tr,
           labelText: Tr.missingWord.tr,
+        ),
+        MyTextFeild(
+          controller: controller.note,
+          hintText: Tr.optionalNote.tr,
+          labelText: Tr.optionalNote.tr,
+        ),
+      ],
+    );
+  }
+
+  Widget _collectWidget(BuildContext context) {
+    return Column(
+      children: [
+        ImageWidget(
+          controller: controller,
+        ),
+        MyTextFeild(
+          controller: controller.questionC,
+          hintText: Tr.question.tr,
+          labelText: Tr.question.tr,
         ),
         MyTextFeild(
           controller: controller.note,

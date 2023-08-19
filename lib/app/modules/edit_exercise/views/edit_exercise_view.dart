@@ -49,10 +49,13 @@ class EditExerciseView extends GetView<EditExerciseController> {
                   width: context.width * 0.35,
                   child: OutlinedButton(
                     onPressed: () {
-                      final type = PdfGenerator.createPdf(
-                        controller.apiQuestions,
-                        controller.type,
-                      );
+                      if (controller.type != "collect_words" &&
+                          controller.type != "matching") {
+                        final type = PdfGenerator.createPdf(
+                          controller.apiQuestions,
+                          controller.type,
+                        );
+                      }
                     },
                     child: Text(
                       Tr.print.tr,

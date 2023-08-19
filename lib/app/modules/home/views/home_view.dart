@@ -54,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           Text(
-                            '${controller.teacher.followStudent.length} ${Tr.following.tr}',
+                            '${controller.teacher.follow.length} ${Tr.following.tr}',
                             style: context.textTheme.titleLarge!
                                 .copyWith(fontSize: 16),
                           ),

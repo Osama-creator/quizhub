@@ -28,6 +28,7 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
             centerTitle: false,
             actions: [
               SettingButton(controller: controller.authService),
+              buildWhatsAppButton(),
             ],
           ),
           body: controller.loading
@@ -194,6 +195,15 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
                   ),
                 ),
         );
+      },
+    );
+  }
+
+  Widget buildWhatsAppButton() {
+    return IconButton(
+      icon: const Icon(Icons.message), // You can choose a different icon
+      onPressed: () {
+        controller.openWhatsApp();
       },
     );
   }

@@ -10,6 +10,7 @@ class McqQuestion extends Equatable {
   final String? id;
   String? examId;
   String question;
+  String? words;
   File? image;
   String? pic;
   String rightAnswer;
@@ -20,6 +21,7 @@ class McqQuestion extends Equatable {
   String? userChoice;
   bool? isSelectedFWord;
   bool? isSelectedSWord;
+  List<String> shuffledWords = [];
   bool? isCorrect;
 
   McqQuestion({
@@ -35,6 +37,7 @@ class McqQuestion extends Equatable {
     this.wrongAns2,
     this.wrongAns3,
     this.note,
+    this.words,
     this.isSelectedFWord = false,
     this.isSelectedSWord = false,
     this.isCorrect = false,
@@ -47,6 +50,7 @@ class McqQuestion extends Equatable {
       examId: json['exam'][0] as String,
       pic: json['profile_pic'] as String? ?? "",
       question: json['question'] as String,
+      words: json['question'] as String,
       rightAnswer: json['correct_Answer'] as String,
       wrongAns1: json['choose2'] as String?,
       wrongAns2: json['choose3'] as String?,

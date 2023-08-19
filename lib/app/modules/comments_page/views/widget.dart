@@ -75,7 +75,7 @@ Row buildComment(
                     comment.createdBy.name,
                     style: context.textTheme.titleLarge!.copyWith(
                       color: AppColors.black,
-                      fontWeight: controller.isTeacher
+                      fontWeight: comment.createdBy.role == "Teacher"
                           ? FontWeight.bold
                           : FontWeight.normal,
                       fontSize: 17,
@@ -84,10 +84,10 @@ Row buildComment(
                   Text(
                     comment.commBody,
                     style: context.textTheme.bodyLarge!.copyWith(
-                      color: controller.isTeacher
+                      color: comment.createdBy.role == "Teacher"
                           ? AppColors.black
                           : AppColors.darkBlue,
-                      fontWeight: controller.isTeacher
+                      fontWeight: comment.createdBy.role == "Teacher"
                           ? FontWeight.bold
                           : FontWeight.normal,
                     ),

@@ -1,5 +1,5 @@
 abstract class Endpoints {
-  static const host = 'http://192.168.1.105:4500/Node.js';
+  static const host = 'https://tack-orcin.vercel.app/Node.js';
   static const api = '$host/api';
 
   /// ! auth

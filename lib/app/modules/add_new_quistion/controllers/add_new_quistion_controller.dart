@@ -52,7 +52,7 @@ class AddNewQuistionController extends GetxController {
       teacherId: userData!.id!,
       image: image,
       question: questionC.text,
-      rightAnswer: rightAnswerC.text.isEmpty ? answer! : rightAnswerC.text,
+      rightAnswer: rightAnswerC.text.isEmpty ? answer ?? "" : rightAnswerC.text,
       wrongAns1: wrongAnswer1C!.text,
       wrongAns2: wrongAnswer2C!.text,
       wrongAns3: wrongAnswer3C!.text,

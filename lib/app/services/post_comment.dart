@@ -107,8 +107,7 @@ class PostCommentervice {
         final comments = commentsData
             .map((comment) => Comment.fromJson(comment as Map<String, dynamic>))
             .toList();
-
-        // Do something with the comments
+        comments.sort((a, b) => b.likes.length.compareTo(a.likes.length));
         return comments;
       } else {
         throw Exception('Failed to fetch posts');

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quizhub">
-    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="quizhub"
         android:name="${applicationName}"
@@ -34,7 +34,18 @@
     </application>
     <!-- Place inside the <queries> element. -->
     <queries>
-    
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="https" />
+    </intent>
+    <intent>
+        <action android:name="android.intent.action.DIAL" />
+        <data android:scheme="tel" />
+    </intent>
+    <intent>
+        <action android:name="android.intent.action.SEND" />
+        <data android:mimeType="*/*" />
+    </intent>
 <intent>
   <action android:name="android.intent.action.VIEW" />
   <data android:scheme="tel" />
