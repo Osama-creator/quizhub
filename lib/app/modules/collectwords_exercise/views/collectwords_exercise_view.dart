@@ -52,7 +52,7 @@ class CollectwordsExerciseView extends GetView<CollectwordsExerciseController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "رتب الكلمات",
+                  Tr.collectWords.tr,
                   style: context.textTheme.titleLarge!
                       .copyWith(color: AppColors.light),
                 ),

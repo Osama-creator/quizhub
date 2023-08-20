@@ -34,8 +34,8 @@ class TeacherHomeView extends GetView<TeacherHomeController> {
           body: controller.loading
               ? const CenterLoading()
               : !controller.isConfirmed
-                  ? const Center(
-                      child: Text('حسابك لم يتم تفعيله حتى الان'),
+                  ? Center(
+                      child: Text(Tr.accountNonActice.tr),
                     )
                   : SingleChildScrollView(
                       child: Column(

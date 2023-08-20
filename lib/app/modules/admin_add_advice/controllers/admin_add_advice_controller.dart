@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/services/admin.dart';
 import 'package:quizhub/config/enums.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/helper/alert.dart';
 import 'package:quizhub/helper/func.dart';
 
@@ -36,7 +38,7 @@ class AdminAddAdviceController extends GetxController {
           userRole: getRoleName(roleName),
         );
       }
-      Alert.success("تم اضافه النصيحه بنجاح");
+      Alert.success(Tr.adviceAdded.tr);
       titleC.clear();
       bodyC.clear();
     } catch (e, st) {

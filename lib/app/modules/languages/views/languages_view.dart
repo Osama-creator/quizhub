@@ -9,8 +9,8 @@ class LanguagesView extends GetView<LanguagesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          Tr.language.tr,
+        title: const Text(
+          "language",
         ),
       ),
       body: Column(

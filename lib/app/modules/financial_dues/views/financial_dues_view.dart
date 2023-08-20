@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 import 'package:quizhub/app/modules/financial_dues/controllers/financial_dues_controller.dart';
 import 'package:quizhub/app/modules/financial_dues/views/buttom_sheet_widget.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 
 class FinancialDuesView extends GetView<FinancialDuesController> {
@@ -14,7 +14,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('المستحقات الماليه'),
+        title: Text(Tr.financialDues.tr),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -33,7 +33,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "إجمالي المشاهدات",
+                            Tr.views.tr,
                             style: context.textTheme.titleLarge!
                                 .copyWith(color: AppColors.black),
                           ),
@@ -48,7 +48,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            ' عدد المتابعين',
+                            Tr.folCount.tr,
                             style: context.textTheme.titleLarge!
                                 .copyWith(color: AppColors.black),
                           ),
@@ -63,7 +63,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "إجمالي  المستحقات",
+                            Tr.finant.tr,
                             style: context.textTheme.titleLarge!
                                 .copyWith(color: AppColors.black),
                           ),
@@ -88,7 +88,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                             addFolowersButtomsheet(context, controller);
                           },
                           child: Text(
-                            'طلب زيادة المتابعين',
+                            Tr.orderIncFol.tr,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: Colors.white,
@@ -107,7 +107,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                             askForMoneyButtomsheet(context, controller);
                           },
                           child: Text(
-                            'طلب سحب المستحقات',
+                            Tr.getMoney.tr,
                             style: context.textTheme.titleLarge!.copyWith(
                               fontSize: 18,
                               color: Colors.white,
@@ -122,7 +122,7 @@ class FinancialDuesView extends GetView<FinancialDuesController> {
                           arguments: controller.teacherId,
                         ),
                         child: Text(
-                          "الطلبات السابقه",
+                          Tr.prevOrders.tr,
                           style: context.textTheme.titleLarge!.copyWith(
                             fontSize: 18,
                             decoration: TextDecoration.underline,

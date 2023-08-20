@@ -81,7 +81,7 @@ class SchoolTile extends StatelessWidget {
               Text(
                 school.name,
                 style: context.textTheme.titleLarge!
-                    .copyWith(color: AppColors.light, fontSize: 20),
+                    .copyWith(color: AppColors.light, fontSize: 16),
               ),
               Text(
                 " ${school.users}  ${Tr.student.tr},",

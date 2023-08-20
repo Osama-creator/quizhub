@@ -21,7 +21,7 @@ class SubjectList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: context.height * 0.06,
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide ContextExtensionss, Trans;
+import 'package:queen/queen.dart';
 
 import 'package:quizhub/app/modules/admin_add_advice/controllers/admin_add_advice_controller.dart';
 import 'package:quizhub/config/enums.dart';
 import 'package:quizhub/config/theme.dart';
+import 'package:quizhub/generated/tr.dart';
 import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/input_feild.dart';
 
@@ -44,7 +46,7 @@ class AdminAddAdviceView extends GetView<AdminAddAdviceController> {
                     ],
                   ),
                   InputField(
-                    hint: "العنوان",
+                    hint: Tr.title.tr,
                     controller: controller.titleC,
                   ),
                   SizedBox(
@@ -53,7 +55,7 @@ class AdminAddAdviceView extends GetView<AdminAddAdviceController> {
                   InputField(
                     height: context.height * 0.6,
                     maxLines: 30,
-                    hint: "المحتوى",
+                    hint: Tr.contant.tr,
                     controller: controller.bodyC,
                   ),
                   const SizedBox(
@@ -68,7 +70,7 @@ class AdminAddAdviceView extends GetView<AdminAddAdviceController> {
                       ),
                       child: controller.isLoading
                           ? const CenterLoading()
-                          : const Text("حفظ"),
+                          : Text(Tr.save.tr),
                     ),
                   )
                 ],

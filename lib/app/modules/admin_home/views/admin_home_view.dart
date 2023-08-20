@@ -60,7 +60,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
                 isActive: controller.tabController.index == 0,
               ),
               buildBottomItem(
-                title: "تاكيد",
+                title: Tr.confirm.tr,
                 iconData: Icons.confirmation_num,
                 isActive: controller.tabController.index == 1,
               ),
@@ -75,7 +75,7 @@ class AdminHomeView extends GetView<AdminHomeController> {
                 isActive: controller.tabController.index == 3,
               ),
               buildBottomItem(
-                title: "النصائح",
+                title: Tr.advices.tr,
                 iconData: Icons.subject_rounded,
                 isActive: controller.tabController.index == 4,
               ),
