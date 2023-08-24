@@ -6,6 +6,7 @@ import 'package:quizhub/app/modules/student_exercises_list/views/widget.dart';
 import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/views/center_loading.dart';
 
 class StudentExercisesListView extends GetView<StudentExercisesListController> {
@@ -119,8 +120,10 @@ class StudentExercisesListView extends GetView<StudentExercisesListController> {
                                         controller.filteredExams![index].id;
 
                                     if (isDone) {
-                                      controller.studentHome.goToExamPage(
-                                          exerciseType: type!, id: id!);
+                                      goToExamPage(
+                                        exerciseType: type!,
+                                        id: id!,
+                                      );
                                     } else {
                                       Get.toNamed(
                                         Routes.STUDENTS_GRADES,

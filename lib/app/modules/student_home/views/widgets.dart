@@ -9,6 +9,7 @@ import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/helper/func.dart';
 
 class SubjectList extends StatelessWidget {
   const SubjectList({
@@ -242,7 +243,7 @@ class ExamCard extends StatelessWidget {
       onTap: () {
         final selectedExamType = exerciseCard.exercises[index].type;
         final exmaId = exerciseCard.exercises[index].id;
-        controller.goToExamPage(
+        goToExamPage(
           exerciseType: selectedExamType!,
           id: exmaId!,
         );
@@ -361,21 +362,21 @@ class SettingButton extends StatelessWidget {
                 Get.toNamed(Routes.GET_ADVICE_LIST);
               },
               child: Text(
-                "النصائح",
+                Tr.advices.tr,
                 style: context.textTheme.bodyLarge!
                     .copyWith(color: textColor ?? AppColors.primary),
               ),
             ),
           ),
           PopupMenuItem(
-            value: 'option1',
+            value: 'option2',
             child: InkWell(
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.LANGUAGES);
               },
               child: Text(
-                Tr.language.tr,
+                "languages",
                 style: context.textTheme.bodyLarge!
                     .copyWith(color: textColor ?? AppColors.primary),
               ),

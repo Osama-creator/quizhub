@@ -59,7 +59,7 @@ class QuestionsPostsController extends GetxController {
 
   Future<void> removePost(String postId) async {
     try {
-      bool? done = await service.deletePost(
+      final bool? done = await service.deletePost(
         postId: postId,
         userId: args['id'] as String,
       );

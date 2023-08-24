@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exersice.dart';
 import 'package:quizhub/app/models/user.dart';
-import 'package:quizhub/app/modules/student_home/controllers/student_home_controller.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/func.dart';
@@ -10,7 +9,6 @@ class StudentExercisesListController extends GetxController {
   final Map<String, dynamic> args = Get.arguments as Map<String, dynamic>;
   final service = Get.find<ExamsService>();
   final authService = Get.find<AuthService>();
-  final studentHome = Get.find<StudentHomeController>();
   String userId = "";
   List<User> teachers = [];
   User selectedTeacher = User(id: "id", name: "name");

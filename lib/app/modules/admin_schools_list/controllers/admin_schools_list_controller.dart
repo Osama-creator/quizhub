@@ -22,7 +22,6 @@ class AdminSchoolsListController extends GetxController {
       lauding = false;
       update();
     }
-
     super.onInit();
   }
 }

@@ -9,6 +9,7 @@ import 'package:quizhub/app/routes/app_pages.dart';
 
 import 'package:quizhub/config/theme.dart';
 import 'package:quizhub/generated/tr.dart';
+import 'package:quizhub/helper/func.dart';
 import 'package:quizhub/views/center_loading.dart';
 import 'package:quizhub/views/divider.dart';
 
@@ -107,8 +108,7 @@ class HomeView extends GetView<HomeController> {
                             final type = exam.type;
                             return GestureDetector(
                               onTap: () {
-                                controller.examC
-                                    .goToExamPage(id: id!, exerciseType: type!);
+                                goToExamPage(id: id!, exerciseType: type!);
                               },
                               child: SizedBox(
                                 height: context.height * 0.15,

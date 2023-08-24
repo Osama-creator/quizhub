@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizhub/app/models/exams_card.dart';
-import 'package:quizhub/app/routes/app_pages.dart';
 import 'package:quizhub/app/services/auth.dart';
 import 'package:quizhub/app/services/exams.dart';
 import 'package:quizhub/helper/func.dart';
@@ -98,25 +97,5 @@ class StudentHomeController extends GetxController
     selectedSubject = subject;
     fetchExercisesForSubject(subject);
     update();
-  }
-
-  void goToExamPage({required String id, required String exerciseType}) {
-    switch (exerciseType) {
-      case "choose":
-        Get.toNamed(Routes.MCQ_EXERCISE, arguments: id);
-        break;
-      case "true_false":
-        Get.toNamed(Routes.TRUE_FALSE_EXERCISE, arguments: id);
-        break;
-      case "fill_gabs":
-        Get.toNamed(Routes.COMPLATE_EXERCISE, arguments: id);
-        break;
-      case "matching":
-        Get.toNamed(Routes.MATCHING_EXERCISE, arguments: id);
-        break;
-      case "collect_words":
-        Get.toNamed(Routes.COLLECTWORDS_EXERCISE, arguments: id);
-        break;
-    }
   }
 }

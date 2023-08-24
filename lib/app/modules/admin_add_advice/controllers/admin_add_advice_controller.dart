@@ -11,18 +11,6 @@ class AdminAddAdviceController extends GetxController {
   UserRole roleName = UserRole.Student;
   final service = Get.find<AdminService>();
   bool isLoading = false;
-  String getRoleName(UserRole role) {
-    switch (role) {
-      case UserRole.Teacher:
-        return 'Teacher';
-      case UserRole.Student:
-        return 'Student';
-      case UserRole.Parent:
-        return 'Parent';
-      default:
-        return 'Student';
-    }
-  }
 
   TextEditingController titleC = TextEditingController();
   TextEditingController bodyC = TextEditingController();

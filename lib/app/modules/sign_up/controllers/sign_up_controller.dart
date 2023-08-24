@@ -44,7 +44,7 @@ class SignUpController extends GetxController {
   }
 
   Future<void> validationAndSubmit() async {
-    if (fNameC.text.isEmpty || fNameC.text.length < 6) {
+    if (fNameC.text.isEmpty) {
       Alert.error(Tr.nameRequiredError.tr);
     } else if (!emailC.text.isEmail || emailC.text.isEmpty) {
       Alert.error(Tr.emailError.tr);
