@@ -36,6 +36,9 @@ Welcome to our comprehensive education platform! This application seamlessly int
 
 - **Theming and Coloring:** Enhance visual appeal and user experience.
 
+![Group 1 (3)](https://github.com/Osama-creator/quizhub/assets/68929187/eaa6202a-98e9-45d7-bd4e-7402b053e7e6)
+
+
 **Some Videos of the app:**
 
 https://github.com/Osama-creator/quizhub/assets/68929187/16cd0251-dd38-4fc1-ae36-9c05f0d6877
